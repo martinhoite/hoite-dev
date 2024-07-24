@@ -4,17 +4,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 export default withNuxt(
   {
     files: ['**/*.vue', '**/*.js', '**/*.ts'],
-    ignores: [
-      '.gitignore',
-      '*.log*',
-      '.nuxt/*',
-      '.nitro',
-      '.cache',
-      '.output/*',
-      '.env',
-      'dist',
-      '.DS_Store',
-    ],
+    ignores: ['.gitignore', '*.log*', '.nuxt/*', '.nitro', '.cache', '.output/*', '.env', 'dist', '.DS_Store'],
     rules: {
       camelcase: 'off',
       'no-extra-boolean-cast': 'off',

@@ -1,0 +1,28 @@
+{
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "cSpell.words": [
+      "camelcase",
+      "googlemaps",
+      "humblescroll",
+      "modify",
+      "nuxt",
+      "postcss",
+      "Splide",
+      "splidejs",
+    ],
+    "prettier.enable": false,
+    "eslint.enable": true,
+    "eslint.format.enable": true,
+    "eslint.useFlatConfig": true,
+    "eslint.codeActionsOnSave.mode": "problems",
+    "eslint.run": "onType",
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "diffEditor.ignoreTrimWhitespace": false
+  }
