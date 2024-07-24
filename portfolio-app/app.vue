@@ -1,6 +1,6 @@
 <template>
-  <main>
+  <main class="theme-dark">
     <NuxtRouteAnnouncer />
-    <NuxtWelcome />
+    <KitchenSink />
   </main>
 </template>

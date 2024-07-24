@@ -11,7 +11,10 @@ export default defineNuxtConfig({
   app: {
     head: {
       charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1'
+      viewport: 'width=device-width, initial-scale=1',
+      bodyAttrs: {
+        class: 'theme theme--dark'
+      }
     },
     pageTransition: false,
     layoutTransition: false,
@@ -50,7 +53,7 @@ export default defineNuxtConfig({
     }
   },
 
-  components: ['~/components', '~/components/global'],
+  components: ['~/components', '~/components/base'],
 
   css: ['/assets/css/app.css'],
 

@@ -1,0 +1,7 @@
+@import '_typography.css';
+@import '_themes.css';
+
+body {
+  background: var(--body-bg-color);
+  color: var(--default-text-color);
+}

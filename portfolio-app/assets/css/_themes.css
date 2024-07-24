@@ -1,0 +1,11 @@
+.theme {
+  &--dark {
+    --body-bg-color: var(--color-dark);
+    --default-text-color: var(--color-white);
+  }
+
+  &--light {
+    --body-bg-color: var(--color-white);
+    --default-text-color: var(--color-dark-blue);
+  }
+}
