@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "install": "echo Wrong location - install from inside the app folder.",
+    "dev": "cd app && npm run dev",
+    "postinstall": "del /F package-lock.json && echo deleting created package-lock.json"
+  }
+}
