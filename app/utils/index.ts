@@ -4,7 +4,7 @@
  *
  * @returns {{ window: Window | null, document: Document | null }} An object containing window and document objects, or null if running in a server-side environment.
  */
-export function useDOM(): { window: Window | null; document: Document | null; } | null {
+export function useDOM(): { window: Window | null; document: Document | null } | null {
   // Check if running in a server-side environment (not in browser)
   if (typeof window === 'undefined' || typeof document === 'undefined') {
     return null;
