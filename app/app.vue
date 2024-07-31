@@ -1,6 +1,10 @@
+<script setup lang="ts">
+const { path } = useRoute();
+</script>
 <template>
-  <main class="theme-dark">
+  <NuxtLayout>
     <NuxtRouteAnnouncer />
-    <KitchenSink />
-  </main>
+    <NuxtLoadingIndicator color="var(--color-primary)" />
+    <NuxtPage :key="path" />
+  </NuxtLayout>
 </template>

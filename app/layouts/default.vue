@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
   <GlobalHeader />
-  <main>
+  <main class="theme-dark">
     <slot></slot>
   </main>
   <GlobalFooter />
