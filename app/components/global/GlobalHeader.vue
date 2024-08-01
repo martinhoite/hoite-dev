@@ -1,6 +1,9 @@
 <script setup lang="ts"></script>
 <template>
-  <header class="header">This is the header</header>
+  <header class="header">
+    <GlobalLogo />
+    This is the header
+  </header>
 </template>
 <style lang="postcss" scoped>
 .header {
