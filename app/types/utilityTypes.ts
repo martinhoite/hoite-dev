@@ -45,3 +45,28 @@ export type ISODateString = string & { readonly __isoDateStringBrand: unique sym
  * // let htmlContent: VHTMLString = 'Hello, world!'; // This would not be allowed without explicit casting
  */
 export type VHTMLString = string & { readonly __htmlStringBrand: unique symbol };
+
+/**
+ * A type alias for a string that is specifically designated to contain URL content.
+ * This type uses a branding technique to differentiate between plain strings and URL strings.
+ *
+ * @example
+ * // Correct usage:
+ * let urlString: URLString = 'https://www.example.com' as URLString;
+ *
+ * // Incorrect usage:
+ * // let urlString: URLString = 'Not a URL'; // This would not be allowed without explicit casting
+ *
+ * @note Please verify this is actually a URL when using it.
+ *
+ * @example
+ * // Example validation using the URL constructor:
+ * const url = 'https://www.example.com';
+ * try {
+ *   new URL(url);
+ *   let urlString: URLString = url as URLString;
+ * } catch (_) {
+ *   console.error('Invalid URL');
+ * }
+ */
+export type URLString = string & { readonly __urlStringBrand: unique symbol };
