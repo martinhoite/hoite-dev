@@ -94,3 +94,71 @@ export function useLoggingService(developmentOnly: boolean = false) {
 export function devOnlyConsoleLog(logStatement: string, data: unknown = null) {
   useLoggingService().info('\x1B[36m%s\x1B[0m', logStatement, data);
 }
+
+/**
+ * Extracts the subdomain from a given hostname.
+ *
+ * @param {string} hostname - The full hostname (e.g., "martin.hoite.dev").
+ * @returns {string | null} The subdomain if it exists; otherwise, null.
+ *
+ * @example
+ * // Returns "martin" for "martin.hoite.dev"
+ * const subdomain = getSubdomain('martin.hoite.dev');
+ *
+ * @example
+ * // Returns null for "hoite.dev"
+ * const subdomain = getSubdomain('hoite.dev');
+ */
+export function getSubdomain(hostname: string): string | null {
+  const parts = hostname.split('.');
+  return parts.length > 2 ? parts[0] : null;
+}
+
+/**
+ * Extracts the locale from a URL where the locale is the first path segment.
+ *
+ * @param {string} url - The full URL (e.g., "https://martin.hoite.dev/en/kitchen-sink").
+ * @returns {string | null} The locale if it exists; otherwise, null.
+ *
+ * @example
+ * // Returns "en" for "https://martin.hoite.dev/en/kitchen-sink"
+ * const locale = getLocaleFromUrl('https://martin.hoite.dev/en/kitchen-sink');
+ *
+ * @example
+ * // Returns null for "https://martin.hoite.dev/"
+ * const locale = getLocaleFromUrl('https://martin.hoite.dev/');
+ */
+export function getLocaleFromUrl(url: URLString) {
+  try {
+    const parsedUrl = new URL(url);
+    const pathSegments = parsedUrl.pathname.split('/').filter((segment) => segment.length > 0);
+    return pathSegments.length > 0 ? pathSegments[0] : null;
+  } catch (error) {
+    useLoggingService().error('Invalid URL:', error);
+    return null;
+  }
+}
+
+/**
+ * Extracts the locale from a path where the locale is the first path segment.
+ *
+ * @param {string} path - The path (e.g., "/en/kitchen-sink").
+ * @returns {string | null} The locale if it exists; otherwise, null.
+ *
+ * @example
+ * // Returns "en" for "/en/kitchen-sink"
+ * const locale = getLocaleFromPath('/en/kitchen-sink');
+ *
+ * @example
+ * // Returns null for "/kitchen-sink"
+ * const locale = getLocaleFromPath('/kitchen-sink');
+ */
+export function getLocaleFromPath(path: string): string | null {
+  try {
+    const pathSegments = path.split('/').filter((segment) => segment.length > 0);
+    return pathSegments.length > 0 ? pathSegments[0] : null;
+  } catch (error) {
+    useLoggingService().error('Error processing path:', error);
+    return null;
+  }
+}
