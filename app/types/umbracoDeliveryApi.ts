@@ -14,8 +14,8 @@ export type UmbracoCultureInfo = {
 };
 
 export type UmbracoDeliveryApiCultures = {
-  'en-bg': UmbracoCultureInfo;
-  'da-dk': UmbracoCultureInfo;
+  en: UmbracoCultureInfo;
+  da: UmbracoCultureInfo;
 };
 
 export type UmbracoDeliveryApiResponse<ContentType = unknown> = {

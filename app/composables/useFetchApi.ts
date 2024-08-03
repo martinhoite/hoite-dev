@@ -8,10 +8,8 @@ export async function UseFetch<T>(path: string, opt: FetchOptions<'json'> = {}, 
   const {
     public: { apiBase }
   } = useRuntimeConfig();
-  const headers: HeadersInit = {};
 
   return await $fetch<T>(path, {
-    headers,
     baseURL: baseUrl !== '' ? baseUrl : apiBase,
     cache: 'no-cache',
     keepalive: true,

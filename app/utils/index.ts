@@ -162,3 +162,32 @@ export function getLocaleFromPath(path: string): string | null {
     return null;
   }
 }
+
+/**
+ * Removes the locale from a path where the locale is the first path segment.
+ *
+ * @param {string} path - The original path (e.g., "/en/kitchen-sink").
+ * @returns {string} The path with the locale removed (e.g., "/kitchen-sink").
+ *
+ * @example
+ * // Returns "/kitchen-sink" for "/en/kitchen-sink"
+ * const newPath = removeLocaleFromPath('/en/kitchen-sink');
+ *
+ * @example
+ * // Returns "/kitchen-sink" for "/kitchen-sink" (no locale present)
+ * const newPath = removeLocaleFromPath('/kitchen-sink');
+ */
+export function removeLocaleFromPath(path: string): string {
+  try {
+    const pathSegments = path.split('/').filter((segment) => segment.length > 0);
+
+    if (pathSegments.length > 0) {
+      pathSegments.shift(); // Remove the first segment (locale)
+    }
+
+    return '/' + pathSegments.join('/');
+  } catch (error) {
+    useLoggingService().error('Error processing path:', error);
+    return path; // Return original path in case of error
+  }
+}

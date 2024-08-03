@@ -8,7 +8,9 @@ export default defineNuxtConfig({
     public: {
       environment: '',
       apiBase: '',
-      mediaBase: ''
+      mediaBase: '',
+      fallbackLocale: '',
+      localDevelopmentSubdomain: ''
     }
   },
 

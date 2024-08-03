@@ -4,7 +4,6 @@ import type { UmbracoPageResponse } from '~/types/umbracoDeliveryApi';
 const { getUmbracoContentByRoute } = useUmbracoDeliveryApi();
 const { path } = useRoute();
 const encodedPath = encodeURIComponent(path);
-
 const pageData = shallowRef<UmbracoPageResponse>();
 
 async function getPageData() {
@@ -17,6 +16,7 @@ async function getPageData() {
         fatal: true
       });
     }
+
     pageData.value = data.value.properties;
   } catch (error) {
     devOnlyConsoleLog('Failed getting pagedata in slug', error);
@@ -45,7 +45,7 @@ useHead({
   <pre>
     <code>
       {{ pageData }}
-  </code>
+    </code>
   </pre>
 </template>
 <style lang="postcss" scoped></style>
