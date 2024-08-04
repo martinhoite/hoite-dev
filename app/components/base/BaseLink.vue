@@ -10,6 +10,8 @@ defineProps<Props>();
   <NuxtLink
     v-if="to?.url"
     :to="to.url"
+    :title="to.title"
+    :target="to.target"
   >
     <slot></slot>
   </NuxtLink>

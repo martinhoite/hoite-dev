@@ -1,25 +1,29 @@
 <script setup lang="ts">
 type Props = {
   logoSize?: number;
+  logoLink?: SimplifiedUmbracoLink;
+  logoPath: string;
 };
 
 withDefaults(defineProps<Props>(), {
-  logoSize: 64
+  logoSize: 64,
+  logoLink: undefined
 });
 </script>
 <template>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    :width="logoSize"
-    :height="logoSize"
-    fill="none"
-    viewBox="0 0 3000 3000"
+  <BaseLink
+    v-if="logoLink?.url"
+    :to="logoLink"
   >
-    <path
-      stroke="#000"
-      stroke-width="100"
-      d="m1951.75 2536.88-875.4-875.4m995.01-50.12-975 975M2694.2 1778.5l-480.12-480.13m-380.29-961.561L558.794 1611.81m103.851 533.08L1903.89 903.645M70.71 1500 1500 70.71 2929.289 1500l-1429.29 1429.288z"
+    <NuxtImg
+      :width="logoSize"
+      :src="getMediaLink(logoPath)"
     />
-  </svg>
+  </BaseLink>
+  <NuxtImg
+    v-else
+    :width="logoSize"
+    :src="getMediaLink(logoPath)"
+  />
 </template>
 <style lang="postcss" scoped></style>

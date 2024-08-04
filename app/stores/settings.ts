@@ -15,7 +15,7 @@ export const useSettings = defineStore('settings', () => {
     // TODO: Custom extension of API to send single arrays as an object for links and images.
     settings.value = {
       headerLogo: handleUmbracoSingleArray(settingsResponse.properties.headerLogo) as UmbracoImage,
-      logoLink: getSingleUmbracoUrlFromArray(settingsResponse.properties.logoLink) as SimplifiedUmbracoLink,
+      headerLogoLink: getSingleUmbracoUrlFromArray(settingsResponse.properties.headerLogoLink) as SimplifiedUmbracoLink,
       footerLogo: handleUmbracoSingleArray(settingsResponse.properties.footerLogo) as UmbracoImage
     };
   }

@@ -1,12 +1,13 @@
+export type UmbracoMediaExtensions = 'svg' | 'png' | 'jpg';
+export type UmbracoMediaTypes = 'Image';
+
 export type UmbracoRoute = {
   path: string;
   startItem: UmbracoDeliveryApiStartItem;
 };
 
-export type UmbracoMediaTypes = 'Image' | unknown;
-
 export type SimplifiedUmbracoLink = {
-  url: URLString | null;
+  url: string | null;
   title: string;
   target: '_blank' | '_self' | '_parent' | '_top' | null;
 };
@@ -29,11 +30,17 @@ export type UmbracoImage = {
   crops: unknown[];
   id: string;
   mediaType: UmbracoMediaTypes;
+  url: string;
+  extension: UmbracoMediaExtensions;
+  width: number | null;
+  height: number | null;
+  bytes: number;
+  properties: unknown;
 };
 
 export type UmbracoSiteSettingsHeader = {
   headerLogo: UmbracoImage | null;
-  logoLink: SimplifiedUmbracoLink | null;
+  headerLogoLink: SimplifiedUmbracoLink | null;
 };
 
 export type UmbracoSiteSettingsFooter = {
@@ -44,7 +51,7 @@ export type UmbracoSiteSettings = Expand<UmbracoSiteSettingsHeader> & Expand<Umb
 
 export type UmbracoSiteSettingsResponse = {
   headerLogo: UmbracoImage[] | null;
-  logoLink: UmbracoLink[] | null;
+  headerLogoLink: UmbracoLink[] | null;
   footerLogo: UmbracoImage[] | null;
 };
 

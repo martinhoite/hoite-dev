@@ -217,3 +217,11 @@ export function getSingleUmbracoUrlFromArray(linkArray: UmbracoLink[] | null): S
 
   return null;
 }
+
+export function getMediaLink(path: string): string {
+  const {
+    public: { mediaBase }
+  } = useRuntimeConfig();
+
+  return `${mediaBase}${path}`;
+}

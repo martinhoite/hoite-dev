@@ -1,7 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { settings } = useSettings();
+</script>
 <template>
   <header class="header">
-    <GlobalLogo />
+    <GlobalLogo
+      v-if="settings.headerLogo?.url && settings.headerLogoLink"
+      :logo-link="settings.headerLogoLink"
+      :logo-path="settings.headerLogo?.url"
+    />
     This is the header
   </header>
 </template>
