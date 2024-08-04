@@ -64,6 +64,7 @@ a {
   font-size: inherit;
   color: inherit;
   font-family: inherit;
+  text-decoration: none;
 }
 
 pre, code {
