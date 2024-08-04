@@ -1,3 +1,10 @@
+export type UmbracoRoute = {
+  path: string;
+  startItem: UmbracoDeliveryApiStartItem;
+};
+
+export type UmbracoMediaTypes = 'Image' | unknown;
+
 export type SimplifiedUmbracoLink = {
   url: URLString | null;
   title: string;
@@ -8,4 +15,51 @@ export type UmbracoLink = Expand<SimplifiedUmbracoLink> & {
   queryString: string | string[] | null;
   destinationId: string;
   destinationType: string;
+  route: UmbracoRoute;
+  linkType: 'Content' | string;
+};
+
+export type UmbracoImageFocalPoint = {
+  left: number;
+  top: number;
+};
+
+export type UmbracoImage = {
+  focalPoint: UmbracoImageFocalPoint;
+  crops: unknown[];
+  id: string;
+  mediaType: UmbracoMediaTypes;
+};
+
+export type UmbracoSiteSettingsHeader = {
+  headerLogo: UmbracoImage | null;
+  logoLink: SimplifiedUmbracoLink | null;
+};
+
+export type UmbracoSiteSettingsFooter = {
+  footerLogo: UmbracoImage | null;
+};
+
+export type UmbracoSiteSettings = Expand<UmbracoSiteSettingsHeader> & Expand<UmbracoSiteSettingsFooter>;
+
+export type UmbracoSiteSettingsResponse = {
+  headerLogo: UmbracoImage[] | null;
+  logoLink: UmbracoLink[] | null;
+  footerLogo: UmbracoImage[] | null;
+};
+
+export type UmbracoPageDisplaySettings = {
+  includeInNavigation: boolean;
+  includeChildrenInNavigation: boolean;
+  includeInSearch: boolean;
+  includeInSiteMap: boolean;
+  showBreadcrumbs: boolean;
+};
+
+export type UmbracoSeoAndMetaPageSettings = {
+  seoTitle: string;
+  seoDecription: string;
+  canonicalURL: SimplifiedUmbracoLink | null;
+  robotsIndex: boolean;
+  robotsFollow: boolean;
 };

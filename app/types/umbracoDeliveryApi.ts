@@ -1,11 +1,10 @@
+import type { UmbracoRoute } from './umbraco';
+
+export type UmbracoContentTypes = 'website' | 'contentPage';
+
 export type UmbracoDeliveryApiStartItem = {
   id: string;
   path: string;
-};
-
-export type UmbracoDeliveryApiRoute = {
-  path: string;
-  startItem: UmbracoDeliveryApiStartItem;
 };
 
 export type UmbracoCultureInfo = {
@@ -18,30 +17,14 @@ export type UmbracoDeliveryApiCultures = {
   da: UmbracoCultureInfo;
 };
 
-export type UmbracoDeliveryApiResponse<ContentType = unknown> = {
-  contentType: string;
+export type UmbracoDeliveryApiResponse<ContentProperties = unknown> = {
+  contentType: UmbracoContentTypes;
   name: string;
   createDate: ISODateString;
-  route: UmbracoDeliveryApiRoute;
+  route: UmbracoRoute;
   id: string;
-  properties: ContentType;
+  properties: ContentProperties;
   cultures: UmbracoDeliveryApiCultures;
-};
-
-export type UmbracoPageDisplaySettings = {
-  includeInNavigation: boolean;
-  includeChildrenInNavigation: boolean;
-  includeInSearch: boolean;
-  includeInSiteMap: boolean;
-  showBreadcrumbs: boolean;
-};
-
-export type UmbracoSeoAndMetaPageSettings = {
-  seoTitle: string;
-  seoDecription: string;
-  canonicalURL: SimplifiedUmbracoLink | null;
-  robotsIndex: boolean;
-  robotsFollow: boolean;
 };
 
 export type UmbracoPageResponse = ExpandRecursively<UmbracoSeoAndMetaPageSettings> &
