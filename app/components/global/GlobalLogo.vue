@@ -19,6 +19,7 @@ withDefaults(defineProps<Props>(), {
       :width="logoSize"
       :src="getMediaLink(logoPath)"
     />
+    <slot></slot>
   </BaseLink>
   <NuxtImg
     v-else

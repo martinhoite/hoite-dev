@@ -1,5 +1,5 @@
 export type UmbracoMediaExtensions = 'svg' | 'png' | 'jpg';
-export type UmbracoMediaTypes = 'Image';
+export type UmbracoMediaTypes = 'Image' | 'umbracoMediaVectorGraphics';
 
 export type UmbracoRoute = {
   path: string;
