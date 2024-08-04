@@ -191,3 +191,29 @@ export function removeLocaleFromPath(path: string): string {
     return path; // Return original path in case of error
   }
 }
+
+export function handleUmbracoSingleArray(array: unknown[] | null): unknown | null {
+  if (array) {
+    if (array.length > 1) {
+      useLoggingService(true).error('Assumed single array is multiple:', array);
+    } else {
+      return array[0];
+    }
+  }
+
+  return null;
+}
+
+export function getSingleUmbracoUrlFromArray(linkArray: UmbracoLink[] | null): SimplifiedUmbracoLink | null {
+  const singleItem = handleUmbracoSingleArray(linkArray) as UmbracoLink | null;
+
+  if (singleItem) {
+    return {
+      url: singleItem.route.path as URLString,
+      target: singleItem.target,
+      title: singleItem.title
+    };
+  }
+
+  return null;
+}
