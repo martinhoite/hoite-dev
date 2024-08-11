@@ -1,3 +1,5 @@
+import { AvailableLocales, type Locale } from '~/types';
+
 /**
  * A simple service for getting the DOM window and document objects,
  * to prevent calling window or document during server side rendering.
@@ -153,10 +155,10 @@ export function getLocaleFromUrl(url: URLString) {
  * // Returns null for "/kitchen-sink"
  * const locale = getLocaleFromPath('/kitchen-sink');
  */
-export function getLocaleFromPath(path: string): string | null {
+export function getLocaleFromPath(path: string): Locale | null {
   try {
     const pathSegments = path.split('/').filter((segment) => segment.length > 0);
-    return pathSegments.length > 0 ? pathSegments[0] : null;
+    return pathSegments.length > 0 && pathSegments[0] in AvailableLocales ? (pathSegments[0] as Locale) : null;
   } catch (error) {
     useLoggingService().error('Error processing path:', error);
     return null;
