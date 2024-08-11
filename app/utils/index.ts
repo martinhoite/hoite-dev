@@ -1,4 +1,5 @@
-import { AvailableLocales, type Locale } from '~/types';
+import { AvailableLocales } from 'types';
+import type { Locale } from 'types';
 
 /**
  * A simple service for getting the DOM window and document objects,
