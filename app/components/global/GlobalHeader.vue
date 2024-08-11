@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { settings } = useSettings();
+const { navigationItems } = useNavigation();
 </script>
 <template>
   <header class="header">
@@ -12,6 +13,14 @@ const { settings } = useSettings();
       <span> Hoite.dev </span>
     </GlobalLogo>
   </header>
+  <hr />
+  <h2>Navigation items</h2>
+  <pre>
+    <code>
+      {{ navigationItems }}
+    </code>
+  </pre>
+  <hr />
 </template>
 <style lang="postcss" scoped>
 .header {
