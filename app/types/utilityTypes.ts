@@ -21,7 +21,7 @@ export type ExpandRecursively<T> = T extends object
   : T;
 
 /**
- * A type alias for a string that is specifically designated to represent an ISO date.
+ * A type alias for a string that is specifically designated to represent an ISO date with time.
  * This type uses a branding technique to differentiate between plain strings and ISO date strings.
  *
  * @example
@@ -30,8 +30,24 @@ export type ExpandRecursively<T> = T extends object
  *
  * // Incorrect usage:
  * // let isoDateString: ISODateString = 'Hello, world!'; // This would not be allowed without explicit casting
+ * // let isoDateString: ISODateString = '2024-07-31' as ISODateString; // Time is expected
  */
 export type ISODateString = string & { readonly __isoDateStringBrand: unique symbol };
+
+/**
+ * A type alias for a string that is specifically designated to represent an ISO date without time.
+ *
+ * This type uses a branding technique to differentiate between plain strings and ISO date strings.
+ *
+ * @example
+ * // Correct usage:
+ * let isoDateString: ISODateString = '2024-07-31' as ISODateOnlyString;
+ *
+ * // Incorrect usage:
+ * // let isoDateString: ISODateOnlyString = '2024-07-31T22:02:34.023Z' as ISODateOnlyString;
+ * // let isoDateString: ISODateOnlyString = 'Hello, world!'; // This would not be allowed without explicit casting
+ */
+export type ISODateOnlyString = string & { readonly __isoDateOnlyStringBrand: unique symbol };
 
 /**
  * A type alias for a string that is specifically designated to contain HTML content.
