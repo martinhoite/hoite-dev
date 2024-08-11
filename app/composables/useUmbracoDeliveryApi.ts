@@ -9,6 +9,11 @@ import type {
 } from 'types/umbracoDeliveryApi';
 
 export default function () {
+  /**
+   * Gets the current start item based on the request host or a local development subdomain.
+   *
+   * @returns {string} The start item, which is either derived from the request host or the local development subdomain.
+   */
   const getCurrentStartItem = (): string => {
     const {
       public: { localDevelopmentSubdomain }
@@ -16,6 +21,13 @@ export default function () {
     return getSubdomain(useRequestHeaders().host) || localDevelopmentSubdomain;
   };
 
+  /**
+   * Sets the default headers for the HTTP request.
+   *
+   * @param {string} [path=''] - The path to determine the locale.
+   * @param {string} [startItem=''] - An optional custom start item. If not provided, the default will be used.
+   * @returns {HeadersInit} The headers object with 'Accept-Language' and 'Start-Item' fields.
+   */
   const setDefaultHeaders = (path: string = '', startItem: string = '') => {
     const {
       public: { fallbackLocale }
@@ -31,10 +43,12 @@ export default function () {
   };
 
   /**
+   * Fetches Umbraco content based on provided parameters and an optional custom start item.
    *
-   * @param parameters
-   * @param customStartItem if not set, will default to the current subdomain as start item
-   * @returns
+   * @template ItemTypes - The type of items expected in the response.
+   * @param {UmbracoContentParameters} parameters - The parameters to fetch Umbraco content.
+   * @param {string} [customStartItem=''] - An optional custom start item. If not provided, defaults to the current subdomain.
+   * @returns {Promise<UseFetchResponse<UmbracoContentResponse<ItemTypes>>>} The fetch response with Umbraco content.
    */
   const getUmbracoContent = <ItemTypes = unknown>(
     parameters: UmbracoContentParameters,
@@ -49,6 +63,13 @@ export default function () {
     });
   };
 
+  /**
+   * Fetches Umbraco content based on the route provided.
+   *
+   * @template PropertiesType - The type of properties expected in the response.
+   * @param {string} path - The path to fetch content for.
+   * @returns {Promise<UseFetchResponse<UmbracoDeliveryApiResponse<PropertiesType>>>} The fetch response with Umbraco content.
+   */
   const getUmbracoContentByRoute = <PropertiesType = UmbracoPageResponse>(path: string) => {
     const pathWithoutLocale = removeLocaleFromPath(path);
     const headers = setDefaultHeaders(path);
@@ -62,27 +83,27 @@ export default function () {
     );
   };
 
+  /**
+   * Fetches Umbraco site settings based on the provided locale.
+   *
+   * @template PropertiesType - The type of properties expected in the response.
+   * @param {string} locale - The locale to fetch site settings for.
+   * @returns {Promise<UseFetchResponse<UmbracoSiteSettingsResponse<PropertiesType>>>} The fetch response with Umbraco site settings.
+   */
   const getUmbracoSiteSettings = <PropertiesType = UmbracoSiteSettingsResponse>(locale: string) => {
     return getUmbracoContentByRoute<PropertiesType>(`/${locale}/settings`);
   };
-
+  /**
+   * Fetches Umbraco navigation items with predefined parameters for filtering and sorting.
+   *
+   * @returns {Promise<UseFetchResponse<UmbracoContentResponse<UmbracoNavigationItemProperties>>>} The fetch response with Umbraco navigation items.
+   */
   const getUmbracoNavigationItems = () => {
-    // fetch=descendants%3A%2F&filter=contentType%3A%21siteSettings&fields=properties%5BincludeInNavigation%2CincludeChildrenInNavigation%5D`,
-    // fetch=descendants:/&filter=contentType:!siteSettings&fields=properties[includeInNavigation,includeChildrenInNavigation]`,
-
     return getUmbracoContent<UmbracoNavigationItemProperties>({
       fetch: `descendants:${'/' as UmbracoNodePath}`,
       filter: `contentType:${'!siteSettings' as UmbracoAlias}`,
       fields: `properties${'[includeInNavigation, includeChildrenInNavigation]' as UmbracoPropertyAliasArray}`
     });
-
-    // return UseFetch<UmbracoContentResponse<UmbracoNavigationItemProperties>>(
-    //   `/umbraco/delivery/api/v2/content?
-    //   {
-    //     keepalive: true,
-    //     headers
-    //   }
-    // );
   };
 
   return {
