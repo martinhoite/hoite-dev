@@ -55,9 +55,18 @@ export type UmbracoSiteSettingsResponse = {
   footerLogo: UmbracoImage[] | null;
 };
 
-export type UmbracoPageDisplaySettings = {
-  includeInNavigation: boolean;
-  includeChildrenInNavigation: boolean;
+export type UmbracoNavigationItemProperties = {
+  includeInNavigation?: boolean;
+  includeChildrenInNavigation?: boolean;
+};
+
+export type UmbracoNavigationItem = {
+  name: string;
+  path: string;
+  children?: UmbracoNavigationItem[] | null;
+};
+
+export type UmbracoPageDisplaySettings = Expand<UmbracoNavigationItemProperties> & {
   includeInSearch: boolean;
   includeInSiteMap: boolean;
   showBreadcrumbs: boolean;

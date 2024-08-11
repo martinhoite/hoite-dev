@@ -1,4 +1,4 @@
-import type { UmbracoRoute } from './umbraco';
+import type { Locale } from '.';
 
 export type UmbracoContentTypes = 'website' | 'contentPage';
 
@@ -23,7 +23,7 @@ export type UmbracoDeliveryApiResponse<ContentProperties = unknown> = {
   createDate: ISODateString;
   route: UmbracoRoute;
   id: string;
-  properties: ContentProperties;
+  properties: Expand<ContentProperties>;
   cultures: UmbracoDeliveryApiCultures;
 };
 
@@ -31,3 +31,8 @@ export type UmbracoPageResponse = ExpandRecursively<UmbracoSeoAndMetaPageSetting
   ExpandRecursively<UmbracoPageDisplaySettings> & {
     blocks?: unknown;
   };
+
+export type UmbracoNavigationItemsResponse = {
+  total: number;
+  items: UmbracoDeliveryApiResponse<UmbracoNavigationItemProperties>[];
+};
