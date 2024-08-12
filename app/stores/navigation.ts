@@ -1,6 +1,5 @@
-import type { Locale } from '~/types';
 import type { UmbracoNavigationItem } from '~/types/umbraco';
-6666;
+
 export const useNavigation = defineStore('navigation', () => {
   const navigationItems = shallowRef<UmbracoNavigationItem[]>([] as UmbracoNavigationItem[]);
 
@@ -39,9 +38,9 @@ export const useNavigation = defineStore('navigation', () => {
     return rootItems;
   }
 
-  async function initNavigation(locale: Locale) {
+  async function initNavigation() {
     const { getUmbracoNavigationItems } = useUmbracoDeliveryApi();
-    const navigationItemsResponse = await getUmbracoNavigationItems(locale);
+    const navigationItemsResponse = await getUmbracoNavigationItems();
     if (navigationItemsResponse) {
       navigationItems.value = buildNavigation(navigationItemsResponse.items);
     } else {

@@ -93,6 +93,7 @@ export default function () {
   const getUmbracoSiteSettings = <PropertiesType = UmbracoSiteSettingsResponse>(locale: string) => {
     return getUmbracoContentByRoute<PropertiesType>(`/${locale}/settings`);
   };
+
   /**
    * Fetches Umbraco navigation items with predefined parameters for filtering and sorting.
    *
