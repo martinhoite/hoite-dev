@@ -47,9 +47,22 @@ export type UmbracoSiteSettingsFooter = {
   footerLogo: UmbracoImage | null;
 };
 
-export type UmbracoSiteSettings = Expand<UmbracoSiteSettingsHeader> & Expand<UmbracoSiteSettingsFooter>;
+export type UmbracoSiteSettingsMeta = {
+  hostName: URLString;
+  metaTitleExtension: string;
+  seoOpenGraphFallbackImage: UmbracoImage;
+  seoTwitterFallbackImage: UmbracoImage;
+};
+
+export type UmbracoSiteSettings = Expand<UmbracoSiteSettingsMeta> &
+  Expand<UmbracoSiteSettingsHeader> &
+  Expand<UmbracoSiteSettingsFooter>;
 
 export type UmbracoSiteSettingsResponse = {
+  hostName: URLString | null;
+  metaTitleExtension: string | null;
+  seoOpenGraphFallbackImage: UmbracoImage[] | null;
+  seoTwitterFallbackImage: UmbracoImage[] | null;
   headerLogo: UmbracoImage[] | null;
   headerLogoLink: UmbracoLink[] | null;
   footerLogo: UmbracoImage[] | null;
@@ -75,6 +88,8 @@ export type UmbracoPageDisplaySettings = Expand<UmbracoNavigationItemProperties>
 export type UmbracoSeoAndMetaPageSettings = {
   seoTitle: string;
   seoDecription: string;
+  seoOpenGraphImage: UmbracoImage[] | null;
+  seoTwitterImage: UmbracoImage[] | null;
   canonicalURL: SimplifiedUmbracoLink | null;
   robotsIndex: boolean;
   robotsFollow: boolean;

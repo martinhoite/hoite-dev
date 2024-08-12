@@ -37,12 +37,62 @@ switch (pageData.value?.contentType) {
     break;
 }
 
+const pageProperties = computed(() => {
+  return pageData.value?.properties;
+});
+
 const pageHeading = computed(() => {
   return pageData.value?.name;
 });
 
+const canonicalUrl = computed(() => {
+  return `${settings.hostName}${pageData.value?.properties.canonicalURL?.url || pageData.value?.route.path}`;
+});
+
+const twitterImagePath = computed(() => {
+  let imagePath = settings.seoTwitterFallbackImage.url;
+  if (pageProperties.value?.seoTwitterImage) {
+    imagePath = (handleUmbracoSingleArray(pageProperties.value.seoTwitterImage) as UmbracoImage).url;
+  }
+  return imagePath;
+});
+
+const openGraphImagePath = computed(() => {
+  let imagePath = settings.seoOpenGraphFallbackImage.url;
+  if (pageProperties.value?.seoOpenGraphImage) {
+    imagePath = (handleUmbracoSingleArray(pageProperties.value.seoOpenGraphImage) as UmbracoImage).url;
+  }
+  return imagePath;
+});
+
 useHead({
+  title: pageData.value?.properties.seoTitle,
+  titleTemplate(title: string | undefined) {
+    return title ? `${title} | ${settings.metaTitleExtension}` : settings.metaTitleExtension;
+  },
+  meta: [
+    { name: 'description', content: pageProperties.value?.seoDecription },
+    {
+      name: 'robots',
+      content: `${pageProperties.value?.robotsIndex ? 'index' : 'noindex'} ${pageProperties.value?.robotsFollow ? 'follow' : 'nofollow'}`
+    },
+
+    { name: 'twitter:title', content: pageProperties.value?.seoTitle },
+    { name: 'twitter:description', content: pageProperties.value?.seoDecription },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:image', content: getMediaLink(twitterImagePath.value) },
+
+    { name: 'og:title', content: pageProperties.value?.seoTitle },
+    { name: 'og:description', content: pageProperties.value?.seoDecription },
+    { name: 'og:type', content: 'website' },
+    { name: 'og:url', content: `${settings.hostName}${pageData.value?.route.path}` },
+    { name: 'og:image', content: getMediaLink(openGraphImagePath.value) }
+  ],
   link: [
+    {
+      rel: 'canonical',
+      href: canonicalUrl
+    },
     {
       rel: 'icon',
       type: 'image/svg+xml',
