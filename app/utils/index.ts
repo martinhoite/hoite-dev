@@ -24,31 +24,6 @@ export function useDOM(): { window: Window | null; document: Document | null } |
 }
 
 /**
- * Retrieves the pixel value of a CSS variable and returns it as a number.
- *
- * @param {string} variable - The name of the CSS variable (e.g., '--header-height').
- * @returns {number} The pixel value of the CSS variable as a number.
- *                   Returns 0 if the variable doesn't exist or isn't a valid number.
- *
- * @example
- * // CSS: --header-height: 100px;
- * const headerHeight = extractNumberFromCSSVariable('--header-height');
- * console.log(headerHeight); // Outputs: 100
- */
-export function extractNumberFromCSSVariable(variable: string): number {
-  const variableRef = useCssVars(variable);
-  let value = variableRef.value;
-
-  if (value?.endsWith('rem')) {
-    value = parseFloat(value) * 16 + 'px'; // Convert rem to px for consistency
-  }
-
-  const number = Number(value?.replace('px', '') || 0);
-
-  return number;
-}
-
-/**
  * A simple logging service that only logs to console in development.
  * @example
  * const loggingService = useLoggingService();
