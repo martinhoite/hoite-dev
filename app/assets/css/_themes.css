@@ -1,13 +1,15 @@
-.theme {
-  &--dark {
-    color-scheme: dark;
-    --body-bg-color: var(--color-dark);
-    --default-text-color: var(--color-white);
-  }
+@layer theme {
+  .theme {
+    &--dark {
+      color-scheme: dark;
+      --body-bg-color: var(--color-dark);
+      --default-text-color: var(--color-white);
+    }
 
-  &--light {
-    color-scheme: light;
-    --body-bg-color: var(--color-white);
-    --default-text-color: var(--color-dark-blue);
+    &--light {
+      color-scheme: light;
+      --body-bg-color: var(--color-white);
+      --default-text-color: var(--color-dark-blue);
+    }
   }
 }

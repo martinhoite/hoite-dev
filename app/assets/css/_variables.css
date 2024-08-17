@@ -1,42 +1,47 @@
 /* Colors based on https://bootswatch.com/darkly/ */
 :root {
-  .theme--dark {
-    --color-primary: #375a7f;
-    --color-secondary: #444;
-    --color-success: #00bc8c;
-    --color-info: #3498db;
-    --color-warning: #f39c12;
-    --color-danger: #e74c3c;
-    --color-light: #adb5bd;
-    --color-dark: #303030;
-    --color-black: #000;
-    --color-white: #fff;
+  @layer typography {
+    --default-text-size: 1rem;
+    --default-text-color: #fff;
   }
 
-  /* Colors based on https://bootswatch.com/flatly/ */
-  .theme--light {
-    --color-primary: #2c3e50;
-    --color-secondary: #95a5a6;
-    --color-success: #18bc9c;
-    --color-info: #3498db;
-    --color-warning: #f39c12;
-    --color-danger: #e74c3c;
-    --color-light: #ecf0f1;
-    --color-dark: #7b8a8b;
-    --color-black: #000;
-    --color-white: #fff;
-    --color-dark-blue: #212529;
+  @layer layout {
+    --default-heading-spacing: 1.5rem;
+    --default-text-spacing: 1rem;
+    --default-grid-gap: 0.5rem;
+    --small-padding: 1rem;
+    --medium-padding: 1.5rem;
+    --large-padding: 2rem;
+    --header-height: 6rem;
   }
 
-  --default-text-size: 1rem;
-  --default-text-color: #fff;
+  @layer theme {
+    .theme--dark {
+      --color-primary: #375a7f;
+      --color-secondary: #444;
+      --color-success: #00bc8c;
+      --color-info: #3498db;
+      --color-warning: #f39c12;
+      --color-danger: #e74c3c;
+      --color-light: #adb5bd;
+      --color-dark: #303030;
+      --color-black: #000;
+      --color-white: #fff;
+    }
 
-  --default-heading-spacing: 1.5rem;
-  --default-text-spacing: 1rem;
-  --default-grid-gap: 0.5rem;
-  --small-padding: 1rem;
-  --medium-padding: 1.5rem;
-  --large-padding: 2rem;
-
-  --header-height: 6rem;
+    /* Colors based on https://bootswatch.com/flatly/ */
+    .theme--light {
+      --color-primary: #2c3e50;
+      --color-secondary: #95a5a6;
+      --color-success: #18bc9c;
+      --color-info: #3498db;
+      --color-warning: #f39c12;
+      --color-danger: #e74c3c;
+      --color-light: #ecf0f1;
+      --color-dark: #7b8a8b;
+      --color-black: #000;
+      --color-white: #fff;
+      --color-dark-blue: #212529;
+    }
+  }
 }
