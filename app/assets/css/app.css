@@ -5,8 +5,15 @@
   box-sizing: border-box;
 }
 
+html {
+  color-scheme: dark light;
+}
+
 body {
   margin: 0;
   background: var(--body-bg-color);
   color: var(--default-text-color);
 }
+
+
+/* TODO: build container system based on: https://www.youtube.com/watch?v=DHj7JhH8ins and https://www.youtube.com/watch?v=c13gpBrnGEw */
