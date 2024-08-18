@@ -49,13 +49,11 @@ export default defineNuxtConfig({
       }
     },
     screens: {
-      xs: 320,
-      sm: 640,
-      md: 768,
-      lg: 1024,
-
-      xl: 1280,
-      xxl: 1536
+      mobile: 320,
+      tablet: 576,
+      laptop: 1024,
+      smallDesktop: 1280,
+      desktop: 1536
     }
   },
 
@@ -66,22 +64,22 @@ export default defineNuxtConfig({
   postcss: {
     plugins: {
       'postcss-nested': {},
-      'postcss-calc': {},
-      'postcss-custom-media': {},
       '@csstools/postcss-global-data': {
-        files: ['assets/css/_mediaqueries.css', 'assets/css/_variables.css']
+        files: ['assets/css/_variables.css', 'assets/css/_mediaqueries.css']
       },
       'postcss-preset-env': {
         preserve: true,
         features: {
           'color-function': { unresolved: 'warn' },
-          'custom-media-queries': {},
+          'custom-media-queries': true,
           'custom-properties': {
             disableDeprecationNotice: false
           }
         },
         browsers: ['>= 2% in DK']
       },
+      'postcss-custom-media': {},
+      'postcss-calc': {},
       'postcss-reporter': {
         clearReportedMessages: true
       }

@@ -1,5 +1,15 @@
 /* Colors based on https://bootswatch.com/darkly/ */
 :root {
+  /* Couldn't get this to work with postcss, will come back to it again later.
+  Having it here also allows users / devs to see the breakpoints in the browser.*/
+  @layer mediaqueries {
+    --mobile-start-breakpoint: 0px;
+    --tablet-start-breakpoint: 576px;
+    --laptop-start-breakpoint: 1024px;
+    --smallDesktop-start-breakpoint: 1280px;
+    --desktop-start-breakpoint: 1536px;
+  }
+
   @layer typography {
     --default-text-size: 1rem;
     --default-text-color: #fff;
