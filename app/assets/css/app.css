@@ -1,5 +1,6 @@
 @import '_normalize.css';
 @import '_typography.css';
+@import '_grid.css';
 @import '_themes.css';
 
 html, body {
@@ -20,5 +21,3 @@ body {
   background: var(--body-bg-color);
   color: var(--default-text-color);
 }
-
-/* TODO: build container system based on: https://www.youtube.com/watch?v=DHj7JhH8ins and https://www.youtube.com/watch?v=c13gpBrnGEw */

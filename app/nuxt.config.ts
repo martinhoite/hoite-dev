@@ -24,7 +24,9 @@ export default defineNuxtConfig({
     },
     pageTransition: false,
     layoutTransition: false,
-    rootId: '__app'
+    rootAttrs: {
+      id: '__app'
+    }
   },
 
   modules: [

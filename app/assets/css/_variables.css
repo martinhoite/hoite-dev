@@ -18,7 +18,7 @@
   @layer layout {
     --default-heading-spacing: 1.5rem;
     --default-text-spacing: 1rem;
-    --default-grid-gap: 0.5rem;
+    --default-grid-gap: 1rem;
     --small-padding: 1rem;
     --medium-padding: 1.5rem;
     --large-padding: 2rem;

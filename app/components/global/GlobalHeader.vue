@@ -4,38 +4,36 @@ const { navigationItems } = useNavigation();
 </script>
 <template>
   <header class="header">
-    <GlobalLogo
-      v-if="settings.headerLogo?.url && settings.headerLogoLink"
-      :logo-link="settings.headerLogoLink"
-      :logo-path="settings.headerLogo?.url"
-      class="header__logo"
-    >
-      <span> Hoite.dev </span>
-    </GlobalLogo>
+    <nav class="full-width">
+      <GlobalLogo
+        v-if="settings.headerLogo?.url && settings.headerLogoLink"
+        :logo-link="settings.headerLogoLink"
+        :logo-path="settings.headerLogo?.url"
+        class="header__logo"
+      >
+        <span> Hoite.dev </span>
+      </GlobalLogo>
+    </nav>
   </header>
-  <hr />
+  <!-- <hr />
   <h2>Navigation items</h2>
   <pre>
     <code>
       {{ navigationItems }}
     </code>
   </pre>
-  <hr />
+  <hr /> -->
 </template>
 <style lang="postcss" scoped>
 .header {
   height: var(--header-height);
   background-color: pink;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 2rem;
 
   &__logo {
+    font-size: 2rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--default-grid-gap);
   }
 }
 </style>
