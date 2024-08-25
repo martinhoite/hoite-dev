@@ -38,6 +38,10 @@ export type UmbracoImage = {
   properties: unknown;
 };
 
+export type UmbracoSiteSettingsDefaults = {
+  defaultTheme: string;
+};
+
 export type UmbracoSiteSettingsHeader = {
   lightThemeHeaderLogo: UmbracoImage | null;
   darkThemeHeaderLogo: UmbracoImage | null;
@@ -57,6 +61,7 @@ export type UmbracoSiteSettingsMeta = {
 };
 
 export type UmbracoSiteSettings = Expand<UmbracoSiteSettingsMeta> &
+  Expand<UmbracoSiteSettingsDefaults> &
   Expand<UmbracoSiteSettingsHeader> &
   Expand<UmbracoSiteSettingsFooter>;
 
@@ -70,6 +75,7 @@ export type UmbracoSiteSettingsResponse = {
   headerLogoLink: UmbracoLink[] | null;
   headerLogoText: string | null;
   footerLogo: UmbracoImage[] | null;
+  defaultTheme: string | null;
 };
 
 export type UmbracoNavigationItemProperties = {

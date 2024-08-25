@@ -6,6 +6,7 @@
 </template>
 <style lang="postcss" scoped>
 .footer {
+  margin-top: 4rem;
   padding-top: 4rem;
   padding-bottom: 4rem;
   background: purple;

@@ -56,4 +56,8 @@
       --color-dark-blue: #212529;
     }
   }
+
+  @layer z-indexes {
+    --header-z-index: 1000;
+  }
 }

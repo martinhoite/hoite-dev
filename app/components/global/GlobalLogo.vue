@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { settings } = useSettings();
 type Props = {
   logoSize?: number;
   logoLink?: SimplifiedUmbracoLink | null;
@@ -13,10 +14,10 @@ const props = withDefaults(defineProps<Props>(), {
   logoText: undefined
 });
 
-const settings = useSettings();
+const cookieTheme = useCookie('theme');
 
 const logoPath = computed(() => {
-  const themeKey = `${settings.currentTheme}ThemeLogoPath` as keyof Props;
+  const themeKey = `${cookieTheme.value || settings.defaultTheme}ThemeLogoPath` as keyof Props;
   return props[themeKey] as string | null;
 });
 </script>

@@ -47,7 +47,9 @@ onUnmounted(() => {
         {{ name }}: {{ size }}
       </li>
     </ul>
-    <h3 class="media-queries__current">Current window width: {{ windowWidth }}px</h3>
+    <ClientOnly>
+      <h3 class="media-queries__current">Current window width: {{ windowWidth }}px</h3>
+    </ClientOnly>
     <div class="media-queries__group">
       <h3 class="media-queries__heading">Specific breakpoints only</h3>
       <div class="media-queries__query media-queries__query--mobile-only">
@@ -105,7 +107,7 @@ onUnmounted(() => {
   &__current {
     background: var(--body-bg-color);
     position: sticky;
-    top: 0;
+    top: var(--header-height);
     padding: var(--small-padding) 0;
     margin: 0;
   }
