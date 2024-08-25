@@ -15,7 +15,7 @@ withDefaults(defineProps<Props>(), {
   tabletEndColumn: TabletGridFullWidthSize,
   laptopStartColumn: 1,
   laptopEndColumn: LaptopAndAboveGridFullWidthSize,
-  smallStartktopEndColumn: 1,
+  smallDesktopStartColumn: 1,
   smallDesktopEndColumn: LaptopAndAboveGridFullWidthSize,
   desktopStartColumn: 1,
   desktopEndColumn: LaptopAndAboveGridFullWidthSize
@@ -41,7 +41,6 @@ withDefaults(defineProps<Props>(), {
   }
 
   > * {
-    display: grid;
     grid-column-start: v-bind(mobileStartColumn);
     grid-column-end: calc(v-bind(mobileEndColumn) + 1);
 
