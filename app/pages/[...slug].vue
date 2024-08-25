@@ -107,10 +107,9 @@ useHead({
 });
 </script>
 <template>
-  <BaseGridContainer>
-    <h1 class="page-heading">{{ pageHeading }}</h1>
-    <KitchenSink />
-    <!-- <h2>Settings</h2>
+  <h1 class="page-heading">{{ pageHeading }}</h1>
+  <KitchenSink />
+  <!-- <h2>Settings</h2>
     <pre>
       <code>
         {{ settings }}
@@ -123,7 +122,6 @@ useHead({
         {{ pageData }}
       </code>
     </pre> -->
-  </BaseGridContainer>
   <component
     :is="viewComponent"
     v-if="viewComponent"
