@@ -35,6 +35,7 @@
       --color-danger: #e74c3c;
       --color-light: #adb5bd;
       --color-dark: #303030;
+      --color-darker: #222;
       --color-black: #000;
       --color-white: #fff;
     }
@@ -49,6 +50,7 @@
       --color-danger: #e74c3c;
       --color-light: #ecf0f1;
       --color-dark: #7b8a8b;
+      --color-darker: #6d7c7d;
       --color-black: #000;
       --color-white: #fff;
       --color-dark-blue: #212529;
