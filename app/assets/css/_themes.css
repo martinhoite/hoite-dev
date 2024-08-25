@@ -3,12 +3,14 @@
     &--dark {
       color-scheme: dark;
       --body-bg-color: var(--color-dark);
+      --header-bg-color: var(--color-darker);
       --default-text-color: var(--color-white);
     }
 
     &--light {
       color-scheme: light;
       --body-bg-color: var(--color-white);
+      --header-bg-color: var(--color-light);
       --default-text-color: var(--color-dark-blue);
     }
   }

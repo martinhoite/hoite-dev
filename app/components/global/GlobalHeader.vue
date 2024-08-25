@@ -6,13 +6,13 @@ const { navigationItems } = useNavigation();
   <header class="header">
     <nav class="full-width">
       <GlobalLogo
-        v-if="settings.headerLogo?.url && settings.headerLogoLink"
+        v-if="settings.lightThemeHeaderLogo?.url && settings.darkThemeHeaderLogo?.url"
         :logo-link="settings.headerLogoLink"
-        :logo-path="settings.headerLogo?.url"
+        :light-theme-logo-path="settings.lightThemeHeaderLogo?.url"
+        :dark-theme-logo-path="settings.darkThemeHeaderLogo?.url"
+        :logo-text="settings.headerLogoText"
         class="header__logo"
-      >
-        <span> Hoite.dev </span>
-      </GlobalLogo>
+      />
     </nav>
   </header>
   <!-- <hr />
@@ -27,7 +27,10 @@ const { navigationItems } = useNavigation();
 <style lang="postcss" scoped>
 .header {
   height: var(--header-height);
-  background-color: pink;
+  background-color: var(--header-bg-color);
+  width: 100%;
+  position: fixed;
+  top: 0;
 
   &__logo {
     font-size: 2rem;

@@ -1,28 +1,38 @@
 <script setup lang="ts">
 type Props = {
   logoSize?: number;
-  logoLink?: SimplifiedUmbracoLink;
-  logoPath: string;
+  logoLink?: SimplifiedUmbracoLink | null;
+  logoText?: string | null;
+  lightThemeLogoPath: string;
+  darkThemeLogoPath: string;
 };
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   logoSize: 64,
-  logoLink: undefined
+  logoLink: undefined,
+  logoText: undefined
+});
+
+const settings = useSettings();
+
+const logoPath = computed(() => {
+  const themeKey = `${settings.currentTheme}ThemeLogoPath` as keyof Props;
+  return props[themeKey] as string | null;
 });
 </script>
 <template>
   <BaseLink
-    v-if="logoLink?.url"
+    v-if="logoLink?.url && logoPath"
     :to="logoLink"
   >
     <NuxtImg
       :width="logoSize"
       :src="getMediaLink(logoPath)"
     />
-    <slot></slot>
+    <span v-if="logoText">{{ logoText }}</span>
   </BaseLink>
   <NuxtImg
-    v-else
+    v-else-if="logoPath"
     :width="logoSize"
     :src="getMediaLink(logoPath)"
   />

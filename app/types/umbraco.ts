@@ -39,8 +39,10 @@ export type UmbracoImage = {
 };
 
 export type UmbracoSiteSettingsHeader = {
-  headerLogo: UmbracoImage | null;
+  lightThemeHeaderLogo: UmbracoImage | null;
+  darkThemeHeaderLogo: UmbracoImage | null;
   headerLogoLink: SimplifiedUmbracoLink | null;
+  headerLogoText: string | null;
 };
 
 export type UmbracoSiteSettingsFooter = {
@@ -63,8 +65,10 @@ export type UmbracoSiteSettingsResponse = {
   metaTitleExtension: string | null;
   seoOpenGraphFallbackImage: UmbracoImage[] | null;
   seoTwitterFallbackImage: UmbracoImage[] | null;
-  headerLogo: UmbracoImage[] | null;
+  lightThemeHeaderLogo: UmbracoImage[] | null;
+  darkThemeHeaderLogo: UmbracoImage[] | null;
   headerLogoLink: UmbracoLink[] | null;
+  headerLogoText: string | null;
   footerLogo: UmbracoImage[] | null;
 };
 

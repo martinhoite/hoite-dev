@@ -1,3 +1,4 @@
+import type { Theme } from '~/types';
 import type { SimplifiedUmbracoLink, UmbracoImage, UmbracoSiteSettings } from '~/types/umbraco';
 
 export const useSettings = defineStore('settings', () => {
@@ -5,6 +6,11 @@ export const useSettings = defineStore('settings', () => {
     public: { fallbackLocale }
   } = useRuntimeConfig();
   const settings = shallowRef<UmbracoSiteSettings>({} as UmbracoSiteSettings);
+  const currentTheme = shallowRef<Theme>('light');
+
+  function setTheme(newTheme: Theme) {
+    currentTheme.value = newTheme;
+  }
 
   async function initSettings(path: string) {
     const { getUmbracoSiteSettings } = useUmbracoDeliveryApi();
@@ -22,14 +28,18 @@ export const useSettings = defineStore('settings', () => {
       seoOpenGraphFallbackImage: handleUmbracoSingleArray(
         settingsResponse.properties.seoOpenGraphFallbackImage
       ) as UmbracoImage,
-      headerLogo: handleUmbracoSingleArray(settingsResponse.properties.headerLogo) as UmbracoImage,
+      lightThemeHeaderLogo: handleUmbracoSingleArray(settingsResponse.properties.lightThemeHeaderLogo) as UmbracoImage,
+      darkThemeHeaderLogo: handleUmbracoSingleArray(settingsResponse.properties.darkThemeHeaderLogo) as UmbracoImage,
       headerLogoLink: getSingleUmbracoUrlFromArray(settingsResponse.properties.headerLogoLink) as SimplifiedUmbracoLink,
+      headerLogoText: settingsResponse.properties.headerLogoText,
       footerLogo: handleUmbracoSingleArray(settingsResponse.properties.footerLogo) as UmbracoImage
     };
   }
 
   return {
     settings,
+    currentTheme,
+    setTheme,
     initSettings
   };
 });
