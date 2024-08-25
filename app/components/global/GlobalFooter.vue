@@ -9,6 +9,7 @@
   margin-top: 4rem;
   padding-top: 4rem;
   padding-bottom: 4rem;
-  background: purple;
+  background: var(--footer-bg-color);
+  border-top: 1px solid var(--default-text-color);
 }
 </style>

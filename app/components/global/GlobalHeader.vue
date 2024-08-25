@@ -54,6 +54,7 @@ function setTheme(newTheme: Theme) {
   z-index: var(--header-z-index);
   position: fixed;
   top: 0;
+  border-bottom: 1px solid var(--default-text-color);
 
   &__temp-container {
     display: flex;
