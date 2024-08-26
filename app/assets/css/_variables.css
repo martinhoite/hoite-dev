@@ -23,6 +23,13 @@
     --medium-padding: 1.5rem;
     --large-padding: 2rem;
     --header-height: 6rem;
+
+    /* Please keep in sync with values in types/baseGrid.ts*/
+    --mobile-template-columns: [mobile-grid-start] repeat(4, 25%) [mobile-grid-end];
+    --tablet-template-columns: [tablet-grid-start] repeat(8, 12.5%) [tablet-grid-end];
+    --laptop-template-columns: [laptop-grid-start] repeat(12, calc(100 / 12)%) [laptop-grid-end];
+    --small-desktop-template-columns: [small-desktop-grid-start] repeat(12, calc(100 / 12)%) [small-desktop-grid-end];
+    --desktop-template-columns: [desktop-grid-start] repeat(12, calc(100 / 12)%) [desktop-grid-end];
   }
 
   @layer theme {

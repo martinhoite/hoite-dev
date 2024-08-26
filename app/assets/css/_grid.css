@@ -53,4 +53,46 @@
     display: grid;
     grid-template-columns: inherit;
   }
+
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: var(--mobile-template-columns);
+    grid-template-rows: 1fr;
+  
+    @media (--tablet) {
+      grid-template-columns: var(--tablet-template-columns);
+    }
+  
+    @media (--laptop) {
+      grid-template-columns: var(--laptop-template-columns);
+    }
+
+    @media(--small-desktop) {
+      grid-template-columns: var(--small-desktop-template-columns);
+    }
+    @media(--desktop) {
+      grid-template-columns: var(--desktop-template-columns);
+    }
+    
+    > * {
+      grid-column: mobile-grid-start / mobile-grid-end;
+
+      @media (--tablet) {
+        grid-column: tablet-grid-start / tablet-grid-end;
+      }
+    
+      @media (--laptop) {
+        grid-column: laptop-grid-start / laptop-grid-end;
+      }
+  
+      @media(--small-desktop) {
+        grid-column: small-desktop-grid-start / small-desktop-grid-end;
+      }
+
+      @media(--desktop) {
+        grid-column: desktop-grid-start / desktop-grid-end;
+      }
+    }
+  }
 }

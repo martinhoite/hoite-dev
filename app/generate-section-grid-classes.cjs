@@ -33,25 +33,35 @@ const generateGridClasses = (bp, max, breakpointValue) => {
     for (let end = start + 1; end <= max + 1; end++) {
       // Named start column
       if (start == 1) {
-        css += `  .${bp}-col-span--${start}-${end},\n`;
-        css += `  .${bp}-col-span--start-${end} {\n`;
-        css += `    grid-column: ${bp}-start-column / ${end} ;\n`;
+        css += `  .section-grid__${bp}-col-span--${start}-${end},\n`;
+        css += `  .section-grid__${bp}-col-span--start-${end} {\n`;
+        css += `    > * {\n`;
+        css += `      grid-column: ${bp}-grid-start / ${end} ;\n`;
+        css += `    }\n`;
         css += `  }\n\n`;
       }
 
       // Numeric end values
       if (end <= max) {
-        css += `  .${bp}-col-span--${start}-${end} {\n`;
-        css += `    grid-column: ${start} / ${end};\n`;
+        css += `  .section-grid__${bp}-col-span--${start}-${end} {\n`;
+        css += `    > * {\n`;
+        css += `      grid-column: ${start} / ${end};\n`;
+        css += `    }\n`;
         css += `  }\n\n`;
       }
 
       // Named end column
       if (end > max) {
-        css += `  .${bp}-col-span--${start}-${max + 1},\n`;
-        css += `  .${bp}-col-span--${start}-end, \n`;
-        css += `  .${bp}-col-span--${start}-full {\n`;
-        css += `    grid-column: ${start} / ${bp}-end-column;\n`;
+        css += `  .section-grid__${bp}-col-span--${start}-end, \n`;
+        if (start == 1) {
+          css += `  .section-grid__${bp}-col-span--${start}-${max + 1},\n`;
+          css += `  .section-grid__${bp}-col-span--full {\n`;
+        } else {
+          css += `  .section-grid__${bp}-col-span--${start}-${max + 1} {\n`;
+        }
+        css += `    > * {\n`;
+        css += `      grid-column: ${start} / ${bp}-grid-end;\n`;
+        css += `    }\n`;
         css += `  }\n\n`;
       }
     }
