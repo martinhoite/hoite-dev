@@ -1,19 +1,18 @@
 // This file is for generating a full stylesheet with all possible itterations of the section grid.
-// I'm currently not planning on using it, but thought it was interesting enough to leave as a possiblity in the future.
-// Usage: writing the following in the terminal:
+// Usage: write the following in the terminal:
 // node generate-section-grid-classes.cjs
 // will generate the css file in the assets/css folder - see outputPath further down.
-
 const fs = require('fs');
 const path = require('path');
 
-const breakpoints = {
-  mobile: null, // No media query for mobile as mobile first
-  tablet: '576px',
-  laptop: '1024px',
-  'small-desktop': '1280px',
-  desktop: '1536px'
+const customMediaQueries = {
+  mobile: '--mobile-only',
+  tablet: '--tablet-only',
+  laptop: '--laptop-only',
+  'small-desktop': '--small-desktop-only',
+  desktop: '--desktop'
 };
+
 const maxColumns = {
   mobile: 4,
   tablet: 8,
@@ -24,24 +23,22 @@ const maxColumns = {
 
 let css = '';
 
-const generateGridClasses = (bp, max, breakpointValue) => {
-  if (breakpointValue) {
-    css += `@media (min-width: ${breakpointValue}) {\n`;
+const generateGridClasses = (bp, max, mediaQueryName) => {
+  if (mediaQueryName) {
+    css += `@media (${mediaQueryName}) {\n`;
   }
 
   for (let start = 1; start <= max; start++) {
     for (let end = start + 1; end <= max + 1; end++) {
-      // Named start column
       if (start == 1) {
         css += `  .section-grid__${bp}-col-span--${start}-${end},\n`;
         css += `  .section-grid__${bp}-col-span--start-${end} {\n`;
         css += `    > * {\n`;
-        css += `      grid-column: ${bp}-grid-start / ${end} ;\n`;
+        css += `      grid-column: ${bp}-grid-start / ${end};\n`;
         css += `    }\n`;
         css += `  }\n\n`;
       }
 
-      // Numeric end values
       if (end <= max) {
         css += `  .section-grid__${bp}-col-span--${start}-${end} {\n`;
         css += `    > * {\n`;
@@ -50,9 +47,8 @@ const generateGridClasses = (bp, max, breakpointValue) => {
         css += `  }\n\n`;
       }
 
-      // Named end column
       if (end > max) {
-        css += `  .section-grid__${bp}-col-span--${start}-end, \n`;
+        css += `  .section-grid__${bp}-col-span--${start}-end,\n`;
         if (start == 1) {
           css += `  .section-grid__${bp}-col-span--${start}-${max + 1},\n`;
           css += `  .section-grid__${bp}-col-span--full {\n`;
@@ -67,17 +63,17 @@ const generateGridClasses = (bp, max, breakpointValue) => {
     }
   }
 
-  if (breakpointValue) {
+  if (mediaQueryName) {
     css += `}\n\n`;
   }
 };
 
-for (const [bp, breakpointValue] of Object.entries(breakpoints)) {
-  generateGridClasses(bp, maxColumns[bp], breakpointValue);
+// Generate grid classes for each breakpoint
+for (const [bp, mediaQueryName] of Object.entries(customMediaQueries)) {
+  generateGridClasses(bp, maxColumns[bp], mediaQueryName);
 }
 
-const outputPath = path.resolve(__dirname, 'assets', 'css', 'generated-grid-classes.css');
-
+const outputPath = path.resolve(__dirname, 'assets', 'css', 'generated-section-grid-classes.css');
 const outputDir = path.dirname(outputPath);
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
