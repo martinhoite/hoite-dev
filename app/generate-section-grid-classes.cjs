@@ -1,6 +1,6 @@
 // This file is for generating a full stylesheet with all possible itterations of the section grid.
 // I'm currently not planning on using it, but thought it was interesting enough to leave as a possiblity in the future.
-// Usage: writing
+// Usage: writing the following in the terminal:
 // node generate-section-grid-classes.cjs
 // will generate the css file in the assets/css folder - see outputPath further down.
 
