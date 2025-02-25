@@ -9,10 +9,11 @@ export default defineNuxtPlugin(async () => {
 
   try {
     await Promise.allSettled([initSettings(path), initNavigation()]);
-  } catch (_) {
+  } catch (error) {
     throw createError({
       statusCode: 500,
-      message: 'Error initializing site'
+      message: 'Error initializing site',
+      data: error
     });
   }
 });

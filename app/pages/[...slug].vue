@@ -20,8 +20,13 @@ async function getPageData() {
     }
 
     pageData.value = data.value;
-  } catch (error) {
-    devOnlyConsoleLog('Failed getting pageData in slug', error);
+  } catch (caughtError) {
+    devOnlyConsoleLog('Failed getting pageData in slug', 'error', caughtError);
+    throw createError({
+      message: 'Failed to get page content, please try again later - and / or inform martin@hoite.dev',
+      statusCode: 500,
+      fatal: true
+    });
   }
 }
 

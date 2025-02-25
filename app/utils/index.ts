@@ -1,5 +1,5 @@
 import { AvailableLocales } from 'types';
-import type { Locale } from 'types';
+import type { ConsoleLogTypes, Locale } from 'types';
 
 /**
  * A simple service for getting the DOM window and document objects,
@@ -24,53 +24,25 @@ export function useDOM(): { window: Window | null; document: Document | null } |
 }
 
 /**
- * A simple logging service that only logs to console in development.
- * @example
- * const loggingService = useLoggingService();
+ * Logs messages to the console, but only in development environments.
+ * The log level (e.g., 'log', 'info', 'warn', 'error') is determined by the provided `logType`.
+ * This function ensures logs are not displayed in UAT or production environments.
  *
- * loggingService.log('Hello world!');
- * loggingService.warn('Hello world!');
- * loggingService.error('Hello world!');
- * loggingService.info('Hello world!');
+ * @param {string} logStatement - The main message or statement to be logged.
+ * @param {ConsoleLogTypes} logType - The type of log (e.g., 'log', 'info', 'warn', 'error').
+ * @param {unknown} [data=null] - Optional additional data to be logged with the message.
  */
-export function useLoggingService(developmentOnly: boolean = false) {
-  type LogLevel = 'log' | 'warn' | 'error' | 'info';
+export function devOnlyConsoleLog(logStatement: string, logType: ConsoleLogTypes, data: unknown = null) {
+  if (import.meta.server) return;
 
-  const {
-    public: { environment }
-  } = useRuntimeConfig();
+  const { $logger } = useNuxtApp();
 
-  // const applicationInsights = useApplicationInsights();
-
-  function createLogger(level: LogLevel) {
-    return function (...args: unknown[]) {
-      if (environment !== 'production') {
-        // eslint-disable-next-line no-console
-        (console[level] as (message?: unknown, ...optionalParams: unknown[]) => void)(...args);
-      }
-
-      // TODO: Use application insights
-      // if (!developmentOnly && environment !== 'development') {
-      //   appInsights?.trackTrace({ message: `${level}: ${String(args)}` });
-      // }
-    };
+  if ($logger[logType]) {
+    $logger[logType](logStatement, true, data);
+  } else {
+    // eslint-disable-next-line no-console
+    console.warn('Invalid log type used in devOnlyConsoleLog:', logType);
   }
-
-  return {
-    log: createLogger('log'),
-    warn: createLogger('warn'),
-    error: createLogger('error'),
-    info: createLogger('info')
-  };
-}
-
-/**
- * Logging for developement environments only (i.e. won't show on UAT & Prod environments)
- * @param logStatement What the console warning should say
- * @param data Optional data to be added to the warning
- */
-export function devOnlyConsoleLog(logStatement: string, data: unknown = null) {
-  useLoggingService().info('\x1B[36m%s\x1B[0m', logStatement, data);
 }
 
 /**
@@ -112,7 +84,8 @@ export function getLocaleFromUrl(url: URLString) {
     const pathSegments = parsedUrl.pathname.split('/').filter((segment) => segment.length > 0);
     return pathSegments.length > 0 ? pathSegments[0] : null;
   } catch (error) {
-    useLoggingService().error('Invalid URL:', error);
+    const { $logger } = useNuxtApp();
+    $logger.error('Invalid URL:', false, error);
     return null;
   }
 }
@@ -136,7 +109,8 @@ export function getLocaleFromPath(path: string): Locale | null {
     const pathSegments = path.split('/').filter((segment) => segment.length > 0);
     return pathSegments.length > 0 && pathSegments[0] in AvailableLocales ? (pathSegments[0] as Locale) : null;
   } catch (error) {
-    useLoggingService().error('Error processing path:', error);
+    const { $logger } = useNuxtApp();
+    $logger.error('Error processing path:', false, error);
     return null;
   }
 }
@@ -165,7 +139,8 @@ export function removeLocaleFromPath(path: string): string {
 
     return '/' + pathSegments.join('/');
   } catch (error) {
-    useLoggingService().error('Error processing path:', error);
+    const { $logger } = useNuxtApp();
+    $logger.error('Error processing path:', false, error);
     return path; // Return original path in case of error
   }
 }
@@ -173,7 +148,8 @@ export function removeLocaleFromPath(path: string): string {
 export function handleUmbracoSingleArray(array: unknown[] | null): unknown | null {
   if (array) {
     if (array.length > 1) {
-      useLoggingService(true).error('Assumed single array is multiple:', array);
+      const { $logger } = useNuxtApp();
+      $logger.error('Assumed single array is multiple:', true, array);
     } else {
       return array[0];
     }
