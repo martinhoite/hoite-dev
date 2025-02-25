@@ -1,6 +1,6 @@
 import { joinURL, encodeParam } from 'ufo';
-import type { ProviderGetImage } from '@nuxt/image/dist/module';
-import { createOperationsGenerator } from '@nuxt/image/dist/runtime/utils';
+import type { ProviderGetImage } from '@nuxt/image';
+import { createOperationsGenerator } from '#image';
 
 const operationsGenerator = createOperationsGenerator({
   keyMap: {

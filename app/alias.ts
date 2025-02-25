@@ -6,6 +6,5 @@ export default {
   composables: path.resolve(__dirname, './composables'),
   pages: path.resolve(__dirname, './pages'),
   stores: path.resolve(__dirname, './stores'),
-  utils: path.resolve(__dirname, './utils'),
-  pinia: path.resolve(__dirname, './node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs')
+  utils: path.resolve(__dirname, './utils')
 };
