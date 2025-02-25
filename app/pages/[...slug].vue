@@ -50,7 +50,7 @@ const canonicalUrl = computed(() => {
 });
 
 const twitterImagePath = computed(() => {
-  let imagePath = settings.seoTwitterFallbackImage.url;
+  let imagePath = settings.seoTwitterFallbackImage?.url || '';
   if (pageProperties.value?.seoTwitterImage) {
     imagePath = (handleUmbracoSingleArray(pageProperties.value.seoTwitterImage) as UmbracoImage).url;
   }
@@ -58,7 +58,7 @@ const twitterImagePath = computed(() => {
 });
 
 const openGraphImagePath = computed(() => {
-  let imagePath = settings.seoOpenGraphFallbackImage.url;
+  let imagePath = settings.seoOpenGraphFallbackImage?.url || '';
   if (pageProperties.value?.seoOpenGraphImage) {
     imagePath = (handleUmbracoSingleArray(pageProperties.value.seoOpenGraphImage) as UmbracoImage).url;
   }
