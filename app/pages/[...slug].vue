@@ -76,19 +76,19 @@ useHead({
     return title ? `${title} | ${settings.metaTitleExtension}` : settings.metaTitleExtension;
   },
   meta: [
-    { name: 'description', content: pageProperties.value?.seoDecription },
+    { name: 'description', content: pageProperties.value?.seoDescription },
     {
       name: 'robots',
       content: `${pageProperties.value?.robotsIndex ? 'index' : 'noindex'} ${pageProperties.value?.robotsFollow ? 'follow' : 'nofollow'}`
     },
 
     { name: 'twitter:title', content: pageProperties.value?.seoTitle },
-    { name: 'twitter:description', content: pageProperties.value?.seoDecription },
+    { name: 'twitter:description', content: pageProperties.value?.seoDescription },
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:image', content: getMediaLink(twitterImagePath.value) },
 
     { name: 'og:title', content: pageProperties.value?.seoTitle },
-    { name: 'og:description', content: pageProperties.value?.seoDecription },
+    { name: 'og:description', content: pageProperties.value?.seoDescription },
     { name: 'og:type', content: 'website' },
     { name: 'og:url', content: `${settings.hostName}${pageData.value?.route.path}` },
     { name: 'og:image', content: getMediaLink(openGraphImagePath.value) }

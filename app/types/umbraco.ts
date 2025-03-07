@@ -97,7 +97,7 @@ export type UmbracoPageDisplaySettings = Expand<UmbracoNavigationItemProperties>
 
 export type UmbracoSeoAndMetaPageSettings = {
   seoTitle: string;
-  seoDecription: string;
+  seoDescription: string;
   seoOpenGraphImage: UmbracoImage[] | null;
   seoTwitterImage: UmbracoImage[] | null;
   canonicalURL: SimplifiedUmbracoLink | null;
