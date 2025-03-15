@@ -54,7 +54,6 @@ export type UmbracoSiteSettingsFooter = {
 };
 
 export type UmbracoSiteSettingsMeta = {
-  hostName: URLString;
   metaTitleExtension: string;
   seoOpenGraphFallbackImage: UmbracoImage;
   seoTwitterFallbackImage: UmbracoImage;
@@ -66,7 +65,6 @@ export type UmbracoSiteSettings = Expand<UmbracoSiteSettingsMeta> &
   Expand<UmbracoSiteSettingsFooter>;
 
 export type UmbracoSiteSettingsResponse = {
-  hostName: URLString | null;
   metaTitleExtension: string | null;
   seoOpenGraphFallbackImage: UmbracoImage[] | null;
   seoTwitterFallbackImage: UmbracoImage[] | null;

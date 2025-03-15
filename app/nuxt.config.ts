@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       apiBase: '',
       mediaBase: '',
       fallbackLocale: '',
-      localDevelopmentSubdomain: ''
+      localDevelopmentHost: ''
     }
   },
 
@@ -89,6 +89,9 @@ export default defineNuxtConfig({
     plugins: [ViteYaml()],
     optimizeDeps: {
       include: ['radix-vue']
+    },
+    server: {
+      allowedHosts: ['local.hoite.dev']
     }
   },
 
@@ -116,5 +119,14 @@ export default defineNuxtConfig({
     client: true
   },
 
-  compatibilityDate: '2024-07-17'
+  devServer: {
+    port: 3000,
+    host: 'local.hoite.dev',
+    https: {
+      key: './ssl/local.hoite.dev-key.pem',
+      cert: './ssl/local.hoite.dev.pem'
+    }
+  },
+
+  compatibilityDate: '2025-03-15'
 });

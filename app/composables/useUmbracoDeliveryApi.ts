@@ -15,10 +15,15 @@ export default function () {
    * @returns {string} The start item, which is either derived from the request host or the local development subdomain.
    */
   const getCurrentStartItem = (): string => {
-    const {
-      public: { localDevelopmentSubdomain }
-    } = useRuntimeConfig();
-    return getSubdomain(useRequestHeaders().host) || localDevelopmentSubdomain;
+    const requestUrl = useRequestURL();
+    if (requestUrl.hostname.includes('localhost')) {
+      const {
+        public: { localDevelopmentHost }
+      } = useRuntimeConfig();
+
+      return getSubdomain(localDevelopmentHost) || '';
+    }
+    return getSubdomain(useRequestHeaders().host) || '';
   };
 
   /**

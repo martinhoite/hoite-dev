@@ -6,6 +6,21 @@ export const useSettings = defineStore('settings', () => {
   } = useRuntimeConfig();
 
   const settings = shallowRef<UmbracoSiteSettings>({} as UmbracoSiteSettings);
+  const currentHostUrl = shallowRef<URLString>(setCurrentHostUrl());
+
+  function setCurrentHostUrl(): URLString {
+    const requestUrl = useRequestURL();
+
+    if (requestUrl.hostname.includes('localhost')) {
+      const {
+        public: { localDevelopmentHost }
+      } = useRuntimeConfig();
+
+      return `https://${localDevelopmentHost}` as URLString;
+    }
+
+    return `https://${requestUrl.host}` as URLString;
+  }
 
   async function initSettings(path: string) {
     const { getUmbracoSiteSettings } = useUmbracoDeliveryApi();
@@ -15,7 +30,6 @@ export const useSettings = defineStore('settings', () => {
 
     // TODO: Custom extension of API to send single arrays as an object for links and images.
     settings.value = {
-      hostName: settingsResponse.properties.hostName as URLString,
       metaTitleExtension: settingsResponse.properties.metaTitleExtension || '',
       seoTwitterFallbackImage: handleUmbracoSingleArray(
         settingsResponse.properties.seoTwitterFallbackImage
@@ -34,6 +48,7 @@ export const useSettings = defineStore('settings', () => {
 
   return {
     settings,
+    currentHostUrl,
     initSettings
   };
 });

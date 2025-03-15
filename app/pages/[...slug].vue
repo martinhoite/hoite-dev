@@ -4,7 +4,7 @@ import type { UmbracoPageResponse } from '~/types/umbracoDeliveryApi';
 
 const { getUmbracoContentByRoute } = useUmbracoDeliveryApi();
 const { path } = useRoute();
-const { settings } = useSettings();
+const { settings, currentHostUrl } = useSettings();
 const encodedPath = encodeURIComponent(path);
 const pageData = shallowRef<UmbracoDeliveryApiResponse<UmbracoPageResponse>>();
 
@@ -51,7 +51,7 @@ const pageHeading = computed(() => {
 });
 
 const canonicalUrl = computed(() => {
-  return `${settings.hostName}${pageData.value?.properties.canonicalURL?.url || pageData.value?.route.path}`;
+  return `${currentHostUrl}${pageData.value?.properties.canonicalURL?.url || pageData.value?.route.path}`;
 });
 
 const twitterImagePath = computed(() => {
@@ -90,7 +90,7 @@ useHead({
     { name: 'og:title', content: pageProperties.value?.seoTitle },
     { name: 'og:description', content: pageProperties.value?.seoDescription },
     { name: 'og:type', content: 'website' },
-    { name: 'og:url', content: `${settings.hostName}${pageData.value?.route.path}` },
+    { name: 'og:url', content: `${currentHostUrl}${pageData.value?.route.path}` },
     { name: 'og:image', content: getMediaLink(openGraphImagePath.value) }
   ],
   link: [
