@@ -42,7 +42,7 @@ export const useSettings = defineStore('settings', () => {
       headerLogoLink: getSingleUmbracoUrlFromArray(settingsResponse.properties.headerLogoLink) as SimplifiedUmbracoLink,
       headerLogoText: settingsResponse.properties.headerLogoText,
       footerLogo: handleUmbracoSingleArray(settingsResponse.properties.footerLogo) as UmbracoImage,
-      defaultTheme: settingsResponse.properties.defaultTheme?.toString().toLowerCase() || 'dark'
+      defaultTheme: (settingsResponse.properties.defaultTheme?.toString().toLowerCase() as Theme) || 'dark'
     };
   }
 

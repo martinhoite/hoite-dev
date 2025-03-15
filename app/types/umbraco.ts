@@ -1,3 +1,5 @@
+import type { Theme } from '.';
+
 export type UmbracoMediaExtensions = 'svg' | 'png' | 'jpg';
 export type UmbracoMediaTypes = 'Image' | 'umbracoMediaVectorGraphics';
 
@@ -38,8 +40,10 @@ export type UmbracoImage = {
   properties: unknown;
 };
 
+export type UmbracoThemeOption = 'Dark' | 'Light';
+
 export type UmbracoSiteSettingsDefaults = {
-  defaultTheme: string;
+  defaultTheme: Theme;
 };
 
 export type UmbracoSiteSettingsHeader = {
@@ -73,7 +77,7 @@ export type UmbracoSiteSettingsResponse = {
   headerLogoLink: UmbracoLink[] | null;
   headerLogoText: string | null;
   footerLogo: UmbracoImage[] | null;
-  defaultTheme: string | null;
+  defaultTheme: UmbracoThemeOption | null;
 };
 
 export type UmbracoNavigationItemProperties = {
