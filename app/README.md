@@ -1,7 +1,7 @@
 # Project information
 
-![Nuxt version](https://img.shields.io/badge/Nuxt%20version-3.12.3-00DC82)
-![Node version](https://img.shields.io/badge/Node%20version-22.3.0-026E00)
+![Nuxt version](https://img.shields.io/badge/Nuxt%20version-3.15.4-00DC82)
+![Node version](https://img.shields.io/badge/Node%20version-22.14.0-026E00)
 
 ## Stack
 - Nuxt 3
@@ -29,9 +29,40 @@ Make sure to install the dependencies:
 npm install
 ```
 
+### SSL certificates for local development
+
+`mkcert` is a simple tool for creating locally-trusted development certificates.
+
+**The following commands must be executed in a PowerShell window.**
+
+1. **Install mkcert** using [Chocolatey](https://chocolatey.org/) or download it manually from the [mkcert GitHub releases page](https://github.com/FiloSottile/mkcert/releases).
+   - **Using Chocolatey** (if you have it installed):
+     ```powershell
+     choco install mkcert -y
+     ```
+   - **Manually**:
+     1. Download `mkcert.exe` from the [releases page](https://github.com/FiloSottile/mkcert/releases).
+     2. Add `mkcert.exe` to a directory that's included in your system's `PATH` (e.g., `C:\Tools\`).
+
+2. **Install the local root CA**:
+   ```powershell
+   mkcert -install
+
+#### Navigate to the project's app folder.
+
+Run the following command to create the `ssl`folder (or do it manually)
+```powershell
+mkdir ssl
+```
+
+Generate the SSL certificates
+```powershell
+mkcert -cert-file ./ssl/local.hoite.dev.pem -key-file ./ssl/local.hoite.dev-key.pem local.hoite.dev
+```
+
 ### Development Server
 
-Start the development server on `http://localhost:3000`:
+Start the development server on `https://local.hoite.dev:3000`:
 
 ```bash
 # npm
