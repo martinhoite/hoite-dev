@@ -33,8 +33,6 @@ npm install
 
 `mkcert` is a simple tool for creating locally-trusted development certificates.
 
-**The following commands must be executed in a PowerShell window.**
-
 1. **Install mkcert** using [Chocolatey](https://chocolatey.org/) or download it manually from the [mkcert GitHub releases page](https://github.com/FiloSottile/mkcert/releases).
    - **Using Chocolatey** (if you have it installed):
      ```powershell
@@ -47,18 +45,15 @@ npm install
 2. **Install the local root CA**:
    ```powershell
    mkcert -install
+   ```
+3. **Reboot Visual Studio code**
 
-#### Navigate to the project's app folder.
+4. **Navigate to the project's app folder.**
 
-Run the following command to create the `ssl`folder (or do it manually)
-```powershell
-mkdir ssl
-```
-
-Generate the SSL certificates
-```powershell
-mkcert -cert-file ./ssl/local.hoite.dev.pem -key-file ./ssl/local.hoite.dev-key.pem local.hoite.dev
-```
+  - **Run the following command to generate the SSL certificates in the `ssl`folder**
+    ```powershell
+    mkdir ssl;  mkcert -cert-file ./ssl/local.hoite.dev.pem -key-file ./ssl/local.hoite.dev-key.pem local.hoite.dev
+    ```
 
 ### Development Server
 
