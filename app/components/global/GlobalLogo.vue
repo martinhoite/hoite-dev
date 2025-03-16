@@ -4,21 +4,18 @@ type Props = {
   logoSize?: number;
   logoLink?: SimplifiedUmbracoLink | null;
   logoText?: string | null;
-  lightThemeLogoPath: string;
-  darkThemeLogoPath: string;
 };
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   logoSize: 64,
   logoLink: undefined,
   logoText: undefined
 });
 
-const cookieTheme = useCookie('theme');
+// const cookieTheme = useCookie('theme');
 
 const logoPath = computed(() => {
-  const themeKey = `${cookieTheme.value || settings.defaultTheme}ThemeLogoPath` as keyof Props;
-  return props[themeKey] as string | null;
+  return settings.headerLogo?.url;
 });
 </script>
 <template>
@@ -27,6 +24,9 @@ const logoPath = computed(() => {
     :to="logoLink"
   >
     <NuxtImg
+      class="logo"
+      aria-hidden="true"
+      tabindex="-1"
       :width="logoSize"
       :src="getMediaLink(logoPath)"
     />
@@ -37,5 +37,21 @@ const logoPath = computed(() => {
     :width="logoSize"
     :src="getMediaLink(logoPath)"
   />
+  <img
+    :style="`--logo-size:${logoSize}px`"
+    class="logo"
+  />
 </template>
-<style lang="postcss" scoped></style>
+<style lang="postcss" scoped>
+.logo {
+  mask-size: 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  width: var(--logo-size);
+  height: var(--logo-size);
+  mask-image: url('@/assets/images/hoite_dev-logo.svg');
+  -webkit-mask-image: url(@/assets/images/hoite_dev-logo.svg);
+  background: var(--color-logo);
+}
+</style>
