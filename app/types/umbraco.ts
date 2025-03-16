@@ -40,6 +40,10 @@ export type UmbracoImage = {
   properties: unknown;
 };
 
+export type SiteSettingsLogo = Expand<Omit<UmbracoImage, 'extension'>> & {
+  extension: 'svg';
+};
+
 export type UmbracoThemeOption = 'Dark' | 'Light';
 
 export type UmbracoSiteSettingsDefaults = {
@@ -47,14 +51,13 @@ export type UmbracoSiteSettingsDefaults = {
 };
 
 export type UmbracoSiteSettingsHeader = {
-  lightThemeHeaderLogo: UmbracoImage | null;
-  darkThemeHeaderLogo: UmbracoImage | null;
+  headerLogo: SiteSettingsLogo | null;
   headerLogoLink: SimplifiedUmbracoLink | null;
   headerLogoText: string | null;
 };
 
 export type UmbracoSiteSettingsFooter = {
-  footerLogo: UmbracoImage | null;
+  footerLogo: SiteSettingsLogo | null;
 };
 
 export type UmbracoSiteSettingsMeta = {
@@ -72,8 +75,7 @@ export type UmbracoSiteSettingsResponse = {
   metaTitleExtension: string | null;
   seoOpenGraphFallbackImage: UmbracoImage[] | null;
   seoTwitterFallbackImage: UmbracoImage[] | null;
-  lightThemeHeaderLogo: UmbracoImage[] | null;
-  darkThemeHeaderLogo: UmbracoImage[] | null;
+  headerLogo: UmbracoImage[] | null;
   headerLogoLink: UmbracoLink[] | null;
   headerLogoText: string | null;
   footerLogo: UmbracoImage[] | null;

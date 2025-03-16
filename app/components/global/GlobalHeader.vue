@@ -13,10 +13,7 @@ function setTheme(newTheme: Theme) {
     <nav class="header__nav full-width">
       <BaseGridContainer class="header__temp-container">
         <GlobalLogo
-          v-if="settings.lightThemeHeaderLogo?.url && settings.darkThemeHeaderLogo?.url"
           :logo-link="settings.headerLogoLink"
-          :light-theme-logo-path="settings.lightThemeHeaderLogo?.url"
-          :dark-theme-logo-path="settings.darkThemeHeaderLogo?.url"
           :logo-text="settings.headerLogoText"
           class="header__logo"
         />

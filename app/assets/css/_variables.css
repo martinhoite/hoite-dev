@@ -45,6 +45,7 @@
       --color-darker: #222;
       --color-black: #000;
       --color-white: #fff;
+      --color-logo: #fff;
     }
 
     /* Colors based on https://bootswatch.com/flatly/ */
@@ -60,6 +61,7 @@
       --color-darker: #6d7c7d;
       --color-black: #000;
       --color-white: #fff;
+      --color-logo: #000;
       --color-dark-blue: #212529;
     }
   }

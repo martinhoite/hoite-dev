@@ -1,4 +1,4 @@
-import type { SimplifiedUmbracoLink, UmbracoImage, UmbracoSiteSettings } from '~/types/umbraco';
+import type { SimplifiedUmbracoLink, SiteSettingsLogo, UmbracoImage, UmbracoSiteSettings } from '~/types/umbraco';
 
 export const useSettings = defineStore('settings', () => {
   const {
@@ -37,11 +37,10 @@ export const useSettings = defineStore('settings', () => {
       seoOpenGraphFallbackImage: handleUmbracoSingleArray(
         settingsResponse.properties.seoOpenGraphFallbackImage
       ) as UmbracoImage,
-      lightThemeHeaderLogo: handleUmbracoSingleArray(settingsResponse.properties.lightThemeHeaderLogo) as UmbracoImage,
-      darkThemeHeaderLogo: handleUmbracoSingleArray(settingsResponse.properties.darkThemeHeaderLogo) as UmbracoImage,
+      headerLogo: handleUmbracoSingleArray(settingsResponse.properties.headerLogo) as SiteSettingsLogo,
       headerLogoLink: getSingleUmbracoUrlFromArray(settingsResponse.properties.headerLogoLink) as SimplifiedUmbracoLink,
       headerLogoText: settingsResponse.properties.headerLogoText,
-      footerLogo: handleUmbracoSingleArray(settingsResponse.properties.footerLogo) as UmbracoImage,
+      footerLogo: handleUmbracoSingleArray(settingsResponse.properties.footerLogo) as SiteSettingsLogo,
       defaultTheme: (settingsResponse.properties.defaultTheme?.toString().toLowerCase() as Theme) || 'dark'
     };
   }
