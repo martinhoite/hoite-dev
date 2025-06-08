@@ -36,7 +36,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     'nuxt-schema-org',
     '@nuxt/eslint',
-    'radix-vue/nuxt'
+    'reka-ui/nuxt'
   ],
 
   image: {
@@ -88,7 +88,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [ViteYaml()],
     optimizeDeps: {
-      include: ['radix-vue']
+      include: ['reka-ui']
     },
     server: {
       allowedHosts: ['local.hoite.dev']
@@ -128,5 +128,5 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2025-03-15'
+  compatibilityDate: '2025-06-08'
 });

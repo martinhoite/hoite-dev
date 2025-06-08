@@ -11,7 +11,7 @@
 - PostCSS
 
 ### Libraries
-- Radix-vue
+- Reka UI
 
 
 # Project setup
