@@ -16,7 +16,7 @@ export default function () {
    */
   const getCurrentStartItem = (): string => {
     const requestUrl = useRequestURL();
-    if (requestUrl.hostname.includes('localhost')) {
+    if (requestUrl.hostname.includes('local.hoite')) {
       const {
         public: { localDevelopmentHost }
       } = useRuntimeConfig();
