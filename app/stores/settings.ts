@@ -26,22 +26,21 @@ export const useSettings = defineStore('settings', () => {
     const { getUmbracoSiteSettings } = useUmbracoDeliveryApi();
     const locale = getLocaleFromPath(path) || fallbackLocale;
 
-    const settingsResponse = await getUmbracoSiteSettings(locale);
+    const { properties: siteSettings } = await getUmbracoSiteSettings(locale);
+
+    const theme = siteSettings.defaultTheme?.toString().toLowerCase();
+    const defaultTheme: Theme = AvailableThemes.includes(theme as Theme) ? (theme as Theme) : 'dark';
 
     // TODO: Custom extension of API to send single arrays as an object for links and images.
     settings.value = {
-      metaTitleExtension: settingsResponse.properties.metaTitleExtension || '',
-      seoTwitterFallbackImage: handleUmbracoSingleArray(
-        settingsResponse.properties.seoTwitterFallbackImage
-      ) as UmbracoImage,
-      seoOpenGraphFallbackImage: handleUmbracoSingleArray(
-        settingsResponse.properties.seoOpenGraphFallbackImage
-      ) as UmbracoImage,
-      headerLogo: handleUmbracoSingleArray(settingsResponse.properties.headerLogo) as SiteSettingsLogo,
-      headerLogoLink: getSingleUmbracoUrlFromArray(settingsResponse.properties.headerLogoLink) as SimplifiedUmbracoLink,
-      headerLogoText: settingsResponse.properties.headerLogoText,
-      footerLogo: handleUmbracoSingleArray(settingsResponse.properties.footerLogo) as SiteSettingsLogo,
-      defaultTheme: (settingsResponse.properties.defaultTheme?.toString().toLowerCase() as Theme) || 'dark'
+      metaTitleExtension: siteSettings.metaTitleExtension || '',
+      seoTwitterFallbackImage: handleUmbracoSingleArray<UmbracoImage>(siteSettings.seoTwitterFallbackImage),
+      seoOpenGraphFallbackImage: handleUmbracoSingleArray<UmbracoImage>(siteSettings.seoOpenGraphFallbackImage),
+      headerLogo: handleUmbracoSingleArray<SiteSettingsLogo>(siteSettings.headerLogo),
+      headerLogoLink: getSingleUmbracoUrlFromArray(siteSettings.headerLogoLink),
+      headerLogoText: siteSettings.headerLogoText,
+      footerLogo: handleUmbracoSingleArray<SiteSettingsLogo>(siteSettings.footerLogo),
+      defaultTheme
     };
   }
 

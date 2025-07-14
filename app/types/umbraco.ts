@@ -62,8 +62,8 @@ export type UmbracoSiteSettingsFooter = {
 
 export type UmbracoSiteSettingsMeta = {
   metaTitleExtension: string;
-  seoOpenGraphFallbackImage: UmbracoImage;
-  seoTwitterFallbackImage: UmbracoImage;
+  seoOpenGraphFallbackImage: UmbracoImage | null;
+  seoTwitterFallbackImage: UmbracoImage | null;
 };
 
 export type UmbracoSiteSettings = Expand<UmbracoSiteSettingsMeta> &
@@ -75,10 +75,10 @@ export type UmbracoSiteSettingsResponse = {
   metaTitleExtension: string | null;
   seoOpenGraphFallbackImage: UmbracoImage[] | null;
   seoTwitterFallbackImage: UmbracoImage[] | null;
-  headerLogo: UmbracoImage[] | null;
+  headerLogo: SiteSettingsLogo[] | null;
   headerLogoLink: UmbracoLink[] | null;
   headerLogoText: string | null;
-  footerLogo: UmbracoImage[] | null;
+  footerLogo: SiteSettingsLogo[] | null;
   defaultTheme: UmbracoThemeOption | null;
 };
 

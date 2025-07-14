@@ -145,7 +145,18 @@ export function removeLocaleFromPath(path: string): string {
   }
 }
 
-export function handleUmbracoSingleArray(array: unknown[] | null): unknown | null {
+/**
+ * Extracts a single item from a (possibly nullable) array that is expected to contain at most one element.
+ *
+ * If the array has more than one item, an error is logged via the Nuxt $logger.
+ * Returns the first item if the array has exactly one item.
+ * Returns null if the array is null, empty, or has multiple items.
+ *
+ * @template T The expected type of the array item.
+ * @param {T[] | null} array - The array to extract a single item from.
+ * @returns {T | null} The single item from the array, or null.
+ */
+export function handleUmbracoSingleArray<T = unknown>(array: T[] | null): T | null {
   if (array) {
     if (array.length > 1) {
       const { $logger } = useNuxtApp();
