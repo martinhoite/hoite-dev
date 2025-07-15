@@ -1,4 +1,4 @@
-import type { SimplifiedUmbracoLink, SiteSettingsLogo, UmbracoImage, UmbracoSiteSettings } from '~/types/umbraco';
+import type { SiteSettingsLogo, UmbracoImage, UmbracoSiteSettings } from '~/types/umbraco';
 
 export const useSettings = defineStore('settings', () => {
   const {
@@ -10,13 +10,15 @@ export const useSettings = defineStore('settings', () => {
 
   function setCurrentHostUrl(): URLString {
     const requestUrl = useRequestURL();
+    const {
+      public: { localDevelopmentHost, localContentHost }
+    } = useRuntimeConfig();
 
-    if (requestUrl.hostname.includes('local.hoite')) {
-      const {
-        public: { localDevelopmentHost }
-      } = useRuntimeConfig();
+    const hostname = requestUrl.hostname.toLowerCase();
+    const localHost = localDevelopmentHost.toLowerCase();
 
-      return `https://${localDevelopmentHost}` as URLString;
+    if (hostname === localHost || hostname.endsWith(`.${localHost}`)) {
+      return `https://${localContentHost}` as URLString;
     }
 
     return `https://${requestUrl.host}` as URLString;
@@ -24,9 +26,14 @@ export const useSettings = defineStore('settings', () => {
 
   async function initSettings(path: string) {
     const { getUmbracoSiteSettings } = useUmbracoDeliveryApi();
-    const locale = getLocaleFromPath(path) || fallbackLocale;
+    const locale = getLocaleFromPath(path) || (fallbackLocale as Locale);
 
-    const { properties: siteSettings } = await getUmbracoSiteSettings(locale);
+    const siteSettingsResponse = await getUmbracoSiteSettings(locale);
+    if (!siteSettingsResponse) {
+      throw new Error(`Missing site settings for locale "${locale}"`);
+    }
+
+    const { properties: siteSettings } = siteSettingsResponse;
 
     const theme = siteSettings.defaultTheme?.toString().toLowerCase();
     const defaultTheme: Theme = AvailableThemes.includes(theme as Theme) ? (theme as Theme) : 'dark';

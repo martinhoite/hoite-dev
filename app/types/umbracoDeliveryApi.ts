@@ -1,7 +1,7 @@
 import type { Locale } from 'types';
 import type { ISODateOnlyString } from 'types/utilityTypes';
 
-export type UmbracoContentTypes = 'website' | 'contentPage';
+export type UmbracoContentTypes = 'frontpage' | 'contentPage';
 
 export type UmbracoDeliveryApiStartItem = {
   id: string;
@@ -111,7 +111,7 @@ type SortPattern =
   | SortBySortOrderPattern;
 
 export type UmbracoContentParameters = {
-  fetch: 'fetch' | AncestorsParameterPattern | ChildrenParameterPattern | DescendantsParameterPattern;
+  fetch?: AncestorsParameterPattern | ChildrenParameterPattern | DescendantsParameterPattern;
   filter?: FilterPattern | FilterPattern[];
   sort?: SortPattern | SortPattern[];
   skip?: number;

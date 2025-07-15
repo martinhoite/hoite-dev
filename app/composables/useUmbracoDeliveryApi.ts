@@ -16,12 +16,15 @@ export default function () {
    */
   const getCurrentStartItem = (): string => {
     const requestUrl = useRequestURL();
-    if (requestUrl.hostname.includes('local.hoite')) {
-      const {
-        public: { localDevelopmentHost }
-      } = useRuntimeConfig();
+    const {
+      public: { localDevelopmentHost, localContentHost }
+    } = useRuntimeConfig();
 
-      return getSubdomain(localDevelopmentHost) || '';
+    const hostname = requestUrl.hostname.toLowerCase();
+    const localHost = localDevelopmentHost.toLowerCase();
+
+    if (hostname === localHost || hostname.endsWith(`.${localHost}`)) {
+      return getSubdomain(localContentHost) || '';
     }
     return getSubdomain(useRequestHeaders().host) || '';
   };
@@ -95,8 +98,18 @@ export default function () {
    * @param {string} locale - The locale to fetch site settings for.
    * @returns {Promise<UseFetchResponse<UmbracoSiteSettingsResponse<PropertiesType>>>} The fetch response with Umbraco site settings.
    */
-  const getUmbracoSiteSettings = <PropertiesType = UmbracoSiteSettingsResponse>(locale: string) => {
-    return getUmbracoContentByRoute<PropertiesType>(`/${locale}/settings`);
+  const getUmbracoSiteSettings = async (locale: Locale) => {
+    const allSiteSettings = await getUmbracoContent<UmbracoSiteSettingsResponse>({
+      filter: `contentType:${'siteSettings' as UmbracoAlias}`,
+      fields: 'properties[$all]'
+    });
+
+    const matching = allSiteSettings?.items.find((item) => {
+      const cultureInfo = item.cultures?.[locale];
+      return cultureInfo?.path?.startsWith(`/${locale}`);
+    });
+
+    return matching ?? null;
   };
 
   /**

@@ -9,25 +9,19 @@ const encodedPath = encodeURIComponent(path);
 const pageData = shallowRef<UmbracoDeliveryApiResponse<UmbracoPageResponse>>();
 
 async function getPageData() {
-  try {
-    const { data, error } = await useAsyncData(encodedPath, () => getUmbracoContentByRoute(path), { deep: false });
+  const { data, error } = await useAsyncData(encodedPath, () => getUmbracoContentByRoute(path), { deep: false });
 
-    if (!data.value || error.value) {
-      throw createError({
-        statusCode: 404,
-        fatal: true
-      });
-    }
-
-    pageData.value = data.value;
-  } catch (caughtError) {
-    devOnlyConsoleLog('Failed getting pageData in slug', 'error', caughtError);
+  if (!data.value || error.value) {
+    devOnlyConsoleLog('Failed getting pageData in slug', 'error', error.value);
     throw createError({
-      message: 'Failed to get page content, please try again later - and / or inform martin@hoite.dev',
-      statusCode: 500,
+      statusCode: error.value?.statusCode ?? 500,
+      message:
+        error.value?.message ?? 'Failed to get page content, please try again later - and / or inform martin@hoite.dev',
       fatal: true
     });
   }
+
+  pageData.value = data.value;
 }
 
 await getPageData();
@@ -35,7 +29,7 @@ await getPageData();
 const contentPageView = resolveComponent('ViewsContentPage');
 let viewComponent: ConcreteComponent | string | null = null;
 switch (pageData.value?.contentType) {
-  case 'website':
+  case 'frontpage':
     break;
   case 'contentPage':
     viewComponent = contentPageView;
@@ -55,19 +49,19 @@ const canonicalUrl = computed(() => {
 });
 
 const twitterImagePath = computed(() => {
-  let imagePath = settings.seoTwitterFallbackImage?.url || '';
-  if (pageProperties.value?.seoTwitterImage) {
-    imagePath = (handleUmbracoSingleArray(pageProperties.value.seoTwitterImage) as UmbracoImage).url;
+  const image = pageProperties.value?.seoTwitterImage;
+  if (image) {
+    return (handleUmbracoSingleArray(image) as UmbracoImage).url;
   }
-  return imagePath;
+  return settings.seoTwitterFallbackImage?.url || '';
 });
 
 const openGraphImagePath = computed(() => {
-  let imagePath = settings.seoOpenGraphFallbackImage?.url || '';
-  if (pageProperties.value?.seoOpenGraphImage) {
-    imagePath = (handleUmbracoSingleArray(pageProperties.value.seoOpenGraphImage) as UmbracoImage).url;
+  const image = pageProperties.value?.seoOpenGraphImage;
+  if (image) {
+    return (handleUmbracoSingleArray(image) as UmbracoImage).url;
   }
-  return imagePath;
+  return settings.seoOpenGraphFallbackImage?.url || '';
 });
 
 useHead({
@@ -115,14 +109,14 @@ useHead({
   <h1 class="page-heading">{{ pageHeading }}</h1>
   <KitchenSink />
   <!-- <h2>Settings</h2>
-    <pre>
+  <pre>
       <code>
         {{ settings }}
       </code>
      </pre>
-    <hr />
-    <h2>Page data</h2>
-    <pre>
+  <hr />
+  <h2>Page data</h2>
+  <pre>
       <code>
         {{ pageData }}
       </code>

@@ -10,7 +10,8 @@ export default defineNuxtConfig({
       apiBase: '',
       mediaBase: '',
       fallbackLocale: '',
-      localDevelopmentHost: ''
+      localDevelopmentHost: '',
+      localContentHost: ''
     }
   },
 
@@ -128,5 +129,5 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2025-06-08'
+  compatibilityDate: '2025-07-15'
 });

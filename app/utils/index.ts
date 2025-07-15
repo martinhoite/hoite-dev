@@ -32,7 +32,7 @@ export function useDOM(): { window: Window | null; document: Document | null } |
  * @param {ConsoleLogTypes} logType - The type of log (e.g., 'log', 'info', 'warn', 'error').
  * @param {unknown} [data=null] - Optional additional data to be logged with the message.
  */
-export function devOnlyConsoleLog(logStatement: string, logType: ConsoleLogTypes, data: unknown = null) {
+export function devOnlyConsoleLog(logStatement: string, logType: ConsoleLogTypes = 'info', data: unknown = null) {
   if (import.meta.server) return;
 
   const { $logger } = useNuxtApp();
@@ -107,7 +107,11 @@ export function getLocaleFromUrl(url: URLString) {
 export function getLocaleFromPath(path: string): Locale | null {
   try {
     const pathSegments = path.split('/').filter((segment) => segment.length > 0);
-    return pathSegments.length > 0 && pathSegments[0] in AvailableLocales ? (pathSegments[0] as Locale) : null;
+
+    const potentialLocale = pathSegments[0];
+    const isValidLocale = AvailableLocales.includes(potentialLocale as Locale);
+
+    return isValidLocale ? (potentialLocale as Locale) : null;
   } catch (error) {
     const { $logger } = useNuxtApp();
     $logger.error('Error processing path:', false, error);
@@ -133,8 +137,8 @@ export function removeLocaleFromPath(path: string): string {
   try {
     const pathSegments = path.split('/').filter((segment) => segment.length > 0);
 
-    if (pathSegments.length > 0) {
-      pathSegments.shift(); // Remove the first segment (locale)
+    if (pathSegments.length > 0 && AvailableLocales.includes(pathSegments[0] as (typeof AvailableLocales)[number])) {
+      pathSegments.shift();
     }
 
     return '/' + pathSegments.join('/');
