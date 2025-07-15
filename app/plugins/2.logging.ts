@@ -1,15 +1,14 @@
+// plugins/2.logging.ts
 import { LoggingService } from '~/services/loggingService';
 
 export default defineNuxtPlugin(() => {
-  if (!import.meta.server) {
-    return;
-  }
+  const environment = process.env.NUXT_PUBLIC_ENVIRONMENT || useRuntimeConfig().public.environment || 'development';
 
-  const environment = process.env.NUXT_PUBLIC_ENVIRONMENT || 'development';
+  const logger = new LoggingService(environment);
 
   return {
     provide: {
-      logger: new LoggingService(environment)
+      logger
     }
   };
 });
