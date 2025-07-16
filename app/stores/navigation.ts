@@ -44,7 +44,7 @@ export const useNavigation = defineStore('navigation', () => {
     if (navigationItemsResponse) {
       navigationItems.value = buildNavigation(navigationItemsResponse.items);
     } else {
-      devOnlyConsoleLog('Failed to get navigationItems during navigation init');
+      devOnlyConsoleLog('Failed to get navigationItems during navigation init', 'error');
     }
   }
 
