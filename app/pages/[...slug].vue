@@ -67,7 +67,21 @@ const openGraphImagePath = computed(() => {
 useHead({
   title: pageData.value?.properties.seoTitle,
   titleTemplate(title: string | undefined) {
-    return title ? `${title} | ${settings.metaTitleExtension}` : settings.metaTitleExtension;
+    const extension = settings.metaTitleExtension?.trim();
+
+    if (title && extension) {
+      return `${title} | ${extension}`;
+    }
+
+    if (title) {
+      return title;
+    }
+
+    if (extension) {
+      return extension;
+    }
+
+    return null;
   },
   meta: [
     { name: 'description', content: pageProperties.value?.seoDescription },
@@ -108,7 +122,7 @@ useHead({
 <template>
   <h1 class="page-heading">{{ pageHeading }}</h1>
   <KitchenSink />
-  <!-- <h2>Settings</h2>
+  <h2>Settings</h2>
   <pre>
       <code>
         {{ settings }}
@@ -120,7 +134,7 @@ useHead({
       <code>
         {{ pageData }}
       </code>
-    </pre> -->
+    </pre>
   <component
     :is="viewComponent"
     v-if="viewComponent"
