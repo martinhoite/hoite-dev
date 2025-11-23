@@ -29,10 +29,12 @@ export type UmbracoDeliveryApiResponse<ContentProperties = unknown> = {
   cultures: UmbracoDeliveryApiCultures;
 };
 
-export type UmbracoPageResponse = ExpandRecursively<UmbracoSeoAndMetaPageSettings> &
-  ExpandRecursively<UmbracoPageDisplaySettings> & {
-    blocks?: unknown;
-  };
+export type UmbracoPageResponse = ExpandRecursively<
+  UmbracoSeoAndMetaPageSettings &
+    UmbracoPageDisplaySettings & {
+      blocks?: unknown;
+    }
+>;
 
 export type UmbracoContentResponse<ItemType> = {
   total: number;

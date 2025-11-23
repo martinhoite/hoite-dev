@@ -14,13 +14,15 @@ export type SimplifiedUmbracoLink = {
   target: '_blank' | '_self' | '_parent' | '_top' | null;
 };
 
-export type UmbracoLink = Expand<SimplifiedUmbracoLink> & {
-  queryString: string | string[] | null;
-  destinationId: string;
-  destinationType: string;
-  route: UmbracoRoute;
-  linkType: 'Content' | string;
-};
+export type UmbracoLink = Expand<
+  SimplifiedUmbracoLink & {
+    queryString: string | string[] | null;
+    destinationId: string;
+    destinationType: string;
+    route: UmbracoRoute;
+    linkType: 'Content' | string;
+  }
+>;
 
 export type UmbracoImageFocalPoint = {
   left: number;
@@ -40,9 +42,11 @@ export type UmbracoImage = {
   properties: unknown;
 };
 
-export type SiteSettingsLogo = Expand<Omit<UmbracoImage, 'extension'>> & {
-  extension: 'svg';
-};
+export type SiteSettingsLogo = Expand<
+  Omit<UmbracoImage, 'extension'> & {
+    extension: 'svg';
+  }
+>;
 
 export type UmbracoThemeOption = 'Dark' | 'Light';
 
@@ -66,10 +70,9 @@ export type UmbracoSiteSettingsMeta = {
   seoTwitterFallbackImage: UmbracoImage | null;
 };
 
-export type UmbracoSiteSettings = Expand<UmbracoSiteSettingsMeta> &
-  Expand<UmbracoSiteSettingsDefaults> &
-  Expand<UmbracoSiteSettingsHeader> &
-  Expand<UmbracoSiteSettingsFooter>;
+export type UmbracoSiteSettings = Expand<
+  UmbracoSiteSettingsMeta & UmbracoSiteSettingsDefaults & UmbracoSiteSettingsHeader & UmbracoSiteSettingsFooter
+>;
 
 export type UmbracoSiteSettingsResponse = {
   metaTitleExtension: string | null;
@@ -93,11 +96,13 @@ export type UmbracoNavigationItem = {
   children?: UmbracoNavigationItem[] | null;
 };
 
-export type UmbracoPageDisplaySettings = Expand<UmbracoNavigationItemProperties> & {
-  includeInSearch: boolean;
-  includeInSiteMap: boolean;
-  showBreadcrumbs: boolean;
-};
+export type UmbracoPageDisplaySettings = Expand<
+  UmbracoNavigationItemProperties & {
+    includeInSearch: boolean;
+    includeInSiteMap: boolean;
+    showBreadcrumbs: boolean;
+  }
+>;
 
 export type UmbracoSeoAndMetaPageSettings = {
   seoTitle: string;
