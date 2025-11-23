@@ -31,11 +31,11 @@ export default withNuxt(
         'error',
         {
           name: 'window',
-          message: 'Use useDOM() instead'
+          message: 'Use useDom() instead'
         },
         {
           name: 'document',
-          message: 'Use useDOM() instead'
+          message: 'Use useDom() instead'
         }
       ]
     }

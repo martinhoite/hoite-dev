@@ -7,7 +7,7 @@ import type { ConsoleLogTypes, Locale } from 'types';
  *
  * @returns {{ window: Window | null, document: Document | null }} An object containing window and document objects, or null if running in a server-side environment.
  */
-export function useDOM(): { window: Window | null; document: Document | null } | null {
+export function useDom(): { window: Window | null; document: Document | null } | null {
   // Check if running in a server-side environment (not in browser)
   // eslint-disable-next-line no-restricted-globals
   if (typeof window === 'undefined' || typeof document === 'undefined') {

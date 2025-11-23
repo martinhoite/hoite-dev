@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const dom = useDOM();
+const dom = useDom();
 const windowWidth = ref<number | null | undefined>(dom?.window?.innerWidth);
 
 const activeColor = 'green';
