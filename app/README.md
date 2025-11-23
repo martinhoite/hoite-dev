@@ -1,7 +1,7 @@
 # Project information
 
-![Nuxt version](https://img.shields.io/badge/Nuxt%20version-3.15.4-00DC82)
-![Node version](https://img.shields.io/badge/Node%20version-22.14.0-026E00)
+![Nuxt version](https://img.shields.io/badge/Nuxt%20version-4.2.1-00DC82)
+![Node version](https://img.shields.io/badge/Node%20version-24.11.1-026E00)
 
 ## Stack
 - Nuxt 3
@@ -55,6 +55,14 @@ npm install
     mkdir ssl;  mkcert -cert-file ./ssl/local.hoite.dev.pem -key-file ./ssl/local.hoite.dev-key.pem local.hoite.dev
     ```
 
+### Working with HTTPS locally
+
+If you're running the Umbraco instance locally, its self-signed certificate is not trusted by Node. Server side requests from the frontend may fail because of this. As a workaround, add the following to your local `.env` file:
+```NODE_TLS_REJECT_UNAUTHORIZED=0```
+
+This is only required for local development and **must not** be used in staging or production. The underlying trust issue may be resolved later so this workaround is no longer needed.
+
+---
 ### Development Server
 
 Start the development server on `https://local.hoite.dev:3000`:
