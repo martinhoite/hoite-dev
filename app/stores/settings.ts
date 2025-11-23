@@ -2,33 +2,28 @@ import type { SiteSettingsLogo, UmbracoImage, UmbracoSiteSettings } from '~/type
 
 export const useSettings = defineStore('settings', () => {
   const {
-    public: { fallbackLocale }
+    public: { fallbackLocale },
+    dev: { localContentHost }
   } = useRuntimeConfig();
+  const { getCurrentHost, isLocalhost } = useHost();
 
   const settings = shallowRef<UmbracoSiteSettings>({} as UmbracoSiteSettings);
   const currentHostUrl = shallowRef<URLString>(setCurrentHostUrl());
 
   function setCurrentHostUrl(): URLString {
-    const requestUrl = useRequestURL();
-    const {
-      public: { localDevelopmentHost, localContentHost }
-    } = useRuntimeConfig();
-
-    const hostname = requestUrl.hostname.toLowerCase();
-    const localHost = localDevelopmentHost.toLowerCase();
-
-    if (hostname === localHost || hostname.endsWith(`.${localHost}`)) {
+    if (isLocalhost()) {
       return `https://${localContentHost}` as URLString;
     }
 
-    return `https://${requestUrl.host}` as URLString;
+    const hostWithPort = getCurrentHost();
+    return `https://${hostWithPort}` as URLString;
   }
 
   async function initSettings(path: string) {
     const { getUmbracoSiteSettings } = useUmbracoDeliveryApi();
     const locale = getLocaleFromPath(path) || (fallbackLocale as Locale);
 
-    const siteSettingsResponse = await getUmbracoSiteSettings(locale);
+    const siteSettingsResponse = await getUmbracoSiteSettings({ locale });
     if (!siteSettingsResponse) {
       throw new Error(`Missing site settings for locale "${locale}"`);
     }
