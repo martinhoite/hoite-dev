@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import type { UmbracoPageResponse } from '~/types/umbracoDeliveryApi';
+import type { UmbracoDeliveryApiResponse, UmbracoPageResponse } from '~/types/umbracoDeliveryApi';
 
 import type { ConcreteComponent } from 'vue';
 
+const route = useRoute();
 const { getUmbracoContentByRoute } = useUmbracoDeliveryApi();
-const { path } = useRoute();
 const { settings, currentHostUrl } = useSettings();
+
+const path = route.path;
 const encodedPath = encodeURIComponent(path);
-const pageData = shallowRef<UmbracoDeliveryApiResponse<UmbracoPageResponse>>();
 
-async function getPageData() {
-  const { data, error } = await useAsyncData(encodedPath, () => getUmbracoContentByRoute(path), { deep: false });
+const { data: pageData, error: pageError } = await useAsyncData<UmbracoDeliveryApiResponse<UmbracoPageResponse>>(
+  `page:${encodedPath}`,
+  () => getUmbracoContentByRoute({ path }),
+  { deep: false },
+);
 
-  if (!data.value || error.value) {
-    devOnlyConsoleLog('Failed getting pageData in slug', 'error', error.value);
-    throw createError({
-      statusCode: error.value?.statusCode ?? 500,
-      message:
-        error.value?.message ?? 'Failed to get page content, please try again later - and / or inform martin@hoite.dev',
-      fatal: true
-    });
-  }
+if (pageError.value || !pageData.value) {
+  devOnlyConsoleLog('Failed getting pageData in slug', 'error', pageError.value);
 
-  pageData.value = data.value;
+  throw createError({
+    statusCode: pageError.value?.statusCode ?? 500,
+    statusMessage:
+      pageError.value?.message ??
+      'Failed to get page content, please try again later - and / or inform martin@hoite.dev',
+  });
 }
-
-await getPageData();
 
 const contentPageView = resolveComponent('ViewsContentPage');
 let viewComponent: ConcreteComponent | string | null = null;
@@ -37,13 +37,9 @@ switch (pageData.value?.contentType) {
     break;
 }
 
-const pageProperties = computed(() => {
-  return pageData.value?.properties;
-});
+const pageProperties = computed(() => pageData.value?.properties);
 
-const pageHeading = computed(() => {
-  return pageData.value?.name;
-});
+const pageHeading = computed(() => pageData.value?.name);
 
 const canonicalUrl = computed(() => {
   return `${currentHostUrl}${pageData.value?.properties.canonicalURL?.url || pageData.value?.route.path}`;
@@ -88,7 +84,7 @@ useHead({
     { name: 'description', content: pageProperties.value?.seoDescription },
     {
       name: 'robots',
-      content: `${pageProperties.value?.robotsIndex ? 'index' : 'noindex'} ${pageProperties.value?.robotsFollow ? 'follow' : 'nofollow'}`
+      content: `${pageProperties.value?.robotsIndex ? 'index' : 'noindex'} ${pageProperties.value?.robotsFollow ? 'follow' : 'nofollow'}`,
     },
 
     { name: 'twitter:title', content: pageProperties.value?.seoTitle },
@@ -100,26 +96,27 @@ useHead({
     { name: 'og:description', content: pageProperties.value?.seoDescription },
     { name: 'og:type', content: 'website' },
     { name: 'og:url', content: `${currentHostUrl}${pageData.value?.route.path}` },
-    { name: 'og:image', content: getMediaLink(openGraphImagePath.value) }
+    { name: 'og:image', content: getMediaLink(openGraphImagePath.value) },
   ],
   link: [
     {
       rel: 'canonical',
-      href: canonicalUrl
+      href: canonicalUrl,
     },
     {
       rel: 'icon',
       type: 'image/svg+xml',
-      href: '/favicon.svg'
+      href: '/favicon.svg',
     },
     {
       rel: 'icon',
       type: 'image/png',
-      href: '/favicon.png'
-    }
-  ]
+      href: '/favicon.png',
+    },
+  ],
 });
 </script>
+
 <template>
   <h1 class="page-heading">{{ pageHeading }}</h1>
   <KitchenSink />
