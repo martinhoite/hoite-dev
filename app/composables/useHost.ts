@@ -1,6 +1,6 @@
 export default function useHost() {
   const {
-    dev: { localDevelopmentHost }
+    public: { localDevelopmentHost }
   } = useRuntimeConfig();
 
   /**

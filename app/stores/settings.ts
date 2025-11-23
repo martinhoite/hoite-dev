@@ -2,8 +2,7 @@ import type { SiteSettingsLogo, UmbracoImage, UmbracoSiteSettings } from '~/type
 
 export const useSettings = defineStore('settings', () => {
   const {
-    public: { fallbackLocale },
-    dev: { localContentHost }
+    public: { fallbackLocale, localContentHost }
   } = useRuntimeConfig();
   const { getCurrentHost, isLocalhost } = useHost();
 

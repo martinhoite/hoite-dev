@@ -5,16 +5,14 @@ import alias from './alias';
 const LOCAL_DEVELOPMENT_HOST = 'local.hoite.dev';
 const LOCAL_CONTENT_HOST = 'martin.hoite.dev';
 
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
+// https://nuxt.com/docs/4.x/api/nuxt-config
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       environment: '',
       apiBase: '',
       mediaBase: '',
-      fallbackLocale: ''
-    },
-    dev: {
+      fallbackLocale: '',
       localDevelopmentHost: LOCAL_DEVELOPMENT_HOST,
       localContentHost: LOCAL_CONTENT_HOST
     }
@@ -134,5 +132,5 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2025-07-15'
+  compatibilityDate: '2025-11-23'
 });

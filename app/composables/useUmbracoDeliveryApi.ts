@@ -18,7 +18,7 @@ export default function () {
    */
   const getCurrentStartItem = (): string => {
     const {
-      dev: { localContentHost }
+      public: { localContentHost }
     } = useRuntimeConfig();
 
     const hostname = getNormalizedHostname();
