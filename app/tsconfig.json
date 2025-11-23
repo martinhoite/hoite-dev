@@ -1,9 +1,8 @@
 {
-  // https://v3.nuxtjs.org/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json",
+    "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "types": [
-      "@modyfi/vite-plugin-yaml/modules",
+    "strict": true,
+    "types": ["@modyfi/vite-plugin-yaml/modules",
     ],
     "allowSyntheticDefaultImports": true
   }
