@@ -1,4 +1,5 @@
 import ViteYaml from '@modyfi/vite-plugin-yaml';
+
 import alias from './alias';
 
 const LOCAL_DEVELOPMENT_HOST = 'local.hoite.dev';

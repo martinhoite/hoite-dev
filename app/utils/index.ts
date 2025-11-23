@@ -1,4 +1,5 @@
 import { AvailableLocales } from 'types';
+
 import type { ConsoleLogTypes, Locale } from 'types';
 
 /**

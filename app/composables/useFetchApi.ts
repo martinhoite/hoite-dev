@@ -1,4 +1,5 @@
 import { $fetch } from 'ofetch';
+
 import type { FetchOptions } from 'ofetch';
 
 /**

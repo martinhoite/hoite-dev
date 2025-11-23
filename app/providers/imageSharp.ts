@@ -1,5 +1,5 @@
-import { joinURL, encodeParam } from 'ufo';
 import { createOperationsGenerator, defineProvider } from '@nuxt/image/runtime';
+import { joinURL, encodeParam } from 'ufo';
 
 const operationsGenerator = createOperationsGenerator({
   keyMap: {

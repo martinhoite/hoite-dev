@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { ConcreteComponent } from 'vue';
 import type { UmbracoPageResponse } from '~/types/umbracoDeliveryApi';
+
+import type { ConcreteComponent } from 'vue';
 
 const { getUmbracoContentByRoute } = useUmbracoDeliveryApi();
 const { path } = useRoute();

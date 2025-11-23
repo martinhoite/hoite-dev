@@ -1,5 +1,6 @@
-import type { Locale } from 'types';
 import type { ISODateOnlyString } from '~/types/opaqueTypes';
+
+import type { Locale } from 'types';
 
 export type UmbracoContentTypes = 'frontpage' | 'contentPage';
 
