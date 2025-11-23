@@ -1,4 +1,3 @@
-import { defineNuxtConfig } from 'nuxt/config';
 import ViteYaml from '@modyfi/vite-plugin-yaml';
 import alias from './alias';
 
@@ -47,7 +46,6 @@ export default defineNuxtConfig({
     inject: true,
     providers: {
       customProvider: {
-        name: 'imageSharp',
         provider: '~/providers/imageSharp'
       }
     },
@@ -101,6 +99,16 @@ export default defineNuxtConfig({
 
   imports: {
     dirs: ['stores', 'types/*.ts', 'types/**/*.ts']
+  },
+
+  typescript: {
+    strict: true,
+    sharedTsConfig: {
+      compilerOptions: {
+        allowSyntheticDefaultImports: true,
+        types: ['@modyfi/vite-plugin-yaml/modules']
+      }
+    }
   },
 
   alias: {
