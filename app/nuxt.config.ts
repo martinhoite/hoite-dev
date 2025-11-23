@@ -2,6 +2,9 @@ import { defineNuxtConfig } from 'nuxt/config';
 import ViteYaml from '@modyfi/vite-plugin-yaml';
 import alias from './alias';
 
+const LOCAL_DEVELOPMENT_HOST = 'local.hoite.dev';
+const LOCAL_CONTENT_HOST = 'martin.hoite.dev';
+
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   runtimeConfig: {
@@ -9,9 +12,11 @@ export default defineNuxtConfig({
       environment: '',
       apiBase: '',
       mediaBase: '',
-      fallbackLocale: '',
-      localDevelopmentHost: '',
-      localContentHost: ''
+      fallbackLocale: ''
+    },
+    dev: {
+      localDevelopmentHost: LOCAL_DEVELOPMENT_HOST,
+      localContentHost: LOCAL_CONTENT_HOST
     }
   },
 
@@ -92,7 +97,7 @@ export default defineNuxtConfig({
       include: ['reka-ui']
     },
     server: {
-      allowedHosts: ['local.hoite.dev']
+      allowedHosts: [LOCAL_DEVELOPMENT_HOST]
     }
   },
 
@@ -122,10 +127,10 @@ export default defineNuxtConfig({
 
   devServer: {
     port: 3000,
-    host: 'local.hoite.dev',
+    host: LOCAL_DEVELOPMENT_HOST,
     https: {
-      key: './ssl/local.hoite.dev-key.pem',
-      cert: './ssl/local.hoite.dev.pem'
+      key: `./ssl/${LOCAL_DEVELOPMENT_HOST}-key.pem`,
+      cert: `./ssl/${LOCAL_DEVELOPMENT_HOST}.pem`
     }
   },
 
