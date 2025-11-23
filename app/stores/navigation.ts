@@ -6,7 +6,7 @@ export const useNavigation = defineStore('navigation', () => {
   function buildNavigation(
     navigationItemsResponse: UmbracoDeliveryApiResponse<UmbracoNavigationItemProperties>[]
   ): UmbracoNavigationItem[] {
-    const lookup: { [key: string]: UmbracoNavigationItem } = {};
+    const lookup: Record<string, UmbracoNavigationItem> = {};
 
     navigationItemsResponse.forEach((item) => {
       if (item.properties.includeInNavigation) {
@@ -21,17 +21,29 @@ export const useNavigation = defineStore('navigation', () => {
     const rootItems: UmbracoNavigationItem[] = [];
 
     navigationItemsResponse.forEach((item) => {
+      const currentNavItem = lookup[item.id];
+      if (!currentNavItem) return;
+
       const itemPathSegments = item.route.path.split('/').filter((segment) => segment);
 
       if (itemPathSegments.length > 2) {
         const parentPath = `/${itemPathSegments.slice(0, -1).join('/')}/`;
         const parentItem = navigationItemsResponse.find((apiResponse) => apiResponse.route.path === parentPath);
 
-        if (parentItem && parentItem.properties.includeChildrenInNavigation) {
-          lookup[parentItem.id].children!.push(lookup[item.id]);
+        if (!parentItem) {
+          rootItems.push(currentNavItem);
+          return;
+        }
+
+        const parentNavItem = lookup[parentItem.id];
+
+        if (parentNavItem && parentItem.properties.includeChildrenInNavigation) {
+          parentNavItem.children?.push(currentNavItem);
+        } else {
+          rootItems.push(currentNavItem);
         }
       } else {
-        rootItems.push(lookup[item.id]);
+        rootItems.push(currentNavItem);
       }
     });
 
@@ -55,5 +67,5 @@ export const useNavigation = defineStore('navigation', () => {
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useSettings, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useNavigation, import.meta.hot));
 }
