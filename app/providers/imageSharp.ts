@@ -1,6 +1,5 @@
 import { joinURL, encodeParam } from 'ufo';
-import type { ProviderGetImage } from '@nuxt/image';
-import { createOperationsGenerator } from '#image';
+import { createOperationsGenerator, defineProvider } from '@nuxt/image/runtime';
 
 const operationsGenerator = createOperationsGenerator({
   keyMap: {
@@ -16,11 +15,12 @@ const operationsGenerator = createOperationsGenerator({
   formatter: (key: string | number, val: string | number) => encodeParam(key) + '=' + encodeParam(val)
 });
 
-// import {} from '#image'
-export const getImage: ProviderGetImage = (src, { modifiers } = {}) => {
-  const params = operationsGenerator(modifiers) || '';
+export default defineProvider({
+  getImage(src, { modifiers }) {
+    const params = operationsGenerator(modifiers) || '';
 
-  return {
-    url: joinURL(src + (params ? '?' + params : ''))
-  };
-};
+    return {
+      url: joinURL(src + (params ? '?' + params : ''))
+    };
+  }
+});
