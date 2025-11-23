@@ -4,18 +4,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 export default withNuxt(
   {
     files: ['**/*.{js,ts,vue}'],
-    ignores: [
-      '.gitignore',
-      '**/*.css',
-      '*.log*',
-      '.nuxt',
-      '.nitro',
-      '.cache',
-      '.output',
-      '.env',
-      'dist',
-      '.DS_Store',
-    ],
+    ignores: ['.gitignore', '**/*.css', '*.log*', '.nuxt', '.nitro', '.cache', '.output', '.env', 'dist', '.DS_Store'],
     rules: {
       camelcase: 'off',
       'no-extra-boolean-cast': 'off',
@@ -29,12 +18,8 @@ export default withNuxt(
         },
       ],
       'vue/comment-directive': 'off',
-      semi: ['error', 'always'],
-      'vue/singleline-html-element-content-newline': 'off',
-      'vue/html-indent': 'error',
       'vue/no-multiple-template-root': 'off',
       'vue/no-v-for-template-key': 'off',
-      'vue/html-self-closing': 'off',
       'vue/valid-attribute-name': 'off',
       'no-console': 'error',
       'no-restricted-globals': [
@@ -48,9 +33,6 @@ export default withNuxt(
           message: 'Use useDom() instead',
         },
       ],
-
-      'comma-dangle': ['error', 'always-multiline'],
-      quotes: ['error', 'single', { avoidEscape: true }],
 
       'import/order': [
         'error',
