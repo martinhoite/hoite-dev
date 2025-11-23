@@ -61,7 +61,12 @@ export function devOnlyConsoleLog(logStatement: string, logType: ConsoleLogTypes
  */
 export function getSubdomain(hostname: string): string | null {
   const parts = hostname.split('.');
-  return parts.length > 2 ? parts[0] : null;
+
+  if (parts.length <= 2) {
+    return null;
+  }
+
+  return parts[0] ?? null;
 }
 
 /**
@@ -166,7 +171,7 @@ export function handleUmbracoSingleArray<T = unknown>(array: T[] | null): T | nu
       const { $logger } = useNuxtApp();
       $logger.error('Assumed single array is multiple:', true, array);
     } else {
-      return array[0];
+      return array[0] ?? null;
     }
   }
 
