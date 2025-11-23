@@ -13,27 +13,35 @@ const props = withDefaults(defineProps<Props>(), {
   logoText: undefined
 });
 
-const logoUrl = computed(() => {
+const logoLink = computed(() => {
   //TODO: Use global page frontpage when implemented.
   return props.logoLink ? props.logoLink : ({ url: '/', title: 'Return to frontpage' } as SimplifiedUmbracoLink);
 });
 
-const logoMaskUrl = computed(() => {
+const logoMaskStyle = computed(() => {
+  let logoMaskUrl = '';
   if (settings.headerLogo?.url) {
-    return getMediaLink(settings.headerLogo.url);
+    logoMaskUrl = getMediaLink(settings.headerLogo.url);
   }
-  return `data:image/svg+xml;utf8,${encodeURIComponent(defaultDevLogo)}`;
+  logoMaskUrl = `data:image/svg+xml;utf8,${encodeURIComponent(defaultDevLogo)}`;
+
+  if (logoMaskUrl === '') return null;
+
+  const logoStyle = `--logo-size:${props.logoSize}px;
+              mask-image: url('${logoMaskUrl}');
+              -webkit-mask-image: url('${logoMaskUrl}');`;
+
+  return logoStyle;
 });
 </script>
 <template>
   <BaseLink
     class="global-logo"
-    :link="logoUrl"
+    :link="logoLink"
   >
     <img
-      :style="`--logo-size:${logoSize}px;
-              mask-image: url('${logoMaskUrl}');
-              -webkit-mask-image: url('${logoMaskUrl}');`"
+      v-if="logoMaskStyle"
+      :style="logoMaskStyle"
       class="global-logo__logo"
     />
     <span v-if="logoText">{{ logoText }}</span>
