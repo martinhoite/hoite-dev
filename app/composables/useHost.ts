@@ -6,8 +6,8 @@ export default function useHost() {
   /**
    * Normalizes a host value to a lowercase hostname without port information.
    */
-  const normalizeHostname = (host: string = ''): string => {
-    const [domain] = host.split(':');
+  const normalizeHostname = (host: string): string => {
+    const domain = host.split(':')[0] ?? '';
     return domain.toLowerCase();
   };
 
