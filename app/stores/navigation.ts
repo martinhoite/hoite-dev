@@ -4,7 +4,7 @@ export const useNavigation = defineStore('navigation', () => {
   const navigationItems = shallowRef<UmbracoNavigationItem[]>([] as UmbracoNavigationItem[]);
 
   function buildNavigation(
-    navigationItemsResponse: UmbracoDeliveryApiResponse<UmbracoNavigationItemProperties>[]
+    navigationItemsResponse: UmbracoDeliveryApiResponse<UmbracoNavigationItemProperties>[],
   ): UmbracoNavigationItem[] {
     const lookup: Record<string, UmbracoNavigationItem> = {};
 
@@ -13,7 +13,7 @@ export const useNavigation = defineStore('navigation', () => {
         lookup[item.id] = {
           name: item.name,
           path: item.route.path,
-          children: []
+          children: [],
         };
       }
     });
@@ -62,7 +62,7 @@ export const useNavigation = defineStore('navigation', () => {
 
   return {
     navigationItems,
-    initNavigation
+    initNavigation,
   };
 });
 

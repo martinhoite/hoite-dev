@@ -6,7 +6,7 @@ import type {
   UmbracoContentResponse,
   UmbracoDeliveryApiResponse,
   UmbracoNodePath,
-  UmbracoPageResponse
+  UmbracoPageResponse,
 } from 'types/umbracoDeliveryApi';
 
 export default function () {
@@ -18,7 +18,7 @@ export default function () {
    */
   const getCurrentStartItem = (): string => {
     const {
-      public: { localContentHost }
+      public: { localContentHost },
     } = useRuntimeConfig();
 
     const hostname = getNormalizedHostname();
@@ -39,13 +39,13 @@ export default function () {
    */
   const setDefaultHeaders = (path: string = '', startItem: string = '') => {
     const {
-      public: { fallbackLocale }
+      public: { fallbackLocale },
     } = useRuntimeConfig();
     const culture = getLocaleFromPath(path) || (fallbackLocale as Locale);
 
     const headers: HeadersInit = {
       'Accept-Language': culture,
-      'Start-Item': startItem !== '' ? startItem : getCurrentStartItem()
+      'Start-Item': startItem !== '' ? startItem : getCurrentStartItem(),
     };
 
     return headers;
@@ -65,7 +65,7 @@ export default function () {
     path: string,
     options: FetchOptions<'json'> = {},
     pathForLocale: string = '',
-    startItemOverride: string = ''
+    startItemOverride: string = '',
   ) => {
     const defaultHeaders = setDefaultHeaders(pathForLocale, startItemOverride);
 
@@ -73,8 +73,8 @@ export default function () {
       ...options,
       headers: {
         ...defaultHeaders,
-        ...(options.headers || {})
-      }
+        ...(options.headers || {}),
+      },
     });
   };
 
@@ -91,7 +91,7 @@ export default function () {
   const getUmbracoContent = <ItemTypes = unknown>({
     parameters,
     pathForLocale = '',
-    startItem = ''
+    startItem = '',
   }: {
     parameters: UmbracoContentParameters;
     pathForLocale?: string;
@@ -100,10 +100,10 @@ export default function () {
     return fetchFromUmbraco<UmbracoContentResponse<ItemTypes>>(
       '/umbraco/delivery/api/v2/content',
       {
-        params: parameters
+        params: parameters,
       },
       pathForLocale,
-      startItem
+      startItem,
     );
   };
 
@@ -120,7 +120,7 @@ export default function () {
     return fetchFromUmbraco<UmbracoDeliveryApiResponse<PropertiesType>>(
       `/umbraco/delivery/api/v2/content/item${pathWithoutLocale}`,
       {},
-      path
+      path,
     );
   };
 
@@ -136,8 +136,8 @@ export default function () {
     const allSiteSettings = await getUmbracoContent<UmbracoSiteSettingsResponse>({
       parameters: {
         filter: `contentType:${'siteSettings' as UmbracoAlias}`,
-        fields: 'properties[$all]'
-      }
+        fields: 'properties[$all]',
+      },
     });
 
     const matching = allSiteSettings?.items.find((item) => {
@@ -158,7 +158,7 @@ export default function () {
    */
   const getUmbracoNavigationItems = ({
     startItem = '',
-    pathForLocale = ''
+    pathForLocale = '',
   }: {
     startItem?: string;
     pathForLocale?: string;
@@ -167,10 +167,10 @@ export default function () {
       parameters: {
         fetch: `descendants:${'/' as UmbracoNodePath}`,
         filter: `contentType:${'!siteSettings' as UmbracoAlias}`,
-        fields: `properties${'[includeInNavigation, includeChildrenInNavigation]' as UmbracoPropertyAliasArray}`
+        fields: `properties${'[includeInNavigation, includeChildrenInNavigation]' as UmbracoPropertyAliasArray}`,
       },
       pathForLocale,
-      startItem
+      startItem,
     });
   };
 
@@ -178,6 +178,6 @@ export default function () {
     getUmbracoContent,
     getUmbracoContentByRoute,
     getUmbracoSiteSettings,
-    getUmbracoNavigationItems
+    getUmbracoNavigationItems,
   };
 }

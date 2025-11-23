@@ -11,7 +11,7 @@ useHead({
   title: props.error?.statusCode.toString(),
   titleTemplate(title: string | undefined) {
     return title ? `${title} | ${settings.metaTitleExtension}` : settings.metaTitleExtension;
-  }
+  },
 });
 </script>
 

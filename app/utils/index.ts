@@ -20,7 +20,7 @@ export function useDom(): { window: Window | null; document: Document | null } |
     // eslint-disable-next-line no-restricted-globals
     window,
     // eslint-disable-next-line no-restricted-globals
-    document
+    document,
   };
 }
 
@@ -186,7 +186,7 @@ export function getSingleUmbracoUrlFromArray(linkArray: UmbracoLink[] | null): S
     return {
       url: singleItem.route.path as URLString,
       target: singleItem.target,
-      title: singleItem.title
+      title: singleItem.title,
     };
   }
 
@@ -195,7 +195,7 @@ export function getSingleUmbracoUrlFromArray(linkArray: UmbracoLink[] | null): S
 
 export function getMediaLink(path: string): string {
   const {
-    public: { mediaBase }
+    public: { mediaBase },
   } = useRuntimeConfig();
 
   return `${mediaBase}${path}`;

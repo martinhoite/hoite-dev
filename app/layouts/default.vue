@@ -13,13 +13,13 @@ watch(
   (newValue) => {
     bodyThemeClass.value = `theme theme--${newValue}`;
     refreshCookie('theme');
-  }
+  },
 );
 
 useHead({
   bodyAttrs: {
-    class: bodyThemeClass
-  }
+    class: bodyThemeClass,
+  },
 });
 </script>
 <template>

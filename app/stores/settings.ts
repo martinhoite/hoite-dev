@@ -2,7 +2,7 @@ import type { SiteSettingsLogo, UmbracoImage, UmbracoSiteSettings } from '~/type
 
 export const useSettings = defineStore('settings', () => {
   const {
-    public: { fallbackLocale, localContentHost }
+    public: { fallbackLocale, localContentHost },
   } = useRuntimeConfig();
   const { getCurrentHost, isLocalhost } = useHost();
 
@@ -41,14 +41,14 @@ export const useSettings = defineStore('settings', () => {
       headerLogoLink: getSingleUmbracoUrlFromArray(siteSettings.headerLogoLink),
       headerLogoText: siteSettings.headerLogoText,
       footerLogo: handleUmbracoSingleArray<SiteSettingsLogo>(siteSettings.footerLogo),
-      defaultTheme
+      defaultTheme,
     };
   }
 
   return {
     settings,
     currentHostUrl,
-    initSettings
+    initSettings,
   };
 });
 

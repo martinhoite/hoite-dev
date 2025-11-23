@@ -1,6 +1,6 @@
 export default function useHost() {
   const {
-    public: { localDevelopmentHost }
+    public: { localDevelopmentHost },
   } = useRuntimeConfig();
 
   /**
@@ -56,6 +56,6 @@ export default function useHost() {
   return {
     getCurrentHost,
     getNormalizedHostname,
-    isLocalhost
+    isLocalhost,
   };
 }

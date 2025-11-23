@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware((to) => {
   if (to.path !== '/') return;
 
   const {
-    public: { fallbackLocale }
+    public: { fallbackLocale },
   } = useRuntimeConfig();
 
   if (!AvailableLocales.includes(fallbackLocale as Locale)) return;

@@ -10,7 +10,7 @@ type Props = {
 const props = withDefaults(defineProps<Props>(), {
   logoSize: 64,
   logoLink: undefined,
-  logoText: undefined
+  logoText: undefined,
 });
 
 const logoLink = computed(() => {

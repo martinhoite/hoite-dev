@@ -9,10 +9,10 @@ const operationsGenerator = createOperationsGenerator({
     quality: 'quality',
     mode: 'rmode',
     center: 'rxy',
-    background: 'bgcolor'
+    background: 'bgcolor',
   },
   joinWith: '&',
-  formatter: (key: string | number, val: string | number) => encodeParam(key) + '=' + encodeParam(val)
+  formatter: (key: string | number, val: string | number) => encodeParam(key) + '=' + encodeParam(val),
 });
 
 export default defineProvider({
@@ -20,7 +20,7 @@ export default defineProvider({
     const params = operationsGenerator(modifiers) || '';
 
     return {
-      url: joinURL(src + (params ? '?' + params : ''))
+      url: joinURL(src + (params ? '?' + params : '')),
     };
-  }
+  },
 });
