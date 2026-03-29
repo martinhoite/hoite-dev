@@ -8,7 +8,7 @@ const breakpoints = {
   tabletSize: '576px',
   laptopSize: '1024px',
   smallDesktopSize: '1280px',
-  desktopSize: '1536px'
+  desktopSize: '1536px',
 };
 
 const breakpointLabels = {
@@ -16,7 +16,7 @@ const breakpointLabels = {
   Tablet: `up to ${breakpoints.laptopSize}`,
   Laptop: `up to ${breakpoints.smallDesktopSize}`,
   'Small desktop': `up to ${breakpoints.desktopSize}`,
-  Desktop: `${breakpoints.desktopSize} and up`
+  Desktop: `${breakpoints.desktopSize} and up`,
 };
 
 const updateWindowWidth = () => {

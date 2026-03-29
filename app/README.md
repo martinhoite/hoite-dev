@@ -4,7 +4,7 @@
 ![Node version](https://img.shields.io/badge/Node%20version-24.11.1-026E00)
 
 ## Stack
-- Nuxt 3
+- Nuxt 4
 - Vite
 - Pinia
 - TypeScript
@@ -16,9 +16,9 @@
 
 # Project setup
 
-## Nuxt 3 
+## Nuxt 
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ### Setup
 
