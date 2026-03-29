@@ -1,4 +1,4 @@
-import type { ISODateString, ISODateOnlyString, URLString, VHTMLString } from '~/types/opaqueTypes';
+import type { IsoDateString, IsoDateOnlyString, UrlString, VhtmlString } from '~/types/opaqueTypes';
 
 /**
  * Matches full ISO 8601 date strings with time and timezone information.
@@ -12,20 +12,20 @@ export const ISO_DATETIME_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)
 /**
  * Checks whether a value is a valid ISO 8601 datetime string.
  */
-export function isISODateString(value: unknown): value is ISODateString {
+export function isIsoDateString(value: unknown): value is IsoDateString {
   return typeof value === 'string' && ISO_DATETIME_REGEX.test(value);
 }
 
 /**
- * Validates and converts a string into an ISODateString.
+ * Validates and converts a string into an IsoDateString.
  *
  * Throws if the value is not a valid ISO 8601 datetime string.
  */
-export function toISODateString(value: string): ISODateString {
-  if (!isISODateString(value)) {
-    throw new Error(`Invalid ISODateString: ${value}`);
+export function toIsoDateString(value: string): IsoDateString {
+  if (!isIsoDateString(value)) {
+    throw new Error(`Invalid IsoDateString: ${value}`);
   }
-  return value as ISODateString;
+  return value as IsoDateString;
 }
 
 /**
@@ -37,7 +37,7 @@ export const ISO_DATE_ONLY_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 /**
  * Checks whether a value is a valid ISO 8601 date-only string.
  */
-export function isISODateOnlyString(value: unknown): value is ISODateOnlyString {
+export function isIsoDateOnlyString(value: unknown): value is IsoDateOnlyString {
   return typeof value === 'string' && ISO_DATE_ONLY_REGEX.test(value);
 }
 
@@ -46,18 +46,18 @@ export function isISODateOnlyString(value: unknown): value is ISODateOnlyString 
  *
  * Throws if the value is not a valid ISO date-only string.
  */
-export function toISODateOnlyString(value: string): ISODateOnlyString {
-  if (!isISODateOnlyString(value)) {
+export function toIsoDateOnlyString(value: string): IsoDateOnlyString {
+  if (!isIsoDateOnlyString(value)) {
     throw new Error(`Invalid ISODateOnlyString: ${value}`);
   }
-  return value as ISODateOnlyString;
+  return value as IsoDateOnlyString;
 }
 
 /**
  * Checks whether a string is a valid absolute or relative URL.
  * Uses the built-in URL constructor for validation.
  */
-export function isURLString(value: unknown): value is URLString {
+export function isUrlString(value: unknown): value is UrlString {
   if (typeof value !== 'string') return false;
 
   try {
@@ -69,33 +69,33 @@ export function isURLString(value: unknown): value is URLString {
 }
 
 /**
- * Validates and converts a string into a URLString.
+ * Validates and converts a string into a UrlString.
  *
  * Throws if the value is not a valid URL.
  */
-export function toURLString(value: string): URLString {
-  if (!isURLString(value)) {
-    throw new Error(`Invalid URLString: ${value}`);
+export function toUrlString(value: string): UrlString {
+  if (!isUrlString(value)) {
+    throw new Error(`Invalid UrlString: ${value}`);
   }
-  return value as URLString;
+  return value as UrlString;
 }
 
 /**
  * Heuristically checks whether a string contains HTML markup.
  * This does not guarantee well-formed HTML, only that markup-like text exists.
  */
-export function isVHTMLString(value: unknown): value is VHTMLString {
+export function isVhtmlString(value: unknown): value is VhtmlString {
   return typeof value === 'string' && /<[^>]+>/.test(value);
 }
 
 /**
- * Validates and converts a string into a VHTMLString.
+ * Validates and converts a string into a VhtmlString.
  *
  * Throws if the value does not appear to contain HTML markup.
  */
-export function toVHTMLString(value: string): VHTMLString {
-  if (!isVHTMLString(value)) {
-    throw new Error(`Invalid VHTMLString: ${value}`);
+export function toVhtmlString(value: string): VhtmlString {
+  if (!isVhtmlString(value)) {
+    throw new Error(`Invalid VhtmlString: ${value}`);
   }
-  return value as VHTMLString;
+  return value as VhtmlString;
 }

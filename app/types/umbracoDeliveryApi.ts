@@ -22,7 +22,7 @@ export type UmbracoDeliveryApiCultures = {
 export type UmbracoDeliveryApiResponse<ContentProperties = unknown> = {
   contentType: UmbracoContentTypes;
   name: string;
-  createDate: ISODateString;
+  createDate: IsoDateString;
   route: UmbracoRoute;
   id: string;
   properties: Expand<ContentProperties>;

@@ -84,7 +84,7 @@ export function getSubdomain(hostname: string): string | null {
  * // Returns null for "https://martin.hoite.dev/"
  * const locale = getLocaleFromUrl('https://martin.hoite.dev/');
  */
-export function getLocaleFromUrl(url: URLString) {
+export function getLocaleFromUrl(url: UrlString) {
   try {
     const parsedUrl = new URL(url);
     const pathSegments = parsedUrl.pathname.split('/').filter((segment) => segment.length > 0);
@@ -184,7 +184,7 @@ export function getSingleUmbracoUrlFromArray(linkArray: UmbracoLink[] | null): S
 
   if (singleItem) {
     return {
-      url: singleItem.route.path as URLString,
+      url: singleItem.route.path as UrlString,
       target: singleItem.target,
       title: singleItem.title,
     };

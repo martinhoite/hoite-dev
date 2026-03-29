@@ -7,15 +7,15 @@ export const useSettings = defineStore('settings', () => {
   const { getCurrentHost, isLocalhost } = useHost();
 
   const settings = shallowRef<UmbracoSiteSettings>({} as UmbracoSiteSettings);
-  const currentHostUrl = shallowRef<URLString>(setCurrentHostUrl());
+  const currentHostUrl = shallowRef<UrlString>(setCurrentHostUrl());
 
-  function setCurrentHostUrl(): URLString {
+  function setCurrentHostUrl(): UrlString {
     if (isLocalhost()) {
-      return `https://${localContentHost}` as URLString;
+      return `https://${localContentHost}` as UrlString;
     }
 
     const hostWithPort = getCurrentHost();
-    return `https://${hostWithPort}` as URLString;
+    return `https://${hostWithPort}` as UrlString;
   }
 
   async function initSettings(path: string) {
