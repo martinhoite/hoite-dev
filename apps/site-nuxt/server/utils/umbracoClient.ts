@@ -2,7 +2,7 @@ import {
   createUmbracoClient,
   defaultExcludedDocTypes,
   UmbracoExcludedContentError,
-} from '@hoite-dev/api-client';
+} from '@hoite-dev/content-client';
 import { createError } from 'h3';
 
 const getStringValue = (value: unknown) => {

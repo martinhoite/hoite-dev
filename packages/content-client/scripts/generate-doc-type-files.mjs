@@ -2,74 +2,31 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
-const openApiPath = path.resolve(process.cwd(), 'openapi/umbraco-delivery.openapi.json');
-const seedPath = path.resolve(process.cwd(), 'openapi/doc-types.seed.json');
+const manifestPath = path.resolve(process.cwd(), 'openapi/doc-types.seed.json');
 const configPath = path.resolve(process.cwd(), 'openapi/public-api.config.json');
 const generatedDir = path.resolve(process.cwd(), 'src/generated');
 
 const readJson = async (filePath) => JSON.parse(await readFile(filePath, 'utf8'));
 
-const schemaDocTypes = (schema) => {
-  if (!schema || typeof schema !== 'object') {
-    return [];
-  }
-
-  const aliases = new Set();
-  const vendorAlias = schema['x-umbraco-document-type-alias'];
-
-  if (typeof vendorAlias === 'string' && vendorAlias.length > 0) {
-    aliases.add(vendorAlias);
-  }
-
-  const contentTypeProperty = schema.properties?.contentType;
-
-  if (typeof contentTypeProperty?.const === 'string') {
-    aliases.add(contentTypeProperty.const);
-  }
-
-  if (Array.isArray(contentTypeProperty?.enum)) {
-    for (const alias of contentTypeProperty.enum) {
-      if (typeof alias === 'string' && alias.length > 0) {
-        aliases.add(alias);
-      }
-    }
-  }
-
-  return [...aliases];
-};
-
-let docTypes = [];
-let sourceLabel = 'openapi/doc-types.seed.json';
-
-try {
-  const openApi = await readJson(openApiPath);
-  const schemas = openApi.components?.schemas ?? {};
-
-  docTypes = Object.values(schemas)
-    .flatMap((schema) => schemaDocTypes(schema))
-    .filter((value, index, collection) => collection.indexOf(value) === index)
-    .sort();
-
-  if (docTypes.length > 0) {
-    sourceLabel = 'openapi/umbraco-delivery.openapi.json';
-  }
-} catch {
-  docTypes = [];
-}
+const manifest = await readJson(manifestPath);
+const docTypes = [...new Set(manifest.docTypes)].sort();
+const sourceLabel = 'openapi/doc-types.seed.json';
 
 if (docTypes.length === 0) {
-  const seed = await readJson(seedPath);
-  docTypes = [...new Set(seed.docTypes)].sort();
-}
-
-if (docTypes.length === 0) {
-  throw new Error(
-    'No Umbraco document types could be derived from the OpenAPI document or seed manifest.',
-  );
+  throw new Error(`No Umbraco document types were defined in ${manifestPath}.`);
 }
 
 const config = await readJson(configPath);
 const excludedDocTypes = [...new Set(config.excludedDocTypes)].sort();
+
+const unknownExcludedDocTypes = excludedDocTypes.filter((docType) => !docTypes.includes(docType));
+
+if (unknownExcludedDocTypes.length > 0) {
+  throw new Error(
+    `Excluded document types are not defined in ${manifestPath}: ${unknownExcludedDocTypes.join(', ')}`,
+  );
+}
+
 const publicDocTypes = docTypes.filter((docType) => !excludedDocTypes.includes(docType));
 
 const formatConstArray = (values) => {

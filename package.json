@@ -15,7 +15,7 @@
     "dev": "npm run dev:site:nuxt",
     "dev:site:nuxt": "turbo dev --filter=@hoite-dev/site-nuxt",
     "format": "turbo format",
-    "generate:api": "turbo run generate --filter=@hoite-dev/api-client",
+    "generate:content:umbraco": "node ./scripts/generate-umbraco-content-client.mjs",
     "lint": "turbo lint",
     "prepare": "husky",
     "readme:check-versions": "node ./scripts/sync-readme-versions.mjs --check",

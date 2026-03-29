@@ -97,7 +97,7 @@ export default defineNuxtConfig({
   },
 
   build: {
-    transpile: ['@hoite-dev/api-client'],
+    transpile: ['@hoite-dev/content-client'],
   },
 
   imports: {
@@ -128,7 +128,7 @@ export default defineNuxtConfig({
       brotli: true,
     },
     externals: {
-      inline: ['@hoite-dev/api-client'],
+      inline: ['@hoite-dev/content-client'],
     },
     minify: true,
   },

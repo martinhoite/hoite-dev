@@ -3,11 +3,14 @@ import path from 'node:path';
 import process from 'node:process';
 
 const outputPath = path.resolve(process.cwd(), 'openapi/umbraco-delivery.openapi.json');
-const openApiUrl = process.env.UMBRACO_OPENAPI_URL;
+const baseUrl = process.env.NUXT_UMBRACO_BASE_URL?.replace(/\/$/, '');
+const derivedOpenApiUrl = baseUrl ? `${baseUrl}/umbraco/swagger/delivery/swagger.json` : undefined;
+const openApiUrl = process.env.UMBRACO_OPENAPI_URL || derivedOpenApiUrl;
 
 if (!openApiUrl) {
-  console.log('UMBRACO_OPENAPI_URL is not set. Skipping OpenAPI download.');
-  process.exit(0);
+  throw new Error(
+    'UMBRACO_OPENAPI_URL is not set and NUXT_UMBRACO_BASE_URL could not be used to derive the Swagger endpoint.',
+  );
 }
 
 const response = await fetch(openApiUrl);

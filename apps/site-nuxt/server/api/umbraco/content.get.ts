@@ -1,4 +1,4 @@
-import type { UmbracoContentQueryParameters } from '@hoite-dev/api-client';
+import type { UmbracoContentQueryParameters } from '@hoite-dev/content-client';
 
 import { getHeader, getQuery } from 'h3';
 
