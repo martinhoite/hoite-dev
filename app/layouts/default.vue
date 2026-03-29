@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { settings } = useSettings();
 const cookieTheme = useCookie('theme');
-const bodyClass = ref<string>(`theme theme--${cookieTheme.value || settings.defaultTheme}`);
+const bodyThemeClass = ref<string>(`theme theme--${cookieTheme.value || settings.defaultTheme}`);
 
 function setTheme(newTheme: Theme) {
   cookieTheme.value = newTheme;
@@ -11,15 +11,15 @@ function setTheme(newTheme: Theme) {
 watch(
   () => cookieTheme.value,
   (newValue) => {
-    bodyClass.value = `theme theme--${newValue}`;
+    bodyThemeClass.value = `theme theme--${newValue}`;
     refreshCookie('theme');
-  }
+  },
 );
 
 useHead({
   bodyAttrs: {
-    class: bodyClass
-  }
+    class: bodyThemeClass,
+  },
 });
 </script>
 <template>

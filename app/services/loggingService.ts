@@ -12,7 +12,7 @@ export class LoggingService {
           log: 'color: #42a5f5; font-weight: bold;', // Blue
           info: 'color: cyan; font-weight: bold;', // Cyan
           warn: 'color: orange; font-weight: bold;', // Orange
-          error: 'color: red; font-weight: bold;' // Red
+          error: 'color: red; font-weight: bold;', // Red
         };
 
         // eslint-disable-next-line no-console

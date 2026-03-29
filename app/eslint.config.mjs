@@ -3,8 +3,8 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 export default withNuxt(
   {
-    files: ['**/*.vue', '**/*.js', '**/*.ts', '**/*.css'],
-    ignores: ['.gitignore', '*.log*', '.nuxt/*', '.nitro', '.cache', '.output/*', '.env', 'dist', '.DS_Store'],
+    files: ['**/*.{js,ts,vue}'],
+    ignores: ['.gitignore', '**/*.css', '*.log*', '.nuxt', '.nitro', '.cache', '.output', '.env', 'dist', '.DS_Store'],
     rules: {
       camelcase: 'off',
       'no-extra-boolean-cast': 'off',
@@ -14,31 +14,67 @@ export default withNuxt(
         'PascalCase',
         {
           registeredComponentsOnly: false,
-          ignores: ['transition', 'client-only', 'component', 'transition-group']
-        }
+          ignores: ['transition', 'client-only', 'component', 'transition-group'],
+        },
       ],
       'vue/comment-directive': 'off',
-      semi: ['error', 'always'],
-      'vue/singleline-html-element-content-newline': 'off',
-      'import/order': ['off'],
-      'vue/html-indent': 'error',
       'vue/no-multiple-template-root': 'off',
       'vue/no-v-for-template-key': 'off',
-      'vue/html-self-closing': 'off',
       'vue/valid-attribute-name': 'off',
       'no-console': 'error',
       'no-restricted-globals': [
         'error',
         {
           name: 'window',
-          message: 'Use useDOM() instead'
+          message: 'Use useDom() instead',
         },
         {
           name: 'document',
-          message: 'Use useDOM() instead'
-        }
-      ]
-    }
+          message: 'Use useDom() instead',
+        },
+      ],
+
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin', // fs, path, URL...
+            'external', // npm deps
+            'internal', // #imports, @, ~, absolute project paths
+            'parent', // ../
+            'sibling', // ./
+            'index', // index.js
+            'object', // import('something')
+            'type', // import type { Foo }
+          ],
+          pathGroups: [
+            {
+              pattern: '~/**',
+              group: 'internal',
+              position: 'before',
+            },
+            {
+              pattern: '@/**',
+              group: 'internal',
+              position: 'before',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['builtin'],
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+          'newlines-between': 'always-and-inside-groups',
+        },
+      ],
+
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-shadow': 'error',
+      curly: ['error', 'all'],
+
+      'no-undef': 'off',
+      'no-unused-expressions': 'off',
+    },
   },
-  eslintPluginPrettierRecommended
+  eslintPluginPrettierRecommended,
 );

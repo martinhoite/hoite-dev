@@ -10,7 +10,7 @@ const customMediaQueries = {
   tablet: '--tablet-only',
   laptop: '--laptop-only',
   'small-desktop': '--small-desktop-only',
-  desktop: '--desktop'
+  desktop: '--desktop',
 };
 
 const maxColumns = {
@@ -18,7 +18,7 @@ const maxColumns = {
   tablet: 8,
   laptop: 12,
   'small-desktop': 12,
-  desktop: 12
+  desktop: 12,
 };
 
 let css = '';

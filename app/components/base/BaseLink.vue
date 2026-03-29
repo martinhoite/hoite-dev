@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import type { SimplifiedUmbracoLink } from '~/types/umbraco';
 type Props = {
-  to?: SimplifiedUmbracoLink;
+  link?: SimplifiedUmbracoLink;
 };
 
 defineProps<Props>();
 </script>
 <template>
   <NuxtLink
-    v-if="to?.url"
-    :to="to.url"
-    :title="to.title"
-    :target="to.target"
+    v-if="link?.url"
+    :to="link.url"
+    :title="link.title"
+    :target="link.target"
   >
     <slot></slot>
   </NuxtLink>

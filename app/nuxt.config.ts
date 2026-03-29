@@ -1,8 +1,11 @@
-import { defineNuxtConfig } from 'nuxt/config';
 import ViteYaml from '@modyfi/vite-plugin-yaml';
+
 import alias from './alias';
 
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
+const LOCAL_DEVELOPMENT_HOST = 'local.hoite.dev';
+const LOCAL_CONTENT_HOST = 'martin.hoite.dev';
+
+// https://nuxt.com/docs/4.x/api/nuxt-config
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
@@ -10,50 +13,50 @@ export default defineNuxtConfig({
       apiBase: '',
       mediaBase: '',
       fallbackLocale: '',
-      localDevelopmentHost: ''
-    }
+      localDevelopmentHost: LOCAL_DEVELOPMENT_HOST,
+      localContentHost: LOCAL_CONTENT_HOST,
+    },
   },
 
   app: {
     head: {
       charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1'
+      viewport: 'width=device-width, initial-scale=1',
     },
     pageTransition: false,
     layoutTransition: false,
     rootAttrs: {
-      id: '__app'
-    }
+      id: '__app',
+    },
   },
 
   modules: [
     [
       '@pinia/nuxt',
       {
-        autoImports: ['defineStore', 'acceptHMRUpdate', ['defineStore', 'definePiniaStore']]
-      }
+        autoImports: ['defineStore', 'acceptHMRUpdate', ['defineStore', 'definePiniaStore']],
+      },
     ],
     '@nuxt/image',
     'nuxt-schema-org',
     '@nuxt/eslint',
-    'reka-ui/nuxt'
+    'reka-ui/nuxt',
   ],
 
   image: {
     inject: true,
     providers: {
       customProvider: {
-        name: 'imageSharp',
-        provider: '~/providers/imageSharp'
-      }
+        provider: '~/providers/imageSharp',
+      },
     },
     screens: {
       mobile: 320,
       tablet: 576,
       laptop: 1024,
       smallDesktop: 1280,
-      desktop: 1536
-    }
+      desktop: 1536,
+    },
   },
 
   components: ['~/components', '~/components/base'],
@@ -64,7 +67,7 @@ export default defineNuxtConfig({
     plugins: {
       'postcss-nested': {},
       '@csstools/postcss-global-data': {
-        files: ['assets/css/_variables.css', 'assets/css/_mediaqueries.css']
+        files: ['assets/css/_variables.css', 'assets/css/_mediaqueries.css'],
       },
       'postcss-preset-env': {
         preserve: true,
@@ -72,61 +75,71 @@ export default defineNuxtConfig({
           'color-function': { unresolved: 'warn' },
           'custom-media-queries': true,
           'custom-properties': {
-            disableDeprecationNotice: false
-          }
+            disableDeprecationNotice: false,
+          },
         },
-        browsers: ['>= 2% in DK']
+        browsers: ['>= 2% in DK'],
       },
       'postcss-custom-media': {},
       'postcss-calc': {},
       'postcss-reporter': {
-        clearReportedMessages: true
-      }
-    }
+        clearReportedMessages: true,
+      },
+    },
   },
 
   vite: {
     plugins: [ViteYaml()],
     optimizeDeps: {
-      include: ['reka-ui']
+      include: ['reka-ui'],
     },
     server: {
-      allowedHosts: ['local.hoite.dev']
-    }
+      allowedHosts: [LOCAL_DEVELOPMENT_HOST],
+    },
   },
 
   imports: {
-    dirs: ['stores', 'types/*.ts', 'types/**/*.ts']
+    dirs: ['stores', 'types/*.ts', 'types/**/*.ts'],
+  },
+
+  typescript: {
+    strict: true,
+    sharedTsConfig: {
+      compilerOptions: {
+        allowSyntheticDefaultImports: true,
+        types: ['@modyfi/vite-plugin-yaml/modules'],
+      },
+    },
   },
 
   alias: {
-    ...alias
+    ...alias,
   },
 
   devtools: {
-    enabled: true
+    enabled: true,
   },
 
   nitro: {
     compressPublicAssets: {
       gzip: true,
-      brotli: true
+      brotli: true,
     },
-    minify: true
+    minify: true,
   },
 
   sourcemap: {
-    client: true
+    client: true,
   },
 
   devServer: {
     port: 3000,
-    host: 'local.hoite.dev',
+    host: LOCAL_DEVELOPMENT_HOST,
     https: {
-      key: './ssl/local.hoite.dev-key.pem',
-      cert: './ssl/local.hoite.dev.pem'
-    }
+      key: `./ssl/${LOCAL_DEVELOPMENT_HOST}-key.pem`,
+      cert: `./ssl/${LOCAL_DEVELOPMENT_HOST}.pem`,
+    },
   },
 
-  compatibilityDate: '2025-06-08'
+  compatibilityDate: '2025-11-23',
 });

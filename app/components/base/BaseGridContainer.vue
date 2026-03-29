@@ -8,13 +8,13 @@ const propToCssClassMapping: Record<string, GridBreakPoint> = {
   tablet: 'tablet',
   laptop: 'laptop',
   smallDesktop: 'small-desktop',
-  desktop: 'desktop'
+  desktop: 'desktop',
 };
 
 function createSectionGridClass(
   breakpoint: keyof typeof propToCssClassMapping,
   startColumn?: number | string,
-  endColumn?: number | string
+  endColumn?: number | string,
 ) {
   const isFullSize = !startColumn && !endColumn;
   return `section-grid__${breakpoint}-col-span--${isFullSize ? 'full' : `${startColumn}-${endColumn}`}`;

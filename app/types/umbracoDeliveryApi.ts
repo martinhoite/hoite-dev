@@ -1,7 +1,8 @@
-import type { Locale } from 'types';
-import type { ISODateOnlyString } from 'types/utilityTypes';
+import type { ISODateOnlyString } from '~/types/opaqueTypes';
 
-export type UmbracoContentTypes = 'website' | 'contentPage';
+import type { Locale } from 'types';
+
+export type UmbracoContentTypes = 'frontpage' | 'contentPage';
 
 export type UmbracoDeliveryApiStartItem = {
   id: string;
@@ -21,17 +22,19 @@ export type UmbracoDeliveryApiCultures = {
 export type UmbracoDeliveryApiResponse<ContentProperties = unknown> = {
   contentType: UmbracoContentTypes;
   name: string;
-  createDate: ISODateString;
+  createDate: IsoDateString;
   route: UmbracoRoute;
   id: string;
   properties: Expand<ContentProperties>;
   cultures: UmbracoDeliveryApiCultures;
 };
 
-export type UmbracoPageResponse = ExpandRecursively<UmbracoSeoAndMetaPageSettings> &
-  ExpandRecursively<UmbracoPageDisplaySettings> & {
-    blocks?: unknown;
-  };
+export type UmbracoPageResponse = ExpandRecursively<
+  UmbracoSeoAndMetaPageSettings &
+    UmbracoPageDisplaySettings & {
+      blocks?: unknown;
+    }
+>;
 
 export type UmbracoContentResponse<ItemType> = {
   total: number;
@@ -111,7 +114,7 @@ type SortPattern =
   | SortBySortOrderPattern;
 
 export type UmbracoContentParameters = {
-  fetch: 'fetch' | AncestorsParameterPattern | ChildrenParameterPattern | DescendantsParameterPattern;
+  fetch?: AncestorsParameterPattern | ChildrenParameterPattern | DescendantsParameterPattern;
   filter?: FilterPattern | FilterPattern[];
   sort?: SortPattern | SortPattern[];
   skip?: number;

@@ -1,54 +1,54 @@
-import type { SimplifiedUmbracoLink, SiteSettingsLogo, UmbracoImage, UmbracoSiteSettings } from '~/types/umbraco';
+import type { SiteSettingsLogo, UmbracoImage, UmbracoSiteSettings } from '~/types/umbraco';
 
 export const useSettings = defineStore('settings', () => {
   const {
-    public: { fallbackLocale }
+    public: { fallbackLocale, localContentHost },
   } = useRuntimeConfig();
+  const { getCurrentHost, isLocalhost } = useHost();
 
   const settings = shallowRef<UmbracoSiteSettings>({} as UmbracoSiteSettings);
-  const currentHostUrl = shallowRef<URLString>(setCurrentHostUrl());
+  const currentHostUrl = shallowRef<UrlString>(setCurrentHostUrl());
 
-  function setCurrentHostUrl(): URLString {
-    const requestUrl = useRequestURL();
-
-    if (requestUrl.hostname.includes('local.hoite')) {
-      const {
-        public: { localDevelopmentHost }
-      } = useRuntimeConfig();
-
-      return `https://${localDevelopmentHost}` as URLString;
+  function setCurrentHostUrl(): UrlString {
+    if (isLocalhost()) {
+      return `https://${localContentHost}` as UrlString;
     }
 
-    return `https://${requestUrl.host}` as URLString;
+    const hostWithPort = getCurrentHost();
+    return `https://${hostWithPort}` as UrlString;
   }
 
   async function initSettings(path: string) {
     const { getUmbracoSiteSettings } = useUmbracoDeliveryApi();
-    const locale = getLocaleFromPath(path) || fallbackLocale;
+    const locale = getLocaleFromPath(path) || (fallbackLocale as Locale);
 
-    const settingsResponse = await getUmbracoSiteSettings(locale);
+    const siteSettingsResponse = await getUmbracoSiteSettings({ locale });
+    if (!siteSettingsResponse) {
+      throw new Error(`Missing site settings for locale "${locale}"`);
+    }
+
+    const { properties: siteSettings } = siteSettingsResponse;
+
+    const theme = siteSettings.defaultTheme?.toString().toLowerCase();
+    const defaultTheme: Theme = AvailableThemes.includes(theme as Theme) ? (theme as Theme) : 'dark';
 
     // TODO: Custom extension of API to send single arrays as an object for links and images.
     settings.value = {
-      metaTitleExtension: settingsResponse.properties.metaTitleExtension || '',
-      seoTwitterFallbackImage: handleUmbracoSingleArray(
-        settingsResponse.properties.seoTwitterFallbackImage
-      ) as UmbracoImage,
-      seoOpenGraphFallbackImage: handleUmbracoSingleArray(
-        settingsResponse.properties.seoOpenGraphFallbackImage
-      ) as UmbracoImage,
-      headerLogo: handleUmbracoSingleArray(settingsResponse.properties.headerLogo) as SiteSettingsLogo,
-      headerLogoLink: getSingleUmbracoUrlFromArray(settingsResponse.properties.headerLogoLink) as SimplifiedUmbracoLink,
-      headerLogoText: settingsResponse.properties.headerLogoText,
-      footerLogo: handleUmbracoSingleArray(settingsResponse.properties.footerLogo) as SiteSettingsLogo,
-      defaultTheme: (settingsResponse.properties.defaultTheme?.toString().toLowerCase() as Theme) || 'dark'
+      metaTitleExtension: siteSettings.metaTitleExtension || '',
+      seoTwitterFallbackImage: handleUmbracoSingleArray<UmbracoImage>(siteSettings.seoTwitterFallbackImage),
+      seoOpenGraphFallbackImage: handleUmbracoSingleArray<UmbracoImage>(siteSettings.seoOpenGraphFallbackImage),
+      headerLogo: handleUmbracoSingleArray<SiteSettingsLogo>(siteSettings.headerLogo),
+      headerLogoLink: getSingleUmbracoUrlFromArray(siteSettings.headerLogoLink),
+      headerLogoText: siteSettings.headerLogoText,
+      footerLogo: handleUmbracoSingleArray<SiteSettingsLogo>(siteSettings.footerLogo),
+      defaultTheme,
     };
   }
 
   return {
     settings,
     currentHostUrl,
-    initSettings
+    initSettings,
   };
 });
 

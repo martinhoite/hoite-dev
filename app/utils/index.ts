@@ -1,4 +1,5 @@
 import { AvailableLocales } from 'types';
+
 import type { ConsoleLogTypes, Locale } from 'types';
 
 /**
@@ -7,7 +8,7 @@ import type { ConsoleLogTypes, Locale } from 'types';
  *
  * @returns {{ window: Window | null, document: Document | null }} An object containing window and document objects, or null if running in a server-side environment.
  */
-export function useDOM(): { window: Window | null; document: Document | null } | null {
+export function useDom(): { window: Window | null; document: Document | null } | null {
   // Check if running in a server-side environment (not in browser)
   // eslint-disable-next-line no-restricted-globals
   if (typeof window === 'undefined' || typeof document === 'undefined') {
@@ -19,7 +20,7 @@ export function useDOM(): { window: Window | null; document: Document | null } |
     // eslint-disable-next-line no-restricted-globals
     window,
     // eslint-disable-next-line no-restricted-globals
-    document
+    document,
   };
 }
 
@@ -32,7 +33,7 @@ export function useDOM(): { window: Window | null; document: Document | null } |
  * @param {ConsoleLogTypes} logType - The type of log (e.g., 'log', 'info', 'warn', 'error').
  * @param {unknown} [data=null] - Optional additional data to be logged with the message.
  */
-export function devOnlyConsoleLog(logStatement: string, logType: ConsoleLogTypes, data: unknown = null) {
+export function devOnlyConsoleLog(logStatement: string, logType: ConsoleLogTypes = 'info', data: unknown = null) {
   if (import.meta.server) return;
 
   const { $logger } = useNuxtApp();
@@ -61,7 +62,12 @@ export function devOnlyConsoleLog(logStatement: string, logType: ConsoleLogTypes
  */
 export function getSubdomain(hostname: string): string | null {
   const parts = hostname.split('.');
-  return parts.length > 2 ? parts[0] : null;
+
+  if (parts.length <= 2) {
+    return null;
+  }
+
+  return parts[0] ?? null;
 }
 
 /**
@@ -78,7 +84,7 @@ export function getSubdomain(hostname: string): string | null {
  * // Returns null for "https://martin.hoite.dev/"
  * const locale = getLocaleFromUrl('https://martin.hoite.dev/');
  */
-export function getLocaleFromUrl(url: URLString) {
+export function getLocaleFromUrl(url: UrlString) {
   try {
     const parsedUrl = new URL(url);
     const pathSegments = parsedUrl.pathname.split('/').filter((segment) => segment.length > 0);
@@ -107,7 +113,11 @@ export function getLocaleFromUrl(url: URLString) {
 export function getLocaleFromPath(path: string): Locale | null {
   try {
     const pathSegments = path.split('/').filter((segment) => segment.length > 0);
-    return pathSegments.length > 0 && pathSegments[0] in AvailableLocales ? (pathSegments[0] as Locale) : null;
+
+    const potentialLocale = pathSegments[0];
+    const isValidLocale = AvailableLocales.includes(potentialLocale as Locale);
+
+    return isValidLocale ? (potentialLocale as Locale) : null;
   } catch (error) {
     const { $logger } = useNuxtApp();
     $logger.error('Error processing path:', false, error);
@@ -133,8 +143,8 @@ export function removeLocaleFromPath(path: string): string {
   try {
     const pathSegments = path.split('/').filter((segment) => segment.length > 0);
 
-    if (pathSegments.length > 0) {
-      pathSegments.shift(); // Remove the first segment (locale)
+    if (pathSegments.length > 0 && AvailableLocales.includes(pathSegments[0] as (typeof AvailableLocales)[number])) {
+      pathSegments.shift();
     }
 
     return '/' + pathSegments.join('/');
@@ -145,13 +155,24 @@ export function removeLocaleFromPath(path: string): string {
   }
 }
 
-export function handleUmbracoSingleArray(array: unknown[] | null): unknown | null {
+/**
+ * Extracts a single item from a (possibly nullable) array that is expected to contain at most one element.
+ *
+ * If the array has more than one item, an error is logged via the Nuxt $logger.
+ * Returns the first item if the array has exactly one item.
+ * Returns null if the array is null, empty, or has multiple items.
+ *
+ * @template T The expected type of the array item.
+ * @param {T[] | null} array - The array to extract a single item from.
+ * @returns {T | null} The single item from the array, or null.
+ */
+export function handleUmbracoSingleArray<T = unknown>(array: T[] | null): T | null {
   if (array) {
     if (array.length > 1) {
       const { $logger } = useNuxtApp();
       $logger.error('Assumed single array is multiple:', true, array);
     } else {
-      return array[0];
+      return array[0] ?? null;
     }
   }
 
@@ -163,9 +184,9 @@ export function getSingleUmbracoUrlFromArray(linkArray: UmbracoLink[] | null): S
 
   if (singleItem) {
     return {
-      url: singleItem.route.path as URLString,
+      url: singleItem.route.path as UrlString,
       target: singleItem.target,
-      title: singleItem.title
+      title: singleItem.title,
     };
   }
 
@@ -174,7 +195,7 @@ export function getSingleUmbracoUrlFromArray(linkArray: UmbracoLink[] | null): S
 
 export function getMediaLink(path: string): string {
   const {
-    public: { mediaBase }
+    public: { mediaBase },
   } = useRuntimeConfig();
 
   return `${mediaBase}${path}`;

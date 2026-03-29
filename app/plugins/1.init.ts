@@ -13,7 +13,7 @@ export default defineNuxtPlugin(async () => {
     throw createError({
       statusCode: 500,
       message: 'Error initializing site',
-      data: error
+      data: error,
     });
   }
 });
