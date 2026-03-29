@@ -10,7 +10,21 @@ const { settings } = useSettings();
 useHead({
   title: props.error?.statusCode.toString(),
   titleTemplate(title: string | undefined) {
-    return title ? `${title} | ${settings.metaTitleExtension}` : settings.metaTitleExtension;
+    const extension = settings.metaTitleExtension?.trim();
+
+    if (title && extension) {
+      return `${title} | ${extension}`;
+    }
+
+    if (title) {
+      return title;
+    }
+
+    if (extension) {
+      return extension;
+    }
+
+    return null;
   },
 });
 </script>
