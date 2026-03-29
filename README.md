@@ -1,5 +1,3 @@
-
-
 ## License
 
 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License with an Additional Permission Clause.
@@ -14,3 +12,8 @@ Commercial use is prohibited without prior written permission. To request permis
 Please give appropriate credit, provide a link to the license, and indicate if changes were made.
 
 For the full license text, see the [LICENSE](https://github.com/Blizz991/portfolio/blob/master/LICENCE.md) file.
+
+## Use of AI
+
+AI is used here as a support tool for ideation, technical planning, refactoring support, documentation, and language refinement.
+It helps accelerate exploration and iteration, while final decisions, validation, and implementation remain my responsibility.
