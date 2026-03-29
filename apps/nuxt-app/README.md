@@ -45,10 +45,10 @@ npm install
 
 4. **Navigate to `apps/nuxt-app`.**
 
-  - **Run the following command to generate the SSL certificates in the `ssl`folder**
-    ```powershell
-    mkdir ssl;  mkcert -cert-file ./ssl/local.hoite.dev.pem -key-file ./ssl/local.hoite.dev-key.pem local.hoite.dev
-    ```
+  - **Run the following command to generate the shared local SSL certificates in the `ssl` folder**
+     ```powershell
+    mkdir ssl; mkcert -cert-file ./ssl/local.hoite.dev.pem -key-file ./ssl/local.hoite.dev-key.pem local.hoite.dev *.local.hoite.dev
+     ```
 
 ### Working with HTTPS locally
 
@@ -60,7 +60,7 @@ This is only required for local development and **must not** be used in staging 
 ---
 ### Development Server
 
-Start the development server on `https://local.hoite.dev:3000`:
+Start the development server on `https://nuxt.local.hoite.dev:3000`:
 
 ```bash
 npm run dev

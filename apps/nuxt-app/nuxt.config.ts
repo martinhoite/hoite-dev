@@ -2,7 +2,8 @@ import ViteYaml from '@modyfi/vite-plugin-yaml';
 
 import alias from './alias';
 
-const LOCAL_DEVELOPMENT_HOST = 'local.hoite.dev';
+const LOCAL_DEVELOPMENT_HOST = 'nuxt.local.hoite.dev';
+const LOCAL_CERTIFICATE_HOST = 'local.hoite.dev';
 const LOCAL_CONTENT_HOST = 'martin.hoite.dev';
 
 // https://nuxt.com/docs/4.x/api/nuxt-config
@@ -140,8 +141,8 @@ export default defineNuxtConfig({
     port: 3000,
     host: LOCAL_DEVELOPMENT_HOST,
     https: {
-      key: `./ssl/${LOCAL_DEVELOPMENT_HOST}-key.pem`,
-      cert: `./ssl/${LOCAL_DEVELOPMENT_HOST}.pem`,
+      key: `./ssl/${LOCAL_CERTIFICATE_HOST}-key.pem`,
+      cert: `./ssl/${LOCAL_CERTIFICATE_HOST}.pem`,
     },
   },
 
