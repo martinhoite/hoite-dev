@@ -1,5 +1,7 @@
 # Hoite Monorepo
 
+![Node engine](https://img.shields.io/badge/Node%20engine-%3E%3D24.0.0-026E00)
+
 This repository is structured as a Turborepo monorepo with a single root `node_modules` managed by `npm workspaces`.
 
 ## Workspace layout
@@ -28,6 +30,11 @@ npm run typecheck
 npm run build
 npm run generate:api
 ```
+
+`npm install` also enables Husky Git hooks for this repo:
+
+- `pre-commit`: runs Biome only on staged files
+- `pre-push`: runs `npm run typecheck`
 
 ## Umbraco API generation
 

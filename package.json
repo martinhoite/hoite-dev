@@ -17,11 +17,18 @@
     "format": "turbo format",
     "generate:api": "turbo run generate --filter=@hoite-dev/api-client",
     "lint": "turbo lint",
-    "typecheck": "turbo typecheck"
+    "prepare": "husky",
+    "readme:check-versions": "node ./scripts/sync-readme-versions.mjs --check",
+    "readme:sync-versions": "node ./scripts/sync-readme-versions.mjs",
+    "typecheck": "turbo typecheck",
+    "verify:commit": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
+    "verify:versions": "npm run readme:check-versions && npm run --workspace @hoite-dev/nuxt-app readme:check-versions",
+    "verify:push": "npm run typecheck"
   },
   "devDependencies": {
     "@types/node": "^24.12.0",
     "@biomejs/biome": "^2.4.9",
+    "husky": "^9.1.7",
     "openapi-typescript": "^7.13.0",
     "tsup": "^8.5.1",
     "turbo": "^2.8.21",

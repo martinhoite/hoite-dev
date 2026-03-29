@@ -7,13 +7,15 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "build": "nuxt build",
+    "build": "npm run readme:sync-versions && nuxt build",
     "dev": "nuxt dev",
     "format": "biome check --write .",
     "generate": "nuxt generate",
     "lint": "biome check .",
     "postinstall": "nuxt prepare",
     "preview": "nuxt preview",
+    "readme:check-versions": "node ./scripts/sync-readme-versions.mjs --check",
+    "readme:sync-versions": "node ./scripts/sync-readme-versions.mjs",
     "typecheck": "nuxt typecheck"
   },
   "devDependencies": {

@@ -1,17 +1,13 @@
 # Project information
 
-![Nuxt version](https://img.shields.io/badge/Nuxt%20version-4.2.1-00DC82)
-![Node version](https://img.shields.io/badge/Node%20version-24.11.1-026E00)
+![Nuxt version](https://img.shields.io/badge/Nuxt%20version-4.4.2-00DC82)
 
 ## Stack
-- Nuxt 4
+- Nuxt
 - Vite
 - Pinia
 - TypeScript
 - PostCSS
-
-### Libraries
-- Reka UI
 
 
 # Project setup
