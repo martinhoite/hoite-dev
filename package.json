@@ -12,8 +12,8 @@
   },
   "scripts": {
     "build": "turbo build",
-    "dev": "npm run dev:nuxt",
-    "dev:nuxt": "turbo dev --filter=@hoite-dev/nuxt-app",
+    "dev": "npm run dev:site:nuxt",
+    "dev:site:nuxt": "turbo dev --filter=@hoite-dev/site-nuxt",
     "format": "turbo format",
     "generate:api": "turbo run generate --filter=@hoite-dev/api-client",
     "lint": "turbo lint",
@@ -22,7 +22,7 @@
     "readme:sync-versions": "node ./scripts/sync-readme-versions.mjs",
     "typecheck": "turbo typecheck",
     "verify:commit": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
-    "verify:versions": "npm run readme:check-versions && npm run --workspace @hoite-dev/nuxt-app readme:check-versions",
+    "verify:versions": "npm run readme:check-versions && npm run --workspace @hoite-dev/site-nuxt readme:check-versions",
     "verify:push": "npm run typecheck"
   },
   "devDependencies": {

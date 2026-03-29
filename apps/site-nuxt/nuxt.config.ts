@@ -2,7 +2,7 @@ import ViteYaml from '@modyfi/vite-plugin-yaml';
 
 import alias from './alias';
 
-const LOCAL_DEVELOPMENT_HOST = 'nuxt.local.hoite.dev';
+const LOCAL_DEVELOPMENT_HOST = 'site.local.hoite.dev';
 const LOCAL_CERTIFICATE_HOST = 'local.hoite.dev';
 const LOCAL_CONTENT_HOST = 'martin.hoite.dev';
 

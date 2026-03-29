@@ -9,7 +9,7 @@ This repository is structured as a Turborepo monorepo with a single root `node_m
 ```text
 .
 |- apps/
-|  `- nuxt-app/          # Nuxt 4 app consuming workspace packages
+|  `- site-nuxt/         # Site app built with Nuxt 4
 |- packages/
 |  |- api-client/        # Umbraco delivery client + OpenAPI/type generation scaffold
 |  |- biome-config/      # Shared Biome configuration
@@ -24,7 +24,7 @@ This repository is structured as a Turborepo monorepo with a single root `node_m
 ```bash
 npm install
 npm run dev
-npm run dev:nuxt
+npm run dev:site:nuxt
 npm run lint
 npm run typecheck
 npm run build

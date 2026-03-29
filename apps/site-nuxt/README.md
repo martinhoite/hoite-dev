@@ -43,7 +43,7 @@ npm install
    ```
 3. **Reboot Visual Studio code**
 
-4. **Navigate to `apps/nuxt-app`.**
+4. **Navigate to `apps/site-nuxt`.**
 
   - **Run the following command to generate the shared local SSL certificates in the `ssl` folder**
      ```powershell
@@ -60,7 +60,7 @@ This is only required for local development and **must not** be used in staging 
 ---
 ### Development Server
 
-Start the development server on `https://nuxt.local.hoite.dev:3000`:
+Start the development server on `https://site.local.hoite.dev:3000`:
 
 ```bash
 npm run dev
