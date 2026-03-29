@@ -19,22 +19,20 @@
   "devDependencies": {
     "@csstools/postcss-global-data": "^3.1.0",
     "@modyfi/vite-plugin-yaml": "^1.1.1",
-    "@nuxt/devtools": "^3.1.0",
+    "@nuxt/devtools": "^3.2.4",
     "postcss-calc": "^10.1.1",
-    "postcss-import": "^16.1.1",
     "postcss-nested": "^7.0.2",
-    "postcss-preset-env": "^10.4.0",
+    "postcss-preset-env": "^10.6.1",
     "postcss-reporter": "^7.1.0",
-    "vue-tsc": "^3.1.2"
+    "vue-tsc": "^3.2.6"
   },
   "dependencies": {
     "@hoite-dev/api-client": "0.0.0",
     "@nuxt/image": "^2.0.0",
     "@pinia/nuxt": "^0.11.3",
-    "@unhead/vue": "^2.0.19",
-    "nuxt": "^4.2.1",
-    "nuxt-schema-org": "^5.0.9",
-    "vue": "^3.5.24",
-    "vue-i18n": "^11.2.1"
+    "nuxt": "^4.4.2",
+    "nuxt-schema-org": "^5.0.10",
+    "ofetch": "^1.5.1",
+    "vue": "^3.5.31"
   }
 }
