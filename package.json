@@ -1,7 +1,30 @@
 {
+  "name": "hoite-dev",
+  "private": true,
+  "packageManager": "npm@11.6.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "npm": ">=10.0.0",
+    "node": ">=24.0.0"
+  },
   "scripts": {
-    "install": "echo Wrong location - install from inside the app folder.",
-    "dev": "cd app && npm run dev",
-    "postinstall": "del /F package-lock.json && echo deleting created package-lock.json"
+    "build": "turbo build",
+    "dev": "npm run dev:nuxt",
+    "dev:nuxt": "turbo dev --filter=@hoite-dev/nuxt-app",
+    "format": "turbo format",
+    "generate:api": "turbo run generate --filter=@hoite-dev/api-client",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@biomejs/biome": "^2.3.11",
+    "openapi-typescript": "^7.10.1",
+    "tsup": "^8.5.0",
+    "turbo": "^2.5.8",
+    "typescript": "^5.9.3"
   }
 }

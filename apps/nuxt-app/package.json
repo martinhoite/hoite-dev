@@ -1,0 +1,40 @@
+{
+  "name": "@hoite-dev/nuxt-app",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "npm": ">=10.0.0",
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "format": "biome check --write .",
+    "generate": "nuxt generate",
+    "lint": "biome check .",
+    "postinstall": "nuxt prepare",
+    "preview": "nuxt preview",
+    "typecheck": "nuxt typecheck"
+  },
+  "devDependencies": {
+    "@csstools/postcss-global-data": "^3.1.0",
+    "@modyfi/vite-plugin-yaml": "^1.1.1",
+    "@nuxt/devtools": "^3.1.0",
+    "postcss-calc": "^10.1.1",
+    "postcss-import": "^16.1.1",
+    "postcss-nested": "^7.0.2",
+    "postcss-preset-env": "^10.4.0",
+    "postcss-reporter": "^7.1.0",
+    "vue-tsc": "^3.1.2"
+  },
+  "dependencies": {
+    "@hoite-dev/api-client": "0.0.0",
+    "@nuxt/image": "^2.0.0",
+    "@pinia/nuxt": "^0.11.3",
+    "@unhead/vue": "^2.0.19",
+    "nuxt": "^4.2.1",
+    "nuxt-schema-org": "^5.0.9",
+    "vue": "^3.5.24",
+    "vue-i18n": "^11.2.1"
+  }
+}
