@@ -1,4 +1,17 @@
-import type { SiteSettingsLogo, UmbracoImage, UmbracoSiteSettings } from '~/types/umbraco';
+import type { UmbracoSiteSettings, UrlString } from '@hoite-dev/content-client';
+import { toUrlString } from '@hoite-dev/content-client';
+import { isLocale } from 'types';
+
+const createDefaultSiteSettings = (): UmbracoSiteSettings => ({
+  defaultTheme: 'dark',
+  footerLogo: null,
+  headerLogo: null,
+  headerLogoLink: null,
+  headerLogoText: null,
+  metaTitleExtension: '',
+  seoOpenGraphFallbackImage: null,
+  seoTwitterFallbackImage: null,
+});
 
 export const useSettings = defineStore('settings', () => {
   const {
@@ -6,49 +19,32 @@ export const useSettings = defineStore('settings', () => {
   } = useRuntimeConfig();
   const { getCurrentHost, isLocalhost } = useHost();
 
-  const settings = shallowRef<UmbracoSiteSettings>({} as UmbracoSiteSettings);
+  const settings = shallowRef<UmbracoSiteSettings>(createDefaultSiteSettings());
   const currentHostUrl = shallowRef<UrlString>(setCurrentHostUrl());
 
   function setCurrentHostUrl(): UrlString {
     if (isLocalhost()) {
-      return `https://${localContentHost}` as UrlString;
+      return toUrlString(`https://${localContentHost}`);
     }
 
     const hostWithPort = getCurrentHost();
-    return `https://${hostWithPort}` as UrlString;
+    return toUrlString(`https://${hostWithPort}`);
   }
 
   async function initSettings(path: string) {
-    const { getUmbracoSiteSettings } = useUmbracoDeliveryApi();
-    const locale = getLocaleFromPath(path) || (fallbackLocale as Locale);
+    const { getSiteSettings } = useContentApi();
+    const locale = getLocaleFromPath(path) || (isLocale(fallbackLocale) ? fallbackLocale : null);
 
-    const siteSettingsResponse = await getUmbracoSiteSettings({ locale });
-    if (!siteSettingsResponse) {
+    if (!locale) {
+      throw new Error('Invalid NUXT_PUBLIC_FALLBACK_LOCALE runtime configuration.');
+    }
+
+    const siteSettings = await getSiteSettings({ locale });
+    if (!siteSettings) {
       throw new Error(`Missing site settings for locale "${locale}"`);
     }
 
-    const { properties: siteSettings } = siteSettingsResponse;
-
-    const theme = siteSettings.defaultTheme?.toString().toLowerCase();
-    const defaultTheme: Theme = AvailableThemes.includes(theme as Theme)
-      ? (theme as Theme)
-      : 'dark';
-
-    // TODO: Custom extension of API to send single arrays as an object for links and images.
-    settings.value = {
-      metaTitleExtension: siteSettings.metaTitleExtension || '',
-      seoTwitterFallbackImage: handleUmbracoSingleArray<UmbracoImage>(
-        siteSettings.seoTwitterFallbackImage,
-      ),
-      seoOpenGraphFallbackImage: handleUmbracoSingleArray<UmbracoImage>(
-        siteSettings.seoOpenGraphFallbackImage,
-      ),
-      headerLogo: handleUmbracoSingleArray<SiteSettingsLogo>(siteSettings.headerLogo),
-      headerLogoLink: getSingleUmbracoUrlFromArray(siteSettings.headerLogoLink),
-      headerLogoText: siteSettings.headerLogoText,
-      footerLogo: handleUmbracoSingleArray<SiteSettingsLogo>(siteSettings.footerLogo),
-      defaultTheme,
-    };
+    settings.value = siteSettings;
   }
 
   return {

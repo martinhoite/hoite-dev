@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { SimplifiedUmbracoLink } from '@hoite-dev/content-client';
+import { toUrlString } from '@hoite-dev/content-client';
 import defaultDevLogo from '@/assets/images/hoite_dev-logo.svg?raw';
 
 const { settings } = useSettings();
@@ -16,9 +18,13 @@ const props = withDefaults(defineProps<Props>(), {
 
 const logoLink = computed(() => {
   //TODO: Use global page frontpage when implemented.
-  return props.logoLink
-    ? props.logoLink
-    : ({ url: '/', title: 'Return to frontpage' } as SimplifiedUmbracoLink);
+  const fallbackLink: SimplifiedUmbracoLink = {
+    target: null,
+    title: 'Return to frontpage',
+    url: toUrlString('/'),
+  };
+
+  return props.logoLink ?? fallbackLink;
 });
 
 const logoMaskStyle = computed(() => {
@@ -26,7 +32,9 @@ const logoMaskStyle = computed(() => {
     ? getMediaLink(settings.headerLogo.url)
     : `data:image/svg+xml;utf8,${encodeURIComponent(defaultDevLogo)}`;
 
-  if (logoMaskUrl === '') return null;
+  if (logoMaskUrl === '') {
+    return null;
+  }
 
   const logoStyle = `--logo-size:${props.logoSize}px;
               mask-image: url('${logoMaskUrl}');

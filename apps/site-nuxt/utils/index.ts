@@ -1,5 +1,7 @@
+import type { UrlString } from '@hoite-dev/content-client';
+import { toUrlString } from '@hoite-dev/content-client';
 import type { ConsoleLogTypes, Locale } from 'types';
-import { AvailableLocales } from 'types';
+import { isLocale } from 'types';
 
 /**
  * A simple service for getting the DOM window and document objects,
@@ -37,7 +39,9 @@ export function devOnlyConsoleLog(
   logType: ConsoleLogTypes = 'info',
   data: unknown = null,
 ) {
-  if (import.meta.server) return;
+  if (import.meta.server) {
+    return;
+  }
 
   const { $logger } = useNuxtApp();
 
@@ -90,7 +94,9 @@ export function getSubdomain(hostname: string): string | null {
 export function getLocaleFromUrl(url: UrlString) {
   try {
     const parsedUrl = new URL(url);
-    const pathSegments = parsedUrl.pathname.split('/').filter((segment) => segment.length > 0);
+    const pathSegments = parsedUrl.pathname.split('/').filter((segment) => {
+      return segment.length > 0;
+    });
     return pathSegments.length > 0 ? pathSegments[0] : null;
   } catch (error) {
     const { $logger } = useNuxtApp();
@@ -115,12 +121,12 @@ export function getLocaleFromUrl(url: UrlString) {
  */
 export function getLocaleFromPath(path: string): Locale | null {
   try {
-    const pathSegments = path.split('/').filter((segment) => segment.length > 0);
+    const pathSegments = path.split('/').filter((segment) => {
+      return segment.length > 0;
+    });
 
     const potentialLocale = pathSegments[0];
-    const isValidLocale = AvailableLocales.includes(potentialLocale as Locale);
-
-    return isValidLocale ? (potentialLocale as Locale) : null;
+    return isLocale(potentialLocale) ? potentialLocale : null;
   } catch (error) {
     const { $logger } = useNuxtApp();
     $logger.error('Error processing path:', false, error);
@@ -144,12 +150,11 @@ export function getLocaleFromPath(path: string): Locale | null {
  */
 export function removeLocaleFromPath(path: string): string {
   try {
-    const pathSegments = path.split('/').filter((segment) => segment.length > 0);
+    const pathSegments = path.split('/').filter((segment) => {
+      return segment.length > 0;
+    });
 
-    if (
-      pathSegments.length > 0 &&
-      AvailableLocales.includes(pathSegments[0] as (typeof AvailableLocales)[number])
-    ) {
+    if (pathSegments.length > 0 && isLocale(pathSegments[0])) {
       pathSegments.shift();
     }
 
@@ -161,50 +166,10 @@ export function removeLocaleFromPath(path: string): string {
   }
 }
 
-/**
- * Extracts a single item from a (possibly nullable) array that is expected to contain at most one element.
- *
- * If the array has more than one item, an error is logged via the Nuxt $logger.
- * Returns the first item if the array has exactly one item.
- * Returns null if the array is null, empty, or has multiple items.
- *
- * @template T The expected type of the array item.
- * @param {T[] | null} array - The array to extract a single item from.
- * @returns {T | null} The single item from the array, or null.
- */
-export function handleUmbracoSingleArray<T = unknown>(array: T[] | null): T | null {
-  if (array) {
-    if (array.length > 1) {
-      const { $logger } = useNuxtApp();
-      $logger.error('Assumed single array is multiple:', true, array);
-    } else {
-      return array[0] ?? null;
-    }
-  }
-
-  return null;
-}
-
-export function getSingleUmbracoUrlFromArray(
-  linkArray: UmbracoLink[] | null,
-): SimplifiedUmbracoLink | null {
-  const singleItem = handleUmbracoSingleArray(linkArray) as UmbracoLink | null;
-
-  if (singleItem) {
-    return {
-      url: singleItem.route.path as UrlString,
-      target: singleItem.target,
-      title: singleItem.title,
-    };
-  }
-
-  return null;
-}
-
-export function getMediaLink(path: string): string {
+export function getMediaLink(path: UrlString): string {
   const {
     public: { mediaBase },
   } = useRuntimeConfig();
 
-  return `${mediaBase}${path}`;
+  return `${toUrlString(mediaBase)}${path}`;
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SimplifiedUmbracoLink } from '~/types/umbraco';
+import type { SimplifiedUmbracoLink } from '@hoite-dev/content-client';
 
 type Props = {
   link?: SimplifiedUmbracoLink;

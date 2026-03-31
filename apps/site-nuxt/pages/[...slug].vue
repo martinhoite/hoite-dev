@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { UmbracoDeliveryApiResponse, UmbracoPageResponse } from '@hoite-dev/content-client';
+import { getSingleItemFromArray } from '@hoite-dev/content-client';
 import type { ConcreteComponent } from 'vue';
-import type { UmbracoDeliveryApiResponse, UmbracoPageResponse } from '~/types/umbracoDeliveryApi';
 
 const route = useRoute();
-const { getUmbracoContentByRoute } = useUmbracoDeliveryApi();
+const { getPageByRoute } = useContentApi();
 const { settings, currentHostUrl } = useSettings();
 
 const path = route.path;
@@ -11,7 +12,7 @@ const encodedPath = encodeURIComponent(path);
 
 const { data: pageData, error: pageError } = await useAsyncData<
   UmbracoDeliveryApiResponse<UmbracoPageResponse>
->(`page:${encodedPath}`, () => getUmbracoContentByRoute({ path }), { deep: false });
+>(`page:${encodedPath}`, () => getPageByRoute({ path }), { deep: false });
 
 if (pageError.value || !pageData.value) {
   devOnlyConsoleLog('Failed getting pageData in slug', 'error', pageError.value);
@@ -45,17 +46,17 @@ const canonicalUrl = computed(() => {
 const twitterImagePath = computed(() => {
   const image = pageProperties.value?.seoTwitterImage;
   if (image) {
-    return (handleUmbracoSingleArray(image) as UmbracoImage).url;
+    return getSingleItemFromArray(image)?.url ?? null;
   }
-  return settings.seoTwitterFallbackImage?.url || '';
+  return settings.seoTwitterFallbackImage?.url ?? null;
 });
 
 const openGraphImagePath = computed(() => {
   const image = pageProperties.value?.seoOpenGraphImage;
   if (image) {
-    return (handleUmbracoSingleArray(image) as UmbracoImage).url;
+    return getSingleItemFromArray(image)?.url ?? null;
   }
-  return settings.seoOpenGraphFallbackImage?.url || '';
+  return settings.seoOpenGraphFallbackImage?.url ?? null;
 });
 
 useHead({
@@ -87,13 +88,19 @@ useHead({
     { name: 'twitter:title', content: pageProperties.value?.seoTitle },
     { name: 'twitter:description', content: pageProperties.value?.seoDescription },
     { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:image', content: getMediaLink(twitterImagePath.value) },
+    {
+      name: 'twitter:image',
+      content: twitterImagePath.value ? getMediaLink(twitterImagePath.value) : undefined,
+    },
 
     { name: 'og:title', content: pageProperties.value?.seoTitle },
     { name: 'og:description', content: pageProperties.value?.seoDescription },
     { name: 'og:type', content: 'website' },
     { name: 'og:url', content: `${currentHostUrl}${pageData.value?.route.path}` },
-    { name: 'og:image', content: getMediaLink(openGraphImagePath.value) },
+    {
+      name: 'og:image',
+      content: openGraphImagePath.value ? getMediaLink(openGraphImagePath.value) : undefined,
+    },
   ],
   link: [
     {

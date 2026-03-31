@@ -55,12 +55,18 @@ npm install
 If you're running the Umbraco instance locally, its self-signed certificate is not trusted by Node. Server side requests from the frontend may fail because of this. As a workaround, add the following to your local `.env` file:
 ```NODE_TLS_REJECT_UNAUTHORIZED=0```
 
-This is only required for local development and **must not** be used in staging or production. The underlying trust issue may be resolved later so this workaround is no longer needed.
+This is only required for local development and **must not** be used in staging or production. The underlying trust issue will hopefully be resolved later.
 
 ---
 ### Development Server
 
-Start the development server on `https://site.local.hoite.dev:3000`:
+Ensure you've added this to your local hosts file so the dev server hostname resolves:
+
+```text
+127.0.0.1 site-nuxt.local.hoite.dev
+```
+
+Start the development server on `https://site-nuxt.local.hoite.dev:3000`:
 
 ```bash
 npm run dev
