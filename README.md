@@ -36,6 +36,12 @@ npm run generate:content:umbraco
 - `pre-commit`: runs Biome only on staged files
 - `pre-push`: runs `npm run typecheck`
 
+## Editor Extensions
+
+If you use VS Code, install the recommended workspace extensions.
+
+The most important one for this repo is the Biome extension so format-on-save matches the repo's formatter and pre-commit checks.
+
 ## Umbraco API generation
 
 The shared Umbraco client package is wired for OpenAPI-based generation:
