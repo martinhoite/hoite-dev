@@ -7,18 +7,15 @@ import { fetchOpenApi } from './fetch-openapi.mjs';
 import { generateDocTypeFiles } from './generate-doc-type-files.mjs';
 import { generateOpenApiTypes } from './generate-openapi-types.mjs';
 
-const generatedFiles = [
-  'openapi/umbraco-delivery.openapi.json',
-  'src/generated/umbraco-openapi.generated.ts',
-  'src/generated/all-doc-types.generated.ts',
-  'src/generated/public-doc-types.generated.ts',
-];
-
 const runBiomeFormat = async (cwd) => {
-  const npmExecutable = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  const npmCliPath = process.env.npm_execpath;
+
+  if (!npmCliPath) {
+    throw new Error('Unable to determine npm CLI path. Run the generator through an npm script.');
+  }
 
   await new Promise((resolve, reject) => {
-    const child = spawn(npmExecutable, ['exec', 'biome', 'format', '--write', ...generatedFiles], {
+    const child = spawn(process.execPath, [npmCliPath, 'run', 'format:generated'], {
       cwd,
       stdio: 'inherit',
     });
@@ -37,9 +34,10 @@ const runBiomeFormat = async (cwd) => {
 
 export async function generateUmbracoClient({
   cwd = process.cwd(),
+  openApiCaCertificatePath,
   openApiUrl = process.env.UMBRACO_OPENAPI_URL,
 } = {}) {
-  await fetchOpenApi({ cwd, openApiUrl });
+  await fetchOpenApi({ cwd, openApiCaCertificatePath, openApiUrl });
   await generateOpenApiTypes({ cwd });
   await generateDocTypeFiles({ cwd });
   await runBiomeFormat(cwd);

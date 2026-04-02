@@ -40,17 +40,21 @@ npm run generate:content:umbraco
 
 The shared Umbraco client package is wired for OpenAPI-based generation:
 
-1. Update `scripts/umbraco-generation.config.mjs` if the local Umbraco Swagger URL changes.
-2. Run `npm run generate:content:umbraco`.
-3. The workspace will:
+1. Copy `.env.example` to `.env`.
+2. Update `UMBRACO_OPENAPI_URL` to match your Umbraco Swagger URL.
+3. If your local Umbraco instance uses a locally trusted certificate authority such as `mkcert`, run `mkcert -CAROOT` and set `UMBRACO_OPENAPI_CA_CERT_PATH` to `<that-path>/rootCA.pem`.
+4. Run `npm run generate:content:umbraco`.
+5. The workspace will:
    - download the OpenAPI document into `packages/umbraco-client/openapi/`
    - generate TypeScript API types
    - derive document type unions
    - apply exclusions from `packages/umbraco-client/openapi/public-api.config.json`
 
-`UMBRACO_OPENAPI_URL` can still be set explicitly to override the local generation config when needed.
+The generator reads `UMBRACO_OPENAPI_URL` and `UMBRACO_OPENAPI_CA_CERT_PATH` from the root `.env` file.
 
-If Swagger is disabled for the environment you target, keep a checked-in OpenAPI artifact or seed manifest in the repo and generate from that instead.
+If the CA certificate path is omitted, the generator uses Node's default trust store.
+
+The current generator expects a live OpenAPI URL. If you need to work from a checked-in artifact instead, manually add or update `packages/umbraco-client/openapi/umbraco-delivery.openapi.json`, and update `packages/umbraco-client/openapi/doc-types.seed.json` if the document types changed.
 
 ## Local app hosts
 

@@ -1,9 +1,25 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { getCACertificates, setDefaultCACertificates } from 'node:tls';
 import { pathToFileURL } from 'node:url';
 
+const configureHttpsTrust = async ({ cwd, openApiCaCertificatePath, openApiUrl }) => {
+  const url = new URL(openApiUrl);
+
+  if (url.protocol !== 'https:' || !openApiCaCertificatePath) {
+    return;
+  }
+
+  const certificatePath = path.resolve(cwd, openApiCaCertificatePath);
+  const certificate = await readFile(certificatePath, 'utf8');
+  const trustedCertificates = [...new Set([...getCACertificates('default'), certificate])];
+
+  setDefaultCACertificates(trustedCertificates);
+};
+
 export async function fetchOpenApi({
+  openApiCaCertificatePath,
   cwd = process.cwd(),
   openApiUrl = process.env.UMBRACO_OPENAPI_URL,
 } = {}) {
@@ -12,6 +28,8 @@ export async function fetchOpenApi({
   if (!openApiUrl) {
     throw new Error('UMBRACO_OPENAPI_URL is not set.');
   }
+
+  await configureHttpsTrust({ cwd, openApiCaCertificatePath, openApiUrl });
 
   const response = await fetch(openApiUrl);
 
