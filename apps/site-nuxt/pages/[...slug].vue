@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { UmbracoDeliveryApiResponse, UmbracoPageResponse } from '@hoite-dev/content-client';
-import { getSingleItemFromArray } from '@hoite-dev/content-client';
+import type { UmbracoDeliveryApiResponse, UmbracoPageResponse } from '@hoite-dev/umbraco-client';
+import { getSingleItemFromArray } from '@hoite-dev/umbraco-client';
 import type { ConcreteComponent } from 'vue';
 
 const route = useRoute();
 const { getPageByRoute } = useContentApi();
-const { settings, currentHostUrl } = useSettings();
+const { settings, siteUrl } = useSettings();
 
 const path = route.path;
 const encodedPath = encodeURIComponent(path);
@@ -40,7 +40,7 @@ const pageProperties = computed(() => pageData.value?.properties);
 const pageHeading = computed(() => pageData.value?.name);
 
 const canonicalUrl = computed(() => {
-  return `${currentHostUrl}${pageData.value?.properties.canonicalURL?.url || pageData.value?.route.path}`;
+  return `${siteUrl}${pageData.value?.properties.canonicalURL?.url || pageData.value?.route.path}`;
 });
 
 const twitterImagePath = computed(() => {
@@ -96,7 +96,7 @@ useHead({
     { name: 'og:title', content: pageProperties.value?.seoTitle },
     { name: 'og:description', content: pageProperties.value?.seoDescription },
     { name: 'og:type', content: 'website' },
-    { name: 'og:url', content: `${currentHostUrl}${pageData.value?.route.path}` },
+    { name: 'og:url', content: `${siteUrl}${pageData.value?.route.path}` },
     {
       name: 'og:image',
       content: openGraphImagePath.value ? getMediaLink(openGraphImagePath.value) : undefined,

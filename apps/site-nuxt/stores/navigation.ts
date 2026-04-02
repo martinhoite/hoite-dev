@@ -1,4 +1,4 @@
-import type { UmbracoNavigationItem } from '@hoite-dev/content-client';
+import type { UmbracoNavigationItem } from '@hoite-dev/umbraco-client';
 
 export const useNavigation = defineStore('navigation', () => {
   const navigationItems = ref<UmbracoNavigationItem[]>([]);

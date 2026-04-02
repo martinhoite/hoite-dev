@@ -81,47 +81,50 @@ export type UmbracoClientConfig = {
   excludedDocTypes?: readonly string[];
 };
 
-export type ContentClientMethod = 'getNavigation' | 'getPageByRoute' | 'getSiteSettings';
+export type UmbracoContentClientMethod = 'getNavigation' | 'getPageByRoute' | 'getSiteSettings';
 
-export type ContentClientIssueCode =
+export type UmbracoContentClientIssueCode =
   | 'expected_single_item_array'
   | 'invalid_content_theme'
   | 'invalid_required_value'
   | 'invalid_optional_url';
 
-export type ContentClientIssueActionTaken = 'returned_null' | 'used_default' | 'used_first_item';
+export type UmbracoContentClientIssueActionTaken =
+  | 'returned_null'
+  | 'used_default'
+  | 'used_first_item';
 
-export type ContentClientIssue = {
-  actionTaken: ContentClientIssueActionTaken;
-  code: ContentClientIssueCode;
+export type UmbracoContentClientIssue = {
+  actionTaken: UmbracoContentClientIssueActionTaken;
+  code: UmbracoContentClientIssueCode;
   contentType?: string;
   field: string;
-  method: ContentClientMethod;
+  method: UmbracoContentClientMethod;
   receivedCount?: number;
   receivedValue?: unknown;
 };
 
-export type ContentClientConfig = {
+export type UmbracoContentClientConfig = {
   baseUrl: string;
   defaultHeaders?: HeadersInit;
   deliveryApiKey?: string;
   excludedDocTypes?: readonly string[];
-  onIssue?: (issue: ContentClientIssue) => void;
+  onIssue?: (issue: UmbracoContentClientIssue) => void;
 };
 
-export type ContentClientRequestOptions = {
+export type UmbracoContentClientRequestOptions = {
   locale?: LocaleCode;
   preview?: boolean;
   startItem?: StartItemKey;
 };
 
-export type GetPageByRouteOptions = ContentClientRequestOptions & {
+export type GetPageByRouteOptions = UmbracoContentClientRequestOptions & {
   path: string;
 };
 
-export type GetSiteSettingsOptions = ContentClientRequestOptions;
+export type GetSiteSettingsOptions = UmbracoContentClientRequestOptions;
 
-export type GetNavigationOptions = ContentClientRequestOptions;
+export type GetNavigationOptions = UmbracoContentClientRequestOptions;
 
 export type UmbracoNodeId = ContentId & { readonly __umbracoNodeIdBrand: unique symbol };
 

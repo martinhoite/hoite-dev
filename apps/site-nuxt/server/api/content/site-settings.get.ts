@@ -1,22 +1,20 @@
 import { getQuery } from 'h3';
 
 import {
-  createServerContentClient,
+  createServerUmbracoContentClient,
   getBooleanValue,
   getLocaleValue,
-  getStartItemValue,
   toContentHttpError,
 } from '../../utils/contentClient';
 
 export default defineEventHandler(async (event) => {
-  const client = createServerContentClient();
+  const client = createServerUmbracoContentClient();
   const query = getQuery(event);
 
   try {
     return await client.getSiteSettings({
       locale: getLocaleValue(query.locale),
       preview: getBooleanValue(query.preview),
-      startItem: getStartItemValue(query.startItem),
     });
   } catch (error) {
     throw toContentHttpError(error);

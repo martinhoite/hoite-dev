@@ -2,9 +2,9 @@ import ViteYaml from '@modyfi/vite-plugin-yaml';
 
 import alias from './alias';
 
-const LOCAL_DEVELOPMENT_HOST = 'site-nuxt.local.hoite.dev';
+const LOCAL_APP_HOST = 'site-nuxt.local.hoite.dev';
 const LOCAL_CERTIFICATE_HOST = 'local.hoite.dev';
-const LOCAL_CONTENT_HOST = 'martin.hoite.dev';
+const LOCAL_SITE_ORIGIN = `https://${LOCAL_APP_HOST}:3000`;
 
 // https://nuxt.com/docs/4.x/api/nuxt-config
 export default defineNuxtConfig({
@@ -12,12 +12,12 @@ export default defineNuxtConfig({
     umbracoBaseUrl: '',
     umbracoDeliveryApiKey: '',
     umbracoExcludedDocTypes: '',
+    umbracoStartItem: '',
     public: {
       environment: '',
       mediaBase: '',
       fallbackLocale: '',
-      localDevelopmentHost: LOCAL_DEVELOPMENT_HOST,
-      localContentHost: LOCAL_CONTENT_HOST,
+      siteBaseUrl: LOCAL_SITE_ORIGIN,
     },
   },
 
@@ -92,12 +92,12 @@ export default defineNuxtConfig({
   vite: {
     plugins: [ViteYaml()],
     server: {
-      allowedHosts: [LOCAL_DEVELOPMENT_HOST],
+      allowedHosts: [LOCAL_APP_HOST],
     },
   },
 
   build: {
-    transpile: ['@hoite-dev/content-client'],
+    transpile: ['@hoite-dev/umbraco-client'],
   },
 
   imports: {
@@ -128,7 +128,7 @@ export default defineNuxtConfig({
       brotli: true,
     },
     externals: {
-      inline: ['@hoite-dev/content-client'],
+      inline: ['@hoite-dev/umbraco-client'],
     },
     minify: true,
   },
@@ -139,7 +139,7 @@ export default defineNuxtConfig({
 
   devServer: {
     port: 3000,
-    host: LOCAL_DEVELOPMENT_HOST,
+    host: LOCAL_APP_HOST,
     https: {
       key: `./ssl/${LOCAL_CERTIFICATE_HOST}-key.pem`,
       cert: `./ssl/${LOCAL_CERTIFICATE_HOST}.pem`,

@@ -1,6 +1,5 @@
 import {
-  type ContentClientIssue,
-  createContentClient,
+  createUmbracoContentClient,
   defaultExcludedDocTypes,
   isLocaleCode,
   isRoutePath,
@@ -11,8 +10,9 @@ import {
   toLocaleCode,
   toRoutePath,
   toStartItemKey,
+  type UmbracoContentClientIssue,
   UmbracoExcludedContentError,
-} from '@hoite-dev/content-client';
+} from '@hoite-dev/umbraco-client';
 import { createError } from 'h3';
 import { LoggingService } from '~/services/loggingService';
 
@@ -83,20 +83,6 @@ export const getRoutePathValue = (value: unknown): RoutePath | undefined => {
   return toRoutePath(queryValue);
 };
 
-export const getStartItemValue = (value: unknown): StartItemKey | undefined => {
-  const queryValue = getOptionalQueryString(value);
-
-  if (queryValue == null) {
-    return undefined;
-  }
-
-  if (!isStartItemKey(queryValue)) {
-    throw createInvalidQueryError('startItem', 'a start item key string');
-  }
-
-  return toStartItemKey(queryValue);
-};
-
 export const toContentHttpError = (error: unknown) => {
   if (error instanceof UmbracoExcludedContentError) {
     return createError({
@@ -108,16 +94,27 @@ export const toContentHttpError = (error: unknown) => {
   return error;
 };
 
-const logContentIssue = (issue: ContentClientIssue) => {
+const logContentIssue = (issue: UmbracoContentClientIssue) => {
   const {
     public: { environment },
   } = useRuntimeConfig();
   const logger = new LoggingService(environment || 'development');
 
-  logger.warn('[content-client]', false, issue);
+  logger.warn('[umbraco-client]', false, issue);
 };
 
-export const createServerContentClient = () => {
+const getConfiguredUmbracoStartItem = (value: string): StartItemKey => {
+  if (!isStartItemKey(value)) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Invalid NUXT_UMBRACO_START_ITEM runtime configuration.',
+    });
+  }
+
+  return toStartItemKey(value);
+};
+
+export const createServerUmbracoContentClient = () => {
   const config = useRuntimeConfig();
 
   if (!config.umbracoBaseUrl) {
@@ -127,15 +124,41 @@ export const createServerContentClient = () => {
     });
   }
 
+  if (!config.umbracoStartItem) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Missing NUXT_UMBRACO_START_ITEM runtime configuration.',
+    });
+  }
+
   const excludedDocTypes = config.umbracoExcludedDocTypes
     .split(',')
     .map((value) => value.trim())
     .filter(Boolean);
+  const startItem = getConfiguredUmbracoStartItem(config.umbracoStartItem);
 
-  return createContentClient({
+  const client = createUmbracoContentClient({
     baseUrl: config.umbracoBaseUrl,
     deliveryApiKey: config.umbracoDeliveryApiKey || undefined,
     excludedDocTypes: excludedDocTypes.length > 0 ? excludedDocTypes : defaultExcludedDocTypes,
     onIssue: logContentIssue,
   });
+
+  return {
+    getNavigation: (options: Omit<Parameters<typeof client.getNavigation>[0], 'startItem'>) =>
+      client.getNavigation({
+        ...options,
+        startItem,
+      }),
+    getPageByRoute: (options: Omit<Parameters<typeof client.getPageByRoute>[0], 'startItem'>) =>
+      client.getPageByRoute({
+        ...options,
+        startItem,
+      }),
+    getSiteSettings: (options: Omit<Parameters<typeof client.getSiteSettings>[0], 'startItem'>) =>
+      client.getSiteSettings({
+        ...options,
+        startItem,
+      }),
+  };
 };

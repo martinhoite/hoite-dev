@@ -1,10 +1,10 @@
 import type { ContentId, DocTypeAlias, RoutePath, StartItemKey, UrlString } from '../types/opaque';
 import type {
-  ContentClientIssue,
-  ContentClientIssueCode,
-  ContentClientMethod,
   SimplifiedUmbracoLink,
   SiteSettingsLogo,
+  UmbracoContentClientIssue,
+  UmbracoContentClientIssueCode,
+  UmbracoContentClientMethod,
   UmbracoContentItem,
   UmbracoContentRoute,
   UmbracoImage,
@@ -28,11 +28,11 @@ import {
   toUrlString,
 } from './opaque-type-helpers';
 
-type IssueReporter = (issue: ContentClientIssue) => void;
+type IssueReporter = (issue: UmbracoContentClientIssue) => void;
 
 type IssueOperationContext = {
   contentType?: DocTypeAlias;
-  method: ContentClientMethod;
+  method: UmbracoContentClientMethod;
   reportIssue?: IssueReporter;
 };
 
@@ -40,9 +40,9 @@ type IssueFieldContext = IssueOperationContext & {
   child: (fieldSegment: string) => IssueFieldContext;
   field: string;
   report: (
-    code: ContentClientIssueCode,
-    actionTaken: ContentClientIssue['actionTaken'],
-    details?: Pick<ContentClientIssue, 'receivedCount' | 'receivedValue'>,
+    code: UmbracoContentClientIssueCode,
+    actionTaken: UmbracoContentClientIssue['actionTaken'],
+    details?: Pick<UmbracoContentClientIssue, 'receivedCount' | 'receivedValue'>,
   ) => void;
 };
 

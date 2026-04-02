@@ -1,5 +1,5 @@
-import type { UmbracoSiteSettings, UrlString } from '@hoite-dev/content-client';
-import { toUrlString } from '@hoite-dev/content-client';
+import type { UmbracoSiteSettings, UrlString } from '@hoite-dev/umbraco-client';
+import { toUrlString } from '@hoite-dev/umbraco-client';
 import { isLocale } from 'types';
 
 const createDefaultSiteSettings = (): UmbracoSiteSettings => ({
@@ -15,20 +15,18 @@ const createDefaultSiteSettings = (): UmbracoSiteSettings => ({
 
 export const useSettings = defineStore('settings', () => {
   const {
-    public: { fallbackLocale, localContentHost },
+    public: { fallbackLocale, siteBaseUrl },
   } = useRuntimeConfig();
-  const { getCurrentHost, isLocalhost } = useHost();
 
   const settings = shallowRef<UmbracoSiteSettings>(createDefaultSiteSettings());
-  const currentHostUrl = shallowRef<UrlString>(setCurrentHostUrl());
+  const siteUrl = shallowRef<UrlString>(setSiteUrl());
 
-  function setCurrentHostUrl(): UrlString {
-    if (isLocalhost()) {
-      return toUrlString(`https://${localContentHost}`);
+  function setSiteUrl(): UrlString {
+    if (!siteBaseUrl) {
+      throw new Error('Missing NUXT_PUBLIC_SITE_BASE_URL runtime configuration.');
     }
 
-    const hostWithPort = getCurrentHost();
-    return toUrlString(`https://${hostWithPort}`);
+    return toUrlString(siteBaseUrl);
   }
 
   async function initSettings(path: string) {
@@ -49,7 +47,7 @@ export const useSettings = defineStore('settings', () => {
 
   return {
     settings,
-    currentHostUrl,
+    siteUrl,
     initSettings,
   };
 });

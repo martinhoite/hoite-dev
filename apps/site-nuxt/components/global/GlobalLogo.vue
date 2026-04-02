@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { SimplifiedUmbracoLink } from '@hoite-dev/content-client';
-import { toUrlString } from '@hoite-dev/content-client';
+import type { SimplifiedUmbracoLink } from '@hoite-dev/umbraco-client';
+import { toUrlString } from '@hoite-dev/umbraco-client';
 import defaultDevLogo from '@/assets/images/hoite_dev-logo.svg?raw';
 
 const { settings } = useSettings();

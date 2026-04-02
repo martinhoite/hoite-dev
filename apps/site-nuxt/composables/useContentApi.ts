@@ -3,27 +3,11 @@ import type {
   UmbracoNavigationItem,
   UmbracoPageResponse,
   UmbracoSiteSettings,
-} from '@hoite-dev/content-client';
+} from '@hoite-dev/umbraco-client';
 import type { Locale } from 'types';
 import { isLocale } from 'types';
 
 export default function () {
-  const { getNormalizedHostname, isLocalhost } = useHost();
-
-  const getCurrentStartItem = (): string => {
-    const {
-      public: { localContentHost },
-    } = useRuntimeConfig();
-
-    const hostname = getNormalizedHostname();
-
-    if (isLocalhost()) {
-      return getSubdomain(localContentHost) || '';
-    }
-
-    return getSubdomain(hostname) || '';
-  };
-
   const getLocale = (path: string = '') => {
     const {
       public: { fallbackLocale },
@@ -49,7 +33,6 @@ export default function () {
       params: {
         locale: getLocale(path),
         path: removeLocaleFromPath(path),
-        startItem: getCurrentStartItem(),
       },
     });
   };
@@ -60,7 +43,6 @@ export default function () {
       keepalive: true,
       params: {
         locale,
-        startItem: getCurrentStartItem(),
       },
     });
   };
@@ -71,7 +53,6 @@ export default function () {
       keepalive: true,
       params: {
         locale: getLocale(pathForLocale),
-        startItem: getCurrentStartItem(),
       },
     });
   };

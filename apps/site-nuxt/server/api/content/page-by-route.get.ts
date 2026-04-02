@@ -1,16 +1,15 @@
 import { createError, getQuery } from 'h3';
 
 import {
-  createServerContentClient,
+  createServerUmbracoContentClient,
   getBooleanValue,
   getLocaleValue,
   getRoutePathValue,
-  getStartItemValue,
   toContentHttpError,
 } from '../../utils/contentClient';
 
 export default defineEventHandler(async (event) => {
-  const client = createServerContentClient();
+  const client = createServerUmbracoContentClient();
   const query = getQuery(event);
   const path = getRoutePathValue(query.path);
 
@@ -26,7 +25,6 @@ export default defineEventHandler(async (event) => {
       locale: getLocaleValue(query.locale),
       path,
       preview: getBooleanValue(query.preview),
-      startItem: getStartItemValue(query.startItem),
     });
   } catch (error) {
     throw toContentHttpError(error);

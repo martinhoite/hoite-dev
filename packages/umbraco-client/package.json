@@ -1,0 +1,19 @@
+{
+  "name": "@hoite-dev/umbraco-client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "dependencies": {
+    "ofetch": "^1.5.1"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "format": "biome check --write .",
+    "generate": "node ./scripts/generate.mjs",
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  }
+}

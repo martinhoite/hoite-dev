@@ -1,5 +1,5 @@
-import type { UrlString } from '@hoite-dev/content-client';
-import { toUrlString } from '@hoite-dev/content-client';
+import type { UrlString } from '@hoite-dev/umbraco-client';
+import { toUrlString } from '@hoite-dev/umbraco-client';
 import type { ConsoleLogTypes, Locale } from 'types';
 import { isLocale } from 'types';
 

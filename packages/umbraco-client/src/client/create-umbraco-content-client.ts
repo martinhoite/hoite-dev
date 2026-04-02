@@ -1,8 +1,8 @@
 import type {
-  ContentClientConfig,
   GetNavigationOptions,
   GetPageByRouteOptions,
   GetSiteSettingsOptions,
+  UmbracoContentClientConfig,
   UmbracoNavigationItemProperties,
   UmbracoPageResponse,
   UmbracoSiteSettingsResponse,
@@ -15,7 +15,7 @@ import {
 } from '../utils/umbraco';
 import { createUmbracoClient } from './create-umbraco-client';
 
-export const createContentClient = (config: ContentClientConfig) => {
+export const createUmbracoContentClient = (config: UmbracoContentClientConfig) => {
   const umbracoClient = createUmbracoClient({
     baseUrl: config.baseUrl,
     defaultHeaders: config.defaultHeaders,
