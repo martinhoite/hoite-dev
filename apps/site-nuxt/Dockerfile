@@ -23,9 +23,12 @@ ENV NITRO_HOST=0.0.0.0
 ENV NITRO_PORT=3000
 
 COPY --from=build --chown=node:node /workspace/apps/site-nuxt/.output ./.output
+COPY --chown=node:node apps/site-nuxt/docker-entrypoint.sh ./docker-entrypoint.sh
+
+RUN chmod +x ./docker-entrypoint.sh
 
 EXPOSE 3000
 
 USER node
 
-CMD ["node", ".output/server/index.mjs"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
