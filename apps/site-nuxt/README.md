@@ -60,17 +60,48 @@ This is only required for local development and **must not** be used in staging 
 ---
 ### Development Server
 
-Ensure you've added this to your local hosts file so the dev server hostname resolves:
+Use the default local app hostname:
+
+```text
+site-nuxt.local.hoite.dev
+```
+
+Add this to your local hosts file unless you have a local DNS setup:
 
 ```text
 127.0.0.1 site-nuxt.local.hoite.dev
 ```
 
-Start the development server on `https://site-nuxt.local.hoite.dev:3000`:
+Set the canonical/public site URL explicitly with `NUXT_PUBLIC_SITE_BASE_URL`.
+
+Set the Umbraco content root explicitly with `NUXT_UMBRACO_START_ITEM`.
+
+This lets the frontend run locally while still behaving as the correct public site and querying the correct Umbraco root.
+
+Start the development server:
 
 ```bash
 npm run dev
 ```
+
+### Multilingual
+
+Locales are path-based in this app.
+
+Examples:
+
+```text
+/en/
+/da/
+```
+
+The app resolves the locale from the first path segment.
+
+The root path `/` redirects to `NUXT_PUBLIC_FALLBACK_LOCALE`.
+
+Other routes must start with a valid locale such as `/en/` or `/da/`.
+
+Invalid or non-localized routes return a 404 via [`middleware/enforce-locale.global.ts`](./middleware/enforce-locale.global.ts).
 
 ### Production
 

@@ -11,7 +11,7 @@ This repository is structured as a Turborepo monorepo with a single root `node_m
 |- apps/
 |  `- site-nuxt/         # Site app built with Nuxt 4
 |- packages/
-|  |- content-client/    # Umbraco-backed content client + OpenAPI/type generation
+|  |- umbraco-client/   # Umbraco Delivery API client + OpenAPI/type generation
 |  |- biome-config/      # Shared Biome configuration
 |  `- components/        # Shared token-driven UI primitives
 |- biome.json
@@ -38,17 +38,29 @@ npm run generate:content:umbraco
 
 ## Umbraco API generation
 
-The shared content client is wired for OpenAPI-based generation:
+The shared Umbraco client package is wired for OpenAPI-based generation:
 
-1. Ensure the local Umbraco instance is running, or set `UMBRACO_OPENAPI_URL` explicitly.
+1. Update `scripts/umbraco-generation.config.mjs` if the local Umbraco Swagger URL changes.
 2. Run `npm run generate:content:umbraco`.
 3. The workspace will:
-   - download the OpenAPI document into `packages/content-client/openapi/`
+   - download the OpenAPI document into `packages/umbraco-client/openapi/`
    - generate TypeScript API types
    - derive document type unions
-   - apply exclusions from `packages/content-client/openapi/public-api.config.json`
+   - apply exclusions from `packages/umbraco-client/openapi/public-api.config.json`
+
+`UMBRACO_OPENAPI_URL` can still be set explicitly to override the local generation config when needed.
 
 If Swagger is disabled for the environment you target, keep a checked-in OpenAPI artifact or seed manifest in the repo and generate from that instead.
+
+## Local app hosts
+
+Apps own their default local development hostnames.
+
+Convention:
+
+```text
+<app>.local.hoite.dev
+```
 
 ## License
 
