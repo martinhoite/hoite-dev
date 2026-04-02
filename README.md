@@ -4,6 +4,18 @@
 
 This repository is structured as a Turborepo monorepo with a single root `node_modules` managed by `npm workspaces`.
 
+## Commands
+
+```bash
+npm install
+npm run dev
+npm run dev:site:nuxt
+npm run lint
+npm run typecheck
+npm run build
+npm run generate:content:umbraco
+```
+
 ## Workspace layout
 
 ```text
@@ -19,28 +31,15 @@ This repository is structured as a Turborepo monorepo with a single root `node_m
 `- tsconfig.base.json
 ```
 
-## Commands
+## Local app hosts
 
-```bash
-npm install
-npm run dev
-npm run dev:site:nuxt
-npm run lint
-npm run typecheck
-npm run build
-npm run generate:content:umbraco
+Apps own their default local development hostnames.
+
+Convention:
+
+```text
+<app>.local.hoite.dev
 ```
-
-`npm install` also enables Husky Git hooks for this repo:
-
-- `pre-commit`: runs Biome only on staged files
-- `pre-push`: runs `npm run typecheck`
-
-## Editor Extensions
-
-If you use VS Code, install the recommended workspace extensions.
-
-The most important one for this repo is the Biome extension so format-on-save matches the repo's formatter and pre-commit checks.
 
 ## Umbraco API generation
 
@@ -62,15 +61,22 @@ If the CA certificate path is omitted, the generator uses Node's default trust s
 
 The current generator expects a live OpenAPI URL. If you need to work from a checked-in artifact instead, manually add or update `packages/umbraco-client/openapi/umbraco-delivery.openapi.json`, and update `packages/umbraco-client/openapi/doc-types.seed.json` if the document types changed.
 
-## Local app hosts
+## Deployment model
 
-Apps own their default local development hostnames.
+Frontend apps are built from this monorepo and shipped as separate Docker images. Each app in `apps/*` is a deployable unit with its own Dockerfile, runtime configuration, and container lifecycle.
 
-Convention:
+Shared packages under `packages/*` are internal build dependencies only. They are compiled into the app image and are not deployed as standalone services.
 
-```text
-<app>.local.hoite.dev
-```
+`npm install` also enables Husky Git hooks for this repo:
+
+- `pre-commit`: runs Biome only on staged files
+- `pre-push`: runs `npm run typecheck`
+
+## Editor Extensions
+
+If you use VS Code, install the recommended workspace extensions.
+
+The most important one for this repo is the Biome extension so format-on-save matches the repo's formatter and pre-commit checks.
 
 ## License
 
