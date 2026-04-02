@@ -52,10 +52,10 @@ npm install
 
 ### Working with HTTPS locally
 
-If you're running the Umbraco instance locally, its self-signed certificate is not trusted by Node. Server side requests from the frontend may fail because of this. As a workaround, add the following to your local `.env` file:
+If you're running the Umbraco instance locally, its certificate may not be trusted by Node. As a local workaround, add the following to your local `.env` file:
 ```NODE_TLS_REJECT_UNAUTHORIZED=0```
 
-This is only required for local development and **must not** be used in staging or production. The underlying trust issue will hopefully be resolved later.
+This is only required for local development and **must not** be used in staging or production.
 
 ---
 ### Development Server
