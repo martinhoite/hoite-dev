@@ -1,0 +1,45 @@
+@import "_normalize.css";
+@import "_typography.css";
+@import "_grid.css";
+@import "generated-section-grid-classes.css";
+@import "_themes.css";
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+html {
+  color-scheme: dark light;
+
+  &:focus-within {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--body-bg-color);
+  color: var(--default-text-color);
+}
+
+.rainbow {
+  background-image: linear-gradient(
+    to right,
+    #ff0000 0%,
+    #ff7f00 14%,
+    #ffff00 28%,
+    #00ff00 42%,
+    #0000ff 57%,
+    #4b0082 71%,
+    #9400d3 85%,
+    #ff0000 100%
+  );
+  background-size: 100% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  display: inline-block;
+  text-align: center;
+}

@@ -1,7 +1,38 @@
 {
+  "name": "hoite-dev",
+  "private": true,
+  "packageManager": "npm@11.12.1",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "npm": ">=10.0.0",
+    "node": ">=24.0.0"
+  },
   "scripts": {
-    "install": "echo Wrong location - install from inside the app folder.",
-    "dev": "cd app && npm run dev",
-    "postinstall": "del /F package-lock.json && echo deleting created package-lock.json"
+    "build": "turbo build",
+    "dev": "npm run dev:site:nuxt",
+    "dev:site:nuxt": "turbo dev --filter=@hoite-dev/site-nuxt",
+    "format": "turbo format",
+    "generate:content:umbraco": "node ./scripts/generate-umbraco-client.mjs",
+    "lint": "turbo lint",
+    "prepare": "husky",
+    "readme:check-versions": "node ./scripts/sync-readme-versions.mjs --check",
+    "readme:sync-versions": "node ./scripts/sync-readme-versions.mjs",
+    "typecheck": "turbo typecheck",
+    "verify:commit": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
+    "verify:versions": "npm run readme:check-versions && npm run --workspace @hoite-dev/site-nuxt readme:check-versions",
+    "verify:push": "npm run typecheck",
+    "check-updates": "npx npm-check-updates -u"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.0",
+    "@biomejs/biome": "^2.4.10",
+    "husky": "^9.1.7",
+    "openapi-typescript": "^7.13.0",
+    "tsup": "^8.5.1",
+    "turbo": "^2.9.3",
+    "typescript": "^5.9.3"
   }
 }
