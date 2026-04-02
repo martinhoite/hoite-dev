@@ -94,6 +94,9 @@ export default defineNuxtConfig({
     server: {
       allowedHosts: [LOCAL_APP_HOST],
     },
+    optimizeDeps: {
+      include: ['@vue/devtools-core', '@vue/devtools-kit'],
+    },
   },
 
   build: {
