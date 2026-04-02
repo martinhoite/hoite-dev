@@ -4,26 +4,27 @@ import process from 'node:process';
 
 const appDir = process.cwd();
 const readmePath = path.join(appDir, 'README.md');
-const nuxtPackageJsonPath = path.join(appDir, '..', '..', 'node_modules', 'nuxt', 'package.json');
+const packageJsonPath = path.join(appDir, 'package.json');
 
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has('--check');
 
-const nuxtPackageJson = JSON.parse(await readFile(nuxtPackageJsonPath, 'utf8'));
+const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf8'));
 const readme = await readFile(readmePath, 'utf8');
 
-const expectedNuxtVersion = nuxtPackageJson.version;
+const expectedNuxtVersion = packageJson.dependencies?.nuxt ?? packageJson.devDependencies?.nuxt;
+
+if (!expectedNuxtVersion) {
+  console.error('Missing `nuxt` dependency in apps/site-nuxt/package.json.');
+  process.exit(1);
+}
+
 const desiredNuxtBadge = `![Nuxt version](https://img.shields.io/badge/Nuxt%20version-${encodeURIComponent(expectedNuxtVersion)}-00DC82)`;
 
-const updatedReadme = readme
-  .replace(
-    /!\[Nuxt version]\(https:\/\/img\.shields\.io\/badge\/Nuxt%20version-[^)]+\)/,
-    desiredNuxtBadge,
-  )
-  .replace(
-    /\n!\[(?:Node version|Node engine)]\(https:\/\/img\.shields\.io\/badge\/Node%20(?:version|engine)-[^)]+\)/,
-    '',
-  );
+const updatedReadme = readme.replace(
+  /!\[Nuxt version]\(https:\/\/img\.shields\.io\/badge\/Nuxt%20version-[^)]+\)/,
+  desiredNuxtBadge,
+);
 
 if (updatedReadme === readme) {
   console.log('README version badges are up to date.');
