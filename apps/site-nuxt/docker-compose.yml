@@ -1,5 +1,6 @@
 services:
   site-nuxt:
+    container_name: site-nuxt
     build:
       context: ../..
       dockerfile: apps/site-nuxt/Dockerfile
