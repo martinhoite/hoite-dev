@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { AvailableLocales } from 'types';
 import type { NuxtError } from '#app';
 
 const props = defineProps<{
@@ -7,8 +8,31 @@ const props = defineProps<{
 
 const { settings } = useSettings();
 
+const isMissingLocaleError = computed(() => {
+  const data = props.error.data;
+
+  if (!data || typeof data !== 'object' || !('code' in data)) {
+    return false;
+  }
+
+  return props.error.status === 404 && data.code === 'missing-locale';
+});
+
+const availableLocalePaths = AvailableLocales.map((locale) => {
+  return `/${locale}/`;
+});
+
+const missingLocaleDescription = computed(() => {
+  if (!isMissingLocaleError.value) {
+    return null;
+  }
+
+  return `Supported locale roots: ${availableLocalePaths.join(', ')}`;
+});
+
 useHead({
-  title: props.error.statusCode?.toString(),
+  meta: [{ name: 'description', content: missingLocaleDescription.value ?? undefined }],
+  title: props.error.status?.toString(),
   titleTemplate(title: string | undefined) {
     const extension = settings.metaTitleExtension?.trim();
 
@@ -30,17 +54,26 @@ useHead({
 </script>
 
 <template>
-  <div>
-    <NuxtLayout>
-      <div class="container">
-        <div class="align-center flex flex-col items-center gap-8 py-28 text-center">
-          <div>
-            <h1 class="mb-4 text-[60px] lg:text-[96px]">
-              {{ error?.statusCode }}
-            </h1>
-          </div>
-        </div>
-      </div>
-    </NuxtLayout>
-  </div>
+  <NuxtLayout>
+    <h1>{{ error?.status }}</h1>
+    <p v-if="isMissingLocaleError">
+      A valid locale is required in the URL. Try one of the localized roots below.
+    </p>
+    <p v-else>
+      {{ error?.statusText || 'The requested page could not be resolved.' }}
+    </p>
+    <template v-if="isMissingLocaleError">
+      <p>Supported locale roots:</p>
+      <ul>
+        <li
+          v-for="localePath in availableLocalePaths"
+          :key="localePath"
+        >
+          <NuxtLink :to="localePath">
+            {{ localePath }}
+          </NuxtLink>
+        </li>
+      </ul>
+    </template>
+  </NuxtLayout>
 </template>
