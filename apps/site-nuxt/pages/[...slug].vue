@@ -5,7 +5,7 @@ import type { ConcreteComponent } from 'vue';
 
 const route = useRoute();
 const { getPageByRoute } = useContentApi();
-const { settings, siteUrl } = useSettings();
+const site = useSite();
 
 const path = route.path;
 const encodedPath = encodeURIComponent(path);
@@ -41,7 +41,7 @@ const pageProperties = computed(() => pageData.value?.properties);
 const pageHeading = computed(() => pageData.value?.name);
 
 const canonicalUrl = computed(() => {
-  return `${siteUrl}${pageData.value?.properties.canonicalURL?.url || pageData.value?.route.path}`;
+  return `${site.url}${pageData.value?.properties.canonicalURL?.url || pageData.value?.route.path}`;
 });
 
 const twitterImagePath = computed(() => {
@@ -49,7 +49,7 @@ const twitterImagePath = computed(() => {
   if (image) {
     return getSingleItemFromArray(image)?.url ?? null;
   }
-  return settings.seoTwitterFallbackImage?.url ?? null;
+  return site.settings.seoTwitterFallbackImage?.url ?? null;
 });
 
 const openGraphImagePath = computed(() => {
@@ -57,13 +57,13 @@ const openGraphImagePath = computed(() => {
   if (image) {
     return getSingleItemFromArray(image)?.url ?? null;
   }
-  return settings.seoOpenGraphFallbackImage?.url ?? null;
+  return site.settings.seoOpenGraphFallbackImage?.url ?? null;
 });
 
 useHead({
   title: pageData.value?.properties.seoTitle,
   titleTemplate(title: string | undefined) {
-    const extension = settings.metaTitleExtension?.trim();
+    const extension = site.settings.metaTitleExtension?.trim();
 
     if (title && extension) {
       return `${title} | ${extension}`;
@@ -97,7 +97,7 @@ useHead({
     { name: 'og:title', content: pageProperties.value?.seoTitle },
     { name: 'og:description', content: pageProperties.value?.seoDescription },
     { name: 'og:type', content: 'website' },
-    { name: 'og:url', content: `${siteUrl}${pageData.value?.route.path}` },
+    { name: 'og:url', content: `${site.url}${pageData.value?.route.path}` },
     {
       name: 'og:image',
       content: openGraphImagePath.value ? getMediaLink(openGraphImagePath.value) : undefined,
@@ -128,7 +128,7 @@ useHead({
   <h2>Settings</h2>
   <pre>
       <code>
-        {{ settings }}
+        {{ site.settings }}
       </code>
      </pre>
   <hr />

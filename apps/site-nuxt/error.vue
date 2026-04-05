@@ -7,7 +7,7 @@ const props = defineProps<{
   error: NuxtError;
 }>();
 
-const { settings } = useSettings();
+const site = useSite();
 
 const isMissingLocaleError = computed(() => {
   const data = props.error.data;
@@ -64,7 +64,7 @@ useHead({
   ],
   title: props.error.status?.toString(),
   titleTemplate(title: string | undefined) {
-    const extension = settings.metaTitleExtension?.trim();
+    const extension = site.settings.metaTitleExtension?.trim();
 
     if (title && extension) {
       return `${title} | ${extension}`;
@@ -95,10 +95,7 @@ useHead({
     <template v-if="isMissingLocaleError">
       <p>Supported locale roots:</p>
       <ul>
-        <li
-          v-for="localePath in availableLocalePaths"
-          :key="localePath"
-        >
+        <li v-for="localePath in availableLocalePaths" :key="localePath">
           <NuxtLink :to="localePath">
             {{ localePath }}
           </NuxtLink>

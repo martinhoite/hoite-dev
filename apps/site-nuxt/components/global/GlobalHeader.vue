@@ -1,6 +1,5 @@
 <script setup lang="ts">
-const { settings } = useSettings();
-const { navigationItems } = useNavigation();
+const site = useSite();
 
 const emit = defineEmits(['setTheme']);
 
@@ -12,22 +11,13 @@ function setTheme(newTheme: Theme) {
   <header class="header">
     <nav class="header__nav full-width">
       <BaseGridContainer class="header__temp-container">
-        <GlobalLogo
-          :logo-link="settings.headerLogoLink"
-          :logo-text="settings.headerLogoText"
-          class="header__logo"
-        />
+        <GlobalLogo :logo-link="site.settings.headerLogoLink" :logo-text="site.settings.headerLogoText"
+          class="header__logo" />
         <div class="header__actions">
-          <button
-            class="header__theme-button header__theme-button--dark"
-            @click="setTheme('dark')"
-          >
+          <button class="header__theme-button header__theme-button--dark" @click="setTheme('dark')">
             dark
           </button>
-          <button
-            class="header__theme-button header__theme-button--light"
-            @click="setTheme('light')"
-          >
+          <button class="header__theme-button header__theme-button--light" @click="setTheme('light')">
             light
           </button>
         </div>
@@ -38,7 +28,7 @@ function setTheme(newTheme: Theme) {
   <h2>Navigation items</h2>
   <pre>
     <code>
-      {{ navigationItems }}
+      {{ navigation.items }}
     </code>
   </pre>
   <hr /> -->

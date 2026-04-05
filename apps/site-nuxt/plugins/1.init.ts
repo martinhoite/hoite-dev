@@ -4,11 +4,11 @@ export default defineNuxtPlugin(async () => {
   }
 
   const { path } = useRoute();
-  const { initSettings } = useSettings();
-  const { initNavigation } = useNavigation();
+  const site = useSite();
+  const navigation = useNavigation();
 
   try {
-    await Promise.allSettled([initSettings(path), initNavigation()]);
+    await Promise.allSettled([site.init(path), navigation.init()]);
   } catch (error) {
     throw createError({
       statusCode: 500,
