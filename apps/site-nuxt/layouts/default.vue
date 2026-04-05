@@ -25,13 +25,8 @@ useHead({
 });
 </script>
 <template>
-  <GlobalHeader
-    class="layout-grid"
-    @set-theme="setTheme"
-  />
-  <main class="layout-grid">
-    <slot></slot>
-  </main>
+  <GlobalHeader class="layout-grid" @set-theme="setTheme" />
+  <main class="layout-grid"><slot></slot></main>
   <GlobalFooter class="layout-grid" />
 </template>
 <style lang="postcss" scoped>

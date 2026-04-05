@@ -39,11 +39,7 @@ onUnmounted(() => {
   <section class="media-queries">
     <h2 class="media-queries__heading">Media query overview</h2>
     <ul class="media-queries__sizes">
-      <li
-        v-for="(size, name) in breakpointLabels"
-        :key="name"
-        class="media-queries__size"
-      >
+      <li v-for="(size, name) in breakpointLabels" :key="name" class="media-queries__size">
         {{ name }}: {{ size }}
       </li>
     </ul>
@@ -53,46 +49,60 @@ onUnmounted(() => {
     <div class="media-queries__group">
       <h3 class="media-queries__heading">Specific breakpoints only</h3>
       <div class="media-queries__query media-queries__query--mobile-only">
-        {{ activeColor }} on mobile (&lt;{{ breakpoints.tabletSize }}) only
+        {{ activeColor }}
+        on mobile (&lt;{{ breakpoints.tabletSize }}) only
       </div>
       <div class="media-queries__query media-queries__query--tablet-only">
-        {{ activeColor }} on tablet (&ge;{{ breakpoints.tabletSize }} & &lt;{{ breakpoints.laptopSize }}) only
+        {{ activeColor }}
+        on tablet (&ge;{{ breakpoints.tabletSize }} & &lt;{{ breakpoints.laptopSize }}) only
       </div>
       <div class="media-queries__query media-queries__query--laptop-only">
-        {{ activeColor }} on laptop (&ge;{{ breakpoints.laptopSize }} & &lt;{{ breakpoints.smallDesktopSize }}) only
+        {{ activeColor }}
+        on laptop (&ge;{{ breakpoints.laptopSize }} & &lt;{{ breakpoints.smallDesktopSize }}) only
       </div>
       <div class="media-queries__query media-queries__query--small-desktop-only">
-        {{ activeColor }} on small desktop (&ge;{{ breakpoints.smallDesktopSize }} & &lt;{{ breakpoints.desktopSize }})
-        only
+        {{ activeColor }}
+        on small desktop (&ge;{{ breakpoints.smallDesktopSize }} & &lt;{{
+          breakpoints.desktopSize
+        }}) only
       </div>
     </div>
     <div class="media-queries__group">
       <h3 class="media-queries__heading">Breakpoints for device and up</h3>
       <div class="media-queries__query media-queries__query--tablet">
-        {{ activeColor }} on tablet (&ge;{{ breakpoints.tabletSize }}) and up
+        {{ activeColor }}
+        on tablet (&ge;{{ breakpoints.tabletSize }}) and up
       </div>
       <div class="media-queries__query media-queries__query--laptop">
-        {{ activeColor }} on laptop (&ge;{{ breakpoints.laptopSize }}) and up
+        {{ activeColor }}
+        on laptop (&ge;{{ breakpoints.laptopSize }}) and up
       </div>
       <div class="media-queries__query media-queries__query--small-desktop">
-        {{ activeColor }} on small desktop (&ge;{{ breakpoints.smallDesktopSize }}) and up
+        {{ activeColor }}
+        on small desktop (&ge;{{ breakpoints.smallDesktopSize }}) and up
       </div>
       <div class="media-queries__query media-queries__query--desktop">
-        {{ activeColor }} on desktop (&ge;{{ breakpoints.desktopSize }}) and up
+        {{ activeColor }}
+        on desktop (&ge;{{ breakpoints.desktopSize }}) and up
       </div>
     </div>
     <div class="media-queries__group">
       <h3 class="media-queries__heading">Breakpoints for device and down</h3>
       <div class="media-queries__query media-queries__query--tablet-down">
-        {{ activeColor }} on tablet (&lt;{{ breakpoints.laptopSize }}) and down
+        {{ activeColor }}
+        on tablet (&lt;{{ breakpoints.laptopSize }}) and down
       </div>
       <div class="media-queries__query media-queries__query--laptop-down">
-        {{ activeColor }} on laptop (&lt;{{ breakpoints.smallDesktopSize }}) and down
+        {{ activeColor }}
+        on laptop (&lt;{{ breakpoints.smallDesktopSize }}) and down
       </div>
       <div class="media-queries__query media-queries__query--small-desktop-down">
-        {{ activeColor }} on small desktop (&lt;{{ breakpoints.desktopSize }}) and down
+        {{ activeColor }}
+        on small desktop (&lt;{{ breakpoints.desktopSize }}) and down
       </div>
-      <div class="media-queries__query media-queries__query--desktop-down">Always {{ activeColor }} (desktop)</div>
+      <div class="media-queries__query media-queries__query--desktop-down">
+        Always {{ activeColor }} (desktop)
+      </div>
     </div>
   </section>
 </template>

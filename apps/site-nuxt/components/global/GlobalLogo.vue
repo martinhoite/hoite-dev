@@ -44,12 +44,11 @@ const logoMaskStyle = computed(() => {
 });
 </script>
 <template>
-  <BaseLink
-    class="global-logo"
-    :link="logoLink"
-  >
+  <BaseLink class="global-logo" :link="logoLink">
     <img
       v-if="logoMaskStyle"
+      alt=""
+      aria-hidden="true"
       :style="logoMaskStyle"
       class="global-logo__logo"
     />

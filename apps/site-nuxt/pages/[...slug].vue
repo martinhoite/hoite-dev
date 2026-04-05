@@ -138,10 +138,6 @@ useHead({
         {{ pageData }}
       </code>
     </pre>
-  <component
-    :is="viewComponent"
-    v-if="viewComponent"
-    :blocks="pageData?.properties.blocks"
-  />
+  <component :is="viewComponent" v-if="viewComponent" :blocks="pageData?.properties.blocks" />
 </template>
 <style lang="postcss" scoped></style>

@@ -11,13 +11,24 @@ function setTheme(newTheme: Theme) {
   <header class="header">
     <nav class="header__nav full-width">
       <BaseGridContainer class="header__temp-container">
-        <GlobalLogo :logo-link="site.settings.headerLogoLink" :logo-text="site.settings.headerLogoText"
-          class="header__logo" />
+        <GlobalLogo
+          :logo-link="site.settings.headerLogoLink"
+          :logo-text="site.settings.headerLogoText"
+          class="header__logo"
+        />
         <div class="header__actions">
-          <button class="header__theme-button header__theme-button--dark" @click="setTheme('dark')">
+          <button
+            type="button"
+            class="header__theme-button header__theme-button--dark"
+            @click="setTheme('dark')"
+          >
             dark
           </button>
-          <button class="header__theme-button header__theme-button--light" @click="setTheme('light')">
+          <button
+            type="button"
+            class="header__theme-button header__theme-button--light"
+            @click="setTheme('light')"
+          >
             light
           </button>
         </div>

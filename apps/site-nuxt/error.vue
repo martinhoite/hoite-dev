@@ -89,16 +89,12 @@ useHead({
     <p v-if="isMissingLocaleError">
       A valid locale is required in the URL. Try one of the localized roots below.
     </p>
-    <p v-else>
-      {{ publicErrorMessage }}
-    </p>
+    <p v-else>{{ publicErrorMessage }}</p>
     <template v-if="isMissingLocaleError">
       <p>Supported locale roots:</p>
       <ul>
         <li v-for="localePath in availableLocalePaths" :key="localePath">
-          <NuxtLink :to="localePath">
-            {{ localePath }}
-          </NuxtLink>
+          <NuxtLink :to="localePath"> {{ localePath }} </NuxtLink>
         </li>
       </ul>
     </template>
