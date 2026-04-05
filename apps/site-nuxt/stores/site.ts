@@ -13,13 +13,13 @@ const createDefaultSiteSettings = (): UmbracoSiteSettings => ({
   seoTwitterFallbackImage: null,
 });
 
-export const useSettings = defineStore('settings', () => {
+export const useSite = defineStore('site', () => {
   const {
     public: { fallbackLocale, siteBaseUrl },
   } = useRuntimeConfig();
 
   const settings = shallowRef<UmbracoSiteSettings>(createDefaultSiteSettings());
-  const siteUrl = shallowRef<UrlString>(setSiteUrl());
+  const url = shallowRef<UrlString>(setSiteUrl());
 
   function setSiteUrl(): UrlString {
     if (!siteBaseUrl) {
@@ -29,7 +29,7 @@ export const useSettings = defineStore('settings', () => {
     return toUrlString(siteBaseUrl);
   }
 
-  async function initSettings(path: string) {
+  async function init(path: string) {
     const { getSiteSettings } = useContentApi();
     const locale = getLocaleFromPath(path) || (isLocale(fallbackLocale) ? fallbackLocale : null);
 
@@ -47,11 +47,11 @@ export const useSettings = defineStore('settings', () => {
 
   return {
     settings,
-    siteUrl,
-    initSettings,
+    url,
+    init,
   };
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useSettings, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useSite, import.meta.hot));
 }

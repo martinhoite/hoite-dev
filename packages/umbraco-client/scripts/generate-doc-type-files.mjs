@@ -19,7 +19,7 @@ export async function generateDocTypeFiles({ cwd = process.cwd() } = {}) {
   }
 
   const config = await readJson(configPath);
-  const excludedDocTypes = [...new Set(config.excludedDocTypes)].sort();
+  const excludedDocTypes = [...new Set(config.excludedDocTypes ?? [])].sort();
 
   const unknownExcludedDocTypes = excludedDocTypes.filter((docType) => !docTypes.includes(docType));
 

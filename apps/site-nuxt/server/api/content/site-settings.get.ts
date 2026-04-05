@@ -8,10 +8,10 @@ import {
 } from '../../utils/contentClient';
 
 export default defineEventHandler(async (event) => {
-  const client = createServerUmbracoContentClient();
-  const query = getQuery(event);
-
   try {
+    const client = createServerUmbracoContentClient();
+    const query = getQuery(event);
+
     return await client.getSiteSettings({
       locale: getLocaleValue(query.locale),
       preview: getBooleanValue(query.preview),

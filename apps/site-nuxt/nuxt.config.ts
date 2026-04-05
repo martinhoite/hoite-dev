@@ -11,7 +11,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     umbracoBaseUrl: '',
     umbracoDeliveryApiKey: '',
-    umbracoExcludedDocTypes: '',
+    umbracoExcludedDocTypeAliases: '',
+    umbracoRoutingExcludedDocTypeAliases: '',
     umbracoStartItem: '',
     public: {
       environment: '',
@@ -41,6 +42,7 @@ export default defineNuxtConfig({
       },
     ],
     '@nuxt/image',
+    '@nuxt/eslint',
     'nuxt-schema-org',
   ],
 
@@ -109,6 +111,12 @@ export default defineNuxtConfig({
 
   typescript: {
     strict: true,
+    tsConfig: {
+      compilerOptions: {
+        noUnusedLocals: true,
+        noUnusedParameters: true,
+      },
+    },
     sharedTsConfig: {
       compilerOptions: {
         allowSyntheticDefaultImports: true,

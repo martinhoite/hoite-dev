@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const { settings } = useSettings();
+const site = useSite();
 const cookieTheme = useCookie('theme');
-const bodyThemeClass = ref<string>(`theme theme--${cookieTheme.value || settings.defaultTheme}`);
+const bodyThemeClass = ref<string>(
+  `theme theme--${cookieTheme.value || site.settings.defaultTheme}`,
+);
 
 function setTheme(newTheme: Theme) {
   cookieTheme.value = newTheme;
@@ -23,13 +25,8 @@ useHead({
 });
 </script>
 <template>
-  <GlobalHeader
-    class="layout-grid"
-    @set-theme="setTheme"
-  />
-  <main class="layout-grid">
-    <slot></slot>
-  </main>
+  <GlobalHeader class="layout-grid" @set-theme="setTheme" />
+  <main class="layout-grid"><slot></slot></main>
   <GlobalFooter class="layout-grid" />
 </template>
 <style lang="postcss" scoped>

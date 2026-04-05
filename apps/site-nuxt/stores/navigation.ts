@@ -1,17 +1,17 @@
 import type { UmbracoNavigationItem } from '@hoite-dev/umbraco-client';
 
 export const useNavigation = defineStore('navigation', () => {
-  const navigationItems = ref<UmbracoNavigationItem[]>([]);
+  const items = ref<UmbracoNavigationItem[]>([]);
 
-  async function initNavigation() {
+  async function init() {
     const { getNavigation } = useContentApi();
-    const nextNavigationItems = await getNavigation();
-    navigationItems.value = nextNavigationItems || [];
+    const nextItems = await getNavigation();
+    items.value = nextItems || [];
   }
 
   return {
-    navigationItems,
-    initNavigation,
+    items,
+    init,
   };
 });
 

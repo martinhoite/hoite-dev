@@ -1,6 +1,7 @@
-export { UmbracoExcludedContentError } from './client/create-umbraco-client';
 export * from './client/create-umbraco-content-client';
-export * from './config/default-excluded-doc-types';
+export * from './config/default-doc-type-policy';
+export * from './errors/public-errors';
+export * from './errors/umbraco-errors';
 export * from './generated/all-doc-types.generated';
 export * from './generated/public-doc-types.generated';
 export * from './generated/umbraco-openapi.generated';

@@ -8,12 +8,7 @@ type Props = {
 defineProps<Props>();
 </script>
 <template>
-  <NuxtLink
-    v-if="link?.url"
-    :to="link.url"
-    :title="link.title"
-    :target="link.target"
-  >
+  <NuxtLink v-if="link?.url" :to="link.url" :title="link.title" :target="link.target">
     <slot></slot>
   </NuxtLink>
 </template>

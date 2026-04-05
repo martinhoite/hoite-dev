@@ -78,7 +78,8 @@ export type UmbracoClientConfig = {
   baseUrl: string;
   defaultHeaders?: HeadersInit;
   deliveryApiKey?: string;
-  excludedDocTypes?: readonly string[];
+  excludedDocTypeAliases?: readonly string[];
+  routingExcludedDocTypeAliases?: readonly string[];
 };
 
 export type UmbracoContentClientMethod = 'getNavigation' | 'getPageByRoute' | 'getSiteSettings';
@@ -108,8 +109,9 @@ export type UmbracoContentClientConfig = {
   baseUrl: string;
   defaultHeaders?: HeadersInit;
   deliveryApiKey?: string;
-  excludedDocTypes?: readonly string[];
+  excludedDocTypeAliases?: readonly string[];
   onIssue?: (issue: UmbracoContentClientIssue) => void;
+  routingExcludedDocTypeAliases?: readonly string[];
 };
 
 export type UmbracoContentClientRequestOptions = {

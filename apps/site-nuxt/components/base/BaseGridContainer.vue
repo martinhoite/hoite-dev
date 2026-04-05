@@ -41,10 +41,7 @@ const computedClasses = computed(() => {
 });
 </script>
 <template>
-  <section
-    class="section-grid"
-    :class="computedClasses"
-  >
+  <section class="section-grid" :class="computedClasses">
     <slot></slot>
   </section>
 </template>

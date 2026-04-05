@@ -3,7 +3,7 @@ import type { SimplifiedUmbracoLink } from '@hoite-dev/umbraco-client';
 import { toUrlString } from '@hoite-dev/umbraco-client';
 import defaultDevLogo from '@/assets/images/hoite_dev-logo.svg?raw';
 
-const { settings } = useSettings();
+const site = useSite();
 type Props = {
   logoSize?: number;
   logoLink?: SimplifiedUmbracoLink | null;
@@ -28,8 +28,8 @@ const logoLink = computed(() => {
 });
 
 const logoMaskStyle = computed(() => {
-  const logoMaskUrl = settings.headerLogo?.url
-    ? getMediaLink(settings.headerLogo.url)
+  const logoMaskUrl = site.settings.headerLogo?.url
+    ? getMediaLink(site.settings.headerLogo.url)
     : `data:image/svg+xml;utf8,${encodeURIComponent(defaultDevLogo)}`;
 
   if (logoMaskUrl === '') {
@@ -44,12 +44,11 @@ const logoMaskStyle = computed(() => {
 });
 </script>
 <template>
-  <BaseLink
-    class="global-logo"
-    :link="logoLink"
-  >
+  <BaseLink class="global-logo" :link="logoLink">
     <img
       v-if="logoMaskStyle"
+      alt=""
+      aria-hidden="true"
       :style="logoMaskStyle"
       class="global-logo__logo"
     />
