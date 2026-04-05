@@ -110,6 +110,12 @@ export default defineNuxtConfig({
 
   typescript: {
     strict: true,
+    tsConfig: {
+      compilerOptions: {
+        noUnusedLocals: true,
+        noUnusedParameters: true,
+      },
+    },
     sharedTsConfig: {
       compilerOptions: {
         allowSyntheticDefaultImports: true,
