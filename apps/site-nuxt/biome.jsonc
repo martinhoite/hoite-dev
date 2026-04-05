@@ -1,0 +1,22 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
+  "root": false,
+  "extends": "//",
+  "overrides": [
+    {
+      // Biome is disabled for Vue SFCs in the Nuxt app because its Vue/HTML
+      // support is still experimental and does not behave reliably enough for
+      // this app's Vue + PostCSS setup. Prettier handles `.vue` formatting
+      // more predictably, and ESLint covers the Vue-specific linting here.
+      // Revisit this when Biome can replace the split Vue tooling without
+      // false positives or unwanted `.vue` formatting changes.
+      "includes": ["**/*.vue"],
+      "linter": {
+        "enabled": false
+      },
+      "formatter": {
+        "enabled": false
+      }
+    }
+  ]
+}

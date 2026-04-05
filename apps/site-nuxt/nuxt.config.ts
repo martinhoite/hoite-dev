@@ -42,6 +42,7 @@ export default defineNuxtConfig({
       },
     ],
     '@nuxt/image',
+    '@nuxt/eslint',
     'nuxt-schema-org',
   ],
 

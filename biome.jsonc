@@ -1,18 +1,4 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
-  "extends": ["./packages/biome-config/base.json"],
-  "overrides": [
-    {
-      // Biome currently reports false positives for some Vue <script setup>
-      // bindings that are consumed only from the template.
-      "includes": ["**/*.vue"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noUnusedVariables": "off"
-          }
-        }
-      }
-    }
-  ]
+  "extends": ["./packages/biome-config/base.json"]
 }

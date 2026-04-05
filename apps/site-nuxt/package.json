@@ -9,9 +9,12 @@
   "scripts": {
     "build": "npm run readme:sync-versions && nuxt build",
     "dev": "nuxt dev",
-    "format": "biome check --write .",
+    "format": "biome check --write . && prettier --write \"**/*.vue\"",
+    "format:vue": "prettier --write \"**/*.vue\"",
     "generate": "nuxt generate",
-    "lint": "biome check .",
+    "lint": "biome check . && eslint \"**/*.vue\"",
+    "lint:vue": "eslint \"**/*.vue\"",
+    "lint:vue:fix": "eslint \"**/*.vue\" --fix",
     "postinstall": "nuxt prepare",
     "preview": "nuxt preview",
     "readme:check-versions": "node ./scripts/sync-readme-versions.mjs --check",
@@ -22,10 +25,13 @@
     "@csstools/postcss-global-data": "^3.1.0",
     "@modyfi/vite-plugin-yaml": "^1.1.1",
     "@nuxt/devtools": "^3.2.4",
+    "@nuxt/eslint": "^1.15.2",
+    "eslint": "^9.39.4",
     "postcss-calc": "^10.1.1",
     "postcss-nested": "^7.0.2",
     "postcss-preset-env": "^10.6.1",
     "postcss-reporter": "^7.1.0",
+    "prettier": "^3.6.2",
     "vue-tsc": "^3.2.6"
   },
   "dependencies": {
