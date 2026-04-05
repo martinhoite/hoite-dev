@@ -22,7 +22,7 @@
     "readme:sync-versions": "node ./scripts/sync-readme-versions.mjs",
     "typecheck": "turbo typecheck",
     "verify:commit": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
-    "verify:versions": "npm run readme:check-versions && npm run --workspace @hoite-dev/site-nuxt readme:check-versions",
+    "verify:versions": "npm run readme:check-versions",
     "verify:push": "npm run typecheck",
     "check-updates": "npx npm-check-updates -u"
   },

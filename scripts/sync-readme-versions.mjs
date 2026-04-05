@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
@@ -5,6 +6,8 @@ import process from 'node:process';
 const rootDir = process.cwd();
 const readmePath = path.join(rootDir, 'README.md');
 const packageJsonPath = path.join(rootDir, 'package.json');
+const siteNuxtDir = path.join(rootDir, 'apps', 'site-nuxt');
+const siteNuxtScriptPath = path.join(siteNuxtDir, 'scripts', 'sync-readme-versions.mjs');
 
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has('--check');
@@ -20,15 +23,29 @@ const updatedReadme = readme.replace(
   desiredNodeBadge,
 );
 
+let hasErrors = false;
+
 if (updatedReadme === readme) {
   console.log('Root README version badges are up to date.');
-  process.exit(0);
+} else if (checkOnly) {
+  console.error('Root README version badges are out of date. Run `npm run readme:sync-versions`.');
+  hasErrors = true;
+} else {
+  await writeFile(readmePath, updatedReadme, 'utf8');
+  console.log('Updated root README version badges.');
 }
 
-if (checkOnly) {
-  console.error('Root README version badges are out of date. Run `npm run readme:sync-versions`.');
+const siteNuxtScriptArgs = checkOnly ? [siteNuxtScriptPath, '--check'] : [siteNuxtScriptPath];
+
+try {
+  execFileSync(process.execPath, siteNuxtScriptArgs, {
+    cwd: siteNuxtDir,
+    stdio: 'inherit',
+  });
+} catch {
+  hasErrors = true;
+}
+
+if (hasErrors) {
   process.exit(1);
 }
-
-await writeFile(readmePath, updatedReadme, 'utf8');
-console.log('Updated root README version badges.');

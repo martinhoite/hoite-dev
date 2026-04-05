@@ -24,6 +24,9 @@
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
   "files.eol": "\n",
+  "files.associations": {
+    ".dockerignore": "ignore"
+  },
   "diffEditor.ignoreTrimWhitespace": false,
 
   "cSpell.words": [
