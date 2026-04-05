@@ -11,7 +11,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     umbracoBaseUrl: '',
     umbracoDeliveryApiKey: '',
-    umbracoExcludedDocTypes: '',
+    umbracoExcludedDocTypeAliases: '',
+    umbracoRoutingExcludedDocTypeAliases: '',
     umbracoStartItem: '',
     public: {
       environment: '',

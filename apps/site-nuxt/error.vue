@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { isUmbracoPublicErrorCode, umbracoPublicErrorCodes } from '@hoite-dev/umbraco-client';
 import { AvailableLocales } from 'types';
 import type { NuxtError } from '#app';
 
@@ -30,8 +31,37 @@ const missingLocaleDescription = computed(() => {
   return `Supported locale roots: ${availableLocalePaths.join(', ')}`;
 });
 
+const publicContentErrorCode = computed(() => {
+  const data = props.error.data;
+
+  if (!data || typeof data !== 'object' || !('code' in data)) {
+    return null;
+  }
+
+  return isUmbracoPublicErrorCode(data.code) ? data.code : null;
+});
+
+const publicErrorMessage = computed(() => {
+  if (isMissingLocaleError.value) {
+    return 'A valid locale is required in the URL. Try one of the localized roots below.';
+  }
+
+  switch (publicContentErrorCode.value) {
+    case umbracoPublicErrorCodes.contentConfigurationError:
+      return 'Content is temporarily unavailable.';
+    case umbracoPublicErrorCodes.contentNotFound:
+      return 'The requested page could not be resolved.';
+    case umbracoPublicErrorCodes.contentServiceError:
+      return 'Content could not be loaded.';
+    default:
+      return props.error.statusText || 'The requested page could not be resolved.';
+  }
+});
+
 useHead({
-  meta: [{ name: 'description', content: missingLocaleDescription.value ?? undefined }],
+  meta: [
+    { name: 'description', content: missingLocaleDescription.value ?? publicErrorMessage.value },
+  ],
   title: props.error.status?.toString(),
   titleTemplate(title: string | undefined) {
     const extension = settings.metaTitleExtension?.trim();
@@ -60,7 +90,7 @@ useHead({
       A valid locale is required in the URL. Try one of the localized roots below.
     </p>
     <p v-else>
-      {{ error?.statusText || 'The requested page could not be resolved.' }}
+      {{ publicErrorMessage }}
     </p>
     <template v-if="isMissingLocaleError">
       <p>Supported locale roots:</p>

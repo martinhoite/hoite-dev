@@ -1,6 +1,8 @@
 import {
   createUmbracoContentClient,
-  defaultExcludedDocTypes,
+  defaultExcludedDocTypeAliases,
+  defaultRoutingExcludedDocTypeAliases,
+  getUmbracoPublicErrorInfo,
   isLocaleCode,
   isRoutePath,
   isStartItemKey,
@@ -11,7 +13,8 @@ import {
   toRoutePath,
   toStartItemKey,
   type UmbracoContentClientIssue,
-  UmbracoExcludedContentError,
+  type UmbracoPublicErrorCode,
+  umbracoPublicErrorCodes,
 } from '@hoite-dev/umbraco-client';
 import { createError } from 'h3';
 import { LoggingService } from '~/services/loggingService';
@@ -49,6 +52,13 @@ export const getBooleanValue = (value: unknown) => {
   return undefined;
 };
 
+const parseDocTypeList = (value: string) => {
+  return value
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+};
+
 const createInvalidQueryError = (queryName: string, expectedDescription: string) =>
   createError({
     statusCode: 400,
@@ -83,11 +93,32 @@ export const getRoutePathValue = (value: unknown): RoutePath | undefined => {
   return toRoutePath(queryValue);
 };
 
+const getLogger = () => {
+  const {
+    public: { environment },
+  } = useRuntimeConfig();
+
+  return new LoggingService(environment || 'development');
+};
+
+const publicContentStatusMessages: Record<UmbracoPublicErrorCode, string> = {
+  [umbracoPublicErrorCodes.contentConfigurationError]: 'Content is temporarily unavailable.',
+  [umbracoPublicErrorCodes.contentNotFound]: 'Content not found.',
+  [umbracoPublicErrorCodes.contentServiceError]: 'Content could not be loaded.',
+};
+
 export const toContentHttpError = (error: unknown) => {
-  if (error instanceof UmbracoExcludedContentError) {
+  const publicErrorInfo = getUmbracoPublicErrorInfo(error);
+
+  if (publicErrorInfo) {
+    getLogger().error('[umbraco-client] Public content error', false, error);
+
     return createError({
-      statusCode: 404,
-      statusMessage: error.message,
+      data: {
+        code: publicErrorInfo.code,
+      },
+      statusCode: publicErrorInfo.statusCode,
+      statusMessage: publicContentStatusMessages[publicErrorInfo.code],
     });
   }
 
@@ -95,12 +126,7 @@ export const toContentHttpError = (error: unknown) => {
 };
 
 const logContentIssue = (issue: UmbracoContentClientIssue) => {
-  const {
-    public: { environment },
-  } = useRuntimeConfig();
-  const logger = new LoggingService(environment || 'development');
-
-  logger.warn('[umbraco-client]', false, issue);
+  getLogger().warn('[umbraco-client]', false, issue);
 };
 
 const getConfiguredUmbracoStartItem = (value: string): StartItemKey => {
@@ -131,17 +157,22 @@ export const createServerUmbracoContentClient = () => {
     });
   }
 
-  const excludedDocTypes = config.umbracoExcludedDocTypes
-    .split(',')
-    .map((value) => value.trim())
-    .filter(Boolean);
+  const excludedDocTypeAliases = parseDocTypeList(config.umbracoExcludedDocTypeAliases);
+  const routingExcludedDocTypeAliases = parseDocTypeList(
+    config.umbracoRoutingExcludedDocTypeAliases,
+  );
   const startItem = getConfiguredUmbracoStartItem(config.umbracoStartItem);
 
   const client = createUmbracoContentClient({
     baseUrl: config.umbracoBaseUrl,
     deliveryApiKey: config.umbracoDeliveryApiKey || undefined,
-    excludedDocTypes: excludedDocTypes.length > 0 ? excludedDocTypes : defaultExcludedDocTypes,
+    excludedDocTypeAliases:
+      excludedDocTypeAliases.length > 0 ? excludedDocTypeAliases : defaultExcludedDocTypeAliases,
     onIssue: logContentIssue,
+    routingExcludedDocTypeAliases:
+      routingExcludedDocTypeAliases.length > 0
+        ? routingExcludedDocTypeAliases
+        : defaultRoutingExcludedDocTypeAliases,
   });
 
   return {

@@ -20,7 +20,8 @@ export const createUmbracoContentClient = (config: UmbracoContentClientConfig) =
     baseUrl: config.baseUrl,
     defaultHeaders: config.defaultHeaders,
     deliveryApiKey: config.deliveryApiKey,
-    excludedDocTypes: config.excludedDocTypes,
+    excludedDocTypeAliases: config.excludedDocTypeAliases,
+    routingExcludedDocTypeAliases: config.routingExcludedDocTypeAliases,
   });
 
   const getPageByRoute = async ({ path, ...options }: GetPageByRouteOptions) => {
@@ -81,7 +82,8 @@ export const createUmbracoContentClient = (config: UmbracoContentClientConfig) =
   };
 
   return {
-    excludedDocTypes: umbracoClient.excludedDocTypes,
+    excludedDocTypeAliases: umbracoClient.excludedDocTypeAliases,
+    routingExcludedDocTypeAliases: umbracoClient.routingExcludedDocTypeAliases,
     getNavigation,
     getPageByRoute,
     getSiteSettings,

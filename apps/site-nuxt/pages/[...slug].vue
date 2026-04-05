@@ -18,6 +18,7 @@ if (pageError.value || !pageData.value) {
   devOnlyConsoleLog('Failed getting pageData in slug', 'error', pageError.value);
 
   throw createError({
+    data: pageError.value?.data,
     statusCode: pageError.value?.statusCode ?? 500,
     statusMessage:
       pageError.value?.message ??

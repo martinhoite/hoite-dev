@@ -9,18 +9,18 @@ import {
 } from '../../utils/contentClient';
 
 export default defineEventHandler(async (event) => {
-  const client = createServerUmbracoContentClient();
-  const query = getQuery(event);
-  const path = getRoutePathValue(query.path);
-
-  if (!path) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Missing path query parameter.',
-    });
-  }
-
   try {
+    const client = createServerUmbracoContentClient();
+    const query = getQuery(event);
+    const path = getRoutePathValue(query.path);
+
+    if (!path) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Missing path query parameter.',
+      });
+    }
+
     return await client.getPageByRoute({
       locale: getLocaleValue(query.locale),
       path,
