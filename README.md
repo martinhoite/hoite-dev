@@ -23,7 +23,7 @@ npm run generate:content:umbraco
 |- apps/
 |  `- site-nuxt/         # Site app built with Nuxt 4
 |- packages/
-|  |- umbraco-client/   # Umbraco Delivery API client + OpenAPI/type generation
+|  |- umbraco-client/    # Umbraco Delivery API client + OpenAPI/type generation
 |  |- biome-config/      # Shared Biome configuration
 |  `- components/        # Shared token-driven UI primitives
 |- biome.json
@@ -40,6 +40,42 @@ Convention:
 ```text
 <app>.local.hoite.dev
 ```
+
+Add the relevant app host to your local hosts file:
+
+```text
+127.0.0.1 <app>.local.hoite.dev
+```
+
+## Local SSL
+
+Local wildcard certificates are shared repo-level infrastructure.
+
+The expected local certificate files are stored in:
+
+```text
+ssl/local.hoite.dev.pem
+ssl/local.hoite.dev-key.pem
+```
+
+`mkcert` is a simple tool for creating locally-trusted development certificates.
+
+1. Install `mkcert`.
+   - Using Chocolatey:
+     ```powershell
+     choco install mkcert -y
+     ```
+   - Or install it manually from the [mkcert GitHub releases page](https://github.com/FiloSottile/mkcert/releases).
+2. Install the local root CA:
+   ```powershell
+   mkcert -install
+   ```
+3. From the repo root, generate the shared wildcard certs:
+   ```powershell
+   mkdir ssl; mkcert -cert-file ./ssl/local.hoite.dev.pem -key-file ./ssl/local.hoite.dev-key.pem local.hoite.dev *.local.hoite.dev
+   ```
+
+These files are local-only and should not be committed.
 
 ## Umbraco API generation
 

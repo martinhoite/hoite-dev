@@ -4,6 +4,7 @@ import alias from './alias';
 
 const LOCAL_APP_HOST = 'site-nuxt.local.hoite.dev';
 const LOCAL_CERTIFICATE_HOST = 'local.hoite.dev';
+const LOCAL_SSL_DIR = '../../ssl';
 const LOCAL_SITE_ORIGIN = `https://${LOCAL_APP_HOST}:3000`;
 
 // https://nuxt.com/docs/4.x/api/nuxt-config
@@ -152,8 +153,8 @@ export default defineNuxtConfig({
     port: 3000,
     host: LOCAL_APP_HOST,
     https: {
-      key: `./ssl/${LOCAL_CERTIFICATE_HOST}-key.pem`,
-      cert: `./ssl/${LOCAL_CERTIFICATE_HOST}.pem`,
+      key: `${LOCAL_SSL_DIR}/${LOCAL_CERTIFICATE_HOST}-key.pem`,
+      cert: `${LOCAL_SSL_DIR}/${LOCAL_CERTIFICATE_HOST}.pem`,
     },
   },
 
