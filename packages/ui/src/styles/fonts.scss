@@ -1,0 +1,101 @@
+@layer foundation.fonts {
+  @font-face {
+    font-display: swap;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300 800;
+    src: url('./fonts/open-sans/OpenSans-VariableFont_wdth,wght.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: 300 800;
+    src: url('./fonts/open-sans/OpenSans-Italic-VariableFont_wdth,wght.woff2') format('woff2');
+  }
+
+  @supports not (font-variation-settings: normal) {
+    @font-face {
+      font-display: swap;
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 400;
+      src: url('./fonts/open-sans/OpenSans-Regular.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-display: swap;
+      font-family: 'Open Sans';
+      font-style: italic;
+      font-weight: 400;
+      src: url('./fonts/open-sans/OpenSans-Italic.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-display: swap;
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 700;
+      src: url('./fonts/open-sans/OpenSans-Bold.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-display: swap;
+      font-family: 'Open Sans';
+      font-style: italic;
+      font-weight: 700;
+      src: url('./fonts/open-sans/OpenSans-BoldItalic.woff2') format('woff2');
+    }
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 100 900;
+    src: url('./fonts/roboto/Roboto-VariableFont_wdth,wght.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: 'Roboto';
+    font-style: italic;
+    font-weight: 100 900;
+    src: url('./fonts/roboto/Roboto-Italic-VariableFont_wdth,wght.woff2') format('woff2');
+  }
+
+  @supports not (font-variation-settings: normal) {
+    @font-face {
+      font-display: swap;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: url('./fonts/roboto/Roboto-Regular.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-display: swap;
+      font-family: 'Roboto';
+      font-style: italic;
+      font-weight: 400;
+      src: url('./fonts/roboto/Roboto-Italic.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-display: swap;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 700;
+      src: url('./fonts/roboto/Roboto-Bold.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-display: swap;
+      font-family: 'Roboto';
+      font-style: italic;
+      font-weight: 700;
+      src: url('./fonts/roboto/Roboto-BoldItalic.woff2') format('woff2');
+    }
+  }
+}

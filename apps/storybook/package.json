@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@hoite-dev/ui": "0.0.0",
+    "@hoite-dev/ui-vue": "0.0.0",
     "vue": "^3.5.31"
   },
   "devDependencies": {

@@ -9,6 +9,14 @@
       "types": "./src/styles.css.d.ts",
       "default": "./dist/styles.css"
     },
+    "./fonts.css": {
+      "types": "./src/fonts.css.d.ts",
+      "default": "./dist/fonts.css"
+    },
+    "./typography.css": {
+      "types": "./src/components/typography/typography.css.d.ts",
+      "default": "./dist/typography.css"
+    },
     "./tokens.css": {
       "types": "./src/tokens.css.d.ts",
       "default": "./dist/tokens.css"
@@ -24,6 +32,9 @@
     "format": "biome check --write src scripts package.json tsconfig.json README.md",
     "lint": "biome check src scripts package.json tsconfig.json README.md",
     "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.27",

@@ -1,0 +1,54 @@
+@layer components.typography {
+  .typography {
+    margin: 0;
+  }
+
+  .typography--display-large {
+    font-family: var(--typography-family-heading);
+    font-weight: var(--typography-weight-bold);
+    font-size: var(--typography-size-48);
+    line-height: var(--typography-line-height-56);
+  }
+
+  .typography--heading-large {
+    font-family: var(--typography-family-heading);
+    font-weight: var(--typography-weight-bold);
+    font-size: var(--typography-size-30);
+    line-height: var(--typography-line-height-38);
+  }
+
+  .typography--heading-medium {
+    font-family: var(--typography-family-heading);
+    font-weight: var(--typography-weight-semibold);
+    font-size: var(--typography-size-24);
+    line-height: var(--typography-line-height-32);
+  }
+
+  .typography--body-large {
+    font-family: var(--typography-family-body);
+    font-weight: var(--typography-weight-regular);
+    font-size: var(--typography-size-18);
+    line-height: var(--typography-line-height-28);
+  }
+
+  .typography--body-medium {
+    font-family: var(--typography-family-body);
+    font-weight: var(--typography-weight-regular);
+    font-size: var(--typography-size-16);
+    line-height: var(--typography-line-height-24);
+  }
+
+  .typography--label-medium {
+    font-family: var(--typography-family-body);
+    font-weight: var(--typography-weight-medium);
+    font-size: var(--typography-size-14);
+    line-height: var(--typography-line-height-20);
+  }
+
+  .typography--caption-small {
+    font-family: var(--typography-family-body);
+    font-weight: var(--typography-weight-regular);
+    font-size: var(--typography-size-12);
+    line-height: var(--typography-line-height-16);
+  }
+}

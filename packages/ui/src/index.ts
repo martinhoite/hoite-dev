@@ -9,6 +9,12 @@ import spacingTokens from './tokens/source/spacing/Value.tokens.json';
 import strokeTokens from './tokens/source/stroke/Value.tokens.json';
 import typographyTokens from './tokens/source/typography/Value.tokens.json';
 
+export {
+  resolveTypographyDefaultTag,
+  supportedTypographyVariants,
+  typographyVariants,
+} from './components/typography';
+
 export const themeNames = ['light', 'dark'] as const;
 export const remBasePx = 16 as const;
 
@@ -28,6 +34,10 @@ export const tokens = {
 } as const;
 
 export const tokenThemes = tokens.color;
+const fontFamilyStacks = {
+  'typography.family.body': "'Roboto', Arial, Helvetica, sans-serif",
+  'typography.family.heading': "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+} as const;
 
 export const tokenUnitPolicies = {
   layout: {
@@ -62,11 +72,15 @@ export function resolveCssTokenValue(
   path: readonly string[],
   value: string | number,
 ): string | number {
-  if (typeof value !== 'number') {
+  const pathKey = path.join('.');
+
+  if (typeof value === 'string') {
+    if (pathKey in fontFamilyStacks) {
+      return fontFamilyStacks[pathKey as keyof typeof fontFamilyStacks];
+    }
+
     return value;
   }
-
-  const pathKey = path.join('.');
 
   if (pathKey.startsWith('spacing.')) {
     return pxToRem(value);
@@ -106,6 +120,11 @@ export function resolveCssTokenValue(
 
 export type ThemeName = (typeof themeNames)[number];
 export type Tokens = typeof tokens;
+export type {
+  TypographyDefaultTag,
+  TypographyVariant,
+  TypographyVariantProps,
+} from './components/typography';
 export type ColorThemeTokens = (typeof tokenThemes)[ThemeName];
 export type LayoutTokens = typeof tokens.layout;
 export type MotionTokens = typeof tokens.motion;

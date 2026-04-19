@@ -14,7 +14,16 @@ const rootDir = path.resolve(packageDir, '../..');
 const buildDir = path.join(packageDir, '.build', 'generated');
 const distDir = path.join(packageDir, 'dist');
 const sourceDir = path.join(packageDir, 'src', 'tokens', 'source');
+const fontAssetsDir = path.join(packageDir, 'src', 'assets', 'fonts');
+const fontsStylesEntry = path.join(packageDir, 'src', 'styles', 'fonts.scss');
 const stylesEntry = path.join(packageDir, 'src', 'styles', 'index.scss');
+const typographyStylesEntry = path.join(
+  packageDir,
+  'src',
+  'components',
+  'typography',
+  'typography.scss',
+);
 const tokensOnly = process.argv.includes('--tokens-only');
 const remBasePx = 16;
 const cssValueTransformName = 'hoite/value/web';
@@ -134,6 +143,68 @@ const pxToRem = (value) => `${trimNumber(value / remBasePx)}rem`;
 
 const cssVariableSyntaxPattern = /^var\(--(?<name>[^)]+)\)$/;
 const pathNamedTokenRoots = new Set(['color', 'motion', 'radius', 'size', 'spacing', 'typography']);
+const fontFamilyStacks = {
+  'typography.family.body': "'Roboto', Arial, Helvetica, sans-serif",
+  'typography.family.heading': "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+};
+const distFontAssets = [
+  {
+    destination: path.join('open-sans', 'OFL.txt'),
+    source: path.join('Open_Sans', 'OFL.txt'),
+  },
+  {
+    destination: path.join('open-sans', 'OpenSans-Bold.woff2'),
+    source: path.join('Open_Sans', 'OpenSans-Bold.woff2'),
+  },
+  {
+    destination: path.join('open-sans', 'OpenSans-BoldItalic.woff2'),
+    source: path.join('Open_Sans', 'OpenSans-BoldItalic.woff2'),
+  },
+  {
+    destination: path.join('open-sans', 'OpenSans-Italic.woff2'),
+    source: path.join('Open_Sans', 'OpenSans-Italic.woff2'),
+  },
+  {
+    destination: path.join('open-sans', 'OpenSans-Italic-VariableFont_wdth,wght.woff2'),
+    source: path.join('Open_Sans', 'OpenSans-Italic-VariableFont_wdth,wght.woff2'),
+  },
+  {
+    destination: path.join('open-sans', 'OpenSans-Regular.woff2'),
+    source: path.join('Open_Sans', 'OpenSans-Regular.woff2'),
+  },
+  {
+    destination: path.join('open-sans', 'OpenSans-VariableFont_wdth,wght.woff2'),
+    source: path.join('Open_Sans', 'OpenSans-VariableFont_wdth,wght.woff2'),
+  },
+  {
+    destination: path.join('roboto', 'OFL.txt'),
+    source: path.join('Roboto', 'OFL.txt'),
+  },
+  {
+    destination: path.join('roboto', 'Roboto-Bold.woff2'),
+    source: path.join('Roboto', 'Roboto-Bold.woff2'),
+  },
+  {
+    destination: path.join('roboto', 'Roboto-BoldItalic.woff2'),
+    source: path.join('Roboto', 'Roboto-BoldItalic.woff2'),
+  },
+  {
+    destination: path.join('roboto', 'Roboto-Italic.woff2'),
+    source: path.join('Roboto', 'Roboto-Italic.woff2'),
+  },
+  {
+    destination: path.join('roboto', 'Roboto-Italic-VariableFont_wdth,wght.woff2'),
+    source: path.join('Roboto', 'Roboto-Italic-VariableFont_wdth,wght.woff2'),
+  },
+  {
+    destination: path.join('roboto', 'Roboto-Regular.woff2'),
+    source: path.join('Roboto', 'Roboto-Regular.woff2'),
+  },
+  {
+    destination: path.join('roboto', 'Roboto-VariableFont_wdth,wght.woff2'),
+    source: path.join('Roboto', 'Roboto-VariableFont_wdth,wght.woff2'),
+  },
+];
 
 const getTokenCssName = (token) => {
   const webSyntax = token.$extensions?.['com.figma.codeSyntax']?.WEB;
@@ -153,7 +224,25 @@ const getTokenCssName = (token) => {
   return token.name;
 };
 
+const formatStringValue = (pathSegments, value) => {
+  const pathKey = pathSegments.join('.');
+
+  if (pathKey in fontFamilyStacks) {
+    return fontFamilyStacks[pathKey];
+  }
+
+  if (pathKey.startsWith('typography.family.') && /\s/.test(value)) {
+    return `'${value}'`;
+  }
+
+  return value;
+};
+
 const formatCssValue = (token) => {
+  if (typeof token.$value === 'string') {
+    return formatStringValue(token.path, token.$value);
+  }
+
   if (typeof token.$value !== 'number') {
     return token.$value;
   }
@@ -241,6 +330,7 @@ const getSectionKeyForToken = (token) => {
 StyleDictionary.registerTransform({
   filter: (token) =>
     typeof token.$value === 'number' ||
+    typeof token.$value === 'string' ||
     token.$type === 'fontFamily' ||
     token.$type === 'cubicBezier',
   name: cssValueTransformName,
@@ -278,7 +368,38 @@ const ensureDir = async (dir) => {
   await fs.mkdir(dir, { recursive: true });
 };
 
+const copyDistFontAssets = async () => {
+  const distFontsDir = path.join(distDir, 'fonts');
+
+  await fs.rm(distFontsDir, { force: true, recursive: true });
+
+  await Promise.all(
+    distFontAssets.map(async (asset) => {
+      const sourcePath = path.join(fontAssetsDir, asset.source);
+      const destinationPath = path.join(distFontsDir, asset.destination);
+
+      await ensureDir(path.dirname(destinationPath));
+      await fs.copyFile(sourcePath, destinationPath);
+    }),
+  );
+};
+
 const withSharedLayerPrelude = (css) => [sharedLayerPrelude, css].filter(Boolean).join('\n\n');
+
+const compileScss = async ({ entry, includeLayerPrelude = false, outputFile }) => {
+  const compiled = sass.compile(entry, {
+    loadPaths: [packageDir, rootDir],
+    style: 'expanded',
+  });
+  const sourceCss = compiled.css.trim();
+  const css = includeLayerPrelude ? withSharedLayerPrelude(sourceCss) : sourceCss;
+  const prefixed = await postcss([autoprefixer]).process(css, {
+    from: entry,
+    to: outputFile,
+  });
+
+  return prefixed.css;
+};
 
 const buildPlatform = async ({ files, source, buildPath }) => {
   const dictionary = new StyleDictionary({
@@ -390,20 +511,28 @@ await fs.writeFile(path.join(distDir, 'tokens.css'), layeredTokensCss);
 await fs.writeFile(path.join(distDir, 'themes.css'), layeredThemeCss);
 
 if (!tokensOnly) {
-  const compiled = sass.compile(stylesEntry, {
-    loadPaths: [packageDir, rootDir],
-    style: 'expanded',
+  await copyDistFontAssets();
+
+  const baseStyles = await compileScss({
+    entry: stylesEntry,
+    outputFile: path.join(distDir, 'styles.css'),
   });
-  const baseStyles = compiled.css.trim();
   await fs.writeFile(path.join(buildDir, 'base.css'), baseStyles);
   const fullStylesheet = [sharedLayerPrelude, '', tokensCss, '', themeCss, '', baseStyles]
     .filter(Boolean)
     .join('\n');
+  await fs.writeFile(path.join(distDir, 'styles.css'), fullStylesheet);
 
-  const prefixed = await postcss([autoprefixer]).process(fullStylesheet, {
-    from: stylesEntry,
-    to: path.join(distDir, 'styles.css'),
+  const typographyStyles = await compileScss({
+    entry: typographyStylesEntry,
+    includeLayerPrelude: true,
+    outputFile: path.join(distDir, 'typography.css'),
   });
+  await fs.writeFile(path.join(distDir, 'typography.css'), typographyStyles);
 
-  await fs.writeFile(path.join(distDir, 'styles.css'), prefixed.css);
+  const fontsStyles = await compileScss({
+    entry: fontsStylesEntry,
+    outputFile: path.join(distDir, 'fonts.css'),
+  });
+  await fs.writeFile(path.join(distDir, 'fonts.css'), fontsStyles);
 }
