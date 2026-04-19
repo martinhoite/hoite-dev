@@ -13,6 +13,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "npm run dev:site:nuxt",
+    "dev:storybook": "turbo dev --filter=@hoite-dev/storybook",
     "dev:site:nuxt": "turbo dev --filter=@hoite-dev/site-nuxt",
     "format": "turbo format",
     "generate:content:umbraco": "node ./scripts/generate-umbraco-client.mjs",
@@ -27,12 +28,12 @@
     "check-updates": "npx npm-check-updates -u"
   },
   "devDependencies": {
-    "@types/node": "^24.12.0",
-    "@biomejs/biome": "^2.4.10",
+    "@types/node": "24.12.0",
+    "@biomejs/biome": "^2.4.12",
     "husky": "^9.1.7",
     "openapi-typescript": "^7.13.0",
     "tsup": "^8.5.1",
-    "turbo": "^2.9.3",
+    "turbo": "^2.9.6",
     "typescript": "^5.9.3"
   }
 }
