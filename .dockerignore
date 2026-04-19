@@ -14,11 +14,14 @@ apps/*/.nitro
 apps/*/.nuxt
 apps/*/.output
 apps/*/dist
+apps/*/storybook-static
 apps/*/node_modules
 apps/*/.env
 apps/*/.env.*
 !apps/*/.env.example
+apps/storybook/public/design-tokens.source.json
 ssl
 
+packages/*/.build
 packages/*/dist
 packages/*/node_modules
