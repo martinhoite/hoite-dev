@@ -1,0 +1,110 @@
+{
+  "motion": {
+    "duration": {
+      "instant": {
+        "$type": "number",
+        "$value": 0,
+        "$description": "Use for immediate responses where motion should not linger.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:79",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--motion-duration-instant)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "fast": {
+        "$type": "number",
+        "$value": 120,
+        "$description": "Fast motion timing for hover feedback and subtle state changes.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:80",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--motion-duration-fast)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "moderate": {
+        "$type": "number",
+        "$value": 180,
+        "$description": "Default timing for common state changes and small interface transitions.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:81",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--motion-duration-moderate)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "slow": {
+        "$type": "number",
+        "$value": 240,
+        "$description": "Slower timing for more noticeable interface changes and larger transitions.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:82",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--motion-duration-slow)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "deliberate": {
+        "$type": "number",
+        "$value": 320,
+        "$description": "Slowest timing reserved for staged emphasis and deliberate transitions. Use sparingly.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:83",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--motion-duration-deliberate)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    },
+    "easing": {
+      "standard": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.2, 0, 0, 1)",
+        "$description": "Default easing curve for most interface motion.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:84",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--motion-easing-standard)"
+          },
+          "com.figma.type": "string",
+          "com.figma.isOverride": true
+        }
+      },
+      "enter": {
+        "$type": "string",
+        "$value": "cubic-bezier(0, 0, 0, 1)",
+        "$description": "Easing curve for entering elements and appearing surfaces.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:85",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--motion-easing-enter)"
+          },
+          "com.figma.type": "string",
+          "com.figma.isOverride": true
+        }
+      },
+      "exit": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.4, 0, 1, 1)",
+        "$description": "Easing curve for exiting elements and disappearing surfaces.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:86",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--motion-easing-exit)"
+          },
+          "com.figma.type": "string",
+          "com.figma.isOverride": true
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}

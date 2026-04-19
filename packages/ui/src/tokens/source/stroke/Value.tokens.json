@@ -1,0 +1,84 @@
+{
+  "border": {
+    "thin": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Thin border width for standard outlines and dividers.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:46",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--stroke-thin)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "medium": {
+      "$type": "number",
+      "$value": 2,
+      "$description": "Medium border width for stronger outlines and emphasis.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:47",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--stroke-medium)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "thick": {
+      "$type": "number",
+      "$value": 3,
+      "$description": "Thick border width for pronounced outlines and special emphasis.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:48",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--stroke-thick)"
+        },
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "outline": {
+    "focus-ring": {
+      "$type": "number",
+      "$value": 2,
+      "$description": "Stroke width for visible focus rings around interactive elements.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:49",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--stroke-focus-ring)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "highlight": {
+      "$type": "number",
+      "$value": 3,
+      "$description": "\"Stroke width for highlights",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:575:5",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--stroke-highlight)"
+        },
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}

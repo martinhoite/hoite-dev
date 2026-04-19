@@ -1,0 +1,34 @@
+{
+  "name": "@hoite-dev/ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": {
+      "types": "./src/styles.css.d.ts",
+      "default": "./dist/styles.css"
+    },
+    "./tokens.css": {
+      "types": "./src/tokens.css.d.ts",
+      "default": "./dist/tokens.css"
+    },
+    "./themes.css": {
+      "types": "./src/themes.css.d.ts",
+      "default": "./dist/themes.css"
+    }
+  },
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "generate": "node ./scripts/build.mjs --tokens-only",
+    "format": "biome check --write src scripts package.json tsconfig.json README.md",
+    "lint": "biome check src scripts package.json tsconfig.json README.md",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.9",
+    "sass": "^1.99.0",
+    "style-dictionary": "^5.4.0"
+  }
+}

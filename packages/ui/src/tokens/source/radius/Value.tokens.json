@@ -1,0 +1,112 @@
+{
+  "radius": {
+    "none": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "No corner rounding. Use for fully square edges.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:39",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-none)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "xs": {
+      "$type": "number",
+      "$value": 2,
+      "$description": "Corner radius token for xs rounded edges across components and surfaces.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:40",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-xs)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "sm": {
+      "$type": "number",
+      "$value": 4,
+      "$description": "Corner radius token for sm rounded edges across components and surfaces.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:41",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-sm)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "md": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "Corner radius token for md rounded edges across components and surfaces.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:42",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-md)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "lg": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "Corner radius token for lg rounded edges across components and surfaces.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:43",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-lg)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "xl": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "Corner radius token for xl rounded edges across components and surfaces.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:44",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-xl)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "full": {
+      "$type": "number",
+      "$value": 999,
+      "$description": "\"Fully rounded radius for pills",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:45",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-full)"
+        },
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}

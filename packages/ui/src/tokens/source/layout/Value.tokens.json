@@ -1,0 +1,145 @@
+{
+  "layout": {
+    "grid": {
+      "mobile-columns": {
+        "$type": "number",
+        "$value": 4,
+        "$description": "Recommended column count for mobile layout guides and narrow frames.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:16",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-grid-mobile-columns)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "tablet-columns": {
+        "$type": "number",
+        "$value": 8,
+        "$description": "Recommended column count for tablet layout guides and intermediate frames.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:17",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-grid-tablet-columns)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "desktop-columns": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "Recommended column count for desktop layout guides and wide frames.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:18",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-grid-desktop-columns)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    },
+    "gutter": {
+      "mobile": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "Recommended gutter width between columns on mobile layouts.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:19",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-gutter-mobile)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "tablet": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "Recommended gutter width between columns on tablet layouts.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:20",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-gutter-tablet)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "desktop": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "Recommended gutter width between columns on desktop layouts.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:21",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-gutter-desktop)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    },
+    "grid-container": {
+      "sm": {
+        "$type": "number",
+        "$value": 640,
+        "$description": "Recommended max width for compact content blocks and stacked sections.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:22",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-container-sm)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "md": {
+        "$type": "number",
+        "$value": 768,
+        "$description": "Recommended max width for medium content containers and narrower reading layouts.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:23",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-container-md)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "lg": {
+        "$type": "number",
+        "$value": 1024,
+        "$description": "Recommended max width for large content containers.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:24",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-container-lg)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "xl": {
+        "$type": "number",
+        "$value": 1200,
+        "$description": "Recommended max width for wide content sections that still preserve readable line length.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:25",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-container-xl)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "max": {
+        "$type": "number",
+        "$value": 1280,
+        "$description": "Maximum content width for full desktop layouts before lines become too long.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:26",
+          "com.figma.codeSyntax": {
+            "WEB": "var(--layout-container-max)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}
