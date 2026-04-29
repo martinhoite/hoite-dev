@@ -10,10 +10,10 @@ ENV npm_config_update_notifier=false
 COPY . .
 
 RUN --mount=type=cache,target=/root/.npm npm ci
-RUN npm run build --workspace @hoite-dev/storybook
+RUN npm run build --workspace @hoite-dev/frontend-docs-design-system-vue
 
 FROM nginx:1.29-alpine AS runtime
 
-COPY --from=build /workspace/apps/storybook/storybook-static /usr/share/nginx/html
+COPY --from=build /workspace/apps/frontend-docs/design-system-vue/storybook-static /usr/share/nginx/html
 
 EXPOSE 80

@@ -6,19 +6,19 @@ node_modules
 .env
 !.env.example
 
-apps/*/.cache
-apps/*/.data
-apps/*/.nitro
-apps/*/.nuxt
-apps/*/.output
-apps/*/dist
-apps/*/storybook-static
-apps/*/node_modules
-apps/*/package-lock.json
-apps/*/.env
-apps/*/.env.*
-!apps/*/.env.example
-apps/storybook/public/design-tokens.source.json
+apps/**/.cache
+apps/**/.data
+apps/**/.nitro
+apps/**/.nuxt
+apps/**/.output
+apps/**/dist
+apps/**/storybook-static
+apps/**/node_modules
+apps/**/package-lock.json
+apps/**/.env
+apps/**/.env.*
+!apps/**/.env.example
+apps/frontend-docs/hub/public/design-tokens.source.json
 
 packages/*/.build
 packages/*/dist

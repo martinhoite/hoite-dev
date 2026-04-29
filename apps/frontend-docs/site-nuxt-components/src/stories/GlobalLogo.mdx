@@ -1,0 +1,15 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import * as Stories from './GlobalLogo.stories';
+
+<Meta title="Site Nuxt/Docs/GlobalLogo" />
+
+# GlobalLogo
+
+This page is an integration PoC for documenting app-specific Nuxt components outside the shared design-system packages.
+
+This setup uses the real `apps/site-nuxt/components/global/GlobalLogo.vue` component with a minimal Storybook runtime shim for the Nuxt-specific pieces it depends on.
+
+<Canvas of={Stories.Basic} />
+
+<Controls of={Stories.Basic} />

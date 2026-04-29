@@ -5,8 +5,8 @@
       "!apps/*/.nuxt",
       "!apps/*/.output",
       "!apps/*/dist",
-      "!apps/storybook/public/design-tokens.source.json",
-      "!apps/storybook/storybook-static",
+      "!apps/*/public/design-tokens.source.json",
+      "!apps/*/storybook-static",
       "!packages/*/dist",
       "!packages/ui/.build",
       "!packages/ui/src/tokens/source"

@@ -1,0 +1,31 @@
+:root {
+  --default-grid-gap: 1rem;
+  --color-dark: #303030;
+  --color-darker: #222;
+  --color-light: #ecf0f1;
+  --color-white: #fff;
+  --color-dark-blue: #212529;
+}
+
+.site-nuxt-storybook-shell {
+  min-height: 100vh;
+  padding: 2rem;
+  background: var(--body-bg-color);
+  color: var(--default-text-color);
+}
+
+.theme {
+  &--dark {
+    color-scheme: dark;
+    --body-bg-color: var(--color-dark);
+    --default-text-color: var(--color-white);
+    --color-logo: var(--color-white);
+  }
+
+  &--light {
+    color-scheme: light;
+    --body-bg-color: var(--color-white);
+    --default-text-color: var(--color-dark-blue);
+    --color-logo: var(--color-dark-blue);
+  }
+}
