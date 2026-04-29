@@ -74,4 +74,4 @@ This package does not include:
 
 ## Notes
 
-The current generator expects a live OpenAPI URL by default. If you need to work from a checked-in artifact instead, update `openapi/umbraco-delivery.openapi.json` and adjust `openapi/doc-types.seed.json` if the available document types changed.
+The generator expects a live OpenAPI URL by default. If you need to work from a checked-in artifact instead, update `openapi/umbraco-delivery.openapi.json` and adjust `openapi/doc-types.seed.json` if the available document types changed.
