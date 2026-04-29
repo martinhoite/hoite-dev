@@ -1,0 +1,30 @@
+{
+  "name": "@hoite-dev/frontend-docs-design-system-vue",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "prebuild": "npm run build --workspace @hoite-dev/ui",
+    "build": "storybook build",
+    "dev": "storybook dev --host design-system-vue.local.hoite.dev --port 6008 --https --ssl-cert ../../../ssl/local.hoite.dev.pem --ssl-key ../../../ssl/local.hoite.dev-key.pem",
+    "format": "biome check --write .",
+    "lint": "biome check .",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@hoite-dev/ui": "0.0.0",
+    "@hoite-dev/ui-vue": "0.0.0",
+    "vue": "^3.5.31"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.3.5",
+    "@storybook/addon-docs": "^10.3.5",
+    "@storybook/vue3-vite": "^10.3.5",
+    "@tailwindcss/vite": "^4.2.4",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "storybook": "^10.3.5",
+    "tailwindcss": "^4.2.4",
+    "vite": "^7.3.1",
+    "vue-tsc": "^3.2.6"
+  }
+}

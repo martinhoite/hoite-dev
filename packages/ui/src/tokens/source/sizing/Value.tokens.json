@@ -1,0 +1,163 @@
+{
+  "size": {
+    "control": {
+      "xs": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "\"Recommended height token for xs controls such as buttons",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:29",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-control-xs)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "sm": {
+        "$type": "number",
+        "$value": 36,
+        "$description": "\"Recommended height token for sm controls such as buttons",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:30",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-control-sm)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "md": {
+        "$type": "number",
+        "$value": 44,
+        "$description": "\"Recommended height token for md controls such as buttons",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:31",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-control-md)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "lg": {
+        "$type": "number",
+        "$value": 52,
+        "$description": "\"Recommended height token for lg controls such as buttons",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:32",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-control-lg)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    },
+    "icon": {
+      "xs": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "Recommended icon size token for xs icon usage across components and content.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:33",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-icon-xs)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "sm": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "Recommended icon size token for sm icon usage across components and content.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:34",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-icon-sm)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "md": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "Recommended icon size token for md icon usage across components and content.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:35",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-icon-md)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "lg": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "Recommended icon size token for lg icon usage across components and content.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:36",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-icon-lg)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "xl": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "Recommended icon size token for xl icon usage across components and content.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:37",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-icon-xl)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    },
+    "target": {
+      "min": {
+        "$type": "number",
+        "$value": 44,
+        "$description": "Minimum interactive target size for accessible tap and click areas.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:38",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-target-min)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}

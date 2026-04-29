@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["../../site-nuxt/*"],
+      "@site-nuxt/*": ["../../site-nuxt/*"],
+      "~/*": ["../../site-nuxt/*"]
+    },
+    "types": ["node"]
+  },
+  "include": [".storybook/**/*.ts", "src/**/*.d.ts", "src/**/*.mdx", "src/**/*.ts"]
+}

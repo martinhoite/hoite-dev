@@ -1,0 +1,9 @@
+/*
+ * Storybook-only Tailwind utilities for documentation and demo composition.
+ * Preflight is intentionally omitted so component rendering stays driven by
+ * the design-system packages rather than Storybook-local resets.
+ */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);

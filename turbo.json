@@ -1,21 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    "package.json",
-    "turbo.json",
-    "tsconfig.base.json",
-    "biome.json"
-  ],
+  "globalDependencies": ["package.json", "turbo.json", "tsconfig.base.json", "biome.jsonc"],
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "dist/**",
-        ".nuxt/**",
-        ".output/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".nuxt/**", ".output/**", "storybook-static/**"]
     },
     "dev": {
       "cache": false,
@@ -25,18 +14,13 @@
       "outputs": []
     },
     "generate": {
-      "outputs": [
-        "openapi/**",
-        "src/generated/**"
-      ]
+      "outputs": ["openapi/**", "src/generated/**", ".build/generated/**", "dist/**"]
     },
     "lint": {
       "outputs": []
     },
     "typecheck": {
-      "dependsOn": [
-        "^typecheck"
-      ],
+      "dependsOn": ["^typecheck"],
       "outputs": []
     }
   }

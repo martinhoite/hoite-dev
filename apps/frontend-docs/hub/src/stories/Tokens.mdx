@@ -1,0 +1,66 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { DesignTokenDocBlock } from 'storybook-design-token/doc-blocks';
+
+<Meta title="Design System/Foundations/Tokens" />
+
+# Tokens
+
+The shared token source lives in `@hoite-dev/ui` and is emitted as:
+
+- theme-aware CSS custom properties
+- compiled shared CSS
+- typed TypeScript exports for code-level token access
+
+## Colors
+
+### Light Theme
+
+<DesignTokenDocBlock
+  categoryName="Colors Light"
+  pageSize={12}
+  showSearch={true}
+  viewType="card"
+/>
+
+### Dark Theme
+
+<DesignTokenDocBlock
+  categoryName="Colors Dark"
+  pageSize={12}
+  showSearch={true}
+  viewType="card"
+/>
+
+## Foundation
+
+<DesignTokenDocBlock categoryName="Layout" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Spacing" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Border Radius" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Size" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Stroke" showSearch={true} viewType="table" />
+
+## Motion & Type
+
+<DesignTokenDocBlock categoryName="Motion Duration" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Motion Easing" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Typography Family" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Typography Weight" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Typography Size" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Typography Line Height" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Typography Letter Spacing" showSearch={true} viewType="table" />
+
+<DesignTokenDocBlock categoryName="Typography Paragraph Spacing" showSearch={true} viewType="table" />
+
+## Primitives
+
+<DesignTokenDocBlock categoryName="Primitive Colors" showSearch={true} viewType="card" />

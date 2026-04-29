@@ -40,29 +40,12 @@ npm run dev
 
 ## Local HTTPS
 
-`mkcert` is a simple tool for creating locally-trusted development certificates.
+Shared local wildcard certificates are stored at the repo root in `ssl/`.
 
-1. **Install mkcert** using [Chocolatey](https://chocolatey.org/) or download it manually from the [mkcert GitHub releases page](https://github.com/FiloSottile/mkcert/releases).
-   - **Using Chocolatey** (if you have it installed):
-     ```powershell
-     choco install mkcert -y
-     ```
-   - **Manually**:
-     1. Download `mkcert.exe` from the [releases page](https://github.com/FiloSottile/mkcert/releases).
-     2. Add `mkcert.exe` to a directory that's included in your system's `PATH` (e.g., `C:\Tools\`).
+Follow the root local SSL setup in [README.md](../../README.md#local-ssl) to generate:
 
-2. **Install the local root CA**:
-   ```powershell
-   mkcert -install
-   ```
-3. **Reboot Visual Studio code**
-
-4. **Navigate to `apps/site-nuxt`.**
-
-  - **Run the following command to generate the shared local SSL certificates in the `ssl` folder**
-     ```powershell
-    mkdir ssl; mkcert -cert-file ./ssl/local.hoite.dev.pem -key-file ./ssl/local.hoite.dev-key.pem local.hoite.dev *.local.hoite.dev
-     ```
+- `ssl/local.hoite.dev.pem`
+- `ssl/local.hoite.dev-key.pem`
 
 If you're running the Umbraco instance locally, its certificate may not be trusted by Node. As a local workaround, add the following to your local `.env` file:
 ```NODE_TLS_REJECT_UNAUTHORIZED=0```

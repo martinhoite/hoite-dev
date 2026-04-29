@@ -1,0 +1,516 @@
+{
+  "typography": {
+    "family": {
+      "heading": {
+        "$type": "string",
+        "$value": "Open Sans",
+        "$description": "Heading typeface token used by the shared typography system.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:50",
+          "com.figma.scopes": [
+            "FONT_FAMILY"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-family-heading)"
+          },
+          "com.figma.type": "string",
+          "com.figma.isOverride": true
+        }
+      },
+      "body": {
+        "$type": "string",
+        "$value": "Roboto",
+        "$description": "Body typeface token used by the shared typography system.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:51",
+          "com.figma.scopes": [
+            "FONT_FAMILY"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-family-body)"
+          },
+          "com.figma.type": "string",
+          "com.figma.isOverride": true
+        }
+      }
+    },
+    "weight": {
+      "thin": {
+        "$type": "number",
+        "$value": 100,
+        "$description": "Thin font weight token for the typography scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:575:8",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-weight-regular)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "extralight": {
+        "$type": "number",
+        "$value": 200,
+        "$description": "Extralight font weight token for the typography scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:575:9",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-weight-regular)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "light": {
+        "$type": "number",
+        "$value": 300,
+        "$description": "Light font weight token for the typography scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:575:7",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-weight-regular)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "regular": {
+        "$type": "number",
+        "$value": 400,
+        "$description": "Regular font weight token for the typography scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:52",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-weight-regular)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "medium": {
+        "$type": "number",
+        "$value": 500,
+        "$description": "Medium font weight token for the typography scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:53",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-weight-medium)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "semibold": {
+        "$type": "number",
+        "$value": 600,
+        "$description": "Semibold font weight token for the typography scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:54",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-weight-semibold)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "bold": {
+        "$type": "number",
+        "$value": 700,
+        "$description": "Bold font weight token for the typography scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:55",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-weight-bold)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "extrabold": {
+        "$type": "number",
+        "$value": 800,
+        "$description": "Extrabold font weight token for the typography scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:56",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-weight-extrabold)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "black": {
+        "$type": "number",
+        "$value": 900,
+        "$description": "Black font weight token for the typography scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:575:6",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-weight-extrabold)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    },
+    "size": {
+      "12": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "12px font size token used across the shared type scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:57",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-size-12)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "14": {
+        "$type": "number",
+        "$value": 14,
+        "$description": "14px font size token used across the shared type scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:58",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-size-14)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "16": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "16px font size token used across the shared type scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:59",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-size-16)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "18": {
+        "$type": "number",
+        "$value": 18,
+        "$description": "18px font size token used across the shared type scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:60",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-size-18)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "20": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "20px font size token used across the shared type scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:61",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-size-20)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "24": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "24px font size token used across the shared type scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:62",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-size-24)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "30": {
+        "$type": "number",
+        "$value": 30,
+        "$description": "30px font size token used across the shared type scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:63",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-size-30)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "36": {
+        "$type": "number",
+        "$value": 36,
+        "$description": "36px font size token used across the shared type scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:64",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-size-36)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "48": {
+        "$type": "number",
+        "$value": 48,
+        "$description": "48px font size token used across the shared type scale.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:65",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-size-48)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    },
+    "line-height": {
+      "16": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "16px line-height token for readable text blocks and component labels.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:66",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-line-height-16)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "20": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "20px line-height token for readable text blocks and component labels.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:67",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-line-height-20)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "24": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "24px line-height token for readable text blocks and component labels.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:68",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-line-height-24)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "28": {
+        "$type": "number",
+        "$value": 28,
+        "$description": "28px line-height token for readable text blocks and component labels.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:69",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-line-height-28)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "32": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "32px line-height token for readable text blocks and component labels.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:70",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-line-height-32)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "38": {
+        "$type": "number",
+        "$value": 38,
+        "$description": "38px line-height token for readable text blocks and component labels.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:71",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-line-height-38)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "44": {
+        "$type": "number",
+        "$value": 44,
+        "$description": "44px line-height token for readable text blocks and component labels.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:72",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-line-height-44)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "56": {
+        "$type": "number",
+        "$value": 56,
+        "$description": "56px line-height token for readable text blocks and component labels.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:73",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-line-height-56)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    },
+    "letter-spacing": {
+      "tight": {
+        "$type": "number",
+        "$value": -2,
+        "$description": "Tight letter-spacing token for the typography system.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:74",
+          "com.figma.scopes": [
+            "LETTER_SPACING"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-letter-spacing-tight)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "normal": {
+        "$type": "number",
+        "$value": 0,
+        "$description": "Normal letter-spacing token for the typography system.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:75",
+          "com.figma.scopes": [
+            "LETTER_SPACING"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-letter-spacing-normal)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "wide": {
+        "$type": "number",
+        "$value": 1,
+        "$description": "Wide letter-spacing token for the typography system.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:76",
+          "com.figma.scopes": [
+            "LETTER_SPACING"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-letter-spacing-wide)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    },
+    "paragraph-spacing": {
+      "body": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "Paragraph spacing token used after body text blocks.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:77",
+          "com.figma.scopes": [
+            "PARAGRAPH_SPACING"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-paragraph-spacing-body)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "heading": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "Paragraph spacing token used after heading text blocks.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:9:78",
+          "com.figma.scopes": [
+            "PARAGRAPH_SPACING"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--typography-paragraph-spacing-heading)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}

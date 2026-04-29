@@ -1,0 +1,31 @@
+{
+  "name": "@hoite-dev/frontend-docs-design-system-react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "prebuild": "npm run build --workspace @hoite-dev/ui",
+    "build": "storybook build",
+    "dev": "storybook dev --host design-system-react.local.hoite.dev --port 6007 --https --ssl-cert ../../../ssl/local.hoite.dev.pem --ssl-key ../../../ssl/local.hoite.dev-key.pem",
+    "format": "biome check --write .",
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@hoite-dev/ui": "0.0.0",
+    "@hoite-dev/ui-react": "0.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.3.5",
+    "@storybook/addon-docs": "^10.3.5",
+    "@storybook/react-vite": "^10.3.5",
+    "@tailwindcss/vite": "^4.2.4",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "storybook": "^10.3.5",
+    "tailwindcss": "^4.2.4",
+    "vite": "^7.3.1"
+  }
+}

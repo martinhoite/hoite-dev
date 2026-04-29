@@ -1,5 +1,5 @@
 {
-  "name": "@hoite-dev/components",
+  "name": "@hoite-dev/ui-react",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,5 +11,14 @@
     "format": "biome check --write .",
     "lint": "biome check .",
     "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@hoite-dev/ui": "0.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14"
+  },
+  "peerDependencies": {
+    "react": "^19.2.5"
   }
 }

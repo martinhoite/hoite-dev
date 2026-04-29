@@ -1,0 +1,217 @@
+{
+  "spacing": {
+    "0": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Zero-spacing token for flush layouts and edge-to-edge alignment.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:2",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-0)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "4": {
+      "$type": "number",
+      "$value": 4,
+      "$description": "\"4px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:3",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-4)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "8": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "\"8px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:4",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-8)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "12": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "\"12px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:5",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-12)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "16": {
+      "$type": "number",
+      "$value": 16,
+      "$description": "\"16px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:6",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-16)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "20": {
+      "$type": "number",
+      "$value": 20,
+      "$description": "\"20px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:7",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-20)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "24": {
+      "$type": "number",
+      "$value": 24,
+      "$description": "\"24px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:8",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-24)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "32": {
+      "$type": "number",
+      "$value": 32,
+      "$description": "\"32px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:9",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-32)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "40": {
+      "$type": "number",
+      "$value": 40,
+      "$description": "\"40px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:10",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-40)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "48": {
+      "$type": "number",
+      "$value": 48,
+      "$description": "\"48px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:11",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-48)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "64": {
+      "$type": "number",
+      "$value": 64,
+      "$description": "\"64px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:12",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-64)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "80": {
+      "$type": "number",
+      "$value": 80,
+      "$description": "\"80px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:13",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-80)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "96": {
+      "$type": "number",
+      "$value": 96,
+      "$description": "\"96px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:14",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-96)"
+        },
+        "com.figma.isOverride": true
+      }
+    },
+    "128": {
+      "$type": "number",
+      "$value": 128,
+      "$description": "\"128px spacing token for gap",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:15",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--spacing-128)"
+        },
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}
