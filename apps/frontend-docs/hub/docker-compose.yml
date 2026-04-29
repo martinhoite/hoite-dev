@@ -1,0 +1,8 @@
+services:
+  frontend-docs:
+    container_name: frontend-docs
+    build:
+      context: ../../..
+      dockerfile: apps/frontend-docs/hub/Dockerfile
+    ports:
+      - '127.0.0.1:3030:80'
