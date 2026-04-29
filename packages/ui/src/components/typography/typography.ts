@@ -1,5 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
+export const supportedTypographyTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'] as const;
+
 export const supportedTypographyVariants = {
   'display-large': {
     defaultTag: 'h1',
@@ -24,6 +26,7 @@ export const supportedTypographyVariants = {
   },
 } as const;
 
+export type TypographyTag = (typeof supportedTypographyTags)[number];
 export type TypographyVariant = keyof typeof supportedTypographyVariants;
 export type TypographyDefaultTag =
   (typeof supportedTypographyVariants)[TypographyVariant]['defaultTag'];

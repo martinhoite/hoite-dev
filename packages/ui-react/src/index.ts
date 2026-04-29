@@ -13,4 +13,5 @@ export {
   tokenThemes,
   typographyVariants,
 } from '@hoite-dev/ui';
-export { default as Typography } from './components/Typography.vue';
+export type { TypographyProps } from './components/Typography';
+export { Typography } from './components/Typography';

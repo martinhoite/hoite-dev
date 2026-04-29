@@ -11,6 +11,7 @@ import typographyTokens from './tokens/source/typography/Value.tokens.json';
 
 export {
   resolveTypographyDefaultTag,
+  supportedTypographyTags,
   supportedTypographyVariants,
   typographyVariants,
 } from './components/typography';
@@ -122,6 +123,7 @@ export type ThemeName = (typeof themeNames)[number];
 export type Tokens = typeof tokens;
 export type {
   TypographyDefaultTag,
+  TypographyTag,
   TypographyVariant,
   TypographyVariantProps,
 } from './components/typography';
