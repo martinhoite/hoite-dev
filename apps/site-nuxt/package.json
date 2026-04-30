@@ -38,6 +38,7 @@
     "@hoite-dev/umbraco-client": "workspace:*",
     "@nuxt/image": "^2.0.0",
     "@pinia/nuxt": "^0.11.3",
+    "h3": "^1.15.11",
     "nuxt": "^4.4.2",
     "nuxt-schema-org": "^5.0.10",
     "ofetch": "^1.5.1",
