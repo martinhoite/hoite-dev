@@ -26,6 +26,6 @@
     "postcss-nested": "^7.0.2",
     "storybook": "^10.3.6",
     "tailwindcss": "^4.2.4",
-    "vite": "^7.3.1"
+    "vite": "^8.0.10"
   }
 }
