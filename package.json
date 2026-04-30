@@ -1,21 +1,16 @@
 {
   "name": "hoite-dev",
   "private": true,
-  "packageManager": "npm@11.12.1",
-  "workspaces": [
-    "apps/site-nuxt",
-    "apps/frontend-docs/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@10.33.2",
   "engines": {
-    "npm": ">=10.0.0",
+    "pnpm": ">=10.0.0",
     "node": ">=24.0.0"
   },
   "scripts": {
     "build": "turbo build",
-    "dev": "npm run dev:site:nuxt",
-    "frontend-docs:prepare": "npm run build --workspace @hoite-dev/ui && npm run build --workspace @hoite-dev/umbraco-client",
-    "dev:frontend-docs": "npm run frontend-docs:prepare && npm-run-all --parallel dev:frontend-docs:hub dev:frontend-docs:design-system-react dev:frontend-docs:design-system-vue dev:frontend-docs:site-nuxt-components",
+    "dev": "pnpm run dev:site:nuxt",
+    "frontend-docs:prepare": "pnpm --filter @hoite-dev/ui run build && pnpm --filter @hoite-dev/umbraco-client run build",
+    "dev:frontend-docs": "pnpm run frontend-docs:prepare && turbo run dev --filter=@hoite-dev/frontend-docs-hub --filter=@hoite-dev/frontend-docs-design-system-react --filter=@hoite-dev/frontend-docs-design-system-vue --filter=@hoite-dev/frontend-docs-site-nuxt-components",
     "dev:frontend-docs:hub": "turbo dev --filter=@hoite-dev/frontend-docs-hub",
     "dev:frontend-docs:design-system-react": "turbo dev --filter=@hoite-dev/frontend-docs-design-system-react",
     "dev:frontend-docs:design-system-vue": "turbo dev --filter=@hoite-dev/frontend-docs-design-system-vue",
@@ -30,15 +25,15 @@
     "readme:sync-versions": "node ./scripts/sync-readme-versions.mjs",
     "typecheck": "turbo typecheck",
     "verify:commit": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
-    "verify:versions": "npm run readme:check-versions",
-    "verify:push": "npm run typecheck",
-    "check-updates": "npx npm-check-updates -u"
+    "verify:versions": "pnpm run readme:check-versions",
+    "verify:push": "pnpm run typecheck && pnpm run verify:versions",
+    "deps:outdated": "pnpm outdated -r",
+    "deps:upgrade": "pnpm dlx npm-check-updates --workspaces -u"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.12",
+    "@biomejs/biome": "^2.4.13",
     "@types/node": "24.12.0",
     "husky": "^9.1.7",
-    "npm-run-all": "^4.1.5",
     "openapi-typescript": "^7.13.0",
     "tsup": "^8.5.1",
     "turbo": "^2.9.6",

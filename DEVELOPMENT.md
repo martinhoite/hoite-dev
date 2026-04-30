@@ -7,14 +7,17 @@ This document covers local setup, day-to-day development, and architecture notes
 ### Requirements
 
 - Node.js `>=24.0.0`
-- npm
+- pnpm via Corepack
 - Docker, when previewing container output locally
 - `mkcert`, when running HTTPS local development hosts
+
+Check the top-level [`README.md`](./README.md) badges for the current repo-level Node engine and pnpm versions.
 
 ### Install dependencies
 
 ```bash
-npm install
+corepack enable
+pnpm install
 ```
 
 ### Editor extensions
@@ -25,10 +28,10 @@ The most important one for this repo is the Biome extension so format-on-save ma
 
 ### Git hooks
 
-`npm install` also enables Husky Git hooks for this repo:
+`pnpm install` also enables Husky Git hooks for this repo:
 
 - `pre-commit`: runs Biome only on staged files
-- `pre-push`: runs `npm run typecheck`
+- `pre-push`: runs `pnpm run typecheck`
 
 ### Local app hosts
 
@@ -86,17 +89,17 @@ These files are local-only and should not be committed.
 ### General commands
 
 ```bash
-npm run dev
-npm run lint
-npm run typecheck
-npm run build
-npm run generate:content:umbraco
+pnpm run dev
+pnpm run lint
+pnpm run typecheck
+pnpm run build
+pnpm run generate:content:umbraco
 ```
 
 ### Site app
 
 ```bash
-npm run dev:site:nuxt
+pnpm run dev:site:nuxt
 ```
 
 ### Frontend docs
@@ -104,7 +107,7 @@ npm run dev:site:nuxt
 Use this for normal local frontend docs development:
 
 ```bash
-npm run dev:frontend-docs
+pnpm run dev:frontend-docs
 ```
 
 This runs the docs side by side on their own HTTPS local hosts:
@@ -119,7 +122,7 @@ This runs the docs side by side on their own HTTPS local hosts:
 To preview the unified frontend docs container locally, run:
 
 ```bash
-npm run docker:frontend-docs
+pnpm run docker:frontend-docs
 ```
 
 Then open:

@@ -25,7 +25,7 @@ Add this host to your local hosts file:
 ## Local development
 
 ```bash
-npm run dev:frontend-docs:site-nuxt-components
+pnpm run dev:frontend-docs:site-nuxt-components
 ```
 
 Then open:

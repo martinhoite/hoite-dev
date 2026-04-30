@@ -33,7 +33,7 @@ if (updatedReadme === readme) {
 
 if (checkOnly) {
   console.error(
-    'README version badges are out of date. Run `npm run readme:sync-versions` in apps/site-nuxt.',
+    'README version badges are out of date. Run `pnpm run readme:sync-versions` in apps/site-nuxt.',
   );
   process.exit(1);
 }

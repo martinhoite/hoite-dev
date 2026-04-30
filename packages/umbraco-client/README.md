@@ -29,13 +29,13 @@ UMBRACO_OPENAPI_CA_CERT_PATH=C:/Users/<your-user>/AppData/Local/mkcert/rootCA.pe
 Run the generator from the repo root:
 
 ```bash
-npm run generate:content:umbraco
+pnpm run generate:content:umbraco
 ```
 
 Or run the package command directly:
 
 ```bash
-npm run generate --workspace @hoite-dev/umbraco-client
+pnpm --filter @hoite-dev/umbraco-client run generate
 ```
 
 The direct package command expects `UMBRACO_OPENAPI_URL` and the optional

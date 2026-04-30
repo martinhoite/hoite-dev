@@ -1,4 +1,4 @@
-const REPO_BASE_URL = 'https://github.com/martinhoite/hoite-dev/blob/main/';
+const REPO_BASE_URL = 'https://github.com/martinhoite/hoite-dev/blob/master/';
 
 type SourceLink = {
   label: string;
