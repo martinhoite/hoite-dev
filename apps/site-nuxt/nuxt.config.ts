@@ -94,8 +94,14 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [ViteYaml()],
+    resolve: {
+      dedupe: ['vue'],
+    },
     server: {
       allowedHosts: [LOCAL_APP_HOST],
+    },
+    ssr: {
+      noExternal: ['vue', /^@vue\//],
     },
   },
 
