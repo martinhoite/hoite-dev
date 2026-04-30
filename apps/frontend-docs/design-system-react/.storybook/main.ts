@@ -13,7 +13,7 @@ const config: StorybookConfig = {
   core: {
     allowedHosts: true,
   },
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],
+  stories: ['../src/**/*.stories.@(ts|tsx)'],
   async viteFinal(config) {
     return mergeConfig(config, {
       plugins: [tailwindcss()],

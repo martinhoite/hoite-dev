@@ -19,7 +19,7 @@ Add this host to your local hosts file:
 ## Local development
 
 ```bash
-npm run dev:frontend-docs:design-system-react
+pnpm run dev:frontend-docs:design-system-react
 ```
 
 Then open:
