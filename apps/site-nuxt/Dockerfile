@@ -5,12 +5,14 @@ FROM node:24-alpine AS build
 WORKDIR /workspace
 
 ENV CI=true
-ENV npm_config_update_notifier=false
+ENV PNPM_HOME=/pnpm
+ENV PATH=$PNPM_HOME:$PATH
 
 COPY . .
 
-RUN --mount=type=cache,target=/root/.npm npm ci
-RUN npm run build --workspace @hoite-dev/site-nuxt
+RUN corepack enable
+RUN --mount=type=cache,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm --filter @hoite-dev/site-nuxt run build
 
 FROM node:24-alpine AS runtime
 

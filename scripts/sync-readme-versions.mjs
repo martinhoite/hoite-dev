@@ -28,7 +28,7 @@ let hasErrors = false;
 if (updatedReadme === readme) {
   console.log('Root README version badges are up to date.');
 } else if (checkOnly) {
-  console.error('Root README version badges are out of date. Run `npm run readme:sync-versions`.');
+  console.error('Root README version badges are out of date. Run `pnpm run readme:sync-versions`.');
   hasErrors = true;
 } else {
   await writeFile(readmePath, updatedReadme, 'utf8');
