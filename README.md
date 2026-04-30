@@ -99,6 +99,12 @@ Shared Biome configuration.
 - [packages/ui-vue](./packages/ui-vue/README.md)
 - [packages/umbraco-client](./packages/umbraco-client/README.md)
 
+## Use of AI
+
+AI is used as a support tool for ideation, technical planning, refactoring support, documentation, and language refinement.
+
+It helps accelerate exploration and iteration, while final decisions, validation, and implementation remain my responsibility.
+
 ## License
 
 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License with an Additional Permission Clause.
