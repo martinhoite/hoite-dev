@@ -13,8 +13,8 @@
   "dependencies": {
     "@hoite-dev/ui": "workspace:*",
     "@hoite-dev/ui-react": "workspace:*",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.3.6",

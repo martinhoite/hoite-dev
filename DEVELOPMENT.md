@@ -11,6 +11,8 @@ This document covers local setup, day-to-day development, and architecture notes
 - Docker, when previewing container output locally
 - `mkcert`, when running HTTPS local development hosts
 
+Check the top-level [`README.md`](./README.md) badges for the current repo-level Node engine and pnpm versions.
+
 ### Install dependencies
 
 ```bash
