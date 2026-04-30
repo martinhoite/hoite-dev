@@ -2,7 +2,7 @@
 
 ![Node engine](https://img.shields.io/badge/Node%20engine-%3E%3D24.0.0-026E00)
 
-This repository is a **Turborepo monorepo** managed with `npm` workspaces and a single root `node_modules`.
+This repository is a **Turborepo monorepo** managed with `pnpm` workspaces.
 
 It contains the Hoite Dev site app, frontend documentation, shared design system packages, and Umbraco content tooling.
 

@@ -1,2 +1,2 @@
 #!/bin/sh
-npm run verify:push
+pnpm run verify:push

@@ -3,11 +3,17 @@
   "files": {
     "includes": [
       "!apps/*/.nuxt",
+      "!apps/*/.nuxt",
       "!apps/*/.output",
+      "!apps/*/.output",
+      "!apps/*/dist",
       "!apps/*/dist",
       "!apps/*/public/design-tokens.source.json",
       "!apps/*/storybook-static",
+      "!apps/*/storybook-static",
       "!packages/*/dist",
+      "!packages/*/dist",
+      "!packages/ui/.build",
       "!packages/ui/.build",
       "!packages/ui/src/tokens/source"
     ]
