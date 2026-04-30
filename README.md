@@ -1,6 +1,10 @@
 # Hoite Dev
 
+<!-- readme-version-badges:start -->
 ![Node engine](https://img.shields.io/badge/Node%20engine-%3E%3D24.0.0-026E00)
+![Package manager](https://img.shields.io/badge/package%20manager-pnpm%2010.33.2-F69220)
+![CI](https://github.com/martinhoite/hoite-dev/actions/workflows/ci.yml/badge.svg?branch=master)
+<!-- readme-version-badges:end -->
 
 This repository is a **Turborepo monorepo** managed with `pnpm` workspaces.
 

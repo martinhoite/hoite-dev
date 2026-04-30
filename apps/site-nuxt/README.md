@@ -1,6 +1,6 @@
 # Site Nuxt
 
-![Nuxt version](https://img.shields.io/badge/Nuxt%20version-%5E4.4.2-00DC82)
+![Nuxt version](https://img.shields.io/badge/Nuxt%20version-%5E4.4.4-00DC82)
 
 ## Setup
 

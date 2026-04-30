@@ -16,12 +16,38 @@ const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf8'));
 const readme = await readFile(readmePath, 'utf8');
 
 const expectedNodeEngine = packageJson.engines?.node ?? process.versions.node;
-const desiredNodeBadge = `![Node engine](https://img.shields.io/badge/Node%20engine-${encodeURIComponent(expectedNodeEngine)}-026E00)`;
+const expectedPackageManager = packageJson.packageManager;
 
-const updatedReadme = readme.replace(
-  /!\[(?:Node version|Node engine)]\(https:\/\/img\.shields\.io\/badge\/Node%20(?:version|engine)-[^)]+\)/,
-  desiredNodeBadge,
-);
+if (!expectedPackageManager) {
+  console.error('Missing `packageManager` in the root package.json.');
+  process.exit(1);
+}
+
+const packageManagerBadgeValue = expectedPackageManager.replace('@', ' ');
+const desiredBadgeBlock = [
+  `![Node engine](https://img.shields.io/badge/Node%20engine-${encodeURIComponent(expectedNodeEngine)}-026E00)`,
+  `![Package manager](https://img.shields.io/badge/package%20manager-${encodeURIComponent(packageManagerBadgeValue)}-F69220)`,
+  '![CI](https://github.com/martinhoite/hoite-dev/actions/workflows/ci.yml/badge.svg?branch=master)',
+].join('\n');
+
+const badgeBlockPattern =
+  /<!-- readme-version-badges:start -->[\s\S]*?<!-- readme-version-badges:end -->/;
+const desiredManagedBadgeBlock = [
+  '<!-- readme-version-badges:start -->',
+  desiredBadgeBlock,
+  '<!-- readme-version-badges:end -->',
+].join('\n');
+
+let updatedReadme;
+
+if (badgeBlockPattern.test(readme)) {
+  updatedReadme = readme.replace(badgeBlockPattern, desiredManagedBadgeBlock);
+} else {
+  console.error(
+    'Missing README badge markers. Add `<!-- readme-version-badges:start -->` and `<!-- readme-version-badges:end -->` to the root README.',
+  );
+  process.exit(1);
+}
 
 let hasErrors = false;
 
