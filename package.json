@@ -1,7 +1,7 @@
 {
   "name": "hoite-dev",
   "private": true,
-  "packageManager": "pnpm@10.0.0",
+  "packageManager": "pnpm@10.33.2",
   "engines": {
     "pnpm": ">=10.0.0",
     "node": ">=24.0.0"
@@ -27,7 +27,8 @@
     "verify:commit": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
     "verify:versions": "pnpm run readme:check-versions",
     "verify:push": "pnpm run typecheck",
-    "check-updates": "pnpm dlx npm-check-updates -u"
+    "deps:outdated": "pnpm outdated -r",
+    "deps:upgrade": "pnpm dlx npm-check-updates --workspaces -u"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.13",
