@@ -14,7 +14,6 @@ apps/**/.output
 apps/**/dist
 apps/**/storybook-static
 apps/**/node_modules
-apps/**/package-lock.json
 apps/**/.env
 apps/**/.env.*
 !apps/**/.env.example

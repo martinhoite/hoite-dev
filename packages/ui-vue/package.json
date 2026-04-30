@@ -13,14 +13,14 @@
     "typecheck": "vue-tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.5",
+    "@vitejs/plugin-vue": "^6.0.6",
     "vite": "^7.3.1",
-    "vue-tsc": "^3.2.6"
+    "vue-tsc": "^3.2.7"
   },
   "dependencies": {
-    "@hoite-dev/ui": "0.0.0"
+    "@hoite-dev/ui": "workspace:*"
   },
   "peerDependencies": {
-    "vue": "^3.5.31"
+    "vue": "^3.5.33"
   }
 }

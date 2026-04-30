@@ -2,7 +2,7 @@
 
 ![Node engine](https://img.shields.io/badge/Node%20engine-%3E%3D24.0.0-026E00)
 
-This repository is a **Turborepo monorepo** managed with `npm` workspaces and a single root `node_modules`.
+This repository is a **Turborepo monorepo** managed with `pnpm` workspaces.
 
 It contains the Hoite Dev site app, frontend documentation, shared design system packages, and Umbraco content tooling.
 
@@ -98,6 +98,12 @@ Shared Biome configuration.
 - [packages/ui-react](./packages/ui-react/README.md)
 - [packages/ui-vue](./packages/ui-vue/README.md)
 - [packages/umbraco-client](./packages/umbraco-client/README.md)
+
+## Use of AI
+
+AI is used as a support tool for ideation, technical planning, refactoring support, documentation, and language refinement.
+
+It helps accelerate exploration and iteration, while final decisions, validation, and implementation remain my responsibility.
 
 ## License
 

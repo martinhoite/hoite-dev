@@ -7,7 +7,8 @@
 Install dependencies from the monorepo root:
 
 ```bash
-npm install
+corepack enable
+pnpm install
 ```
 
 Copy `apps/site-nuxt/.env.example` to `apps/site-nuxt/.env` and fill out relevant values for the app's runtime configuration.
@@ -35,14 +36,14 @@ This lets the frontend run locally while still behaving as the correct public si
 Start the development server:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ## Local HTTPS
 
 Shared local wildcard certificates are stored at the repo root in `ssl/`.
 
-Follow the root local SSL setup in [README.md](../../README.md#local-ssl) to generate:
+Follow the root local SSL setup in [DEVELOPMENT.md](../../DEVELOPMENT.md#local-ssl) to generate:
 
 - `ssl/local.hoite.dev.pem`
 - `ssl/local.hoite.dev-key.pem`
@@ -76,13 +77,13 @@ Invalid or non-localized routes return a 404 via [`middleware/enforce-locale.glo
 Build the application:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 Preview the built app locally:
 
 ```bash
-npm run preview
+pnpm run preview
 ```
 
 ## Docker

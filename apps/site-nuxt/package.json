@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "engines": {
-    "npm": ">=10.0.0",
+    "pnpm": ">=10.0.0",
     "node": ">=24.0.0"
   },
   "scripts": {
-    "build": "npm run readme:sync-versions && nuxt build",
+    "build": "pnpm run readme:sync-versions && nuxt build",
     "dev": "nuxt dev",
     "format": "biome check --write . && prettier --write \"**/*.vue\"",
     "format:vue": "prettier --write \"**/*.vue\"",
@@ -31,16 +31,18 @@
     "postcss-nested": "^7.0.2",
     "postcss-preset-env": "^10.6.1",
     "postcss-reporter": "^7.1.0",
-    "prettier": "^3.6.2",
-    "vue-tsc": "^3.2.6"
+    "prettier": "^3.8.3",
+    "vue-tsc": "^3.2.7"
   },
   "dependencies": {
-    "@hoite-dev/umbraco-client": "0.0.0",
+    "@hoite-dev/umbraco-client": "workspace:*",
     "@nuxt/image": "^2.0.0",
     "@pinia/nuxt": "^0.11.3",
+    "h3": "^1.15.11",
     "nuxt": "^4.4.2",
     "nuxt-schema-org": "^5.0.10",
     "ofetch": "^1.5.1",
-    "vue": "^3.5.31"
+    "ufo": "^1.6.4",
+    "vue": "^3.5.33"
   }
 }

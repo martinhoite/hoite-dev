@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process';
+import { access } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
@@ -8,17 +9,31 @@ import { generateDocTypeFiles } from './generate-doc-type-files.mjs';
 import { generateOpenApiTypes } from './generate-openapi-types.mjs';
 
 const runBiomeFormat = async (cwd) => {
-  const npmCliPath = process.env.npm_execpath;
+  const biomeBinaryName = process.platform === 'win32' ? 'biome.cmd' : 'biome';
+  const localBiomeBinaryPath = path.join(cwd, '..', '..', 'node_modules', '.bin', biomeBinaryName);
 
-  if (!npmCliPath) {
-    throw new Error('Unable to determine npm CLI path. Run the generator through an npm script.');
+  try {
+    await access(localBiomeBinaryPath);
+  } catch {
+    throw new Error('Unable to find the Biome CLI in the workspace. Install dependencies first.');
   }
 
   await new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [npmCliPath, 'run', 'format:generated'], {
-      cwd,
-      stdio: 'inherit',
-    });
+    const child = spawn(
+      localBiomeBinaryPath,
+      [
+        'format',
+        '--write',
+        'openapi/umbraco-delivery.openapi.json',
+        'src/generated/umbraco-openapi.generated.ts',
+        'src/generated/all-doc-types.generated.ts',
+        'src/generated/public-doc-types.generated.ts',
+      ],
+      {
+        cwd,
+        stdio: 'inherit',
+      },
+    );
 
     child.on('error', reject);
     child.on('exit', (code) => {

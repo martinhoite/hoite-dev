@@ -94,11 +94,14 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [ViteYaml()],
+    resolve: {
+      dedupe: ['vue'],
+    },
     server: {
       allowedHosts: [LOCAL_APP_HOST],
     },
-    optimizeDeps: {
-      include: ['@vue/devtools-core', '@vue/devtools-kit'],
+    ssr: {
+      noExternal: ['vue', /^@vue\//],
     },
   },
 

@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@hoite-dev/ui": "0.0.0"
+    "@hoite-dev/ui": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.2.14"

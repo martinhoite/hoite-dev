@@ -21,13 +21,13 @@ Add this host to your local hosts file:
 Run the hub on its own:
 
 ```bash
-npm run dev:frontend-docs:hub
+pnpm run dev:frontend-docs:hub
 ```
 
 Or run the full frontend docs workspace side by side:
 
 ```bash
-npm run dev:frontend-docs
+pnpm run dev:frontend-docs
 ```
 
 Then open:
@@ -62,7 +62,7 @@ Its container builds and serves:
 From the repo root, you can build and run the unified container locally with:
 
 ```bash
-npm run docker:frontend-docs
+pnpm run docker:frontend-docs
 ```
 
 Then open:
