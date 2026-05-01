@@ -113,4 +113,4 @@ It helps accelerate exploration and iteration, while final decisions, validation
 
 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License with an Additional Permission Clause.
 
-See [LICENSE.MD](./LICENSE.MD).
+See [LICENSE](./LICENSE.md).
