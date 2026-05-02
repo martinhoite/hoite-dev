@@ -10,7 +10,7 @@ const config: StorybookConfig = {
     '@storybook/addon-docs',
     '@storybook/addon-a11y',
     {
-      name: 'storybook-design-token',
+      name: 'storybook-design-token/preset',
       options: {
         designTokenGlob: '../../../packages/ui/dist/{tokens,themes}.css',
       },
