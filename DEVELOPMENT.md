@@ -9,7 +9,8 @@ This document covers local setup, day-to-day development, and architecture notes
 - Node.js `>=24.0.0`
 - pnpm via Corepack
 - Docker, when previewing container output locally
-- `mkcert`, when running HTTPS local development hosts
+- Local SSL certificates for HTTPS development hosts.
+  - This document includes setup guidance using `mkcert`, but the project only needs valid local certificate files at the expected paths.
 
 Check the top-level [`README.md`](./README.md) badges for the current repo-level Node engine and pnpm versions.
 
@@ -51,7 +52,7 @@ Add the relevant app host to your local hosts file:
 
 ### Local SSL
 
-Local wildcard certificates are shared repo-level infrastructure for apps running on `*.local.hoite.dev`.
+Local wildcard certificates are repo-level local development infrastructure for apps running on `*.local.hoite.dev`.
 
 The expected local certificate files are stored in:
 
