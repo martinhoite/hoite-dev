@@ -47,17 +47,17 @@ Packages live under `packages/*` and provide shared code, styling, configuration
 
 ### `apps/site-nuxt`
 
-Nuxt SSR site app.
+Nuxt SSR site app, using Umbraco as the primary provider of content.
 
 ### `apps/frontend-docs`
 
-Frontend documentation app for the shared design system and app-specific component documentation.
+Frontend documentation app for the shared design system and app-specific components.
 
 Frontend docs are developed locally as separate Storybook workspaces. For deployment previews and production, they are built as one static output with the hub and composed Storybook refs served from the same app.
 
 ## Umbraco content layer
 
-The shared Umbraco content layer is maintained in a separate private repository.
+The shared Umbraco project is maintained in a separate private repository.
 
 This keeps the public monorepo focused on the frontend experience, shared design system, and documentation surfaces. This repository only contains the frontend-facing Umbraco integration and generated content helpers.
 
@@ -111,6 +111,6 @@ It helps accelerate exploration and iteration, while final decisions, validation
 
 ## License
 
-This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License with an Additional Permission Clause.
+This project is licensed under the PolyForm Noncommercial License 1.0.0. Commercial use requires prior written permission.
 
 See [LICENSE](./LICENSE.md).

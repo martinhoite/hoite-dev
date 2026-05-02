@@ -1,11 +1,26 @@
-# Creative Commons Attribution-NonCommercial 4.0 International License with Additional Permission Clause
+# PolyForm Noncommercial License 1.0.0 with Commercial Permission Notice
 
-This work is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/).
+Required Notice: Copyright © 2024-2026 Martin Høite
 
-## You are free to:
-- **Share** — copy and redistribute the material in any medium or format
-- **Adapt** — remix, transform, and build upon the material
+This software is licensed under the [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/).
 
-## Under the following terms:
-- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-- **NonCommercial** — You may not use the material for commercial purposes without obtaining prior written permission from the author. To request permission, please contact me at [martin@hoite.dev](mailto:martin@hoite.dev).
+## Key terms
+
+- **NonCommercial** - You may only use the software for noncommercial purposes unless you have obtained prior written permission from the author.
+- **Notices** - You must include a copy of the license terms or a link to them, as well as the required notice above, with any copy of the software you distribute.
+- **No sublicensing** - You may not sublicense or transfer the license granted under these terms.
+- **No warranty** - The software is provided as is, without warranty or condition, and the author is not liable for damages arising from its use, as far as the law allows.
+
+## Commercial use
+
+Commercial use, including use in company work, client deliverables, paid products, internal business projects, or production systems, requires prior written permission from the author.
+
+To request permission, please contact [martin@hoite.dev](mailto:martin@hoite.dev).
+
+## Third-party software and dependencies
+
+This license applies only to the original Hoite Dev software, documentation, configuration, and other materials created by Martin Høite.
+
+Third-party software, dependencies, frameworks, libraries, tools, fonts, icons, assets, and other materials used by or referenced in this repository remain licensed under their respective licenses.
+
+Nothing in this license grants rights to third-party materials beyond the rights provided by their original licensors.
