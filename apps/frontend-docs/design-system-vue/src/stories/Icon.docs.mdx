@@ -1,0 +1,19 @@
+import { ArgTypes, Canvas, Description, Meta, Title } from '@storybook/addon-docs/blocks';
+
+import * as Stories from './Icon.stories';
+
+<Meta of={Stories} />
+
+<Title />
+
+<Description />
+
+<Canvas of={Stories.AllIcons} />
+
+<Canvas of={Stories.Sizes} />
+
+<Canvas of={Stories.Rotations} />
+
+<Canvas of={Stories.Variants} />
+
+<ArgTypes of={Stories.Playground} />

@@ -4,5 +4,5 @@
     "jsx": "preserve",
     "types": ["node"]
   },
-  "include": [".storybook/**/*.ts", "src/**/*.ts", "src/**/*.mdx"]
+  "include": [".storybook/**/*.ts", "src/**/*.d.ts", "src/**/*.ts", "src/**/*.mdx"]
 }

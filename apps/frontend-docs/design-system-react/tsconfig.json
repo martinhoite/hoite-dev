@@ -4,5 +4,5 @@
     "jsx": "react-jsx",
     "types": ["node"]
   },
-  "include": [".storybook/**/*.ts", "src/**/*.ts", "src/**/*.tsx"]
+  "include": [".storybook/**/*.ts", "src/**/*.d.ts", "src/**/*.ts", "src/**/*.tsx"]
 }
