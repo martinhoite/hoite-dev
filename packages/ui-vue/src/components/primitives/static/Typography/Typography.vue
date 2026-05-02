@@ -6,11 +6,10 @@ import {
   typographyVariants,
 } from '@hoite-dev/ui';
 import { computed, defineComponent, type PropType } from 'vue';
-import { pickAriaAndDataAttributes } from '../utils/attributes';
+import { pickAriaAndDataAttributes } from '../../../../utils/attributes';
 
 type TypographyBaseProps = {
   id?: string;
-  role?: string;
   tag?: TypographyTag;
   title?: string;
   variant: TypographyVariant;
@@ -20,10 +19,6 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     id: {
-      required: false,
-      type: String,
-    },
-    role: {
       required: false,
       type: String,
     },
@@ -65,7 +60,6 @@ export default defineComponent({
     v-bind="restAttrs"
     :class="className"
     :id="id"
-    :role="role"
     :title="title"
   >
     <slot></slot>

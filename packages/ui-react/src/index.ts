@@ -13,5 +13,5 @@ export {
   tokenThemes,
   typographyVariants,
 } from '@hoite-dev/ui';
-export type { TypographyProps } from './components/Typography';
-export { Typography } from './components/Typography';
+export type { TypographyProps } from './components/primitives/static/Typography';
+export { Typography } from './components/primitives/static/Typography';

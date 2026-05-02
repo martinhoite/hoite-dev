@@ -14,7 +14,7 @@ export {
   supportedTypographyTags,
   supportedTypographyVariants,
   typographyVariants,
-} from './components/typography';
+} from './components/primitives/static/typography';
 
 export const themeNames = ['light', 'dark'] as const;
 export const remBasePx = 16 as const;
@@ -126,7 +126,7 @@ export type {
   TypographyTag,
   TypographyVariant,
   TypographyVariantProps,
-} from './components/typography';
+} from './components/primitives/static/typography';
 export type ColorThemeTokens = (typeof tokenThemes)[ThemeName];
 export type LayoutTokens = typeof tokens.layout;
 export type MotionTokens = typeof tokens.motion;
