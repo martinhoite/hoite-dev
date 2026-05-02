@@ -22,7 +22,7 @@
     "typecheck": "nuxt typecheck"
   },
   "devDependencies": {
-    "@csstools/postcss-global-data": "^3.1.0",
+    "@csstools/postcss-global-data": "^4.0.0",
     "@modyfi/vite-plugin-yaml": "^1.1.1",
     "@nuxt/devtools": "^3.2.4",
     "@nuxt/eslint": "^1.15.2",
