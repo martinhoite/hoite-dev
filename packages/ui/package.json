@@ -17,6 +17,10 @@
       "types": "./src/components/primitives/static/typography/typography.css.d.ts",
       "default": "./dist/typography.css"
     },
+    "./icon.css": {
+      "types": "./src/components/primitives/static/icon/icon.css.d.ts",
+      "default": "./dist/icon.css"
+    },
     "./tokens.css": {
       "types": "./src/tokens.css.d.ts",
       "default": "./dist/tokens.css"

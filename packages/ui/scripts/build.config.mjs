@@ -187,6 +187,11 @@ export const styleBundles = [
     includeLayerPrelude: true,
     output: 'typography.css',
   },
+  {
+    entry: path.join(packageDir, 'src', 'components', 'primitives', 'static', 'icon', 'icon.scss'),
+    includeLayerPrelude: true,
+    output: 'icon.css',
+  },
 ];
 
 export const distFontAssets = [

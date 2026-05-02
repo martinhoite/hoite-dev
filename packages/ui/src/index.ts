@@ -10,6 +10,16 @@ import strokeTokens from './tokens/source/stroke/Value.tokens.json';
 import typographyTokens from './tokens/source/typography/Value.tokens.json';
 
 export {
+  iconDefinitions,
+  iconVariants,
+  resolveIconDefinition,
+  supportedIconNames,
+  supportedIconRotations,
+  supportedIconSizes,
+  supportedIconVariants,
+} from './components/primitives/static/icon';
+
+export {
   resolveTypographyDefaultTag,
   supportedTypographyTags,
   supportedTypographyVariants,
@@ -121,6 +131,14 @@ export function resolveCssTokenValue(
 
 export type ThemeName = (typeof themeNames)[number];
 export type Tokens = typeof tokens;
+export type {
+  IconDefinition,
+  IconName,
+  IconRotation,
+  IconSize,
+  IconVariant,
+  IconVariantProps,
+} from './components/primitives/static/icon';
 export type {
   TypographyDefaultTag,
   TypographyTag,
