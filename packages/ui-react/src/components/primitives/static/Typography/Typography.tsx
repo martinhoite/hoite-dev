@@ -4,14 +4,13 @@ import {
   type TypographyVariant,
   typographyVariants,
 } from '@hoite-dev/ui';
-import type { AriaAttributes, AriaRole, PropsWithChildren, ReactElement } from 'react';
-import type { DataAttributes } from '../types/dom';
+import type { AriaAttributes, PropsWithChildren, ReactElement } from 'react';
+import type { DataAttributes } from '../../../../types/dom';
 
 type TypographyBaseProps = {
   tag?: TypographyTag;
   className?: string;
   id?: string;
-  role?: AriaRole;
   title?: string;
   variant: TypographyVariant;
 } & AriaAttributes &
@@ -24,7 +23,6 @@ export function Typography({
   children,
   className,
   id,
-  role,
   title,
   variant,
   ...restProps
@@ -39,7 +37,6 @@ export function Typography({
         variant,
       })}
       id={id}
-      role={role}
       title={title}
     >
       {children}

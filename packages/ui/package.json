@@ -14,7 +14,7 @@
       "default": "./dist/fonts.css"
     },
     "./typography.css": {
-      "types": "./src/components/typography/typography.css.d.ts",
+      "types": "./src/components/primitives/static/typography/typography.css.d.ts",
       "default": "./dist/typography.css"
     },
     "./tokens.css": {
