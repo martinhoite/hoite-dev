@@ -17,5 +17,22 @@
       "!packages/ui/.build",
       "!packages/ui/src/tokens/source"
     ]
-  }
+  },
+  "overrides": [
+    {
+      // Storybook docs apps use Tailwind entry files with `@source` to scan shared docs helpers.
+      // Keep this parser tweak local to those files instead of enabling Tailwind directives repo-wide.
+      "includes": [
+        "apps/frontend-docs/design-system-react/src/styles/tailwind.css",
+        "apps/frontend-docs/design-system-vue/src/styles/tailwind.css",
+        "apps/frontend-docs/hub/src/styles/tailwind.css",
+        "apps/frontend-docs/site-nuxt-components/src/styles/tailwind.css"
+      ],
+      "css": {
+        "parser": {
+          "tailwindDirectives": true
+        }
+      }
+    }
+  ]
 }

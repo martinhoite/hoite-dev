@@ -1,15 +1,4 @@
-const REPO_BASE_URL = 'https://github.com/martinhoite/hoite-dev/blob/master/';
-
-type SourceLink = {
-  label: string;
-  path: string;
-};
-
-function createSourceUrl(path: string): string {
-  const normalizedPath = path.replace(/^\/+/, '');
-
-  return `${REPO_BASE_URL}${normalizedPath}`;
-}
+import { createSourceUrl, type SourceLink } from '../../../shared/docs/sourceLinks';
 
 export function createSourceSection(links: SourceLink[]): string {
   const lines = ['## Source', ''];

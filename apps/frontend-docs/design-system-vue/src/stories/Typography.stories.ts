@@ -1,18 +1,16 @@
 import {
   supportedTypographyTags,
-  supportedTypographyVariants,
   type TypographyTag,
   type TypographyVariant,
+  typographyDocs,
+  typographyVariantConfig,
 } from '@hoite-dev/ui';
 import { Typography } from '@hoite-dev/ui-vue';
-import { Canvas, Description, ArgTypes as DocsArgTypes, Title } from '@storybook/addon-docs/blocks';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
-import { createElement, Fragment, type ReactElement } from 'react';
 import { computed } from 'vue';
-import { createSourceSection } from '../../../hub/src/utils/sourceLinks';
 
 const defaultTagOption = 'Default variant tag';
-const variantKeys = Object.keys(supportedTypographyVariants) as TypographyVariant[];
+const variantKeys = Object.keys(typographyVariantConfig) as TypographyVariant[];
 
 type TypographyStoryArgs = {
   children: string;
@@ -20,11 +18,16 @@ type TypographyStoryArgs = {
   variant: TypographyVariant;
 };
 
+const defaultTypographyArgs: TypographyStoryArgs = {
+  children: 'Typography sample',
+  tag: defaultTagOption,
+  variant: 'heading-large',
+};
+
 const storyArgTypes: Partial<ArgTypes<TypographyStoryArgs>> = {
   children: {
     control: 'text',
-    description:
-      'The written content shown by the Typography component. Developers may pass richer content when needed, but it is rendered inside the selected Typography tag.',
+    description: typographyDocs.argTypeDescriptions.children,
     name: 'Text content',
     table: {
       category: 'Component API',
@@ -32,8 +35,7 @@ const storyArgTypes: Partial<ArgTypes<TypographyStoryArgs>> = {
   },
   variant: {
     control: 'select',
-    description:
-      'Controls the visual text style, such as heading, body text, label text, or caption text.',
+    description: typographyDocs.argTypeDescriptions.variant,
     options: variantKeys,
     table: {
       category: 'Component API',
@@ -41,8 +43,7 @@ const storyArgTypes: Partial<ArgTypes<TypographyStoryArgs>> = {
   },
   tag: {
     control: 'select',
-    description:
-      'Controls the HTML tag used for the rendered text. Leave this set to the default option to use the selected variant tag mapping.',
+    description: typographyDocs.argTypeDescriptions.tag,
     options: [defaultTagOption, ...supportedTypographyTags],
     table: {
       category: 'Component API',
@@ -51,44 +52,14 @@ const storyArgTypes: Partial<ArgTypes<TypographyStoryArgs>> = {
 };
 
 const meta: Meta<TypographyStoryArgs> = {
-  args: {
-    children: 'Typography sample',
-    tag: defaultTagOption,
-    variant: 'heading-large',
-  },
+  args: defaultTypographyArgs,
   argTypes: storyArgTypes,
   parameters: {
     controls: {
       include: ['children', 'variant', 'tag'],
       sort: 'none',
     },
-    docs: {
-      description: {
-        component: [
-          'Typography defines the shared text-style contract across the design system.',
-          '',
-          'This overview focuses on the supported variants, their default tag mappings, and the shared contract that framework implementations follow.',
-          '',
-          createSourceSection([
-            {
-              label: 'Shared styling contract',
-              path: 'packages/ui/src/components/primitives/static/typography/typography.ts',
-            },
-            {
-              label: 'Vue implementation',
-              path: 'packages/ui-vue/src/components/primitives/static/Typography/Typography.vue',
-            },
-            {
-              label: 'Vue stories',
-              path: 'apps/frontend-docs/design-system-vue/src/stories/Typography.stories.ts',
-            },
-          ]),
-        ].join('\n'),
-      },
-      page: TypographyDocsPage,
-    },
   },
-  tags: ['autodocs'],
   title: 'Primitives/Static/Typography',
 };
 
@@ -97,11 +68,8 @@ export default meta;
 type Story = StoryObj<TypographyStoryArgs>;
 
 export const Playground: Story = {
-  args: {
-    children: 'Typography sample',
-    tag: defaultTagOption,
-    variant: 'heading-large',
-  },
+  args: defaultTypographyArgs,
+  name: 'Playground',
   parameters: {
     controls: {
       include: ['children', 'variant', 'tag'],
@@ -109,20 +77,10 @@ export const Playground: Story = {
     },
     docs: {
       description: {
-        story: [
-          'Typography exposes `variant`, `tag`, and `children` as its primary component API.',
-          '',
-          'The rendered HTML element also supports deliberate passthrough attributes when needed:',
-          '',
-          '- `id`',
-          '- `title`',
-          '- `aria-label`',
-          '- `data-*` attributes',
-        ].join('\n'),
+        story: typographyDocs.storyDescriptions.playground,
       },
     },
   },
-  tags: ['!autodocs'],
   render: (args) => ({
     components: { Typography },
     setup() {
@@ -156,22 +114,24 @@ export const Playground: Story = {
 };
 
 export const Variants: Story = {
-  args: {
-    children: 'Typography sample',
-    tag: defaultTagOption,
-    variant: 'heading-large',
-  },
+  args: defaultTypographyArgs,
+  name: 'Variants',
   parameters: {
     controls: {
       disable: true,
     },
+    docs: {
+      description: {
+        story: typographyDocs.storyDescriptions.variants,
+      },
+    },
   },
-  tags: ['autodocs', '!dev'],
+  tags: ['!dev'],
   render: (args) => ({
     components: { Typography },
     setup() {
       const variants = variantKeys.map((variant) => ({
-        defaultTag: supportedTypographyVariants[variant].defaultTag,
+        defaultTag: typographyVariantConfig[variant].defaultTag,
         variant,
       }));
 
@@ -205,23 +165,4 @@ function normalizeTag(tag: TypographyStoryArgs['tag']): TypographyTag | undefine
   }
 
   return tag;
-}
-
-function TypographyDocsPage(): ReactElement {
-  return createElement(Fragment, null, [
-    createElement(Title, {
-      key: 'title',
-    }),
-    createElement(Description, {
-      key: 'description',
-    }),
-    createElement(Canvas, {
-      key: 'variants',
-      of: Variants,
-    }),
-    createElement(DocsArgTypes, {
-      key: 'arg-types',
-      of: Playground,
-    }),
-  ]);
 }
