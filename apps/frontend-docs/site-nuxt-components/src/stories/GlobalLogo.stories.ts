@@ -2,7 +2,7 @@ import type { SimplifiedUmbracoLink } from '@hoite-dev/umbraco-client';
 import { toUrlString } from '@hoite-dev/umbraco-client';
 import GlobalLogo from '@site-nuxt/components/global/GlobalLogo.vue';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { createSourceSection } from '../../../hub/src/utils/sourceLinks';
+import { createSourceSection } from '../../../shared/docs/createSourceSection';
 import { setSiteSettings } from '../siteNuxtStorybookRuntime';
 
 type GlobalLogoStoryArgs = {

@@ -1,4 +1,4 @@
-import { createSourceUrl, type SourceLink } from '../../../shared/docs/sourceLinks';
+import { createSourceUrl, type SourceLink } from './sourceLinks';
 
 export function createSourceSection(links: SourceLink[]): string {
   const lines = ['## Source', ''];
