@@ -27,6 +27,8 @@ If you use VS Code, install the recommended workspace extensions.
 
 The most important one for this repo is the Biome extension so format-on-save matches the repo formatter and pre-commit checks.
 
+If you work in the Storybook docs workspaces, install `unifiedjs.vscode-mdx` as well. It adds syntax highlight  for the  `.mdx` docs pages used across the frontend docs apps.
+
 ### Git hooks
 
 `pnpm install` also enables Husky Git hooks for this repo:
