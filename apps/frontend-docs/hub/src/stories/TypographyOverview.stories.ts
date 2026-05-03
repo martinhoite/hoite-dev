@@ -1,13 +1,13 @@
 import {
   resolveTypographyDefaultTag,
   supportedTypographyTags,
-  supportedTypographyVariants,
   type TypographyVariant,
+  typographyVariantConfig,
   typographyVariants,
 } from '@hoite-dev/ui';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 
-const variantKeys = Object.keys(supportedTypographyVariants) as TypographyVariant[];
+const variantKeys = Object.keys(typographyVariantConfig) as TypographyVariant[];
 
 const meta: Meta = {
   title: 'Primitives/Static/Typography Contract',

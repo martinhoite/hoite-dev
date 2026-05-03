@@ -11,6 +11,7 @@ import typographyTokens from './tokens/source/typography/Value.tokens.json';
 
 export {
   iconDefinitions,
+  iconDocs,
   iconVariants,
   resolveIconDefinition,
   supportedIconNames,
@@ -22,7 +23,8 @@ export {
 export {
   resolveTypographyDefaultTag,
   supportedTypographyTags,
-  supportedTypographyVariants,
+  typographyDocs,
+  typographyVariantConfig,
   typographyVariants,
 } from './components/primitives/static/typography';
 

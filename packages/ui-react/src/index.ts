@@ -11,6 +11,7 @@ export type {
 } from '@hoite-dev/ui';
 export {
   iconDefinitions,
+  iconDocs,
   iconVariants,
   resolveIconDefinition,
   resolveTypographyDefaultTag,
@@ -19,10 +20,11 @@ export {
   supportedIconSizes,
   supportedIconVariants,
   supportedTypographyTags,
-  supportedTypographyVariants,
   themeNames,
   tokens,
   tokenThemes,
+  typographyDocs,
+  typographyVariantConfig,
   typographyVariants,
 } from '@hoite-dev/ui';
 export type { IconProps } from './components/primitives/static/Icon';

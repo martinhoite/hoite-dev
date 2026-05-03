@@ -7,6 +7,7 @@ export type {
 export {
   resolveTypographyDefaultTag,
   supportedTypographyTags,
-  supportedTypographyVariants,
+  typographyVariantConfig,
   typographyVariants,
 } from './typography';
+export { typographyDocs } from './typography.docs';

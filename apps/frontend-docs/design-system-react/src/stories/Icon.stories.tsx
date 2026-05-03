@@ -3,17 +3,15 @@ import {
   type IconRotation,
   type IconSize,
   type IconVariant,
+  iconDocs,
   supportedIconNames,
   supportedIconRotations,
   supportedIconSizes,
   supportedIconVariants,
 } from '@hoite-dev/ui';
 import { Icon } from '@hoite-dev/ui-react';
-import { Canvas, Description, ArgTypes as DocsArgTypes, Title } from '@storybook/addon-docs/blocks';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
-
-import { createSourceSection } from '../../../hub/src/utils/sourceLinks';
 
 type IconStoryArgs = {
   name: IconName;
@@ -22,41 +20,35 @@ type IconStoryArgs = {
   variant: IconVariant;
 };
 
-const iconNames = [...supportedIconNames] as IconName[];
-const iconRotations = [...supportedIconRotations] as IconRotation[];
-const iconSizes = [...supportedIconSizes] as IconSize[];
-const iconVariants = [...supportedIconVariants] as IconVariant[];
-
 const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
   name: {
     control: 'select',
-    description: 'Selects which shared icon definition the component renders.',
-    options: iconNames,
+    description: iconDocs.argTypeDescriptions.name,
+    options: supportedIconNames,
     table: {
       category: 'Component API',
     },
   },
   size: {
     control: 'select',
-    description: 'Controls the token-backed icon dimensions.',
-    options: iconSizes,
+    description: iconDocs.argTypeDescriptions.size,
+    options: supportedIconSizes,
     table: {
       category: 'Component API',
     },
   },
   rotation: {
     control: 'select',
-    description:
-      'Rotates the rendered icon in fixed increments without changing the underlying asset.',
-    options: iconRotations,
+    description: iconDocs.argTypeDescriptions.rotation,
+    options: supportedIconRotations,
     table: {
       category: 'Component API',
     },
   },
   variant: {
     control: 'select',
-    description: 'Controls which semantic icon color token is applied.',
-    options: iconVariants,
+    description: iconDocs.argTypeDescriptions.variant,
+    options: supportedIconVariants,
     table: {
       category: 'Component API',
     },
@@ -77,53 +69,13 @@ const meta: Meta<IconStoryArgs> = {
       include: ['name', 'size', 'rotation', 'variant'],
       sort: 'none',
     },
-    docs: {
-      description: {
-        component: [
-          'Icon defines the shared static SVG contract across the design system.',
-          '',
-          'This overview focuses on supported names, token-backed sizes, visual variants, and the accessibility rules that React and Vue implementations follow.',
-          '',
-          createSourceSection([
-            {
-              label: 'Shared styling contract',
-              path: 'packages/ui/src/components/primitives/static/icon/icon.ts',
-            },
-            {
-              label: 'React implementation',
-              path: 'packages/ui-react/src/components/primitives/static/Icon/Icon.tsx',
-            },
-            {
-              label: 'React stories',
-              path: 'apps/frontend-docs/design-system-react/src/stories/Icon.stories.tsx',
-            },
-          ]),
-        ].join('\n'),
-      },
-      page: IconDocsPage,
-    },
   },
-  tags: ['autodocs'],
   title: 'Primitives/Static/Icon',
 };
 
 export default meta;
 
 type Story = StoryObj<IconStoryArgs>;
-
-function IconDocsPage(): ReactElement {
-  return (
-    <>
-      <Title />
-      <Description />
-      <Canvas of={AllIcons} />
-      <Canvas of={Sizes} />
-      <Canvas of={Rotations} />
-      <Canvas of={Variants} />
-      <DocsArgTypes of={Playground} />
-    </>
-  );
-}
 
 function getSurfaceClass(variant: IconVariant | undefined): string {
   if (variant === 'on-fill') {
@@ -167,6 +119,7 @@ function IconPlaygroundPreview(iconArgs: IconStoryArgs): ReactElement {
 }
 
 export const Playground: Story = {
+  name: 'Playground',
   parameters: {
     controls: {
       include: ['name', 'size', 'rotation', 'variant'],
@@ -174,42 +127,29 @@ export const Playground: Story = {
     },
     docs: {
       description: {
-        story: [
-          'Use `name`, `size`, `rotation`, and `variant` as the main visual Icon API in this playground.',
-          '',
-          'For app code, meaningful icons should also receive an accessible name with `label` or `aria-label`.',
-          '',
-          'The rendered SVG also supports deliberate passthrough attributes when needed:',
-          '',
-          '- `id`',
-          '- `title`',
-          '- `role`',
-          '- `aria-label`',
-          '- `data-*` attributes',
-        ].join('\n'),
+        story: iconDocs.storyDescriptions.playground,
       },
     },
   },
-  tags: ['!autodocs'],
   render: (args) => <IconPlaygroundPreview {...args} />,
 };
 
 export const AllIcons: Story = {
+  name: 'All icons',
   parameters: {
     controls: {
       disable: true,
     },
     docs: {
       description: {
-        story:
-          'Supported icon names rendered with their default size and default visual treatment in the React implementation.',
+        story: iconDocs.storyDescriptions.allIcons,
       },
     },
   },
-  tags: ['autodocs', '!dev'],
+  tags: ['!dev'],
   render: () => (
     <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-3'>
-      {iconNames.map((iconName) => (
+      {supportedIconNames.map((iconName) => (
         <div
           className='grid justify-items-center gap-3 rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-4'
           key={iconName}
@@ -223,21 +163,21 @@ export const AllIcons: Story = {
 };
 
 export const Sizes: Story = {
+  name: 'Sizes',
   parameters: {
     controls: {
       disable: true,
     },
     docs: {
       description: {
-        story:
-          'Token-backed icon size scale shown with the same icon name to isolate dimensional differences.',
+        story: iconDocs.storyDescriptions.sizes,
       },
     },
   },
-  tags: ['autodocs', '!dev'],
+  tags: ['!dev'],
   render: () => (
     <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-5'>
-      {iconSizes.map((size) => (
+      {supportedIconSizes.map((size) => (
         <div
           className='grid justify-items-center gap-3 rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-4'
           key={size}
@@ -251,21 +191,21 @@ export const Sizes: Story = {
 };
 
 export const Rotations: Story = {
+  name: 'Rotations',
   parameters: {
     controls: {
       disable: true,
     },
     docs: {
       description: {
-        story:
-          'Fixed-angle rotation options shown with the chevron icon so directional changes stay legible.',
+        story: iconDocs.storyDescriptions.rotations,
       },
     },
   },
-  tags: ['autodocs', '!dev'],
+  tags: ['!dev'],
   render: () => (
     <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
-      {iconRotations.map((rotation) => (
+      {supportedIconRotations.map((rotation) => (
         <div
           className='grid justify-items-center gap-3 rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-4'
           key={rotation}
@@ -279,21 +219,21 @@ export const Rotations: Story = {
 };
 
 export const Variants: Story = {
+  name: 'Variants',
   parameters: {
     controls: {
       disable: true,
     },
     docs: {
       description: {
-        story:
-          'Semantic icon color variants shown against the surface treatment each variant expects.',
+        story: iconDocs.storyDescriptions.variants,
       },
     },
   },
-  tags: ['autodocs', '!dev'],
+  tags: ['!dev'],
   render: () => (
     <div className='grid gap-4 md:grid-cols-2'>
-      {iconVariants.map((variant) => (
+      {supportedIconVariants.map((variant) => (
         <div className={getShowcaseSurfaceClass(variant)} key={variant}>
           <div className='grid justify-items-center gap-3 text-center'>
             <Icon label={`${variant} plus icon`} name='plus' variant={variant} />

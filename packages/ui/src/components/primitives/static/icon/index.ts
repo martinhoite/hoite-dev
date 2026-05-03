@@ -15,3 +15,4 @@ export {
   supportedIconSizes,
   supportedIconVariants,
 } from './icon';
+export { iconDocs } from './icon.docs';
