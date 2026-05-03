@@ -1,8 +1,10 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
     "paths": {
+      "@frontend-docs-shared/*": ["../shared/*"],
       "react": ["./node_modules/@types/react"],
       "react/jsx-runtime": ["./node_modules/@types/react/jsx-runtime"]
     },
@@ -13,7 +15,7 @@
     "src/**/*.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "../shared/docs/**/*.ts",
-    "../shared/docs/**/*.tsx"
+    "../shared/**/*.ts",
+    "../shared/**/*.tsx"
   ]
 }

@@ -1,14 +1,25 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import type { StorybookConfig } from '@storybook/vue3-vite';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import { mergeConfig } from 'vite';
 
+import {
+  createFrontendDocsViteOptions,
+  frontendDocsCoreConfig,
+  frontendDocsDefaultAddons,
+  frontendDocsStoryGlobs,
+} from '../../shared/storybook/config.ts';
+
 const STORYBOOK_LOCAL_HOST = 'frontend-docs.local.hoite.dev';
+const CURRENT_DIR = path.dirname(fileURLToPath(import.meta.url));
+const FRONTEND_DOCS_SHARED_ROOT = path.resolve(CURRENT_DIR, '../../shared');
 
 const config: StorybookConfig = {
   addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-a11y',
+    ...frontendDocsDefaultAddons,
     {
       name: 'storybook-design-token/preset',
       options: {
@@ -20,9 +31,7 @@ const config: StorybookConfig = {
     name: '@storybook/vue3-vite',
     options: {},
   },
-  core: {
-    allowedHosts: true,
-  },
+  core: frontendDocsCoreConfig,
   refs: () => {
     const reactStorybookUrl = process.env.STORYBOOK_REACT_REF_URL;
     const vueStorybookUrl = process.env.STORYBOOK_VUE_REF_URL;
@@ -55,15 +64,18 @@ const config: StorybookConfig = {
           },
     };
   },
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],
+  stories: frontendDocsStoryGlobs,
   async viteFinal(config) {
-    return mergeConfig(config, {
-      plugins: [tailwindcss(), vue()],
-      server: {
+    return mergeConfig(
+      config,
+      createFrontendDocsViteOptions({
+        aliases: {
+          '@frontend-docs-shared': FRONTEND_DOCS_SHARED_ROOT,
+        },
         host: STORYBOOK_LOCAL_HOST,
-        allowedHosts: true,
-      },
-    });
+        plugins: [tailwindcss(), vue()],
+      }),
+    );
   },
 };
 
