@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 export const supportedTypographyTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'] as const;
 
-export const supportedTypographyVariants = {
+export const typographyVariantConfig = {
   'display-large': {
     defaultTag: 'h1',
   },
@@ -27,26 +27,22 @@ export const supportedTypographyVariants = {
 } as const;
 
 export type TypographyTag = (typeof supportedTypographyTags)[number];
-export type TypographyVariant = keyof typeof supportedTypographyVariants;
+export type TypographyVariant = keyof typeof typographyVariantConfig;
 export type TypographyDefaultTag =
-  (typeof supportedTypographyVariants)[TypographyVariant]['defaultTag'];
+  (typeof typographyVariantConfig)[TypographyVariant]['defaultTag'];
+
+const typographyVariantClasses = Object.fromEntries(
+  Object.keys(typographyVariantConfig).map((variant) => [variant, `typography--${variant}`]),
+) as Record<TypographyVariant, string>;
 
 export const typographyVariants = cva('typography', {
   variants: {
-    variant: {
-      'display-large': 'typography--display-large',
-      'heading-large': 'typography--heading-large',
-      'heading-medium': 'typography--heading-medium',
-      'body-large': 'typography--body-large',
-      'body-medium': 'typography--body-medium',
-      'label-medium': 'typography--label-medium',
-      'caption-small': 'typography--caption-small',
-    },
+    variant: typographyVariantClasses,
   },
 });
 
 export type TypographyVariantProps = VariantProps<typeof typographyVariants>;
 
 export function resolveTypographyDefaultTag(variant: TypographyVariant): TypographyDefaultTag {
-  return supportedTypographyVariants[variant].defaultTag;
+  return typographyVariantConfig[variant].defaultTag;
 }

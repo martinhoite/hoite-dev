@@ -6,27 +6,27 @@
   "exports": {
     ".": "./src/index.ts",
     "./styles.css": {
-      "types": "./src/styles.css.d.ts",
+      "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/styles.css"
     },
     "./fonts.css": {
-      "types": "./src/fonts.css.d.ts",
+      "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/fonts.css"
     },
     "./typography.css": {
-      "types": "./src/components/primitives/static/typography/typography.css.d.ts",
+      "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/typography.css"
     },
     "./icon.css": {
-      "types": "./src/components/primitives/static/icon/icon.css.d.ts",
+      "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/icon.css"
     },
     "./tokens.css": {
-      "types": "./src/tokens.css.d.ts",
+      "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/tokens.css"
     },
     "./themes.css": {
-      "types": "./src/themes.css.d.ts",
+      "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/themes.css"
     }
   },
