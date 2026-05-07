@@ -192,6 +192,19 @@ export const styleBundles = [
     includeLayerPrelude: true,
     output: 'icon.css',
   },
+  {
+    entry: path.join(
+      packageDir,
+      'src',
+      'components',
+      'primitives',
+      'static',
+      'loading',
+      'loading.scss',
+    ),
+    includeLayerPrelude: true,
+    output: 'loading.css',
+  },
 ];
 
 export const distFontAssets = [

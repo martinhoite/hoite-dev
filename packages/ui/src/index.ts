@@ -21,6 +21,17 @@ export {
 } from './components/primitives/static/icon';
 
 export {
+  circularProgressVariants,
+  describeProgressNormalizationWarning,
+  loaderVariants,
+  loadingDocs,
+  normalizeProgressValue,
+  progressVariants,
+  supportedLoadingColors,
+  supportedLoadingSizes,
+} from './components/primitives/static/loading';
+
+export {
   resolveTypographyDefaultTag,
   supportedTypographyTags,
   typographyDocs,
@@ -141,6 +152,16 @@ export type {
   IconVariant,
   IconVariantProps,
 } from './components/primitives/static/icon';
+export type {
+  CircularProgressVariantProps,
+  LoaderVariantProps,
+  LoadingColor,
+  LoadingSize,
+  NormalizedProgressValue,
+  ProgressNormalizationInput,
+  ProgressNormalizationWarningReason,
+  ProgressVariantProps,
+} from './components/primitives/static/loading';
 export type {
   TypographyDefaultTag,
   TypographyTag,
