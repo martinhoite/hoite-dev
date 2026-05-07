@@ -231,7 +231,6 @@ export const CircularProgressPlayground: Story = {
         'ariaLabel',
         'value',
         'max',
-        'indeterminate',
         'showValue',
         'valueLabel',
         'valueClassName',
@@ -244,8 +243,6 @@ export const CircularProgressPlayground: Story = {
     const ariaLabel = hasText(args.ariaLabel) ? args.ariaLabel : undefined;
     const label = hasText(args.label) ? args.label : undefined;
     const valueLabel = hasText(args.valueLabel) ? args.valueLabel : undefined;
-    const value = args.indeterminate ? undefined : args.value;
-
     return (
       <div className='grid gap-4'>
         <div className='rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]'>
@@ -260,7 +257,7 @@ export const CircularProgressPlayground: Story = {
             max={args.max}
             showValue={args.showValue}
             size={args.size}
-            value={value}
+            value={args.value}
             valueClassName={args.valueClassName || undefined}
             valueDisplay={args.valueDisplay}
             valueLabel={valueLabel}
@@ -271,8 +268,8 @@ export const CircularProgressPlayground: Story = {
   },
 };
 
-export const LoaderShowcase: Story = {
-  name: 'Loader showcase',
+export const LoaderExamples: Story = {
+  name: 'Loader',
   parameters: {
     controls: {
       disable: true,
@@ -302,8 +299,8 @@ export const LoaderShowcase: Story = {
   ),
 };
 
-export const ProgressShowcase: Story = {
-  name: 'Progress showcase',
+export const ProgressExamples: Story = {
+  name: 'Progress',
   parameters: {
     controls: {
       disable: true,
@@ -330,8 +327,8 @@ export const ProgressShowcase: Story = {
   ),
 };
 
-export const CircularProgressShowcase: Story = {
-  name: 'CircularProgress showcase',
+export const CircularProgressExamples: Story = {
+  name: 'CircularProgress',
   parameters: {
     controls: {
       disable: true,
@@ -352,14 +349,6 @@ export const CircularProgressShowcase: Story = {
           max={100}
           size='large'
           value={58}
-        />
-      </div>
-      <div className='rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-5'>
-        <CircularProgress
-          aria-label='Uploading files'
-          color='secondary'
-          showValue={false}
-          size='medium'
         />
       </div>
       <div className='rounded-xl bg-[var(--color-bg-brand)] p-5 text-[var(--color-text-on-fill)]'>

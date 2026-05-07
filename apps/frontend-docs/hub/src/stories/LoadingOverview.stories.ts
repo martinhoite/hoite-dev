@@ -3,221 +3,22 @@ import {
   type LoadingColor,
   type LoadingSize,
   loaderVariants,
-  normalizeProgressValue,
   progressVariants,
   supportedLoadingColors,
   supportedLoadingSizes,
 } from '@hoite-dev/ui';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 
+const colorKeys = [...supportedLoadingColors] as LoadingColor[];
+const sizeKeys = [...supportedLoadingSizes] as LoadingSize[];
+
 const meta: Meta = {
-  title: 'Primitives/Feedback/Loading',
+  title: 'Primitives/Feedback/Loading Contract',
 };
 
 export default meta;
 
 type Story = StoryObj;
-
-type LoaderSample = {
-  classOutput: string;
-  color: LoadingColor;
-  key: string;
-  size: LoadingSize;
-  surfaceClass: string;
-};
-
-type ProgressSample = {
-  ariaLabel?: string;
-  classOutput: string;
-  isOnFill: boolean;
-  key: string;
-  label?: string;
-  max: number;
-  progressId: string;
-  surfaceClass: string;
-  value?: number;
-  valuePercent: string;
-};
-
-type CircularSample = {
-  ariaLabel?: string;
-  classOutput: string;
-  indicatorClassName: string;
-  indicatorStyle: {
-    '--circular-progress-circumference': string;
-    '--circular-progress-offset': string;
-  };
-  isOnFill: boolean;
-  key: string;
-  label?: string;
-  max: number;
-  progressId: string;
-  showValue: boolean;
-  surfaceClass: string;
-  value?: number;
-  valueText: string;
-};
-
-const radius = 18;
-const circumference = 2 * Math.PI * radius;
-
-function getSurfaceClass(color: LoadingColor): string {
-  if (color === 'on-fill') {
-    return 'rounded-xl bg-[var(--color-bg-brand)] p-5 text-[var(--color-text-on-fill)]';
-  }
-
-  return 'rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-5';
-}
-
-function getProgressSample(
-  key: string,
-  options: {
-    ariaLabel?: string;
-    color: LoadingColor;
-    label?: string;
-    max: number;
-    size: LoadingSize;
-    value?: number;
-  },
-): ProgressSample {
-  const normalized = normalizeProgressValue({ max: options.max, value: options.value });
-  const className = normalized.isIndeterminate ? 'progress--indeterminate' : undefined;
-
-  return {
-    ariaLabel: options.ariaLabel,
-    classOutput: progressVariants({
-      className,
-      color: options.color,
-      size: options.size,
-    }),
-    isOnFill: options.color === 'on-fill',
-    key,
-    label: options.label,
-    max: normalized.max,
-    progressId: `progress-${key}`,
-    surfaceClass: getSurfaceClass(options.color),
-    value: normalized.isIndeterminate ? undefined : normalized.value,
-    valuePercent: `${normalized.valuePercent ?? 0}%`,
-  };
-}
-
-function getCircularSample(
-  key: string,
-  options: {
-    ariaLabel?: string;
-    color: LoadingColor;
-    label?: string;
-    max: number;
-    showValue?: boolean;
-    size: LoadingSize;
-    valueDisplay?: 'fraction' | 'percent';
-    value?: number;
-  },
-): CircularSample {
-  const normalized = normalizeProgressValue({ max: options.max, value: options.value });
-  const valuePercent = normalized.valuePercent;
-  const roundedPercent = valuePercent === undefined ? undefined : Math.round(valuePercent);
-  const roundedValue = normalized.value === undefined ? undefined : Math.round(normalized.value);
-  const roundedMax = Math.round(normalized.max);
-  const showValue = options.showValue ?? true;
-  let valueText = '...';
-
-  if (roundedPercent !== undefined) {
-    if (options.valueDisplay === 'fraction') {
-      valueText = `${roundedValue}/${roundedMax}`;
-    } else {
-      valueText = `${roundedPercent}%`;
-    }
-  }
-
-  return {
-    ariaLabel: options.ariaLabel,
-    classOutput: circularProgressVariants({
-      color: options.color,
-      size: options.size,
-    }),
-    indicatorClassName:
-      normalized.isIndeterminate || valuePercent === undefined
-        ? 'circular-progress__indicator circular-progress__indicator--indeterminate'
-        : 'circular-progress__indicator',
-    indicatorStyle: {
-      '--circular-progress-circumference': `${circumference}`,
-      '--circular-progress-offset':
-        valuePercent === undefined
-          ? `${circumference}`
-          : `${circumference * (1 - valuePercent / 100)}`,
-    },
-    isOnFill: options.color === 'on-fill',
-    key,
-    label: options.label,
-    max: normalized.max,
-    progressId: `circular-progress-${key}`,
-    showValue,
-    surfaceClass: getSurfaceClass(options.color),
-    value: normalized.isIndeterminate ? undefined : normalized.value,
-    valueText,
-  };
-}
-
-const loaderSamples: readonly LoaderSample[] = supportedLoadingColors.flatMap((color) =>
-  supportedLoadingSizes.map((size) => ({
-    classOutput: loaderVariants({ color, size }),
-    color,
-    key: `${color}-${size}`,
-    size,
-    surfaceClass: getSurfaceClass(color),
-  })),
-);
-
-const progressSamples: readonly ProgressSample[] = [
-  getProgressSample('determinate', {
-    color: 'primary',
-    label: 'Deploying assets',
-    max: 100,
-    size: 'large',
-    value: 76,
-  }),
-  getProgressSample('indeterminate', {
-    ariaLabel: 'Syncing content',
-    color: 'secondary',
-    max: 100,
-    size: 'medium',
-    value: undefined,
-  }),
-  getProgressSample('on-fill', {
-    color: 'on-fill',
-    label: 'Publishing release',
-    max: 120,
-    size: 'small',
-    value: 34,
-  }),
-];
-
-const circularSamples: readonly CircularSample[] = [
-  getCircularSample('determinate', {
-    color: 'primary',
-    label: 'Generating report',
-    max: 100,
-    size: 'large',
-    value: 58,
-  }),
-  getCircularSample('indeterminate', {
-    ariaLabel: 'Uploading files',
-    color: 'secondary',
-    max: 100,
-    showValue: false,
-    size: 'medium',
-    value: undefined,
-  }),
-  getCircularSample('on-fill', {
-    color: 'on-fill',
-    label: 'Warming cache',
-    max: 10,
-    size: 'small',
-    value: 4,
-    valueDisplay: 'fraction',
-  }),
-];
 
 export const Overview: Story = {
   name: 'Docs',
@@ -226,113 +27,231 @@ export const Overview: Story = {
   },
   render: () => ({
     setup() {
+      const sizeRows = sizeKeys.map((size) => ({
+        circularClassOutput: circularProgressVariants({ size }),
+        loaderClassOutput: loaderVariants({ size }),
+        progressClassOutput: progressVariants({ size }),
+        size,
+      }));
+      const colorRows = colorKeys.map((color) => ({
+        circularClassOutput: circularProgressVariants({ color }),
+        color,
+        loaderClassOutput: loaderVariants({ color }),
+        progressClassOutput: progressVariants({ color }),
+      }));
+
       return {
-        circularSamples,
-        loaderSamples,
-        progressSamples,
-        radius,
+        colorRows,
+        sizeRows,
       };
     },
     template: `
       <div class="mx-auto w-full max-w-5xl px-4 py-6">
         <div class="grid gap-6">
-          <section class="grid gap-3">
-            <h2 class="m-0 text-base font-semibold">Loader</h2>
-            <div class="grid gap-4 md:grid-cols-3">
-              <div
-                v-for="sample in loaderSamples"
-                :key="sample.key"
-                :class="sample.surfaceClass"
+          <section class="grid gap-2">
+            <h2 class="m-0 text-base font-semibold">Supported sizes</h2>
+            <div class="flex flex-wrap gap-2">
+              <code
+                v-for="size in sizeRows"
+                :key="size.size"
+                class="rounded-[var(--radius-sm)] bg-[var(--color-surface-secondary)] px-2 py-1"
               >
-                <div class="flex items-center justify-between">
-                  <code>{{ sample.color }} / {{ sample.size }}</code>
-                  <span
-                    :class="sample.classOutput"
-                    :aria-label="\`\${sample.color} \${sample.size} loader\`"
-                    role="status"
-                  />
-                </div>
-              </div>
+                {{ size.size }}
+              </code>
             </div>
           </section>
 
-          <section class="grid gap-3">
-            <h2 class="m-0 text-base font-semibold">Progress</h2>
+          <section class="grid gap-2">
+            <h2 class="m-0 text-base font-semibold">Supported colors</h2>
+            <div class="flex flex-wrap gap-2">
+              <code
+                v-for="color in colorRows"
+                :key="color.color"
+                class="rounded-[var(--radius-sm)] bg-[var(--color-surface-secondary)] px-2 py-1"
+              >
+                {{ color.color }}
+              </code>
+            </div>
+          </section>
+
+          <section class="grid gap-4">
+            <h2 class="m-0 text-base font-semibold">Size contract</h2>
             <div class="grid gap-4">
-              <div
-                v-for="sample in progressSamples"
-                :key="sample.key"
-                :class="sample.surfaceClass"
-              >
-                <div class="progress-field" :class="sample.isOnFill ? 'progress-field--on-fill' : undefined">
-                  <label
-                    v-if="sample.label"
-                    class="progress-field__label"
-                    :for="sample.progressId"
-                  >
-                    {{ sample.label }}
-                  </label>
-                  <div
-                    aria-hidden="true"
-                    :class="sample.classOutput"
-                    :style="{ '--progress-value-percent': sample.valuePercent }"
-                  >
-                    <span class="progress__indicator" />
-                  </div>
-                  <progress
-                    class="loading-visually-hidden"
-                    :aria-label="sample.ariaLabel"
-                    :id="sample.progressId"
-                    :max="sample.max"
-                    :value="sample.value"
-                  />
+              <section class="grid gap-2">
+                <h3 class="m-0 text-sm font-semibold">Loader</h3>
+                <div class="overflow-auto">
+                  <table class="min-w-full border-collapse">
+                    <thead>
+                      <tr>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Size</th>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Class output</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in sizeRows" :key="\`loader-\${item.size}\`">
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
+                          <code>{{ item.size }}</code>
+                        </td>
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top break-all">
+                          <code>{{ item.loaderClassOutput }}</code>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-              </div>
+              </section>
+
+              <section class="grid gap-2">
+                <h3 class="m-0 text-sm font-semibold">Progress</h3>
+                <div class="overflow-auto">
+                  <table class="min-w-full border-collapse">
+                    <thead>
+                      <tr>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Size</th>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Class output</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in sizeRows" :key="\`progress-\${item.size}\`">
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
+                          <code>{{ item.size }}</code>
+                        </td>
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top break-all">
+                          <code>{{ item.progressClassOutput }}</code>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section class="grid gap-2">
+                <h3 class="m-0 text-sm font-semibold">CircularProgress</h3>
+                <div class="overflow-auto">
+                  <table class="min-w-full border-collapse">
+                    <thead>
+                      <tr>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Size</th>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Class output</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in sizeRows" :key="\`circular-\${item.size}\`">
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
+                          <code>{{ item.size }}</code>
+                        </td>
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top break-all">
+                          <code>{{ item.circularClassOutput }}</code>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
             </div>
           </section>
 
-          <section class="grid gap-3">
-            <h2 class="m-0 text-base font-semibold">CircularProgress</h2>
-            <div class="grid gap-4 sm:grid-cols-2">
-              <div
-                v-for="sample in circularSamples"
-                :key="sample.key"
-                :class="sample.surfaceClass"
-              >
-                <div class="progress-field" :class="sample.isOnFill ? 'progress-field--on-fill' : undefined">
-                  <div class="circular-progress-field">
-                    <div :class="sample.classOutput">
-                      <svg aria-hidden="true" class="circular-progress__svg" viewBox="0 0 40 40">
-                        <circle class="circular-progress__track" cx="20" cy="20" :r="radius" />
-                        <circle
-                          :class="sample.indicatorClassName"
-                          cx="20"
-                          cy="20"
-                          :r="radius"
-                          :style="sample.indicatorStyle"
-                        />
-                      </svg>
-                      <span v-if="sample.showValue" class="circular-progress__value">
-                        {{ sample.valueText }}
-                      </span>
-                      <progress
-                        class="loading-visually-hidden"
-                        :aria-label="sample.ariaLabel"
-                        :id="sample.progressId"
-                        :max="sample.max"
-                        :value="sample.value"
-                      />
-                    </div>
-                    <label
-                      v-if="sample.label"
-                      class="progress-field__label circular-progress-field__label"
-                      :for="sample.progressId"
-                    >
-                      {{ sample.label }}
-                    </label>
-                  </div>
+          <section class="grid gap-4">
+            <h2 class="m-0 text-base font-semibold">Color contract</h2>
+            <div class="grid gap-4">
+              <section class="grid gap-2">
+                <h3 class="m-0 text-sm font-semibold">Loader</h3>
+                <div class="overflow-auto">
+                  <table class="min-w-full border-collapse">
+                    <thead>
+                      <tr>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Color</th>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Class output</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in colorRows" :key="\`loader-\${item.color}\`">
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
+                          <code>{{ item.color }}</code>
+                        </td>
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top break-all">
+                          <code>{{ item.loaderClassOutput }}</code>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-              </div>
+              </section>
+
+              <section class="grid gap-2">
+                <h3 class="m-0 text-sm font-semibold">Progress</h3>
+                <div class="overflow-auto">
+                  <table class="min-w-full border-collapse">
+                    <thead>
+                      <tr>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Color</th>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Class output</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in colorRows" :key="\`progress-\${item.color}\`">
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
+                          <code>{{ item.color }}</code>
+                        </td>
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top break-all">
+                          <code>{{ item.progressClassOutput }}</code>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section class="grid gap-2">
+                <h3 class="m-0 text-sm font-semibold">CircularProgress</h3>
+                <div class="overflow-auto">
+                  <table class="min-w-full border-collapse">
+                    <thead>
+                      <tr>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Color</th>
+                        <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Class output</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in colorRows" :key="\`circular-\${item.color}\`">
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
+                          <code>{{ item.color }}</code>
+                        </td>
+                        <td class="border-b border-[var(--color-border-muted)] p-2 align-top break-all">
+                          <code>{{ item.circularClassOutput }}</code>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section class="grid gap-2">
+            <h2 class="m-0 text-base font-semibold">Behavior contract</h2>
+            <p class="m-0 text-sm text-[var(--color-text-secondary)]">
+              <code>Progress</code> supports determinate and indeterminate states. Indeterminate state
+              is represented by adding <code>progress--indeterminate</code> to the class output and uses
+              a dedicated segment size token for motion and reduced-motion fallback.
+            </p>
+            <p class="m-0 text-sm text-[var(--color-text-secondary)]">
+              <code>CircularProgress</code> is determinate only. If value is omitted, wrappers fall back
+              to <code>0</code> and emit a development warning.
+            </p>
+            <p class="m-0 text-sm text-[var(--color-text-secondary)]">
+              Fraction value display in <code>CircularProgress</code> adds
+              <code> circular-progress__value--fraction </code> to reduce value text size by about 2px.
+            </p>
+          </section>
+
+          <section class="grid gap-2">
+            <h2 class="m-0 text-base font-semibold">Key loading tokens</h2>
+            <div class="flex flex-wrap gap-2">
+              <code class="rounded-[var(--radius-sm)] bg-[var(--color-surface-secondary)] px-2 py-1">--size-loading-progress-indeterminate-segment</code>
+              <code class="rounded-[var(--radius-sm)] bg-[var(--color-surface-secondary)] px-2 py-1">--size-loading-progress-reduced-motion-segment</code>
+              <code class="rounded-[var(--radius-sm)] bg-[var(--color-surface-secondary)] px-2 py-1">--motion-duration-extended</code>
+              <code class="rounded-[var(--radius-sm)] bg-[var(--color-surface-secondary)] px-2 py-1">--motion-duration-sustained</code>
             </div>
           </section>
         </div>

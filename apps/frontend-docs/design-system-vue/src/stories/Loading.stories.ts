@@ -257,10 +257,6 @@ const CircularProgressPlaygroundPreview = defineComponent({
       required: true,
       type: String as () => LoadingColor,
     },
-    indeterminate: {
-      required: true,
-      type: Boolean,
-    },
     label: {
       required: true,
       type: String,
@@ -313,13 +309,6 @@ const CircularProgressPlaygroundPreview = defineComponent({
 
       return undefined;
     });
-    const normalizedValue = computed(() => {
-      if (props.indeterminate) {
-        return undefined;
-      }
-
-      return props.value;
-    });
     const normalizedValueLabel = computed(() => {
       if (props.valueLabel.trim().length > 0) {
         return props.valueLabel;
@@ -332,7 +321,6 @@ const CircularProgressPlaygroundPreview = defineComponent({
     return {
       normalizedAriaLabel,
       normalizedLabel,
-      normalizedValue,
       normalizedValueLabel,
       surfaceClass,
     };
@@ -351,7 +339,7 @@ const CircularProgressPlaygroundPreview = defineComponent({
           :max="max"
           :show-value="showValue"
           :size="size"
-          :value="normalizedValue"
+          :value="value"
           :value-class="valueClass || undefined"
           :value-display="valueDisplay"
           :value-label="normalizedValueLabel"
@@ -452,7 +440,6 @@ export const CircularProgressPlayground: Story = {
         'ariaLabel',
         'value',
         'max',
-        'indeterminate',
         'showValue',
         'valueLabel',
         'valueClass',
@@ -472,8 +459,8 @@ export const CircularProgressPlayground: Story = {
   }),
 };
 
-export const LoaderShowcase: Story = {
-  name: 'Loader showcase',
+export const LoaderExamples: Story = {
+  name: 'Loader',
   parameters: {
     controls: {
       disable: true,
@@ -517,8 +504,8 @@ export const LoaderShowcase: Story = {
   }),
 };
 
-export const ProgressShowcase: Story = {
-  name: 'Progress showcase',
+export const ProgressExamples: Story = {
+  name: 'Progress',
   parameters: {
     controls: {
       disable: true,
@@ -548,8 +535,8 @@ export const ProgressShowcase: Story = {
   }),
 };
 
-export const CircularProgressShowcase: Story = {
-  name: 'CircularProgress showcase',
+export const CircularProgressExamples: Story = {
+  name: 'CircularProgress',
   parameters: {
     controls: {
       disable: true,
@@ -567,9 +554,6 @@ export const CircularProgressShowcase: Story = {
       <div class="grid gap-4 sm:grid-cols-2">
         <div class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-5">
           <CircularProgress color="primary" label="Generating report" :max="100" size="large" :value="58" />
-        </div>
-        <div class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-5">
-          <CircularProgress aria-label="Uploading files" color="secondary" :show-value="false" size="medium" />
         </div>
         <div class="rounded-xl bg-[var(--color-bg-brand)] p-5 text-[var(--color-text-on-fill)]">
           <CircularProgress color="on-fill" label="Warming cache" :max="10" size="small" :value="4" value-display="fraction" />
