@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@hoite-dev/diagnostics": "workspace:*",
     "@hoite-dev/ui": "workspace:*"
   },
   "devDependencies": {
