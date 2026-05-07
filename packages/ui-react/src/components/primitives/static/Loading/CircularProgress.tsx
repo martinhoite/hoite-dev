@@ -67,34 +67,27 @@ export function CircularProgress({
   const normalizedId = generatedId.replaceAll(':', '');
   const progressId = id ?? (isPresent(label) ? `circular-progress-${normalizedId}` : undefined);
   const valuePercent = normalized.valuePercent;
-  const roundedPercent = valuePercent === undefined ? undefined : Math.round(valuePercent);
-  const roundedValue = normalized.value === undefined ? undefined : Math.round(normalized.value);
+  const resolvedValuePercent = valuePercent ?? 0;
+  const resolvedValue = normalized.value ?? 0;
+  const roundedPercent = Math.round(resolvedValuePercent);
+  const roundedValue = Math.round(resolvedValue);
   const roundedMax = Math.round(normalized.max);
   const ariaHidden = restProps['aria-hidden'];
   const ariaLabel = restProps['aria-label'];
   const ariaLabelledBy = restProps['aria-labelledby'];
 
-  const indicatorClassName =
-    normalized.isIndeterminate || valuePercent === undefined
-      ? 'circular-progress__indicator circular-progress__indicator--indeterminate'
-      : 'circular-progress__indicator';
-
   const indicatorStyle: CircularProgressStyle = {
     '--circular-progress-circumference': `${circumference}`,
-    '--circular-progress-offset':
-      valuePercent === undefined
-        ? `${circumference}`
-        : `${circumference * (1 - valuePercent / 100)}`,
+    '--circular-progress-offset': `${circumference * (1 - resolvedValuePercent / 100)}`,
   };
 
   const resolvedValueText =
     valueLabel !== undefined && valueLabel.trim().length > 0
       ? valueLabel
-      : roundedPercent === undefined
-        ? '...'
-        : valueDisplay === 'fraction'
-          ? `${roundedValue}/${roundedMax}`
-          : `${roundedPercent}%`;
+      : valueDisplay === 'fraction'
+        ? `${roundedValue}/${roundedMax}`
+        : `${roundedPercent}%`;
+  const isFractionValueDisplay = valueDisplay === 'fraction';
 
   useEffect(() => {
     if (ariaHidden === true || ariaHidden === 'true') {
@@ -114,7 +107,20 @@ export function CircularProgress({
         `[CircularProgress] ${describeProgressNormalizationWarning(warningReason)}`,
       );
     }
-  }, [ariaHidden, ariaLabel, ariaLabelledBy, label, normalized.warningReasons]);
+
+    if (normalized.isIndeterminate) {
+      warnInDevelopment(
+        '[CircularProgress] Indeterminate state is no longer supported. Falling back to 0%.',
+      );
+    }
+  }, [
+    ariaHidden,
+    ariaLabel,
+    ariaLabelledBy,
+    label,
+    normalized.isIndeterminate,
+    normalized.warningReasons,
+  ]);
 
   return (
     <div
@@ -125,7 +131,7 @@ export function CircularProgress({
           <svg aria-hidden='true' className='circular-progress__svg' viewBox='0 0 40 40'>
             <circle className='circular-progress__track' cx='20' cy='20' r={radius} />
             <circle
-              className={indicatorClassName}
+              className='circular-progress__indicator'
               cx='20'
               cy='20'
               r={radius}
@@ -134,7 +140,13 @@ export function CircularProgress({
           </svg>
           {showValue ? (
             <span
-              className={['circular-progress__value', valueClassName].filter(Boolean).join(' ')}
+              className={[
+                'circular-progress__value',
+                isFractionValueDisplay ? 'circular-progress__value--fraction' : undefined,
+                valueClassName,
+              ]
+                .filter(Boolean)
+                .join(' ')}
             >
               {resolvedValueText}
             </span>
@@ -144,7 +156,7 @@ export function CircularProgress({
             className='loading-visually-hidden'
             id={progressId}
             max={normalized.max}
-            value={normalized.isIndeterminate ? undefined : normalized.value}
+            value={resolvedValue}
           />
         </div>
         {isPresent(label) && progressId ? (

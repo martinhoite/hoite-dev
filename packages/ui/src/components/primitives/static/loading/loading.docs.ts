@@ -25,7 +25,8 @@ export const loadingDocs = {
     size: 'Applies the shared loading size contract.',
     valueDisplay:
       'Controls whether CircularProgress shows determinate text as percent or value/max steps.',
-    value: 'Current determinate value. Leave undefined for an indeterminate loading state.',
+    value:
+      'Current progress value. Omit for indeterminate linear Progress; CircularProgress falls back to 0% when value is undefined.',
   },
   description: [
     'Loading groups the shared feedback primitives for indeterminate and determinate progress states in the Hoite Dev design system.',
@@ -69,7 +70,7 @@ export const loadingDocs = {
   ],
   storyDescriptions: {
     circularProgressShowcase:
-      'Circular progress examples across indeterminate and determinate states, including normalized behavior and visible value output.',
+      'Circular progress examples across determinate states, including normalized behavior and visible value output.',
     loaderShowcase:
       'Loader examples across supported size and color variants for non-quantified loading states.',
     playground:

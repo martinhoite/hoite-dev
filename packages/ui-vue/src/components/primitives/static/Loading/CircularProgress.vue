@@ -119,27 +119,15 @@ export default defineComponent({
       return undefined;
     });
     const roundedPercent = computed(() => {
-      if (normalized.value.valuePercent === undefined) {
-        return undefined;
-      }
-
-      return Math.round(normalized.value.valuePercent);
+      return Math.round(normalized.value.valuePercent ?? 0);
     });
     const roundedValue = computed(() => {
-      if (normalized.value.value === undefined) {
-        return undefined;
-      }
-
-      return Math.round(normalized.value.value);
+      return Math.round(normalized.value.value ?? 0);
     });
     const roundedMax = computed(() => Math.round(normalized.value.max));
     const resolvedValueText = computed(() => {
       if (isPresent(props.valueLabel)) {
         return props.valueLabel;
-      }
-
-      if (roundedPercent.value === undefined) {
-        return '...';
       }
 
       if (props.valueDisplay === 'fraction') {
@@ -148,22 +136,9 @@ export default defineComponent({
 
       return `${roundedPercent.value}%`;
     });
-    const indicatorClassName = computed(() => {
-      if (normalized.value.isIndeterminate || normalized.value.valuePercent === undefined) {
-        return 'circular-progress__indicator circular-progress__indicator--indeterminate';
-      }
-
-      return 'circular-progress__indicator';
-    });
+    const isFractionValueDisplay = computed(() => props.valueDisplay === 'fraction');
     const indicatorStyle = computed<CircularProgressStyle>(() => {
-      const valuePercent = normalized.value.valuePercent;
-
-      if (valuePercent === undefined) {
-        return {
-          '--circular-progress-circumference': `${circumference}`,
-          '--circular-progress-offset': `${circumference}`,
-        };
-      }
+      const valuePercent = normalized.value.valuePercent ?? 0;
 
       return {
         '--circular-progress-circumference': `${circumference}`,
@@ -194,11 +169,16 @@ export default defineComponent({
           `[CircularProgress] ${describeProgressNormalizationWarning(warningReason)}`,
         );
       }
+
+      if (normalized.value.isIndeterminate) {
+        warnInDevelopment(
+          '[CircularProgress] Indeterminate state is no longer supported. Falling back to 0%.',
+        );
+      }
     });
 
     return {
       className,
-      indicatorClassName,
       indicatorStyle,
       isOnFill: computed(() => props.color === 'on-fill'),
       normalized,
@@ -206,6 +186,7 @@ export default defineComponent({
       radius,
       restAttrs,
       resolvedValueText,
+      isFractionValueDisplay,
       roundedMax,
       roundedPercent,
       roundedValue,
@@ -230,7 +211,7 @@ export default defineComponent({
             :r="radius"
           />
           <circle
-            :class="indicatorClassName"
+            class="circular-progress__indicator"
             cx="20"
             cy="20"
             :r="radius"
@@ -239,7 +220,11 @@ export default defineComponent({
         </svg>
         <span
           v-if="showValue"
-          :class="['circular-progress__value', valueClass]"
+          :class="[
+            'circular-progress__value',
+            isFractionValueDisplay ? 'circular-progress__value--fraction' : undefined,
+            valueClass,
+          ]"
         >
           {{ resolvedValueText }}
         </span>
@@ -248,7 +233,7 @@ export default defineComponent({
           class="loading-visually-hidden"
           :id="progressId"
           :max="normalized.max"
-          :value="normalized.isIndeterminate ? undefined : normalized.value"
+          :value="normalized.value ?? 0"
         />
       </div>
       <label
