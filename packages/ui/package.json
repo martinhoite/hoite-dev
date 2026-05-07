@@ -21,6 +21,10 @@
       "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/icon.css"
     },
+    "./loading.css": {
+      "types": "./src/types/css-side-effect.d.ts",
+      "default": "./dist/loading.css"
+    },
     "./tokens.css": {
       "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/tokens.css"

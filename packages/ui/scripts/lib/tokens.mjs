@@ -57,6 +57,13 @@ function formatCssValue(token, tokenConfig) {
 
   const pathKey = token.path.join('.');
 
+  if (
+    pathKey === 'size.loading.progress-indeterminate-segment' ||
+    pathKey === 'size.loading.progress-reduced-motion-segment'
+  ) {
+    return `${token.$value}%`;
+  }
+
   if (pathKey.startsWith('spacing.')) {
     return pxToRem(token.$value, tokenConfig.remBasePx);
   }

@@ -1,0 +1,277 @@
+@layer components.loading {
+  .loading-visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .loader {
+    --loader-indicator-color: var(--color-icon-primary);
+    --loader-size: var(--size-icon-md);
+    --loader-stroke-width: var(--stroke-medium);
+    --loader-track-color: var(--color-border-default);
+
+    animation: loader-spin var(--motion-duration-extended) linear infinite;
+    border: var(--loader-stroke-width) solid var(--loader-track-color);
+    border-radius: var(--radius-full);
+    border-top-color: var(--loader-indicator-color);
+    box-sizing: border-box;
+    display: inline-block;
+    flex-shrink: 0;
+    height: var(--loader-size);
+    width: var(--loader-size);
+  }
+
+  .loader--small {
+    --loader-size: var(--size-icon-sm);
+  }
+
+  .loader--medium {
+    --loader-size: var(--size-icon-md);
+  }
+
+  .loader--large {
+    --loader-size: var(--size-icon-xl);
+    --loader-stroke-width: var(--stroke-thick);
+  }
+
+  .loader--primary {
+    --loader-indicator-color: var(--color-icon-primary);
+    --loader-track-color: var(--color-border-default);
+  }
+
+  .loader--secondary {
+    --loader-indicator-color: var(--color-icon-secondary);
+    --loader-track-color: var(--color-border-strong);
+  }
+
+  .loader--on-fill {
+    --loader-indicator-color: var(--color-icon-on-fill);
+    --loader-track-color: var(--primitive-white-alpha-16);
+  }
+
+  @keyframes loader-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .progress-field {
+    --progress-field-label-color: var(--color-text-secondary);
+
+    display: grid;
+    gap: var(--spacing-8);
+  }
+
+  .progress-field--on-fill {
+    --progress-field-label-color: var(--color-text-on-fill);
+  }
+
+  .circular-progress-field {
+    display: grid;
+    gap: var(--spacing-8);
+    justify-items: center;
+  }
+
+  .circular-progress-field__label {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .progress-field__label {
+    color: var(--progress-field-label-color);
+    font-family: var(--typography-family-body);
+    font-size: var(--typography-size-14);
+    font-weight: var(--typography-weight-medium);
+    line-height: var(--typography-line-height-20);
+  }
+
+  .progress {
+    --progress-fill-color: var(--color-bg-brand);
+    --progress-height: var(--spacing-12);
+    --progress-indeterminate-duration: var(--motion-duration-sustained);
+    --progress-track-color: var(--color-bg-subtle);
+    --progress-value-percent: 0%;
+
+    border-radius: var(--radius-full);
+    display: block;
+    height: var(--progress-height);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    background-color: var(--progress-track-color);
+  }
+
+  .progress__indicator {
+    background-color: var(--progress-fill-color);
+    border-radius: var(--radius-full);
+    display: block;
+    height: 100%;
+    transition: width var(--motion-duration-moderate) var(--motion-easing-standard);
+    width: var(--progress-value-percent);
+  }
+
+  .progress--indeterminate .progress__indicator {
+    animation: progress-indeterminate-slide var(--progress-indeterminate-duration) linear infinite;
+    width: var(--size-loading-progress-indeterminate-segment);
+    will-change: transform;
+  }
+
+  .progress--indeterminate .progress__indicator::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--progress-fill-color) 50%,
+      transparent 100%
+    );
+    opacity: 0.55;
+  }
+
+  .progress--small {
+    --progress-height: var(--spacing-8);
+  }
+
+  .progress--medium {
+    --progress-height: var(--spacing-12);
+  }
+
+  .progress--large {
+    --progress-height: var(--spacing-16);
+  }
+
+  .progress--primary {
+    --progress-fill-color: var(--color-bg-brand);
+    --progress-track-color: var(--color-bg-subtle);
+  }
+
+  .progress--secondary {
+    --progress-fill-color: var(--color-bg-neutral-active);
+    --progress-track-color: var(--color-bg-neutral);
+  }
+
+  .progress--on-fill {
+    --progress-fill-color: var(--color-text-on-fill);
+    --progress-track-color: var(--primitive-white-alpha-16);
+  }
+
+  .circular-progress {
+    --circular-progress-diameter: var(--spacing-64);
+    --circular-progress-ring-thickness: var(--stroke-medium);
+    --circular-progress-track-color: var(--color-border-default);
+    --circular-progress-value-color: var(--color-icon-primary);
+    --circular-progress-value-size: var(--typography-size-12);
+
+    display: inline-grid;
+    place-items: center;
+    position: relative;
+  }
+
+  .circular-progress__svg {
+    display: block;
+    height: var(--circular-progress-diameter);
+    transform: rotate(-90deg);
+    width: var(--circular-progress-diameter);
+  }
+
+  .circular-progress__track {
+    fill: none;
+    stroke: var(--circular-progress-track-color);
+    stroke-width: var(--circular-progress-ring-thickness);
+  }
+
+  .circular-progress__indicator {
+    fill: none;
+    stroke: var(--circular-progress-value-color);
+    stroke-dasharray: var(--circular-progress-circumference, 0);
+    stroke-dashoffset: var(--circular-progress-offset, 0);
+    stroke-linecap: round;
+    stroke-width: var(--circular-progress-ring-thickness);
+    transition: stroke-dashoffset var(--motion-duration-moderate) var(--motion-easing-standard);
+  }
+
+  .circular-progress__value {
+    color: var(--circular-progress-value-color);
+    font-family: var(--typography-family-body);
+    font-size: var(--circular-progress-value-size);
+    font-weight: var(--typography-weight-medium);
+    line-height: var(--typography-line-height-16);
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .circular-progress__value--fraction {
+    font-size: calc(var(--circular-progress-value-size) - 0.125rem);
+  }
+
+  .circular-progress--small {
+    --circular-progress-diameter: var(--spacing-48);
+    --circular-progress-value-size: var(--typography-size-14);
+  }
+
+  .circular-progress--medium {
+    --circular-progress-diameter: var(--spacing-64);
+    --circular-progress-value-size: var(--typography-size-16);
+  }
+
+  .circular-progress--large {
+    --circular-progress-diameter: var(--spacing-80);
+    --circular-progress-ring-thickness: var(--stroke-thick);
+    --circular-progress-value-size: var(--typography-size-18);
+  }
+
+  .circular-progress--primary {
+    --circular-progress-track-color: var(--color-border-default);
+    --circular-progress-value-color: var(--color-icon-primary);
+  }
+
+  .circular-progress--secondary {
+    --circular-progress-track-color: var(--color-border-strong);
+    --circular-progress-value-color: var(--color-icon-secondary);
+  }
+
+  .circular-progress--on-fill {
+    --circular-progress-track-color: var(--primitive-white-alpha-16);
+    --circular-progress-value-color: var(--color-icon-on-fill);
+  }
+
+  @keyframes progress-indeterminate-slide {
+    0% {
+      transform: translateX(-110%);
+    }
+
+    100% {
+      transform: translateX(300%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .loader {
+      animation: none;
+    }
+
+    .progress--indeterminate .progress__indicator {
+      animation: none;
+      width: var(--size-loading-progress-reduced-motion-segment);
+      transform: translateX(0);
+    }
+
+    .progress__indicator,
+    .circular-progress__indicator {
+      transition-duration: var(--motion-duration-instant);
+    }
+
+  }
+}

@@ -277,6 +277,8 @@ importers:
 
   packages/biome-config: {}
 
+  packages/diagnostics: {}
+
   packages/ui:
     dependencies:
       class-variance-authority:
@@ -298,6 +300,9 @@ importers:
 
   packages/ui-react:
     dependencies:
+      '@hoite-dev/diagnostics':
+        specifier: workspace:*
+        version: link:../diagnostics
       '@hoite-dev/ui':
         specifier: workspace:*
         version: link:../ui
@@ -311,6 +316,9 @@ importers:
 
   packages/ui-vue:
     dependencies:
+      '@hoite-dev/diagnostics':
+        specifier: workspace:*
+        version: link:../diagnostics
       '@hoite-dev/ui':
         specifier: workspace:*
         version: link:../ui
@@ -6903,8 +6911,8 @@ packages:
   vue-component-type-helpers@2.2.12:
     resolution: {integrity: sha512-YbGqHZ5/eW4SnkPNR44mKVc6ZKQoRs/Rux1sxC6rdwXb4qpbOSYfDr9DsTHolOTGmIKgM9j141mZbBeg05R1pw==}
 
-  vue-component-type-helpers@3.2.7:
-    resolution: {integrity: sha512-+gPp5YGmhfsj1IN+xUo7y0fb4clfnOiiUA39y07yW1VzCRjzVgwLbtmdWlghh7mXrPsEaYc7rrIir/HT6C8vYQ==}
+  vue-component-type-helpers@3.2.8:
+    resolution: {integrity: sha512-9689efAXhN/EV86plgkL/XFiJSXhGtWPG6JDboZ+QnjlUWUUQrQ0ILKQtw4iQsuwIwu5k6Aw+JnehDe7161e7A==}
 
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
@@ -9312,7 +9320,7 @@ snapshots:
       storybook: 10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       type-fest: 2.19.0
       vue: 3.5.33(typescript@5.9.3)
-      vue-component-type-helpers: 3.2.7
+      vue-component-type-helpers: 3.2.8
 
   '@stylistic/eslint-plugin@5.10.0(eslint@9.39.4(jiti@2.6.1))':
     dependencies:
@@ -14133,7 +14141,7 @@ snapshots:
 
   vue-component-type-helpers@2.2.12: {}
 
-  vue-component-type-helpers@3.2.7: {}
+  vue-component-type-helpers@3.2.8: {}
 
   vue-devtools-stub@0.1.0: {}
 
