@@ -17,6 +17,10 @@ Design-system docs pattern:
 - Shared copy and section structure can come from framework-agnostic metadata, so React and Vue pages read the same while still rendering their own stories.
 - Autodocs can be used for simple stories, but it is not the main pattern for shared public design-system docs.
 
+Consistency playbook:
+- `DOCS_CONSISTENCY_README.md`: human workflow and usage guide.
+- `DOCS_CONSISTENCY_AGENT_NOTES.md`: short execution checklist for automation-oriented edits.
+
 Expected long-term use:
 - Document app-specific components such as page sections, content blocks, and composed UI patterns.
 - Follow the same hub/ref pattern that can later be reused for other frontend apps, such as `site-react-components`.
