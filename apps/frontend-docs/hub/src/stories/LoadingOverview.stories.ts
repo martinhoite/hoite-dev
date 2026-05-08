@@ -46,7 +46,7 @@ export const Overview: Story = {
       };
     },
     template: `
-      <div class="mx-auto w-full max-w-5xl px-4 py-6">
+      <div class="mx-auto max-w-5xl py-6">
         <div class="grid gap-6">
           <section class="grid gap-2">
             <h2 class="m-0 text-base font-semibold">Supported sizes</h2>

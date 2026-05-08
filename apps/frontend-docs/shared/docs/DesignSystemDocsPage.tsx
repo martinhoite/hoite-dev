@@ -6,9 +6,11 @@ import { renderDocsSections } from './renderDocsSections';
 import { SourceLinksList } from './SourceLinksList';
 import type { SourceLink } from './sourceLinks';
 
-const pageClassName = 'px-4 py-6 md:px-6 md:py-8';
-const contentClassName = 'mx-auto grid w-full max-w-5xl gap-8';
+const pageClassName = 'py-6 md:py-8';
+const contentClassName = 'mx-auto grid max-w-5xl gap-8';
 const sectionClassName = 'grid gap-4';
+const controlsContentClassName =
+  'min-w-0 [&>div]:overflow-x-auto [&_code]:whitespace-normal [&_code]:[overflow-wrap:anywhere]';
 
 type DocsSectionBlockProps = {
   children: ReactNode;
@@ -53,7 +55,7 @@ export function DesignSystemDocsPage({
         title: 'Examples',
       }),
       createElement(DocsSectionBlock, {
-        children: controls,
+        children: createElement('div', { className: controlsContentClassName }, controls),
         key: 'controls',
         title: 'Controls',
       }),
