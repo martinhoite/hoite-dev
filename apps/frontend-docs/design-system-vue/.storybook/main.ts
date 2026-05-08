@@ -11,7 +11,7 @@ import {
 const STORYBOOK_LOCAL_HOST = 'design-system-vue.local.hoite.dev';
 
 const config = createFrontendDocsStorybookConfig<StorybookConfig>({
-  addons: frontendDocsDefaultAddons,
+  addons: [...frontendDocsDefaultAddons, '@storybook/addon-themes'],
   frameworkName: '@storybook/vue3-vite',
   host: STORYBOOK_LOCAL_HOST,
   mainFileUrl: import.meta.url,

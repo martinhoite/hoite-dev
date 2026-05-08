@@ -13,6 +13,7 @@ const STORYBOOK_LOCAL_HOST = 'frontend-docs.local.hoite.dev';
 const config = createFrontendDocsStorybookConfig<StorybookConfig>({
   addons: [
     ...frontendDocsDefaultAddons,
+    '@storybook/addon-themes',
     {
       name: 'storybook-design-token/preset',
       options: {

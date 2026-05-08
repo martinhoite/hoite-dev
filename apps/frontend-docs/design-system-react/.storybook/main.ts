@@ -10,7 +10,7 @@ import {
 const STORYBOOK_LOCAL_HOST = 'design-system-react.local.hoite.dev';
 
 const config = createFrontendDocsStorybookConfig<StorybookConfig>({
-  addons: frontendDocsDefaultAddons,
+  addons: [...frontendDocsDefaultAddons, '@storybook/addon-themes'],
   frameworkName: '@storybook/react-vite',
   host: STORYBOOK_LOCAL_HOST,
   mainFileUrl: import.meta.url,

@@ -1,0 +1,32 @@
+html,
+body,
+#storybook-root,
+#root {
+  min-height: 100%;
+}
+
+body,
+.sb-show-main {
+  background: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--typography-family-body);
+}
+
+#storybook-root,
+#root {
+  color: inherit;
+  font-family: inherit;
+}
+
+.docs-story,
+.sbdocs-wrapper,
+.sbdocs-content {
+  background: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--typography-family-body);
+}
+
+.sbdocs {
+  color: var(--color-text-primary);
+  font-family: var(--typography-family-body);
+}

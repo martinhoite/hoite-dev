@@ -19,6 +19,7 @@
   "devDependencies": {
     "@storybook/addon-a11y": "^10.3.6",
     "@storybook/addon-docs": "^10.3.6",
+    "@storybook/addon-themes": "^10.3.6",
     "@storybook/vue3-vite": "^10.3.6",
     "@tailwindcss/vite": "^4.2.4",
     "@vitejs/plugin-vue": "^6.0.6",
