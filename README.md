@@ -34,6 +34,7 @@ Packages live under `packages/*` and provide shared code, styling, configuration
 |  `- site-nuxt/                  # Site app built with Nuxt
 |- packages/
 |  |- biome-config/      # Shared Biome configuration
+|  |- diagnostics/       # Shared runtime diagnostics helpers
 |  |- ui/                # Shared styling foundation for the Hoite Dev design system
 |  |- ui-react/          # React component package for the Hoite Dev design system
 |  |- ui-vue/            # Vue component package for the Hoite Dev design system
@@ -85,6 +86,10 @@ Source-oriented Umbraco content package.
 
 Shared Biome configuration.
 
+### `packages/diagnostics`
+
+Shared runtime diagnostics helpers.
+
 ## Workspace docs
 
 ### Apps
@@ -101,6 +106,7 @@ Shared Biome configuration.
 - [packages/ui](./packages/ui/README.md)
 - [packages/ui-react](./packages/ui-react/README.md)
 - [packages/ui-vue](./packages/ui-vue/README.md)
+- [packages/diagnostics](./packages/diagnostics/README.md)
 - [packages/umbraco-client](./packages/umbraco-client/README.md)
 
 ## Use of AI

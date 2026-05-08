@@ -8,6 +8,7 @@ Scope:
 - `design-system-vue`: Vue implementation docs for the shared design system.
 - `site-nuxt-components`: integration PoC for app-specific component documentation from `apps/site-nuxt`.
 - `shared/docs`: cross-Storybook docs rendering helpers and source-link utilities for aligned React and Vue design-system docs pages.
+- `shared/storybook`: shared Storybook setup and template helpers used across frontend docs apps.
 
 `site-nuxt-components` is an integration PoC. It exists to prove that app-specific Storybooks can be built, referenced by the hub, and deployed alongside the design system docs.
 
