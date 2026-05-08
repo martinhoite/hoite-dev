@@ -1,3 +1,4 @@
+import { withStoryStack } from '@frontend-docs-shared/storybook/vueStoryTemplates';
 import {
   type LoadingColor,
   type LoadingSize,
@@ -148,16 +149,14 @@ const LoaderPlaygroundPreview = defineComponent({
       surfaceClass,
     };
   },
-  template: `
-    <div class="grid gap-4">
+  template: withStoryStack(`
       <div class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]">
         Loader uses <code>aria-label</code> or <code>aria-labelledby</code> when it is not decorative.
       </div>
       <div :class="surfaceClass">
         <Loader :aria-label="normalizedAriaLabel" :color="color" :size="size" />
       </div>
-    </div>
-  `,
+  `),
 });
 
 const ProgressPlaygroundPreview = defineComponent({
@@ -227,8 +226,7 @@ const ProgressPlaygroundPreview = defineComponent({
       surfaceClass,
     };
   },
-  template: `
-    <div class="grid gap-4">
+  template: withStoryStack(`
       <div class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]">
         Progress uses native <code>&lt;progress&gt;</code> semantics with shared numeric normalization.
       </div>
@@ -242,8 +240,7 @@ const ProgressPlaygroundPreview = defineComponent({
           :value="normalizedValue"
         />
       </div>
-    </div>
-  `,
+  `),
 });
 
 const CircularProgressPlaygroundPreview = defineComponent({
@@ -325,8 +322,7 @@ const CircularProgressPlaygroundPreview = defineComponent({
       surfaceClass,
     };
   },
-  template: `
-    <div class="grid gap-4">
+  template: withStoryStack(`
       <div class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]">
         CircularProgress supports centered value text as percentage or step fraction.
       </div>
@@ -345,8 +341,7 @@ const CircularProgressPlaygroundPreview = defineComponent({
           :value-label="normalizedValueLabel"
         />
       </div>
-    </div>
-  `,
+  `),
 });
 
 const meta: Meta<LoadingStoryArgs> = {
@@ -519,8 +514,7 @@ export const ProgressExamples: Story = {
   tags: ['!dev'],
   render: () => ({
     components: { Progress },
-    template: `
-      <div class="grid gap-4">
+    template: withStoryStack(`
         <div class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-5">
           <Progress color="primary" label="Deploying assets" :max="100" size="large" :value="76" />
         </div>
@@ -530,8 +524,7 @@ export const ProgressExamples: Story = {
         <div class="rounded-xl bg-[var(--color-bg-brand)] p-5 text-[var(--color-text-on-fill)]">
           <Progress color="on-fill" label="Publishing release" :max="120" size="small" :value="34" />
         </div>
-      </div>
-    `,
+    `),
   }),
 };
 

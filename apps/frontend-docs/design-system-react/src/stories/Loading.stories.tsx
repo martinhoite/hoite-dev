@@ -1,3 +1,4 @@
+import { StoryInfoPanel, StoryStack } from '@frontend-docs-shared/storybook/reactStoryLayouts';
 import {
   type LoadingColor,
   type LoadingSize,
@@ -173,14 +174,14 @@ export const LoaderPlayground: Story = {
     const ariaLabel = hasText(args.ariaLabel) ? args.ariaLabel : undefined;
 
     return (
-      <div className='grid gap-4'>
-        <div className='rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]'>
+      <StoryStack>
+        <StoryInfoPanel className='text-sm text-[var(--color-text-secondary)]'>
           Loader uses `aria-label` or `aria-labelledby` when it is not decorative.
-        </div>
+        </StoryInfoPanel>
         <div className={getSurfaceClass(args.color)}>
           <Loader aria-label={ariaLabel} color={args.color} size={args.size} />
         </div>
-      </div>
+      </StoryStack>
     );
   },
 };
@@ -199,11 +200,11 @@ export const ProgressPlayground: Story = {
     const value = args.indeterminate ? undefined : args.value;
 
     return (
-      <div className='grid gap-4'>
-        <div className='rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]'>
+      <StoryStack>
+        <StoryInfoPanel className='text-sm text-[var(--color-text-secondary)]'>
           Progress uses native <code>&lt;progress&gt;</code> semantics with shared numeric
           normalization.
-        </div>
+        </StoryInfoPanel>
         <div className={getSurfaceClass(args.color)}>
           <Progress
             aria-label={ariaLabel}
@@ -214,7 +215,7 @@ export const ProgressPlayground: Story = {
             value={value}
           />
         </div>
-      </div>
+      </StoryStack>
     );
   },
 };
@@ -244,10 +245,10 @@ export const CircularProgressPlayground: Story = {
     const label = hasText(args.label) ? args.label : undefined;
     const valueLabel = hasText(args.valueLabel) ? args.valueLabel : undefined;
     return (
-      <div className='grid gap-4'>
-        <div className='rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]'>
+      <StoryStack>
+        <StoryInfoPanel className='text-sm text-[var(--color-text-secondary)]'>
           CircularProgress supports centered value text as percentage or step fraction.
-        </div>
+        </StoryInfoPanel>
         <div className={getSurfaceClass(args.color)}>
           <CircularProgress
             aria-label={ariaLabel}
@@ -263,7 +264,7 @@ export const CircularProgressPlayground: Story = {
             valueLabel={valueLabel}
           />
         </div>
-      </div>
+      </StoryStack>
     );
   },
 };
@@ -313,7 +314,7 @@ export const ProgressExamples: Story = {
   },
   tags: ['!dev'],
   render: () => (
-    <div className='grid gap-4'>
+    <StoryStack>
       <div className='rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-5'>
         <Progress color='primary' label='Deploying assets' max={100} size='large' value={76} />
       </div>
@@ -323,7 +324,7 @@ export const ProgressExamples: Story = {
       <div className='rounded-xl bg-[var(--color-bg-brand)] p-5 text-[var(--color-text-on-fill)]'>
         <Progress color='on-fill' label='Publishing release' max={120} size='small' value={34} />
       </div>
-    </div>
+    </StoryStack>
   ),
 };
 
