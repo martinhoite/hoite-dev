@@ -1,136 +1,142 @@
 import {
   supportedTypographyTags,
-  supportedTypographyVariants,
   type TypographyTag,
   type TypographyVariant,
+  typographyDocs,
+  typographyVariantConfig,
 } from '@hoite-dev/ui';
 import { Typography } from '@hoite-dev/ui-vue';
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { createSourceSection } from '../../../hub/src/utils/sourceLinks';
+import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
+import { computed } from 'vue';
 
-const tagKeys = [...supportedTypographyTags];
-const variantKeys = Object.keys(supportedTypographyVariants) as TypographyVariant[];
+const defaultTagOption = 'Default variant tag';
+const variantKeys = Object.keys(typographyVariantConfig) as TypographyVariant[];
 
 type TypographyStoryArgs = {
-  'aria-label'?: string;
-  'data-testid'?: string;
-  id?: string;
-  role?: string;
-  tag?: TypographyTag;
-  text: string;
-  title?: string;
+  children: string;
+  tag: TypographyTag | typeof defaultTagOption;
   variant: TypographyVariant;
 };
 
+const defaultTypographyArgs: TypographyStoryArgs = {
+  children: 'Typography sample',
+  tag: defaultTagOption,
+  variant: 'heading-large',
+};
+
+const storyArgTypes: Partial<ArgTypes<TypographyStoryArgs>> = {
+  children: {
+    control: 'text',
+    description: typographyDocs.argTypeDescriptions.children,
+    name: 'Text content',
+    table: {
+      category: 'Component API',
+    },
+  },
+  variant: {
+    control: 'select',
+    description: typographyDocs.argTypeDescriptions.variant,
+    options: variantKeys,
+    table: {
+      category: 'Component API',
+    },
+  },
+  tag: {
+    control: 'select',
+    description: typographyDocs.argTypeDescriptions.tag,
+    options: [defaultTagOption, ...supportedTypographyTags],
+    table: {
+      category: 'Component API',
+    },
+  },
+};
+
 const meta: Meta<TypographyStoryArgs> = {
-  args: {
-    'aria-label': 'Typography sample label',
-    'data-testid': 'typography-sample',
-    id: 'typography-sample',
-    role: 'note',
-    text: 'Typography sample',
-    title: 'Typography sample title',
-    variant: 'heading-large',
-  },
-  argTypes: {
-    'aria-label': {
-      control: 'text',
-    },
-    'data-testid': {
-      control: 'text',
-    },
-    id: {
-      control: 'text',
-    },
-    role: {
-      control: 'text',
-    },
-    tag: {
-      control: 'select',
-      options: tagKeys,
-    },
-    variant: {
-      control: 'select',
-      options: variantKeys,
-    },
-    text: {
-      control: 'text',
-    },
-    title: {
-      control: 'text',
-    },
-  },
-  component: Typography,
+  args: defaultTypographyArgs,
+  argTypes: storyArgTypes,
   parameters: {
-    docs: {
-      description: {
-        component: createSourceSection([
-          {
-            label: 'Shared recipe / contract',
-            path: 'packages/ui/src/components/typography/typography.ts',
-          },
-          {
-            label: 'Vue implementation',
-            path: 'packages/ui-vue/src/components/Typography.vue',
-          },
-          {
-            label: 'Vue stories',
-            path: 'apps/frontend-docs/design-system-vue/src/stories/Typography.stories.ts',
-          },
-        ]),
-      },
+    controls: {
+      include: ['children', 'variant', 'tag'],
+      sort: 'none',
     },
   },
-  tags: ['autodocs'],
-  title: 'Typography',
+  title: 'Primitives/Static/Typography',
 };
 
 export default meta;
 
 type Story = StoryObj<TypographyStoryArgs>;
 
-function renderTypographyStory(args: TypographyStoryArgs) {
-  return {
+export const Playground: Story = {
+  args: defaultTypographyArgs,
+  name: 'Playground',
+  parameters: {
+    controls: {
+      include: ['children', 'variant', 'tag'],
+      sort: 'none',
+    },
+    docs: {
+      description: {
+        story: typographyDocs.storyDescriptions.playground,
+      },
+    },
+  },
+  render: (args) => ({
     components: { Typography },
     setup() {
       return {
         args,
+        normalizedTag: computed(() => normalizeTag(args.tag)),
       };
     },
     template: `
-      <Typography
-        :aria-label="args['aria-label']"
-        :data-testid="args['data-testid']"
-        :id="args.id"
-        :role="args.role"
-        :tag="args.tag"
-        :title="args.title"
-        :variant="args.variant"
-      >
-        {{ args.text }}
-      </Typography>
+      <div class="grid gap-4">
+        <div
+          class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
+        >
+          <p class="m-0 text-sm text-[var(--color-text-primary)]">
+            Use <code>variant</code>, <code>tag</code>, and text content as the main Typography API.
+            Leave <code>tag</code> on the default option to use the selected variant's standard HTML
+            element.
+          </p>
+          <p class="mb-0 mt-3 text-sm text-[var(--color-text-secondary)]">
+            Supported passthrough attributes include <code>id</code>, <code>title</code>,
+            <code>aria-label</code>, and deliberate <code>data-*</code> attributes on the rendered
+            HTML element.
+          </p>
+        </div>
+        <Typography :tag="normalizedTag" :variant="args.variant">
+          {{ args.children }}
+        </Typography>
+      </div>
     `,
-  };
-}
-
-export const Playground: Story = {
-  render: renderTypographyStory,
+  }),
 };
 
 export const Variants: Story = {
-  args: {
-    text: 'Typography sample',
-    variant: 'heading-large',
+  args: defaultTypographyArgs,
+  name: 'Variants',
+  parameters: {
+    controls: {
+      disable: true,
+    },
+    docs: {
+      description: {
+        story: typographyDocs.storyDescriptions.variants,
+      },
+    },
   },
-  render: () => ({
+  tags: ['!dev'],
+  render: (args) => ({
     components: { Typography },
     setup() {
       const variants = variantKeys.map((variant) => ({
-        defaultTag: supportedTypographyVariants[variant].defaultTag,
+        defaultTag: typographyVariantConfig[variant].defaultTag,
         variant,
       }));
 
       return {
+        args,
         variants,
       };
     },
@@ -145,7 +151,7 @@ export const Variants: Story = {
             {{ item.variant }} -> {{ item.defaultTag }}
           </span>
           <Typography :variant="item.variant">
-            {{ item.variant }}
+            {{ args.children }}
           </Typography>
         </div>
       </div>
@@ -153,15 +159,10 @@ export const Variants: Story = {
   }),
 };
 
-export const TagOverride: Story = {
-  args: {
-    'aria-label': 'Body medium rendered as span',
-    'data-testid': 'typography-span',
-    id: 'typography-span',
-    tag: 'span',
-    text: 'Body medium rendered as span',
-    title: 'Body medium rendered as span',
-    variant: 'body-medium',
-  },
-  render: renderTypographyStory,
-};
+function normalizeTag(tag: TypographyStoryArgs['tag']): TypographyTag | undefined {
+  if (tag === defaultTagOption) {
+    return undefined;
+  }
+
+  return tag;
+}

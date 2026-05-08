@@ -18,6 +18,7 @@
     "vue-tsc": "^3.2.7"
   },
   "dependencies": {
+    "@hoite-dev/diagnostics": "workspace:*",
     "@hoite-dev/ui": "workspace:*"
   },
   "peerDependencies": {

@@ -1,140 +1,142 @@
 import {
+  resolveTypographyDefaultTag,
   supportedTypographyTags,
-  supportedTypographyVariants,
+  type TypographyTag,
   type TypographyVariant,
+  typographyDocs,
+  typographyVariantConfig,
 } from '@hoite-dev/ui';
-import { Typography, type TypographyProps } from '@hoite-dev/ui-react';
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { createSourceSection } from '../../../hub/src/utils/sourceLinks';
+import { Typography } from '@hoite-dev/ui-react';
+import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
 
-const tagKeys = [...supportedTypographyTags];
-const variantKeys = Object.keys(supportedTypographyVariants) as TypographyVariant[];
+const defaultTagOption = 'Default variant tag';
+const variantKeys = Object.keys(typographyVariantConfig) as TypographyVariant[];
 
-const meta = {
-  args: {
-    'aria-label': 'Typography sample label',
-    children: 'Typography sample',
-    'data-testid': 'typography-sample',
-    id: 'typography-sample',
-    role: 'note',
-    title: 'Typography sample title',
-    variant: 'heading-large',
-  },
-  argTypes: {
-    'aria-label': {
-      control: 'text',
-    },
-    'data-testid': {
-      control: 'text',
-    },
-    id: {
-      control: 'text',
-    },
-    role: {
-      control: 'text',
-    },
-    tag: {
-      control: 'select',
-      options: tagKeys,
-    },
-    children: {
-      control: 'text',
-    },
-    title: {
-      control: 'text',
-    },
-    variant: {
-      control: 'select',
-      options: variantKeys,
+type TypographyStoryArgs = {
+  children: string;
+  tag: TypographyTag | typeof defaultTagOption;
+  variant: TypographyVariant;
+};
+
+const defaultTypographyArgs: TypographyStoryArgs = {
+  children: 'Typography sample',
+  tag: defaultTagOption,
+  variant: 'heading-large',
+};
+
+const storyArgTypes: Partial<ArgTypes<TypographyStoryArgs>> = {
+  children: {
+    control: 'text',
+    description: typographyDocs.argTypeDescriptions.children,
+    name: 'Text content',
+    table: {
+      category: 'Component API',
     },
   },
-  component: Typography,
+  variant: {
+    control: 'select',
+    description: typographyDocs.argTypeDescriptions.variant,
+    options: variantKeys,
+    table: {
+      category: 'Component API',
+    },
+  },
+  tag: {
+    control: 'select',
+    description: typographyDocs.argTypeDescriptions.tag,
+    options: [defaultTagOption, ...supportedTypographyTags],
+    table: {
+      category: 'Component API',
+    },
+  },
+};
+
+const meta: Meta<TypographyStoryArgs> = {
+  args: defaultTypographyArgs,
+  argTypes: storyArgTypes,
   parameters: {
-    docs: {
-      description: {
-        component: createSourceSection([
-          {
-            label: 'Shared recipe / contract',
-            path: 'packages/ui/src/components/typography/typography.ts',
-          },
-          {
-            label: 'React implementation',
-            path: 'packages/ui-react/src/components/Typography.tsx',
-          },
-          {
-            label: 'React stories',
-            path: 'apps/frontend-docs/design-system-react/src/stories/Typography.stories.tsx',
-          },
-        ]),
-      },
+    controls: {
+      include: ['children', 'variant', 'tag'],
+      sort: 'none',
     },
   },
-  tags: ['autodocs'],
-  title: 'Typography',
-} satisfies Meta<TypographyProps>;
+  title: 'Primitives/Static/Typography',
+};
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<TypographyStoryArgs>;
 
-function renderTypographyStory(args: TypographyProps) {
-  return (
-    <Typography
-      aria-label={args['aria-label']}
-      data-testid={args['data-testid']}
-      id={args.id}
-      role={args.role}
-      tag={args.tag}
-      title={args.title}
-      variant={args.variant}
-    >
-      {args.children}
-    </Typography>
-  );
+function normalizeTag(tag: TypographyStoryArgs['tag']): TypographyTag | undefined {
+  if (tag === defaultTagOption) {
+    return undefined;
+  }
+
+  return tag;
 }
 
 export const Playground: Story = {
-  render: renderTypographyStory,
+  args: defaultTypographyArgs,
+  name: 'Playground',
+  parameters: {
+    controls: {
+      include: ['children', 'variant', 'tag'],
+      sort: 'none',
+    },
+    docs: {
+      description: {
+        story: typographyDocs.storyDescriptions.playground,
+      },
+    },
+  },
+  render: (args) => (
+    <div className='grid gap-4'>
+      <div className='rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4'>
+        <p className='m-0 text-sm text-[var(--color-text-primary)]'>
+          Use <code>variant</code>, <code>tag</code>, and text content as the main Typography API.
+          Leave <code>tag</code> on the default option to use the selected variant&apos;s standard
+          HTML element.
+        </p>
+        <p className='mb-0 mt-3 text-sm text-[var(--color-text-secondary)]'>
+          Supported passthrough attributes include <code>id</code>, <code>title</code>,{' '}
+          <code>aria-label</code>, and deliberate <code>data-*</code> attributes on the rendered
+          HTML element.
+        </p>
+      </div>
+      <Typography tag={normalizeTag(args.tag)} variant={args.variant}>
+        {args.children}
+      </Typography>
+    </div>
+  ),
 };
 
 export const Variants: Story = {
-  args: {
-    children: 'Typography sample',
-    variant: 'heading-large',
+  args: defaultTypographyArgs,
+  name: 'Variants',
+  parameters: {
+    controls: {
+      disable: true,
+    },
+    docs: {
+      description: {
+        story: typographyDocs.storyDescriptions.variants,
+      },
+    },
   },
-  render: () => {
-    const variants = variantKeys.map((variant) => ({
-      defaultTag: supportedTypographyVariants[variant].defaultTag,
-      variant,
-    }));
-
-    return (
-      <div className='grid gap-4 md:grid-cols-2'>
-        {variants.map((item) => (
-          <div
-            className='grid gap-1 rounded-xl border border-[var(--color-border-muted)] p-4'
-            key={item.variant}
-          >
-            <span className='text-sm text-[var(--color-text-secondary)]'>
-              {item.variant} -&gt; {item.defaultTag}
-            </span>
-            <Typography variant={item.variant}>{item.variant}</Typography>
-          </div>
-        ))}
-      </div>
-    );
-  },
-};
-
-export const TagOverride: Story = {
-  args: {
-    'aria-label': 'Body medium rendered as span',
-    children: 'Body medium rendered as span',
-    'data-testid': 'typography-span',
-    id: 'typography-span',
-    tag: 'span',
-    title: 'Body medium rendered as span',
-    variant: 'body-medium',
-  },
-  render: renderTypographyStory,
+  tags: ['!dev'],
+  render: (args) => (
+    <div className='grid gap-4 md:grid-cols-2'>
+      {variantKeys.map((variant) => (
+        <div
+          className='grid gap-1 rounded-xl border border-[var(--color-border-muted)] p-4'
+          key={variant}
+        >
+          <span className='text-sm text-[var(--color-text-secondary)]'>
+            {variant} -&gt; {resolveTypographyDefaultTag(variant)}
+          </span>
+          <Typography variant={variant}>{args.children}</Typography>
+        </div>
+      ))}
+    </div>
+  ),
 };

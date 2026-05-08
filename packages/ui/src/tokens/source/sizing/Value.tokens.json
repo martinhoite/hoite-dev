@@ -12,8 +12,7 @@
           ],
           "com.figma.codeSyntax": {
             "WEB": "var(--size-control-xs)"
-          },
-          "com.figma.isOverride": true
+          }
         }
       },
       "sm": {
@@ -27,8 +26,7 @@
           ],
           "com.figma.codeSyntax": {
             "WEB": "var(--size-control-sm)"
-          },
-          "com.figma.isOverride": true
+          }
         }
       },
       "md": {
@@ -42,8 +40,7 @@
           ],
           "com.figma.codeSyntax": {
             "WEB": "var(--size-control-md)"
-          },
-          "com.figma.isOverride": true
+          }
         }
       },
       "lg": {
@@ -57,8 +54,7 @@
           ],
           "com.figma.codeSyntax": {
             "WEB": "var(--size-control-lg)"
-          },
-          "com.figma.isOverride": true
+          }
         }
       }
     },
@@ -74,8 +70,7 @@
           ],
           "com.figma.codeSyntax": {
             "WEB": "var(--size-icon-xs)"
-          },
-          "com.figma.isOverride": true
+          }
         }
       },
       "sm": {
@@ -89,8 +84,7 @@
           ],
           "com.figma.codeSyntax": {
             "WEB": "var(--size-icon-sm)"
-          },
-          "com.figma.isOverride": true
+          }
         }
       },
       "md": {
@@ -104,8 +98,7 @@
           ],
           "com.figma.codeSyntax": {
             "WEB": "var(--size-icon-md)"
-          },
-          "com.figma.isOverride": true
+          }
         }
       },
       "lg": {
@@ -119,8 +112,7 @@
           ],
           "com.figma.codeSyntax": {
             "WEB": "var(--size-icon-lg)"
-          },
-          "com.figma.isOverride": true
+          }
         }
       },
       "xl": {
@@ -134,8 +126,7 @@
           ],
           "com.figma.codeSyntax": {
             "WEB": "var(--size-icon-xl)"
-          },
-          "com.figma.isOverride": true
+          }
         }
       }
     },
@@ -151,8 +142,37 @@
           ],
           "com.figma.codeSyntax": {
             "WEB": "var(--size-target-min)"
-          },
-          "com.figma.isOverride": true
+          }
+        }
+      }
+    },
+    "loading": {
+      "progress-indeterminate-segment": {
+        "$type": "number",
+        "$value": 35,
+        "$description": "Width of the animated segment shown when progress is unknown.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1041:399",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-loading-progress-indeterminate-segment)"
+          }
+        }
+      },
+      "progress-reduced-motion-segment": {
+        "$type": "number",
+        "$value": 50,
+        "$description": "Static visible segment width used when reduced motion is enabled.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1041:400",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--size-loading-progress-reduced-motion-segment)"
+          }
         }
       }
     }

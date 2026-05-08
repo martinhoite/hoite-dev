@@ -4,6 +4,8 @@
 
 It owns shared documentation such as design-system foundations, tokens, typography contract coverage, and Storybook refs. It consumes the shared UI packages, but it does not own framework implementation stories or app-specific component stories directly.
 
+This workspace also includes `.mdx` docs pages. If you edit them in VS Code, the recommended `unifiedjs.vscode-mdx` extension gives better MDX authoring support.
+
 ## Local host
 
 ```text

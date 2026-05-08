@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import { typographyDocs } from '@hoite-dev/ui';
+
+import { DocsExample } from '@frontend-docs-shared/docs/DocsExample';
+import { DesignSystemDocsPage } from '@frontend-docs-shared/docs/DesignSystemDocsPage';
+import { createFrameworkSourceLinks } from '@frontend-docs-shared/docs/sourceLinks';
+import * as Stories from './Typography.stories';
+
+<Meta of={Stories} />
+
+<DesignSystemDocsPage
+  controls={<ArgTypes of={Stories.Playground} />}
+  docs={typographyDocs}
+  examples={
+    <DocsExample story={Stories.Variants}>
+      <Canvas of={Stories.Variants} />
+    </DocsExample>
+  }
+  sourceLinks={[
+    ...typographyDocs.sourceLinks,
+    ...createFrameworkSourceLinks(
+      'React',
+      'packages/ui-react/src/components/primitives/static/Typography/Typography.tsx',
+      'apps/frontend-docs/design-system-react/src/stories/Typography.stories.tsx',
+    ),
+  ]}
+/>

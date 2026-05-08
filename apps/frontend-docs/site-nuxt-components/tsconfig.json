@@ -10,5 +10,11 @@
     },
     "types": ["node"]
   },
-  "include": [".storybook/**/*.ts", "src/**/*.d.ts", "src/**/*.mdx", "src/**/*.ts"]
+  "include": [
+    ".storybook/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.mdx",
+    "src/**/*.ts",
+    "../shared/**/*.ts"
+  ]
 }
