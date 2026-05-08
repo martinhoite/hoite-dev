@@ -4,6 +4,9 @@ import { createSourceUrl, type SourceLink } from './sourceLinks';
 
 const sourceListClassName = 'grid gap-3';
 const sourceItemsClassName = '!m-0 grid gap-1 !pl-5';
+const sourcePathStyle = {
+  whiteSpace: 'normal',
+} as const;
 
 export function SourceLinksList({ links }: { links: readonly SourceLink[] }) {
   return createElement('section', { className: sourceListClassName }, [
@@ -27,7 +30,14 @@ export function SourceLinksList({ links }: { links: readonly SourceLink[] }) {
             link.label,
           ),
           ' ',
-          createElement('code', { key: 'path' }, link.path),
+          createElement(
+            'code',
+            {
+              key: 'path',
+              style: sourcePathStyle,
+            },
+            link.path,
+          ),
         ]),
       ),
     ),

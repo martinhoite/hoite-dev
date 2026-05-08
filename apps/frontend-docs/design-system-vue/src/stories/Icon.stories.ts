@@ -1,3 +1,4 @@
+import { withStoryStack } from '@frontend-docs-shared/storybook/vueStoryTemplates';
 import {
   type IconName,
   type IconRotation,
@@ -105,8 +106,7 @@ const IconPlaygroundPreview = defineComponent({
       surfaceClass,
     };
   },
-  template: `
-    <div class="grid gap-4">
+  template: withStoryStack(`
       <div
         class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
       >
@@ -127,8 +127,7 @@ const IconPlaygroundPreview = defineComponent({
       <div :class="surfaceClass">
         <Icon v-bind="iconArgs" label="Playground icon" />
       </div>
-    </div>
-  `,
+  `),
 });
 
 const meta: Meta<IconStoryArgs> = {

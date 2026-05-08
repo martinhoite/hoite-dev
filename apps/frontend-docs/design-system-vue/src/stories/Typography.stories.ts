@@ -1,3 +1,4 @@
+import { withStoryStack } from '@frontend-docs-shared/storybook/vueStoryTemplates';
 import {
   supportedTypographyTags,
   type TypographyTag,
@@ -89,8 +90,7 @@ export const Playground: Story = {
         normalizedTag: computed(() => normalizeTag(args.tag)),
       };
     },
-    template: `
-      <div class="grid gap-4">
+    template: withStoryStack(`
         <div
           class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
         >
@@ -108,8 +108,7 @@ export const Playground: Story = {
         <Typography :tag="normalizedTag" :variant="args.variant">
           {{ args.children }}
         </Typography>
-      </div>
-    `,
+    `),
   }),
 };
 

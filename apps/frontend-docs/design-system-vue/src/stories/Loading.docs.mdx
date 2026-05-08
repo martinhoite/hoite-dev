@@ -1,44 +1,27 @@
 import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 import { loadingDocs } from '@hoite-dev/ui';
 
-import { DocsExample } from '@frontend-docs-shared/docs/DocsExample';
-import { DesignSystemDocsPage } from '@frontend-docs-shared/docs/DesignSystemDocsPage';
-import { createFrameworkSourceLinks } from '@frontend-docs-shared/docs/sourceLinks';
+import { FrameworkComponentDocsPage } from '@frontend-docs-shared/docs/FrameworkComponentDocsPage';
 import * as Stories from './Loading.stories';
 
 <Meta of={Stories} />
 
-<DesignSystemDocsPage
-  controls={
-    <>
-      <h3>Loader Playground</h3>
-      <ArgTypes of={Stories.LoaderPlayground} />
-      <h3>Progress Playground</h3>
-      <ArgTypes of={Stories.ProgressPlayground} />
-      <h3>CircularProgress Playground</h3>
-      <ArgTypes of={Stories.CircularProgressPlayground} />
-    </>
-  }
-  docs={loadingDocs}
-  examples={
-    <>
-      <DocsExample story={Stories.LoaderExamples}>
-        <Canvas of={Stories.LoaderExamples} />
-      </DocsExample>
-      <DocsExample story={Stories.ProgressExamples}>
-        <Canvas of={Stories.ProgressExamples} />
-      </DocsExample>
-      <DocsExample story={Stories.CircularProgressExamples}>
-        <Canvas of={Stories.CircularProgressExamples} />
-      </DocsExample>
-    </>
-  }
-  sourceLinks={[
-    ...loadingDocs.sourceLinks,
-    ...createFrameworkSourceLinks(
-      'Vue',
-      'packages/ui-vue/src/components/primitives/static/Loading/index.ts',
-      'apps/frontend-docs/design-system-vue/src/stories/Loading.stories.ts',
-    ),
+<FrameworkComponentDocsPage
+  argTypesBlock={ArgTypes}
+  canvasBlock={Canvas}
+  contractSourceLinks={loadingDocs.sourceLinks}
+  controls={[
+    { title: 'Loader', story: Stories.LoaderPlayground },
+    { title: 'Progress', story: Stories.ProgressPlayground },
+    { title: 'CircularProgress', story: Stories.CircularProgressPlayground },
   ]}
+  docs={loadingDocs}
+  examples={[
+    Stories.LoaderExamples,
+    Stories.ProgressExamples,
+    Stories.CircularProgressExamples,
+  ]}
+  framework="Vue"
+  implementationPath="packages/ui-vue/src/components/primitives/static/Loading/index.ts"
+  storiesPath="apps/frontend-docs/design-system-vue/src/stories/Loading.stories.ts"
 />

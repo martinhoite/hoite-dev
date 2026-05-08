@@ -1,4 +1,10 @@
 import {
+  createCodeChipListTemplate,
+  createContractPageTemplate,
+  createContractSectionTemplate,
+  createContractTableTemplate,
+} from '@frontend-docs-shared/storybook/hubContractTemplates';
+import {
   type IconRotation,
   type IconSize,
   type IconVariant,
@@ -52,115 +58,101 @@ export const Overview: Story = {
         variantRows,
       };
     },
-    template: `
-      <div class="mx-auto w-full max-w-5xl px-4 py-6">
-        <div class="grid gap-6">
-          <section class="grid gap-2">
-            <h2 class="m-0 text-base font-semibold">Supported icon names</h2>
-            <div class="flex flex-wrap gap-2">
-              <code
-                v-for="iconName in iconNames"
-                :key="iconName"
-                class="rounded-[var(--radius-sm)] bg-[var(--color-surface-secondary)] px-2 py-1"
-              >
-                {{ iconName }}
-              </code>
-            </div>
-          </section>
-          <section class="grid gap-2">
-            <h2 class="m-0 text-base font-semibold">Size contract</h2>
-            <div class="overflow-auto">
-              <table class="min-w-full border-collapse">
-                <thead>
-                  <tr>
-                    <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Size</th>
-                    <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Token</th>
-                    <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Class output</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in sizeRows" :key="item.size">
-                    <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
-                      <code>{{ item.size }}</code>
-                    </td>
-                    <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
-                      <code>{{ item.token }}</code>
-                    </td>
-                    <td class="border-b border-[var(--color-border-muted)] p-2 align-top break-all">
-                      <code>{{ item.classOutput }}</code>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-          <section class="grid gap-2">
-            <h2 class="m-0 text-base font-semibold">Rotation contract</h2>
-            <div class="overflow-auto">
-              <table class="min-w-full border-collapse">
-                <thead>
-                  <tr>
-                    <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Rotation</th>
-                    <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Class output</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in rotationRows" :key="item.rotation">
-                    <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
-                      <code>{{ item.rotation }}</code>
-                    </td>
-                    <td class="border-b border-[var(--color-border-muted)] p-2 align-top break-all">
-                      <code>{{ item.classOutput }}</code>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-          <section class="grid gap-2">
-            <h2 class="m-0 text-base font-semibold">Variant contract</h2>
-            <div class="overflow-auto">
-              <table class="min-w-full border-collapse">
-                <thead>
-                  <tr>
-                    <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Variant</th>
-                    <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Token</th>
-                    <th class="border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold">Class output</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in variantRows" :key="item.variant">
-                    <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
-                      <code>{{ item.variant }}</code>
-                    </td>
-                    <td class="border-b border-[var(--color-border-muted)] p-2 align-top">
-                      <code>{{ item.token }}</code>
-                    </td>
-                    <td class="border-b border-[var(--color-border-muted)] p-2 align-top break-all">
-                      <code>{{ item.classOutput }}</code>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-          <section class="grid gap-2">
-            <h2 class="m-0 text-base font-semibold">SVG rendering contract</h2>
+    template: createContractPageTemplate(`
+${createContractSectionTemplate({
+  body: createCodeChipListTemplate({
+    itemAlias: 'iconName',
+    itemsExpression: 'iconNames',
+    keyExpression: 'iconName',
+  }),
+  title: 'Supported icon names',
+})}
+${createContractSectionTemplate({
+  body: createContractTableTemplate({
+    columns: [
+      {
+        header: 'Size',
+        valueExpression: 'item.size',
+      },
+      {
+        header: 'Token',
+        valueExpression: 'item.token',
+      },
+      {
+        breakAll: true,
+        header: 'Class output',
+        valueExpression: 'item.classOutput',
+      },
+    ],
+    rowItemAlias: 'item',
+    rowItemsExpression: 'sizeRows',
+    rowKeyExpression: 'item.size',
+  }),
+  title: 'Size contract',
+})}
+${createContractSectionTemplate({
+  body: createContractTableTemplate({
+    columns: [
+      {
+        header: 'Rotation',
+        valueExpression: 'item.rotation',
+      },
+      {
+        breakAll: true,
+        header: 'Class output',
+        valueExpression: 'item.classOutput',
+      },
+    ],
+    rowItemAlias: 'item',
+    rowItemsExpression: 'rotationRows',
+    rowKeyExpression: 'item.rotation',
+  }),
+  title: 'Rotation contract',
+})}
+${createContractSectionTemplate({
+  body: createContractTableTemplate({
+    columns: [
+      {
+        header: 'Variant',
+        valueExpression: 'item.variant',
+      },
+      {
+        header: 'Token',
+        valueExpression: 'item.token',
+      },
+      {
+        breakAll: true,
+        header: 'Class output',
+        valueExpression: 'item.classOutput',
+      },
+    ],
+    rowItemAlias: 'item',
+    rowItemsExpression: 'variantRows',
+    rowKeyExpression: 'item.variant',
+  }),
+  title: 'Variant contract',
+})}
+${createContractSectionTemplate({
+  body: `
             <p class="m-0 text-sm text-[var(--color-text-secondary)]">
               All current icons are authored as 24 by 24 stroke-based paths. The primitive enforces
               <code> fill="none" </code>, <code>stroke="currentColor"</code>, a stroke width of
               <code> 2 </code>, and round line caps and joins across every icon.
             </p>
-          </section>
-          <section class="grid gap-2">
-            <h2 class="m-0 text-base font-semibold">Accessibility contract</h2>
+  `,
+  title: 'SVG rendering contract',
+})}
+${createContractSectionTemplate({
+  body: `
             <p class="m-0 text-sm text-[var(--color-text-secondary)]">
               Icons without <code>label</code> or <code>aria-label</code> are decorative and hidden
               from assistive technology. If both are provided, <code>label</code> wins.
             </p>
-          </section>
-          <section class="grid gap-2">
-            <h2 class="m-0 text-base font-semibold">Why Icon is static</h2>
+  `,
+  title: 'Accessibility contract',
+})}
+${createContractSectionTemplate({
+  body: `
             <p class="m-0 text-sm text-[var(--color-text-secondary)]">
               Icon is a small SVG primitive for consistent shape, size, color, and accessibility.
               It does not own click behavior, button semantics, or link semantics.
@@ -169,9 +161,9 @@ export const Overview: Story = {
               Interactive icon-only behavior belongs to <code>IconButton</code>, where hit target,
               focus treatment, and action semantics can be handled deliberately.
             </p>
-          </section>
-        </div>
-      </div>
-    `,
+  `,
+  title: 'Why Icon is static',
+})}
+    `),
   }),
 };
