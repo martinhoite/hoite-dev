@@ -18,6 +18,8 @@ apps/**/.env
 apps/**/.env.*
 !apps/**/.env.example
 apps/frontend-docs/hub/public/design-tokens.source.json
+apps/frontend-docs/hub/public/favicon.png
+apps/frontend-docs/hub/public/favicon.svg
 
 packages/*/.build
 packages/*/dist

@@ -1,3 +1,4 @@
+import { StoryInfoPanel, StoryStack } from '@frontend-docs-shared/storybook/reactStoryLayouts';
 import {
   type IconName,
   type IconRotation,
@@ -18,6 +19,13 @@ type IconStoryArgs = {
   rotation: IconRotation;
   size: IconSize;
   variant: IconVariant;
+};
+
+const defaultIconArgs: IconStoryArgs = {
+  name: 'chevron',
+  rotation: '0',
+  size: 'md',
+  variant: 'primary',
 };
 
 const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
@@ -56,12 +64,7 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
 };
 
 const meta: Meta<IconStoryArgs> = {
-  args: {
-    name: 'chevron',
-    rotation: '0',
-    size: 'md',
-    variant: 'primary',
-  },
+  args: defaultIconArgs,
   argTypes: storyArgTypes,
   component: IconPlaygroundPreview,
   parameters: {
@@ -95,8 +98,8 @@ function getShowcaseSurfaceClass(variant: IconVariant): string {
 
 function IconPlaygroundPreview(iconArgs: IconStoryArgs): ReactElement {
   return (
-    <div className='grid gap-4'>
-      <div className='rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4'>
+    <StoryStack>
+      <StoryInfoPanel>
         <p className='m-0 text-sm text-[var(--color-text-primary)]'>
           Use <code>name</code>, <code>size</code>, <code>rotation</code>, and <code>variant</code>{' '}
           as the main visual Icon API.
@@ -110,12 +113,30 @@ function IconPlaygroundPreview(iconArgs: IconStoryArgs): ReactElement {
           <code>role</code>, <code>aria-label</code>, and deliberate <code>data-*</code> attributes
           on the rendered SVG.
         </p>
-      </div>
+      </StoryInfoPanel>
       <div className={getSurfaceClass(iconArgs.variant)}>
         <Icon {...iconArgs} label='Playground icon' />
       </div>
-    </div>
+    </StoryStack>
   );
+}
+
+function normalizeIconArgs(args: IconStoryArgs): IconStoryArgs {
+  const name = supportedIconNames.includes(args.name) ? args.name : defaultIconArgs.name;
+  const size = supportedIconSizes.includes(args.size) ? args.size : defaultIconArgs.size;
+  const rotation = supportedIconRotations.includes(args.rotation)
+    ? args.rotation
+    : defaultIconArgs.rotation;
+  const variant = supportedIconVariants.includes(args.variant)
+    ? args.variant
+    : defaultIconArgs.variant;
+
+  return {
+    name,
+    rotation,
+    size,
+    variant,
+  };
 }
 
 export const Playground: Story = {
@@ -131,7 +152,7 @@ export const Playground: Story = {
       },
     },
   },
-  render: (args) => <IconPlaygroundPreview {...args} />,
+  render: (args) => <IconPlaygroundPreview {...normalizeIconArgs(args)} />,
 };
 
 export const AllIcons: Story = {

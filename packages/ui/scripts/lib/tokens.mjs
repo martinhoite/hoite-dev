@@ -5,6 +5,8 @@ import StyleDictionary from 'style-dictionary';
 import { transforms, transformTypes } from 'style-dictionary/enums';
 
 let isRegistered = false;
+let missingWebSyntaxErrors = new Set();
+let unexpectedWebSyntaxMismatchWarnings = new Set();
 
 function trimNumber(value) {
   return Number.parseFloat(value.toFixed(4)).toString();
@@ -14,19 +16,55 @@ function pxToRem(value, remBasePx) {
   return `${trimNumber(value / remBasePx)}rem`;
 }
 
-function getTokenCssName(token, tokenConfig) {
-  const webSyntax = token.$extensions?.['com.figma.codeSyntax']?.WEB;
-  const [root] = token.path;
+function getPathDerivedCssName(token) {
+  return token.name;
+}
+
+function isIntentionalNameMapping(token, webCssName) {
+  const [root, group] = token.path;
 
   if (
-    typeof webSyntax === 'string' &&
-    (!tokenConfig.pathNamedTokenRoots.has(root) || root === 'border' || root === 'outline')
+    root === 'layout' &&
+    group === 'grid-container' &&
+    webCssName.startsWith('layout-container-')
   ) {
+    return true;
+  }
+
+  if ((root === 'border' || root === 'outline') && webCssName.startsWith('stroke-')) {
+    return true;
+  }
+
+  if (token.$type === 'color' && root === 'primitive' && webCssName.startsWith('primitive-')) {
+    return true;
+  }
+
+  return false;
+}
+
+function getTokenCssName(token, _tokenConfig) {
+  const webSyntax = token.$extensions?.['com.figma.codeSyntax']?.WEB;
+  const tokenPath = token.path.join('.');
+
+  if (typeof webSyntax === 'string') {
     const match = webSyntax.match(/^var\(--(?<name>[^)]+)\)$/);
 
     if (match?.groups?.name) {
-      return match.groups.name;
+      const webCssName = match.groups.name;
+      const pathCssName = getPathDerivedCssName(token);
+
+      if (webCssName !== pathCssName && !isIntentionalNameMapping(token, webCssName)) {
+        unexpectedWebSyntaxMismatchWarnings.add(
+          `${tokenPath} => --${pathCssName} (path) vs --${webCssName} (WEB)`,
+        );
+      }
+
+      return webCssName;
     }
+  }
+
+  if (!missingWebSyntaxErrors.has(tokenPath)) {
+    missingWebSyntaxErrors.add(tokenPath);
   }
 
   return token.name;
@@ -175,7 +213,21 @@ function registerStyleDictionaryExtensions({ tokenConfig }) {
  */
 @layer ${section.layerName} {
   ${section.selector} {
-${section.tokens.map((token) => `    --${getTokenCssName(token, tokenConfig)}: ${token.$value};`).join('\n')}
+${section.tokens
+  .map((token) => {
+    const cssName = getTokenCssName(token, tokenConfig);
+    const pathCssName = getPathDerivedCssName(token);
+    const pathString = token.path.join('.');
+    const isIntentionalMismatch =
+      cssName !== pathCssName && isIntentionalNameMapping(token, cssName);
+
+    if (isIntentionalMismatch) {
+      return `    /* alias: ${pathString} => --${cssName} (path name would be --${pathCssName}) */\n    --${cssName}: ${token.$value};`;
+    }
+
+    return `    --${cssName}: ${token.$value};`;
+  })
+  .join('\n')}
   }
 }`,
         )
@@ -230,6 +282,8 @@ export async function buildTokenArtifacts({
   tokenConfig,
   tokenSources,
 }) {
+  missingWebSyntaxErrors = new Set();
+  unexpectedWebSyntaxMismatchWarnings = new Set();
   registerStyleDictionaryExtensions({ tokenConfig });
 
   const buildPath = `${buildDir}${path.sep}`;
@@ -275,6 +329,32 @@ export async function buildTokenArtifacts({
       source: [path.join(sourceDir, themeVariant.source)],
       tokenConfig,
     });
+  }
+
+  if (missingWebSyntaxErrors.size > 0) {
+    const missingLines = [...missingWebSyntaxErrors]
+      .sort((a, b) => a.localeCompare(b))
+      .map((tokenPath) => {
+        return `- ${tokenPath}`;
+      })
+      .join('\n');
+
+    throw new Error(
+      `[ui tokens] Missing or invalid $extensions["com.figma.codeSyntax"].WEB on ${missingWebSyntaxErrors.size} token(s):\n${missingLines}`,
+    );
+  }
+
+  if (unexpectedWebSyntaxMismatchWarnings.size > 0) {
+    const mismatchLines = [...unexpectedWebSyntaxMismatchWarnings]
+      .sort((a, b) => a.localeCompare(b))
+      .map((line) => {
+        return `- ${line}`;
+      })
+      .join('\n');
+
+    console.warn(
+      `[ui tokens] Unhandled WEB syntax naming mismatch on ${unexpectedWebSyntaxMismatchWarnings.size} token(s):\n${mismatchLines}`,
+    );
   }
 
   const sharedLayerPrelude = createSharedLayerPrelude({

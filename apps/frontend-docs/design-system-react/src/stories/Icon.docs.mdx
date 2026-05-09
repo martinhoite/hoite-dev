@@ -1,38 +1,19 @@
 import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
 import { iconDocs } from '@hoite-dev/ui';
 
-import { DocsExample } from '@frontend-docs-shared/docs/DocsExample';
-import { DesignSystemDocsPage } from '@frontend-docs-shared/docs/DesignSystemDocsPage';
-import { createFrameworkSourceLinks } from '@frontend-docs-shared/docs/sourceLinks';
+import { FrameworkComponentDocsPage } from '@frontend-docs-shared/docs/FrameworkComponentDocsPage';
 import * as Stories from './Icon.stories';
 
 <Meta of={Stories} />
 
-<DesignSystemDocsPage
-  controls={<ArgTypes of={Stories.Playground} />}
+<FrameworkComponentDocsPage
+  argTypesBlock={ArgTypes}
+  canvasBlock={Canvas}
+  contractSourceLinks={iconDocs.sourceLinks}
+  controls={[{ story: Stories.Playground }]}
   docs={iconDocs}
-  examples={
-    <>
-      <DocsExample story={Stories.AllIcons}>
-        <Canvas of={Stories.AllIcons} />
-      </DocsExample>
-      <DocsExample story={Stories.Sizes}>
-        <Canvas of={Stories.Sizes} />
-      </DocsExample>
-      <DocsExample story={Stories.Rotations}>
-        <Canvas of={Stories.Rotations} />
-      </DocsExample>
-      <DocsExample story={Stories.Variants}>
-        <Canvas of={Stories.Variants} />
-      </DocsExample>
-    </>
-  }
-  sourceLinks={[
-    ...iconDocs.sourceLinks,
-    ...createFrameworkSourceLinks(
-      'React',
-      'packages/ui-react/src/components/primitives/static/Icon/Icon.tsx',
-      'apps/frontend-docs/design-system-react/src/stories/Icon.stories.tsx',
-    ),
-  ]}
+  examples={[Stories.AllIcons, Stories.Sizes, Stories.Rotations, Stories.Variants]}
+  framework="React"
+  implementationPath="packages/ui-react/src/components/primitives/static/Icon/Icon.tsx"
+  storiesPath="apps/frontend-docs/design-system-react/src/stories/Icon.stories.tsx"
 />

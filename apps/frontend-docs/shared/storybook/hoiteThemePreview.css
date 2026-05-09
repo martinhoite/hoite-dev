@@ -1,0 +1,175 @@
+html,
+body,
+#storybook-root,
+#root,
+#storybook-docs {
+  min-height: 100vh;
+}
+
+html,
+body,
+.sb-show-main,
+#storybook-root,
+#root,
+#storybook-docs,
+.docs-story,
+.sbdocs-wrapper,
+.sbdocs-content,
+.sbdocs,
+.sbdocs-wrapper .sbdocs-content :where(*),
+.sbdocs-wrapper .sbdocs-content table :where(*),
+.sbdocs-wrapper .sbdocs-content .docblock-argstable-body :where(*),
+.sbdocs-wrapper .sbdocs-content .docblock-argstable-head :where(*) {
+  transition:
+    background-color var(--motion-duration-moderate) var(--motion-easing-standard),
+    border-color var(--motion-duration-moderate) var(--motion-easing-standard),
+    color var(--motion-duration-moderate) var(--motion-easing-standard),
+    fill var(--motion-duration-moderate) var(--motion-easing-standard),
+    stroke var(--motion-duration-moderate) var(--motion-easing-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  .sb-show-main,
+  #storybook-root,
+  #root,
+  #storybook-docs,
+  .docs-story,
+  .sbdocs-wrapper,
+  .sbdocs-content,
+  .sbdocs,
+  .sbdocs-wrapper .sbdocs-content :where(*),
+  .sbdocs-wrapper .sbdocs-content table :where(*),
+  .sbdocs-wrapper .sbdocs-content .docblock-argstable-body :where(*),
+  .sbdocs-wrapper .sbdocs-content .docblock-argstable-head :where(*) {
+    transition: none;
+  }
+}
+
+html,
+body,
+.sb-show-main,
+#storybook-root,
+#root,
+#storybook-docs {
+  background: var(--color-bg-canvas);
+}
+
+body,
+.sb-show-main {
+  color: var(--color-text-primary);
+  font-family: var(--typography-family-body);
+}
+
+#storybook-root,
+#root {
+  color: inherit;
+  font-family: inherit;
+}
+
+.docs-story,
+.sbdocs-wrapper,
+.sbdocs-content {
+  background: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--typography-family-body);
+}
+
+.sbdocs {
+  color: var(--color-text-primary);
+  font-family: var(--typography-family-body);
+}
+
+.sbdocs-wrapper.sbdocs-wrapper,
+.sbdocs-wrapper.sbdocs-wrapper .sbdocs-content.sbdocs-content {
+  background: var(--color-bg-canvas);
+}
+
+.sbdocs-wrapper
+  .sbdocs-content
+  :where(
+    h1:not(.sb-anchor, .sb-unstyled, .sb-unstyled h1),
+    h2:not(.sb-anchor, .sb-unstyled, .sb-unstyled h2),
+    h3:not(.sb-anchor, .sb-unstyled, .sb-unstyled h3),
+    h4:not(.sb-anchor, .sb-unstyled, .sb-unstyled h4),
+    h5:not(.sb-anchor, .sb-unstyled, .sb-unstyled h5),
+    h6:not(.sb-anchor, .sb-unstyled, .sb-unstyled h6),
+    p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p),
+    li:not(.sb-anchor, .sb-unstyled, .sb-unstyled li)
+  ) {
+  color: inherit;
+  font-family: inherit;
+}
+
+.sbdocs-wrapper .sbdocs-content a:not(.sb-anchor) {
+  color: var(--color-text-link);
+}
+
+.sbdocs-wrapper .sbdocs-content a:not(.sb-anchor):hover {
+  color: var(--color-text-link-hover);
+}
+
+.sbdocs-wrapper .sbdocs-content a:not(.sb-anchor):visited {
+  color: var(--color-text-link-visited);
+}
+
+.sbdocs-wrapper .sbdocs-content :where(code, kbd, samp) {
+  background: var(--color-bg-field);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+}
+
+.sbdocs-wrapper .sbdocs-content pre {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+}
+
+.sbdocs-wrapper .sbdocs-content pre code {
+  background: transparent;
+  border: 0;
+  color: inherit;
+}
+
+.sbdocs-wrapper .sbdocs-content table {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+.sbdocs-wrapper .sbdocs-content table :where(th, td) {
+  border-color: var(--color-border-default);
+}
+
+.sbdocs-wrapper .sbdocs-content table th {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+.sbdocs-wrapper .sbdocs-content table td {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+.sbdocs-wrapper .sbdocs-content .sbdocs-preview .sbdocs-preview-actions button {
+  color: var(--color-text-primary);
+}
+
+.sbdocs-wrapper .sbdocs-content .docblock-argstable-body td {
+  background: var(--color-bg-surface) !important;
+  border-color: var(--color-border-default) !important;
+  color: var(--color-text-primary) !important;
+}
+
+.sbdocs-wrapper .sbdocs-content .docblock-argstable-head th {
+  background: var(--color-bg-subtle) !important;
+  border-color: var(--color-border-default) !important;
+  color: var(--color-text-primary) !important;
+}
+
+.sbdocs-wrapper .sbdocs-content .docblock-argstable-body tr,
+.sbdocs-wrapper .sbdocs-content .docblock-argstable-head tr {
+  border-color: var(--color-border-default) !important;
+}

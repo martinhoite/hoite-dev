@@ -2,7 +2,6 @@ import type { SimplifiedUmbracoLink } from '@hoite-dev/umbraco-client';
 import { toUrlString } from '@hoite-dev/umbraco-client';
 import GlobalLogo from '@site-nuxt/components/global/GlobalLogo.vue';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { createSourceSection } from '../../../shared/docs/createSourceSection';
 import { setSiteSettings } from '../siteNuxtStorybookRuntime';
 
 type GlobalLogoStoryArgs = {
@@ -40,27 +39,7 @@ const meta: Meta<GlobalLogoStoryArgs> = {
     },
   },
   component: GlobalLogo,
-  parameters: {
-    docs: {
-      description: {
-        component: createSourceSection([
-          {
-            label: 'Site Nuxt component',
-            path: 'apps/site-nuxt/components/global/GlobalLogo.vue',
-          },
-          {
-            label: 'PoC story',
-            path: 'apps/frontend-docs/site-nuxt-components/src/stories/GlobalLogo.stories.ts',
-          },
-          {
-            label: 'PoC docs page',
-            path: 'apps/frontend-docs/site-nuxt-components/src/stories/GlobalLogo.mdx',
-          },
-        ]),
-      },
-    },
-  },
-  tags: ['autodocs'],
+  tags: ['!autodocs'],
   title: 'Site Nuxt/Components/GlobalLogo',
 };
 

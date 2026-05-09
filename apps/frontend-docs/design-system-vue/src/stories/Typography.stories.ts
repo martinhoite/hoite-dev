@@ -1,3 +1,4 @@
+import { withStoryStack } from '@frontend-docs-shared/storybook/vueStoryTemplates';
 import {
   supportedTypographyTags,
   type TypographyTag,
@@ -84,13 +85,15 @@ export const Playground: Story = {
   render: (args) => ({
     components: { Typography },
     setup() {
+      const normalizedVariant = computed(() => normalizeVariant(args.variant));
+
       return {
         args,
         normalizedTag: computed(() => normalizeTag(args.tag)),
+        normalizedVariant,
       };
     },
-    template: `
-      <div class="grid gap-4">
+    template: withStoryStack(`
         <div
           class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
         >
@@ -105,11 +108,10 @@ export const Playground: Story = {
             HTML element.
           </p>
         </div>
-        <Typography :tag="normalizedTag" :variant="args.variant">
+        <Typography :tag="normalizedTag" :variant="normalizedVariant">
           {{ args.children }}
         </Typography>
-      </div>
-    `,
+    `),
   }),
 };
 
@@ -165,4 +167,12 @@ function normalizeTag(tag: TypographyStoryArgs['tag']): TypographyTag | undefine
   }
 
   return tag;
+}
+
+function normalizeVariant(variant: TypographyStoryArgs['variant']): TypographyVariant {
+  if (variantKeys.includes(variant)) {
+    return variant;
+  }
+
+  return defaultTypographyArgs.variant;
 }

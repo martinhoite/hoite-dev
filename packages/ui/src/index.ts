@@ -2,7 +2,7 @@ import darkColorMode from './tokens/source/color/Dark.tokens.json';
 import lightColorMode from './tokens/source/color/Light.tokens.json';
 import layoutTokens from './tokens/source/layout/Value.tokens.json';
 import motionTokens from './tokens/source/motion/Value.tokens.json';
-import primitivesTokens from './tokens/source/primitives/Value.tokens.json';
+import primitiveTokens from './tokens/source/primitive/Value.tokens.json';
 import radiusTokens from './tokens/source/radius/Value.tokens.json';
 import sizingTokens from './tokens/source/sizing/Value.tokens.json';
 import spacingTokens from './tokens/source/spacing/Value.tokens.json';
@@ -49,7 +49,7 @@ export const tokens = {
   },
   layout: layoutTokens.layout,
   motion: motionTokens.motion,
-  primitives: primitivesTokens,
+  primitive: primitiveTokens.primitive,
   radius: radiusTokens.radius,
   size: sizingTokens.size,
   spacing: spacingTokens.spacing,
@@ -88,7 +88,7 @@ export type {
 export type ColorThemeTokens = (typeof tokenThemes)[ThemeName];
 export type LayoutTokens = typeof tokens.layout;
 export type MotionTokens = typeof tokens.motion;
-export type PrimitiveTokens = typeof tokens.primitives;
+export type PrimitiveTokens = typeof tokens.primitive;
 export type RadiusTokens = typeof tokens.radius;
 export type SizeTokens = typeof tokens.size;
 export type SpacingTokens = typeof tokens.spacing;

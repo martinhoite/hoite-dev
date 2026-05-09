@@ -1,3 +1,4 @@
+import { StoryInfoPanel, StoryStack } from '@frontend-docs-shared/storybook/reactStoryLayouts';
 import {
   resolveTypographyDefaultTag,
   supportedTypographyTags,
@@ -75,6 +76,14 @@ function normalizeTag(tag: TypographyStoryArgs['tag']): TypographyTag | undefine
   return tag;
 }
 
+function normalizeVariant(variant: TypographyStoryArgs['variant']): TypographyVariant {
+  if (variantKeys.includes(variant)) {
+    return variant;
+  }
+
+  return defaultTypographyArgs.variant;
+}
+
 export const Playground: Story = {
   args: defaultTypographyArgs,
   name: 'Playground',
@@ -90,8 +99,8 @@ export const Playground: Story = {
     },
   },
   render: (args) => (
-    <div className='grid gap-4'>
-      <div className='rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4'>
+    <StoryStack>
+      <StoryInfoPanel>
         <p className='m-0 text-sm text-[var(--color-text-primary)]'>
           Use <code>variant</code>, <code>tag</code>, and text content as the main Typography API.
           Leave <code>tag</code> on the default option to use the selected variant&apos;s standard
@@ -102,11 +111,11 @@ export const Playground: Story = {
           <code>aria-label</code>, and deliberate <code>data-*</code> attributes on the rendered
           HTML element.
         </p>
-      </div>
-      <Typography tag={normalizeTag(args.tag)} variant={args.variant}>
+      </StoryInfoPanel>
+      <Typography tag={normalizeTag(args.tag)} variant={normalizeVariant(args.variant)}>
         {args.children}
       </Typography>
-    </div>
+    </StoryStack>
   ),
 };
 

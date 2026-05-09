@@ -1,3 +1,4 @@
+import { withStoryStack } from '@frontend-docs-shared/storybook/vueStoryTemplates';
 import {
   type IconName,
   type IconRotation,
@@ -18,6 +19,13 @@ type IconStoryArgs = {
   rotation: IconRotation;
   size: IconSize;
   variant: IconVariant;
+};
+
+const defaultIconArgs: IconStoryArgs = {
+  name: 'chevron',
+  rotation: '0',
+  size: 'md',
+  variant: 'primary',
 };
 
 const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
@@ -105,8 +113,7 @@ const IconPlaygroundPreview = defineComponent({
       surfaceClass,
     };
   },
-  template: `
-    <div class="grid gap-4">
+  template: withStoryStack(`
       <div
         class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
       >
@@ -127,17 +134,11 @@ const IconPlaygroundPreview = defineComponent({
       <div :class="surfaceClass">
         <Icon v-bind="iconArgs" label="Playground icon" />
       </div>
-    </div>
-  `,
+  `),
 });
 
 const meta: Meta<IconStoryArgs> = {
-  args: {
-    name: 'chevron',
-    rotation: '0',
-    size: 'md',
-    variant: 'primary',
-  },
+  args: defaultIconArgs,
   argTypes: storyArgTypes,
   component: IconPlaygroundPreview,
   parameters: {
@@ -152,6 +153,24 @@ const meta: Meta<IconStoryArgs> = {
 export default meta;
 
 type Story = StoryObj<IconStoryArgs>;
+
+function normalizeIconArgs(args: IconStoryArgs): IconStoryArgs {
+  const name = supportedIconNames.includes(args.name) ? args.name : defaultIconArgs.name;
+  const size = supportedIconSizes.includes(args.size) ? args.size : defaultIconArgs.size;
+  const rotation = supportedIconRotations.includes(args.rotation)
+    ? args.rotation
+    : defaultIconArgs.rotation;
+  const variant = supportedIconVariants.includes(args.variant)
+    ? args.variant
+    : defaultIconArgs.variant;
+
+  return {
+    name,
+    rotation,
+    size,
+    variant,
+  };
+}
 
 export const Playground: Story = {
   name: 'Playground',
@@ -169,8 +188,10 @@ export const Playground: Story = {
   render: (args) => ({
     components: { IconPlaygroundPreview },
     setup() {
+      const normalizedArgs = normalizeIconArgs(args);
+
       return {
-        args,
+        args: normalizedArgs,
       };
     },
     template: `<IconPlaygroundPreview v-bind="args" />`,

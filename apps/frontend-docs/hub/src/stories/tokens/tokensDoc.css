@@ -1,0 +1,124 @@
+﻿.hoite-token-doc {
+  color: var(--color-text-primary);
+}
+
+.hoite-token-doc .hoite-token-doc__section-title {
+  background: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border-subtle);
+  margin: 0;
+  padding-bottom: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.hoite-token-doc__table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.hoite-token-doc__table th,
+.hoite-token-doc__table td {
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+  font-size: 0.8125rem;
+  padding: 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.hoite-token-doc__table th {
+  background: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border-default);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  position: sticky;
+  text-transform: uppercase;
+  top: 2.4rem;
+  z-index: 20;
+}
+
+.hoite-token-doc__table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--color-bg-subtle) 70%, transparent);
+}
+
+.hoite-token-doc__nav {
+  background: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.hoite-token-doc__nav-link {
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  display: inline-block;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+}
+
+.hoite-token-doc__nav-link:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+}
+
+@keyframes hoite-token-motion-sweep {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 960px) {
+  .hoite-token-doc__table thead {
+    display: none;
+  }
+
+  .hoite-token-doc__table,
+  .hoite-token-doc__table tbody,
+  .hoite-token-doc__table tr,
+  .hoite-token-doc__table td {
+    display: block;
+    width: 100%;
+  }
+
+  .hoite-token-doc__table tr {
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  .hoite-token-doc__table td {
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding: 0.625rem 0.75rem;
+  }
+
+  .hoite-token-doc__table td:last-child {
+    border-bottom: none;
+  }
+
+  .hoite-token-doc__table td::before {
+    color: var(--color-text-secondary);
+    content: attr(data-label);
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+  }
+}
