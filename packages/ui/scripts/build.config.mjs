@@ -31,7 +31,15 @@ export const tokenConfig = {
     'typography.family.heading': "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
   },
   layerNamePrefix,
-  pathNamedTokenRoots: new Set(['color', 'motion', 'radius', 'size', 'spacing', 'typography']),
+  pathNamedTokenRoots: new Set([
+    'color',
+    'motion',
+    'primitive',
+    'radius',
+    'size',
+    'spacing',
+    'typography',
+  ]),
   remBasePx: 16,
   themeLayerName,
 };
@@ -140,7 +148,7 @@ export const sectionDefinitions = [
 export const tokenSources = [
   'layout/Value.tokens.json',
   'motion/Value.tokens.json',
-  'primitives/Value.tokens.json',
+  'primitive/Value.tokens.json',
   'radius/Value.tokens.json',
   'sizing/Value.tokens.json',
   'spacing/Value.tokens.json',

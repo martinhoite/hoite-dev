@@ -35,7 +35,7 @@ function isIntentionalNameMapping(token, webCssName) {
     return true;
   }
 
-  if (token.$type === 'color' && root !== 'color' && webCssName.startsWith('primitive-')) {
+  if (token.$type === 'color' && root === 'primitive' && webCssName.startsWith('primitive-')) {
     return true;
   }
 
