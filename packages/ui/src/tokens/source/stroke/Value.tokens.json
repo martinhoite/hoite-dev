@@ -65,7 +65,7 @@
     "highlight": {
       "$type": "number",
       "$value": 3,
-      "$description": "\"Stroke width for highlights",
+      "$description": "Stroke width for highlights",
       "$extensions": {
         "com.figma.variableId": "VariableID:575:5",
         "com.figma.scopes": [
