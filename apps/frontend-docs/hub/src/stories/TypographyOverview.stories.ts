@@ -16,7 +16,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 const variantKeys = Object.keys(typographyVariantConfig) as TypographyVariant[];
 
 const meta: Meta = {
-  title: 'Primitives/Static/Typography Contract',
+  title: 'Design System/Contracts/Static/Typography',
 };
 
 export default meta;

@@ -21,7 +21,7 @@ const sizeKeys = [...supportedIconSizes] as IconSize[];
 const variantKeys = [...supportedIconVariants] as IconVariant[];
 
 const meta: Meta = {
-  title: 'Primitives/Static/Icon Contract',
+  title: 'Design System/Contracts/Static/Icon',
 };
 
 export default meta;
