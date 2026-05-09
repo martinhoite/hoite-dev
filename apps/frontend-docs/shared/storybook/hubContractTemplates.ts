@@ -26,11 +26,11 @@ type ContractTableTemplateOptions = {
   rowKeyExpression: string;
 };
 
-const pageClassName = 'mx-auto max-w-5xl py-6';
+const pageClassName = 'mx-auto max-w-5xl py-6 text-[var(--color-text-primary)]';
 const pageGridClassName = 'grid gap-6';
 const sectionClassName = 'grid gap-2';
-const sectionHeadingClassName = 'm-0 text-base font-semibold';
-const subsectionHeadingClassName = 'm-0 text-sm font-semibold';
+const sectionHeadingClassName = 'm-0 text-base font-semibold text-[var(--color-text-primary)]';
+const subsectionHeadingClassName = 'm-0 text-sm font-semibold text-[var(--color-text-primary)]';
 const chipClassName = 'rounded-[var(--radius-sm)] bg-[var(--color-surface-secondary)] px-2 py-1';
 const tableHeadCellClassName =
   'border-b border-[var(--color-border-default)] p-2 text-left align-top text-sm font-semibold';
