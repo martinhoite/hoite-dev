@@ -7,8 +7,9 @@ It exists to prove that app-owned Storybooks can build static output, resolve sh
 ## Scope
 
 - Uses `apps/site-nuxt/components/global/GlobalLogo.vue` as the initial component reference.
-- Includes one basic story and one small docs page.
+- Includes one basic story and one attached MDX docs page.
 - Stubs only the minimum Nuxt runtime needed for this PoC.
+- Reuses shared docs-page composition from `apps/frontend-docs/shared/docs` for source links, examples, and controls layout.
 
 ## Local host
 

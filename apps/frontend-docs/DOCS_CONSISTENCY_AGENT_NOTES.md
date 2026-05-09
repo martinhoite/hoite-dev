@@ -7,7 +7,7 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 - If contract meaning/copy changes: update shared docs metadata in `@hoite-dev/ui`.
 - If framework rendering changes: update React/Vue framework stories.
 - If docs page structure changes: update MDX and keep composition through shared docs helpers.
-- If hub contract display changes: update hub overview stories with shared hub templates.
+- If hub contract display changes: update hub overview stories with `hub/src/stories/contractDocs.tsx` helpers.
 
 ## Required Reuse
 
@@ -16,7 +16,7 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 - `shared/docs/DocsExample.tsx`
 - `shared/storybook/reactStoryLayouts.tsx`
 - `shared/storybook/vueStoryTemplates.ts`
-- `shared/storybook/hubContractTemplates.ts`
+- `hub/src/stories/contractDocs.tsx`
 - `shared/storybook/config.ts`
 
 ## Consistency Rules

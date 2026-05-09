@@ -25,7 +25,7 @@ If you want the short execution checklist for automation or fast implementation 
 - Public docs page composition changed:
   - Update `*.docs.mdx`, but keep rendering through shared docs helpers.
 - Hub contract layout/table/chip presentation changed:
-  - Update hub overview stories using shared hub template helpers.
+  - Update hub overview stories using `hub/src/stories/contractDocs.tsx` helpers.
 
 ## Reuse Before Rebuild
 
@@ -39,8 +39,8 @@ Use these shared utilities first:
 - Story layout wrappers:
   - React: `shared/storybook/reactStoryLayouts.tsx`
   - Vue: `shared/storybook/vueStoryTemplates.ts`
-- Hub contract templates:
-  - `shared/storybook/hubContractTemplates.ts`
+- Hub contract helpers:
+  - `hub/src/stories/contractDocs.tsx`
 - Storybook app config factory:
   - `shared/storybook/config.ts`
 
@@ -59,15 +59,15 @@ If React and Vue differ, document why in the story or docs description.
 
 ## Hub Contract Workflow
 
-For `hub/src/stories/*Overview.stories.ts`, prefer:
+For `hub/src/stories/*Overview.stories.tsx`, prefer:
 
-- `createContractPageTemplate`
-- `createContractSectionTemplate`
-- `createContractTableTemplate`
-- `createCodeChipListTemplate`
-- `createSubsectionTemplate`
+- `ContractPage`
+- `ContractSection`
+- `ContractTable`
+- `CodeChipList`
+- `ContractSubsection`
 
-This keeps contract pages consistent and avoids copy-pasted table markup.
+These helpers live in `hub/src/stories/contractDocs.tsx` and keep contract pages consistent.
 
 ## Storybook Setup Rules
 

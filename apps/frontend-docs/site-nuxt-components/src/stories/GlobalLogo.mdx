@@ -1,15 +1,33 @@
 import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+import { DesignSystemDocsPage } from '@frontend-docs-shared/docs/DesignSystemDocsPage';
 
 import * as Stories from './GlobalLogo.stories';
 
 <Meta title="Site Nuxt/Docs/GlobalLogo" />
 
-# GlobalLogo
-
-This page is an integration PoC for documenting app-specific Nuxt components outside the shared design-system packages.
-
-This setup uses the real `apps/site-nuxt/components/global/GlobalLogo.vue` component with a minimal Storybook runtime shim for the Nuxt-specific pieces it depends on.
-
-<Canvas of={Stories.Basic} />
-
-<Controls of={Stories.Basic} />
+<DesignSystemDocsPage
+  controls={<Controls of={Stories.Basic} />}
+  docs={{
+    title: 'GlobalLogo',
+    description: [
+      'This page is an integration PoC for documenting app-specific Nuxt components outside the shared design-system packages.',
+      'This setup uses the real apps/site-nuxt/components/global/GlobalLogo.vue component with a minimal Storybook runtime shim for the Nuxt-specific pieces it depends on.',
+    ],
+    sections: [],
+  }}
+  examples={<Canvas of={Stories.Basic} />}
+  sourceLinks={[
+    {
+      label: 'Site Nuxt component',
+      path: 'apps/site-nuxt/components/global/GlobalLogo.vue',
+    },
+    {
+      label: 'PoC story',
+      path: 'apps/frontend-docs/site-nuxt-components/src/stories/GlobalLogo.stories.ts',
+    },
+    {
+      label: 'PoC docs page',
+      path: 'apps/frontend-docs/site-nuxt-components/src/stories/GlobalLogo.mdx',
+    },
+  ]}
+/>
