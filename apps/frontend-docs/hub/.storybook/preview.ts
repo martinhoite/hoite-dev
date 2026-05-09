@@ -8,8 +8,8 @@ import '@hoite-dev/ui/typography.css';
 import '../../shared/storybook/hoiteThemePreview.css';
 
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
-import { addons } from 'storybook/preview-api';
 import type { Preview } from '@storybook/vue3-vite';
+import { addons } from 'storybook/preview-api';
 
 const STORYBOOK_GLOBALS_UPDATED_EVENT = 'globalsUpdated';
 

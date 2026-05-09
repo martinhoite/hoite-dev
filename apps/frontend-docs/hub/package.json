@@ -4,13 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "sync:favicon": "node ./scripts/sync-favicon.mjs",
+    "prebuild": "pnpm run sync:favicon",
+    "predev": "pnpm run sync:favicon",
     "build": "storybook build",
     "dev": "storybook dev --host frontend-docs.local.hoite.dev --port 6006 --https --ssl-cert ../../../ssl/local.hoite.dev.pem --ssl-key ../../../ssl/local.hoite.dev-key.pem",
-    "format": "biome check --write .storybook src package.json tsconfig.json README.md",
-    "lint": "biome check .storybook src package.json tsconfig.json README.md",
+    "format": "biome check --write .storybook src scripts package.json tsconfig.json README.md",
+    "lint": "biome check .storybook src scripts package.json tsconfig.json README.md",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@hoite-dev/brand-assets": "workspace:*",
     "@hoite-dev/ui": "workspace:*",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
@@ -25,7 +29,6 @@
     "@types/react": "^19.2.14",
     "@vitejs/plugin-vue": "^6.0.6",
     "storybook": "^10.3.6",
-    "storybook-design-token": "^5.0.0",
     "tailwindcss": "^4.2.4",
     "vite": "^7.3.1"
   }
