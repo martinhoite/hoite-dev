@@ -4,15 +4,18 @@
     "allowImportingTsExtensions": true,
     "jsx": "preserve",
     "paths": {
-      "@frontend-docs-shared/*": ["../shared/*"]
+      "@frontend-docs-shared/*": ["../shared/*"],
+      "react": ["./node_modules/@types/react"],
+      "react/jsx-runtime": ["./node_modules/@types/react/jsx-runtime"]
     },
-    "types": ["node"]
+    "types": ["node", "react"]
   },
   "include": [
     ".storybook/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.ts",
     "src/**/*.mdx",
-    "../shared/**/*.ts"
+    "../shared/**/*.ts",
+    "../shared/**/*.tsx"
   ]
 }

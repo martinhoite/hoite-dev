@@ -26,6 +26,12 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 - Keep Storybook config through `createFrontendDocsStorybookConfig<StorybookConfig>(...)`.
 - Keep `@hoite-dev/ui/*.css` imports local to each Storybook app's `preview.ts`.
 
+## Theming
+
+- Keep Storybook theming on `@storybook/addon-themes` with `withThemeByDataAttribute` in each app `preview.ts`.
+- Keep shared preview surface/theme overrides in `shared/storybook/hoiteThemePreview.css`.
+- Do not add per-app `preview-head.html` or `manager-head.html` theme bootstrapping unless explicitly required.
+
 ## Validation
 
 Run relevant checks for touched apps:

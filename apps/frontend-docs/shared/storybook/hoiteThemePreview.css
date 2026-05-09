@@ -11,6 +11,47 @@ body,
 .sb-show-main,
 #storybook-root,
 #root,
+#storybook-docs,
+.docs-story,
+.sbdocs-wrapper,
+.sbdocs-content,
+.sbdocs,
+.sbdocs-wrapper .sbdocs-content :where(*),
+.sbdocs-wrapper .sbdocs-content table :where(*),
+.sbdocs-wrapper .sbdocs-content .docblock-argstable-body :where(*),
+.sbdocs-wrapper .sbdocs-content .docblock-argstable-head :where(*) {
+  transition:
+    background-color var(--motion-duration-moderate) var(--motion-easing-standard),
+    border-color var(--motion-duration-moderate) var(--motion-easing-standard),
+    color var(--motion-duration-moderate) var(--motion-easing-standard),
+    fill var(--motion-duration-moderate) var(--motion-easing-standard),
+    stroke var(--motion-duration-moderate) var(--motion-easing-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  .sb-show-main,
+  #storybook-root,
+  #root,
+  #storybook-docs,
+  .docs-story,
+  .sbdocs-wrapper,
+  .sbdocs-content,
+  .sbdocs,
+  .sbdocs-wrapper .sbdocs-content :where(*),
+  .sbdocs-wrapper .sbdocs-content table :where(*),
+  .sbdocs-wrapper .sbdocs-content .docblock-argstable-body :where(*),
+  .sbdocs-wrapper .sbdocs-content .docblock-argstable-head :where(*) {
+    transition: none;
+  }
+}
+
+html,
+body,
+.sb-show-main,
+#storybook-root,
+#root,
 #storybook-docs {
   background: var(--color-bg-canvas);
 }

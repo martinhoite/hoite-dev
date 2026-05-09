@@ -75,6 +75,9 @@ This keeps contract pages consistent and avoids copy-pasted table markup.
   - `createFrontendDocsStorybookConfig<StorybookConfig>(...)`
 - Keep `@hoite-dev/ui/*.css` side-effect imports in each app's `preview.ts`.
 - Do not move those CSS imports into shared Storybook helper modules.
+- Keep theming on `@storybook/addon-themes` with `withThemeByDataAttribute` in each app `preview.ts`.
+- Keep shared preview surface overrides in `shared/storybook/hoiteThemePreview.css`.
+- Avoid app-local `preview-head.html` and `manager-head.html` theme bootstrapping unless a specific issue requires it.
 
 ## Controls Rules
 
