@@ -85,9 +85,12 @@ export const Playground: Story = {
   render: (args) => ({
     components: { Typography },
     setup() {
+      const normalizedVariant = computed(() => normalizeVariant(args.variant));
+
       return {
         args,
         normalizedTag: computed(() => normalizeTag(args.tag)),
+        normalizedVariant,
       };
     },
     template: withStoryStack(`
@@ -105,7 +108,7 @@ export const Playground: Story = {
             HTML element.
           </p>
         </div>
-        <Typography :tag="normalizedTag" :variant="args.variant">
+        <Typography :tag="normalizedTag" :variant="normalizedVariant">
           {{ args.children }}
         </Typography>
     `),
@@ -164,4 +167,12 @@ function normalizeTag(tag: TypographyStoryArgs['tag']): TypographyTag | undefine
   }
 
   return tag;
+}
+
+function normalizeVariant(variant: TypographyStoryArgs['variant']): TypographyVariant {
+  if (variantKeys.includes(variant)) {
+    return variant;
+  }
+
+  return defaultTypographyArgs.variant;
 }

@@ -76,6 +76,14 @@ function normalizeTag(tag: TypographyStoryArgs['tag']): TypographyTag | undefine
   return tag;
 }
 
+function normalizeVariant(variant: TypographyStoryArgs['variant']): TypographyVariant {
+  if (variantKeys.includes(variant)) {
+    return variant;
+  }
+
+  return defaultTypographyArgs.variant;
+}
+
 export const Playground: Story = {
   args: defaultTypographyArgs,
   name: 'Playground',
@@ -104,7 +112,7 @@ export const Playground: Story = {
           HTML element.
         </p>
       </StoryInfoPanel>
-      <Typography tag={normalizeTag(args.tag)} variant={args.variant}>
+      <Typography tag={normalizeTag(args.tag)} variant={normalizeVariant(args.variant)}>
         {args.children}
       </Typography>
     </StoryStack>

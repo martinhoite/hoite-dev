@@ -21,6 +21,13 @@ type IconStoryArgs = {
   variant: IconVariant;
 };
 
+const defaultIconArgs: IconStoryArgs = {
+  name: 'chevron',
+  rotation: '0',
+  size: 'md',
+  variant: 'primary',
+};
+
 const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
   name: {
     control: 'select',
@@ -57,12 +64,7 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
 };
 
 const meta: Meta<IconStoryArgs> = {
-  args: {
-    name: 'chevron',
-    rotation: '0',
-    size: 'md',
-    variant: 'primary',
-  },
+  args: defaultIconArgs,
   argTypes: storyArgTypes,
   component: IconPlaygroundPreview,
   parameters: {
@@ -119,6 +121,24 @@ function IconPlaygroundPreview(iconArgs: IconStoryArgs): ReactElement {
   );
 }
 
+function normalizeIconArgs(args: IconStoryArgs): IconStoryArgs {
+  const name = supportedIconNames.includes(args.name) ? args.name : defaultIconArgs.name;
+  const size = supportedIconSizes.includes(args.size) ? args.size : defaultIconArgs.size;
+  const rotation = supportedIconRotations.includes(args.rotation)
+    ? args.rotation
+    : defaultIconArgs.rotation;
+  const variant = supportedIconVariants.includes(args.variant)
+    ? args.variant
+    : defaultIconArgs.variant;
+
+  return {
+    name,
+    rotation,
+    size,
+    variant,
+  };
+}
+
 export const Playground: Story = {
   name: 'Playground',
   parameters: {
@@ -132,7 +152,7 @@ export const Playground: Story = {
       },
     },
   },
-  render: (args) => <IconPlaygroundPreview {...args} />,
+  render: (args) => <IconPlaygroundPreview {...normalizeIconArgs(args)} />,
 };
 
 export const AllIcons: Story = {
