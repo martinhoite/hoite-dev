@@ -113,9 +113,9 @@ export function TokenCategoryTable({
       </thead>
       <tbody>
         {rows.map((row) => {
-          const cssValue = cssValues[row.cssVarName] || row.value;
+          const resolvedCssValue = cssValues[row.cssVarName] || row.value;
           const displayValue = formatDurationDisplayValue(
-            cssValue,
+            resolvedCssValue,
             row.previewKind === 'motion-duration',
           );
 
@@ -130,7 +130,7 @@ export function TokenCategoryTable({
               {showPreview ? (
                 <TableCell label='Preview'>
                   <TokenPreview
-                    cssValue={cssValue}
+                    cssValue={resolvedCssValue}
                     prefersReducedMotion={prefersReducedMotion}
                     row={row}
                   />

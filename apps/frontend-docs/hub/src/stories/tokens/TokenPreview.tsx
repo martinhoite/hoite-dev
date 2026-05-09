@@ -2,7 +2,7 @@
 
 void React;
 
-import { parseDurationMs, parseLengthPx, parseNumber } from './tokenFormat';
+import { parseDurationMs } from './tokenFormat';
 import type { TokenCategoryRow } from './tokenModel';
 
 type TokenPreviewProps = {
@@ -61,18 +61,16 @@ function renderMotionEasingPreview(cssValue: string, prefersReducedMotion: boole
   );
 }
 
-function renderLayoutGridColumnsPreview(cssValue: string) {
-  const columns = Math.max(1, Math.min(parseNumber(cssValue) ?? 4, 12));
-
+function renderLayoutGridColumnsPreview(row: TokenCategoryRow) {
   return (
     <div
       className='grid h-7 w-28 gap-1 rounded-[var(--radius-xs)] border p-1'
       style={{
         borderColor: previewBorderColor,
-        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+        gridTemplateColumns: `repeat(var(${row.cssVarName}), minmax(0, 1fr))`,
       }}
     >
-      {Array.from({ length: columns }, (_, index) => {
+      {Array.from({ length: 12 }, (_, index) => {
         const columnNumber = index + 1;
 
         return (
@@ -93,17 +91,14 @@ function renderLayoutGridColumnsPreview(cssValue: string) {
   );
 }
 
-function renderLayoutGutterPreview(cssValue: string) {
-  const gutterPx = Math.max(parseLengthPx(cssValue) ?? 16, 2);
-  const gutterForPreview = Math.min(gutterPx, 48);
-
+function renderLayoutGutterPreview(row: TokenCategoryRow) {
   return (
     <div
-      className='w-28 rounded-[var(--radius-xs)] border bg-[var(--color-bg-subtle)]'
+      className='w-28 overflow-hidden rounded-[var(--radius-xs)] border bg-[var(--color-bg-subtle)]'
       style={{
         borderColor: previewBorderColor,
-        paddingLeft: `${gutterForPreview}px`,
-        paddingRight: `${gutterForPreview}px`,
+        paddingLeft: `var(${row.cssVarName})`,
+        paddingRight: `var(${row.cssVarName})`,
       }}
     >
       <div
@@ -120,13 +115,10 @@ function renderLayoutGutterPreview(cssValue: string) {
   );
 }
 
-function renderLayoutContainerPreview(cssValue: string) {
-  const width = Math.min(Math.max(parseLengthPx(cssValue) ?? 640, 240), 1280);
-  const widthPct = Math.round((width / 1280) * 100);
-
+function renderLayoutContainerPreview(row: TokenCategoryRow) {
   return (
     <div
-      className='flex h-5 w-28 items-center rounded-[var(--radius-xs)] border bg-[var(--color-bg-subtle)] px-1'
+      className='flex h-5 w-28 items-center overflow-hidden rounded-[var(--radius-xs)] border bg-[var(--color-bg-subtle)] px-1'
       style={{ borderColor: previewBorderColor }}
     >
       <div
@@ -134,19 +126,18 @@ function renderLayoutContainerPreview(cssValue: string) {
         style={{
           backgroundColor: 'var(--color-bg-brand)',
           opacity: 0.75,
-          width: `${Math.max(20, Math.min(widthPct, 100))}%`,
+          width: `var(${row.cssVarName})`,
         }}
       />
     </div>
   );
 }
 
-function renderStrokePreview(row: TokenCategoryRow, cssValue: string) {
+function renderStrokePreview(row: TokenCategoryRow) {
   const focusStrokeTokens = ['focus-ring', 'stroke-highlight'];
   const usesFocusStrokeColor = focusStrokeTokens.some((tokenName) =>
     row.cssVarName.includes(tokenName),
   );
-  const stroke = parseNumber(cssValue) ?? 1;
   const strokeColor = usesFocusStrokeColor
     ? 'var(--color-border-focus)'
     : 'var(--color-border-default)';
@@ -154,40 +145,34 @@ function renderStrokePreview(row: TokenCategoryRow, cssValue: string) {
   return (
     <div
       className='flex h-4 w-14 items-center rounded-[var(--radius-xs)] bg-[var(--color-bg-subtle)] px-1'
-      style={{ border: `${Math.max(1, Math.min(stroke, 12))}px solid ${strokeColor}` }}
+      style={{ border: `var(${row.cssVarName}) solid ${strokeColor}` }}
     />
   );
 }
 
-function renderSpacingPreview(cssValue: string) {
-  const size = parseLengthPx(cssValue) ?? 16;
-  const clampedSize = Math.min(Math.max(size, 1), 56);
-
+function renderSpacingPreview(row: TokenCategoryRow) {
   return (
     <div
       className='rounded-[var(--radius-xs)] border border-[var(--color-border-default)]'
       style={{
         backgroundColor: 'var(--color-bg-brand-subtle)',
         borderColor: previewBorderColor,
-        height: `${clampedSize}px`,
-        width: `${clampedSize}px`,
+        height: `var(${row.cssVarName})`,
+        width: `var(${row.cssVarName})`,
       }}
     />
   );
 }
 
-function renderSizePreview(cssValue: string) {
-  const size = parseLengthPx(cssValue) ?? 16;
-  const clampedSize = Math.min(Math.max(size, 8), 56);
-
+function renderSizePreview(row: TokenCategoryRow) {
   return (
     <div
       className='rounded-[var(--radius-xs)] border border-[var(--color-border-default)]'
       style={{
         backgroundColor: 'var(--color-bg-brand-subtle)',
         borderColor: previewBorderColor,
-        height: `${clampedSize}px`,
-        width: `${clampedSize}px`,
+        height: `var(${row.cssVarName})`,
+        width: `var(${row.cssVarName})`,
       }}
     />
   );
@@ -211,13 +196,13 @@ export function TokenPreview({ cssValue, prefersReducedMotion, row }: TokenPrevi
       return renderMotionEasingPreview(cssValue, prefersReducedMotion);
 
     case 'layout-grid-columns':
-      return renderLayoutGridColumnsPreview(cssValue);
+      return renderLayoutGridColumnsPreview(row);
 
     case 'layout-gutter':
-      return renderLayoutGutterPreview(cssValue);
+      return renderLayoutGutterPreview(row);
 
     case 'layout-container':
-      return renderLayoutContainerPreview(cssValue);
+      return renderLayoutContainerPreview(row);
 
     case 'typography-weight':
       return (
@@ -277,13 +262,13 @@ export function TokenPreview({ cssValue, prefersReducedMotion, row }: TokenPrevi
       );
 
     case 'stroke':
-      return renderStrokePreview(row, cssValue);
+      return renderStrokePreview(row);
 
     case 'spacing':
-      return renderSpacingPreview(cssValue);
+      return renderSpacingPreview(row);
 
     case 'size':
-      return renderSizePreview(cssValue);
+      return renderSizePreview(row);
 
     case 'none':
       return <span>-</span>;

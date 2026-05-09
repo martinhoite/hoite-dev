@@ -78,7 +78,7 @@ export function TokensDocRenderer() {
         Token Reference
       </h2>
       <p className='m-0 mt-2 text-sm text-[var(--color-text-secondary)]'>
-        Generated from @hoite-dev/ui exports. Values are shown as rendered CSS variables.
+        Generated from @hoite-dev/ui exports. Values are shown as resolved CSS variable values.
       </p>
       <nav aria-label='Token section navigation' className='hoite-token-doc__nav'>
         {navItems.map((item) => {

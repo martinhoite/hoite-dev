@@ -153,36 +153,6 @@ export function parseNumber(value: unknown): number | null {
   return Number(match[0]);
 }
 
-export function parseLengthPx(value: unknown): number | null {
-  if (typeof value === 'number') {
-    return value;
-  }
-
-  if (typeof value !== 'string') {
-    return null;
-  }
-
-  const trimmed = value.trim();
-  const unitMatch = /^(-?\d*\.?\d+)\s*(px|rem|%)?$/i.exec(trimmed);
-
-  if (!unitMatch) {
-    return parseNumber(trimmed);
-  }
-
-  const numeric = Number(unitMatch[1]);
-  const unit = (unitMatch[2] ?? '').toLowerCase();
-
-  if (unit === 'rem') {
-    return numeric * 16;
-  }
-
-  if (unit === '%') {
-    return numeric;
-  }
-
-  return numeric;
-}
-
 export function parseDurationMs(value: unknown): number | null {
   if (typeof value === 'number') {
     return value;
