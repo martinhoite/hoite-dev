@@ -1,6 +1,5 @@
-import type { StorybookConfig } from '@storybook/vue3-vite';
+import type { StorybookConfig } from '@storybook/react-vite';
 import tailwindcss from '@tailwindcss/vite';
-import vue from '@vitejs/plugin-vue';
 
 import {
   createFrontendDocsStorybookConfig,
@@ -12,7 +11,7 @@ const STORYBOOK_LOCAL_HOST = 'frontend-docs.local.hoite.dev';
 
 const config = createFrontendDocsStorybookConfig<StorybookConfig>({
   addons: [...frontendDocsDefaultAddons, '@storybook/addon-themes'],
-  frameworkName: '@storybook/vue3-vite',
+  frameworkName: '@storybook/react-vite',
   host: STORYBOOK_LOCAL_HOST,
   mainFileUrl: import.meta.url,
   refs: () => {
@@ -48,7 +47,7 @@ const config = createFrontendDocsStorybookConfig<StorybookConfig>({
     };
   },
   stories: frontendDocsStoryGlobs,
-  vitePlugins: [tailwindcss(), vue()],
+  vitePlugins: [tailwindcss()],
 });
 
 config.managerHead = (head) => {
