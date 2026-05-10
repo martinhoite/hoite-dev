@@ -7,7 +7,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "build": "tsup src/index.ts --format esm,cjs --clean && tsc -p tsconfig.build.json",
     "format": "biome check --write .",
     "lint": "biome check .",
     "typecheck": "tsc --noEmit -p tsconfig.json"
