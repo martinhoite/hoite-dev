@@ -11,6 +11,14 @@ import { generateOpenApiTypes } from './generate-openapi-types.mjs';
 const runBiomeFormat = async (cwd) => {
   const biomeBinaryName = process.platform === 'win32' ? 'biome.cmd' : 'biome';
   const localBiomeBinaryPath = path.join(cwd, '..', '..', 'node_modules', '.bin', biomeBinaryName);
+  const formatArgs = [
+    'format',
+    '--write',
+    'openapi/umbraco-delivery.openapi.json',
+    'src/generated/umbraco-openapi.generated.ts',
+    'src/generated/all-doc-types.generated.ts',
+    'src/generated/public-doc-types.generated.ts',
+  ];
 
   try {
     await access(localBiomeBinaryPath);
@@ -19,21 +27,16 @@ const runBiomeFormat = async (cwd) => {
   }
 
   await new Promise((resolve, reject) => {
-    const child = spawn(
-      localBiomeBinaryPath,
-      [
-        'format',
-        '--write',
-        'openapi/umbraco-delivery.openapi.json',
-        'src/generated/umbraco-openapi.generated.ts',
-        'src/generated/all-doc-types.generated.ts',
-        'src/generated/public-doc-types.generated.ts',
-      ],
-      {
-        cwd,
-        stdio: 'inherit',
-      },
-    );
+    const child =
+      process.platform === 'win32'
+        ? spawn('cmd.exe', ['/d', '/s', '/c', localBiomeBinaryPath, ...formatArgs], {
+            cwd,
+            stdio: 'inherit',
+          })
+        : spawn(localBiomeBinaryPath, formatArgs, {
+            cwd,
+            stdio: 'inherit',
+          });
 
     child.on('error', reject);
     child.on('exit', (code) => {

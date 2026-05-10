@@ -13,7 +13,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "build": "tsc -p tsconfig.build.json",
     "format": "biome check --write .",
     "format:generated": "biome format --write openapi/umbraco-delivery.openapi.json src/generated/umbraco-openapi.generated.ts src/generated/all-doc-types.generated.ts src/generated/public-doc-types.generated.ts",
     "generate": "node ./scripts/generate.mjs",
