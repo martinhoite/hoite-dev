@@ -1,6 +1,7 @@
 AGENTS.md
 node_modules
 .turbo
+.chrome-debug/
 .DS_Store
 *.log
 .env
