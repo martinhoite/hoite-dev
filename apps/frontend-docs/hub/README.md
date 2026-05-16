@@ -44,11 +44,10 @@ The hub can compose the following Storybooks through explicit refs:
 
 - `STORYBOOK_REACT_REF_URL`
 - `STORYBOOK_VUE_REF_URL`
-- `STORYBOOK_SITE_NUXT_COMPONENTS_REF_URL`
 
 If a ref URL is not set, that ref stays disabled instead of breaking the hub.
 
-In normal local development, the referenced Storybooks run side by side instead of being composed automatically. The preferred deployed model remains one unified public frontend docs experience, with the hub at `/` and same-domain refs such as `/refs/react/`, `/refs/vue/`, and `/refs/site-nuxt-components/`.
+In normal local development, the referenced Storybooks run side by side instead of being composed automatically. The preferred deployed model remains one unified public frontend docs experience, with the hub at `/` and same-domain refs such as `/refs/react/` and `/refs/vue/`.
 
 ## Production container
 
@@ -59,7 +58,6 @@ Its container builds and serves:
 - the hub at `/`
 - the React docs at `/refs/react/`
 - the Vue docs at `/refs/vue/`
-- the site-nuxt components PoC at `/refs/site-nuxt-components/`
 
 From the repo root, you can build and run the unified container locally with:
 

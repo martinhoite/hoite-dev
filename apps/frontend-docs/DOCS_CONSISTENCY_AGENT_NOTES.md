@@ -18,19 +18,22 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 - `shared/storybook/vueStoryTemplates.ts`
 - `hub/src/stories/contractDocs.tsx`
 - `shared/storybook/config.ts`
+- `shared/storybook/compositionThemeConfig.ts`
 
 ## Consistency Rules
 
 - Keep React and Vue docs aligned on section order, control intent, and example intent.
 - Keep framework-specific source links present for each framework docs page.
 - Keep Storybook config through `createFrontendDocsStorybookConfig<StorybookConfig>(...)`.
+- Register theme addon through `createFrontendDocsAddons(compositionThemeConfig)`.
 - Keep `@hoite-dev/ui/*.css` imports local to each Storybook app's `preview.ts`.
 
 ## Theming
 
-- Keep Storybook theming on `@storybook/addon-themes` with `withThemeByDataAttribute` in each app `preview.ts`.
+- Keep Storybook theming on `@hoite-dev/storybook-addon-composition-theme`.
+- Keep storage + root attribute application as theme source of truth.
 - Keep shared preview surface/theme overrides in `shared/storybook/hoiteThemePreview.css`.
-- Do not add per-app `preview-head.html` or `manager-head.html` theme bootstrapping unless explicitly required.
+- Do not add per-app Storybook globals/decorators for design-system theme state.
 
 ## Validation
 

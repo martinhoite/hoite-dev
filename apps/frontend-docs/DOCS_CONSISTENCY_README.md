@@ -43,6 +43,7 @@ Use these shared utilities first:
   - `hub/src/stories/contractDocs.tsx`
 - Storybook app config factory:
   - `shared/storybook/config.ts`
+  - `createFrontendDocsAddons(...)` from `shared/storybook/config.ts`
 
 ## React + Vue Docs Workflow
 
@@ -73,11 +74,13 @@ These helpers live in `hub/src/stories/contractDocs.tsx` and keep contract pages
 
 - In app `.storybook/main.ts`, use:
   - `createFrontendDocsStorybookConfig<StorybookConfig>(...)`
+  - `createFrontendDocsAddons(compositionThemeConfig)` for addon registration
 - Keep `@hoite-dev/ui/*.css` side-effect imports in each app's `preview.ts`.
 - Do not move those CSS imports into shared Storybook helper modules.
-- Keep theming on `@storybook/addon-themes` with `withThemeByDataAttribute` in each app `preview.ts`.
+- Keep docs theming on `@hoite-dev/storybook-addon-composition-theme` with shared `compositionThemeConfig`.
+- Do not add local Storybook globals/decorators for design-system theme state.
 - Keep shared preview surface overrides in `shared/storybook/hoiteThemePreview.css`.
-- Avoid app-local `preview-head.html` and `manager-head.html` theme bootstrapping unless a specific issue requires it.
+- Let addon preset bootstrap own manager/preview theme bootstrap behavior.
 
 ## Controls Rules
 
