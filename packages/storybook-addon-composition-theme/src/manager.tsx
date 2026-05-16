@@ -1,0 +1,272 @@
+import type { SVGProps } from 'react';
+import * as React from 'react';
+
+import { Button, Select } from 'storybook/internal/components';
+import { addons, types } from 'storybook/manager-api';
+
+import type { CompositionThemeOption, ResolvedCompositionThemeConfig } from './config.js';
+import {
+  applyThemeToActivePreviewIframe,
+  applyThemeToManagerDocument,
+  COMPOSITION_THEME_CHANNEL_EVENT,
+  getConfiguredThemeOptions,
+  getWindowCompositionThemeConfig,
+  isValidThemeId,
+  resolveThemeConfigFromUnknown,
+  resolveThemeFromEnvironment,
+  writeStoredThemeId,
+} from './runtime.js';
+
+const COMPOSITION_THEME_ADDON_ID = '@hoite-dev/storybook-addon-composition-theme';
+const COMPOSITION_THEME_TOOL_ID = `${COMPOSITION_THEME_ADDON_ID}/tool`;
+const MANAGER_REGISTRATION_WINDOW_FLAG = '__compositionThemeManagerRegistered__';
+
+type ThemeIconProps = SVGProps<SVGSVGElement>;
+
+function SunThemeIcon(props: ThemeIconProps) {
+  return (
+    <svg aria-hidden='true' height='14' viewBox='0 0 24 24' width='14' {...props}>
+      <circle cx='12' cy='12' r='4' />
+      <path d='M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12' />
+    </svg>
+  );
+}
+
+function MoonThemeIcon(props: ThemeIconProps) {
+  return (
+    <svg aria-hidden='true' height='14' viewBox='0 0 24 24' width='14' {...props}>
+      <path d='M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z' />
+    </svg>
+  );
+}
+
+function findThemeOption(
+  options: CompositionThemeOption[],
+  themeId: string | null,
+): CompositionThemeOption | undefined {
+  if (themeId === null) {
+    return undefined;
+  }
+
+  return options.find((option) => option.id === themeId);
+}
+
+function emitThemeSelection(themeId: string) {
+  addons.getChannel().emit(COMPOSITION_THEME_CHANNEL_EVENT, {
+    themeId,
+  });
+}
+
+function resolveInitialTheme(config: ResolvedCompositionThemeConfig): string | null {
+  const resolvedTheme = resolveThemeFromEnvironment(config);
+
+  if (isValidThemeId(config, resolvedTheme)) {
+    return resolvedTheme;
+  }
+
+  return null;
+}
+
+type CompositionThemeToolProps = {
+  config: ResolvedCompositionThemeConfig;
+};
+
+function CompositionThemeTool({ config }: CompositionThemeToolProps) {
+  const themeOptions = React.useMemo(() => {
+    return getConfiguredThemeOptions(config);
+  }, [config]);
+  const [themeId, setThemeId] = React.useState<string | null>(() => {
+    return resolveInitialTheme(config);
+  });
+  const selectedThemeOption = findThemeOption(themeOptions, themeId);
+
+  React.useEffect(() => {
+    applyThemeToManagerDocument(config, themeId);
+    applyThemeToActivePreviewIframe(config, themeId);
+  }, [config, themeId]);
+
+  React.useEffect(() => {
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key !== config.storageKey) {
+        return;
+      }
+
+      const resolvedTheme = resolveInitialTheme(config);
+      setThemeId(resolvedTheme);
+      applyThemeToManagerDocument(config, resolvedTheme);
+      applyThemeToActivePreviewIframe(config, resolvedTheme);
+    };
+
+    window.addEventListener('storage', handleStorage);
+
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, [config]);
+
+  const setExplicitTheme = (nextThemeId: string) => {
+    if (!isValidThemeId(config, nextThemeId)) {
+      return;
+    }
+
+    writeStoredThemeId(config.storageKey, nextThemeId);
+    applyThemeToManagerDocument(config, nextThemeId);
+    applyThemeToActivePreviewIframe(config, nextThemeId);
+    emitThemeSelection(nextThemeId);
+    setThemeId(nextThemeId);
+  };
+
+  if (config.kind === 'light-dark' && config.toolbar.control === 'toggle') {
+    const currentThemeId = isValidThemeId(config, themeId) ? themeId : null;
+    const currentLabel = selectedThemeOption?.label ?? config.darkTheme.label;
+    let nextThemeId = config.darkTheme.id;
+
+    if (currentThemeId === config.darkTheme.id) {
+      nextThemeId = config.lightTheme.id;
+    }
+
+    const icon = currentThemeId === config.lightTheme.id ? <SunThemeIcon /> : <MoonThemeIcon />;
+
+    return (
+      <Button
+        ariaLabel={`${config.toolbar.label}: ${currentLabel}`}
+        key={COMPOSITION_THEME_TOOL_ID}
+        onClick={() => {
+          setExplicitTheme(nextThemeId);
+        }}
+        tooltip={`${config.toolbar.label}: ${currentLabel}`}
+        variant='ghost'
+      >
+        {icon}
+        {`${config.toolbar.label}: ${currentLabel}`}
+      </Button>
+    );
+  }
+
+  if (config.kind === 'custom' && config.toolbar.control === 'dropdown') {
+    const resolvedThemeId = selectedThemeOption?.id ?? themeOptions[0]?.id;
+    const currentLabel = selectedThemeOption?.label ?? config.toolbar.label;
+
+    return (
+      <Select
+        ariaLabel={`${config.toolbar.label}: ${currentLabel}`}
+        defaultOptions={resolvedThemeId}
+        key={COMPOSITION_THEME_TOOL_ID}
+        onSelect={(value) => {
+          if (typeof value === 'string') {
+            setExplicitTheme(value);
+          }
+        }}
+        options={themeOptions.map((option) => {
+          return {
+            title: option.label,
+            value: option.id,
+          };
+        })}
+      >
+        {config.toolbar.label}
+      </Select>
+    );
+  }
+
+  if (config.kind === 'light-dark') {
+    const lightThemeSelected = themeId === config.lightTheme.id;
+    const darkThemeSelected = themeId === config.darkTheme.id;
+
+    return (
+      <div style={{ alignItems: 'center', display: 'flex', gap: 4 }}>
+        <Button
+          aria-pressed={lightThemeSelected}
+          ariaLabel={config.lightTheme.title ?? config.lightTheme.label}
+          key={`${COMPOSITION_THEME_TOOL_ID}/light`}
+          onClick={() => {
+            setExplicitTheme(config.lightTheme.id);
+          }}
+          tooltip={config.lightTheme.title ?? config.lightTheme.label}
+          variant='ghost'
+        >
+          <SunThemeIcon />
+          {config.lightTheme.label}
+        </Button>
+        <Button
+          aria-pressed={darkThemeSelected}
+          ariaLabel={config.darkTheme.title ?? config.darkTheme.label}
+          key={`${COMPOSITION_THEME_TOOL_ID}/dark`}
+          onClick={() => {
+            setExplicitTheme(config.darkTheme.id);
+          }}
+          tooltip={config.darkTheme.title ?? config.darkTheme.label}
+          variant='ghost'
+        >
+          <MoonThemeIcon />
+          {config.darkTheme.label}
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ alignItems: 'center', display: 'flex', gap: 4 }}>
+      {themeOptions.map((option) => {
+        const selected = themeId === option.id;
+
+        return (
+          <Button
+            aria-pressed={selected}
+            ariaLabel={option.title ?? option.label}
+            key={`${COMPOSITION_THEME_TOOL_ID}/${option.id}`}
+            onClick={() => {
+              setExplicitTheme(option.id);
+            }}
+            tooltip={option.title ?? option.label}
+            variant='ghost'
+          >
+            {option.label}
+          </Button>
+        );
+      })}
+    </div>
+  );
+}
+
+function registerManagerTool(config: ResolvedCompositionThemeConfig) {
+  addons.register(COMPOSITION_THEME_ADDON_ID, () => {
+    addons.add(COMPOSITION_THEME_TOOL_ID, {
+      match: ({ tabId, viewMode }) => {
+        if (tabId) {
+          return false;
+        }
+
+        return viewMode === 'story' || viewMode === 'docs';
+      },
+      render: () => <CompositionThemeTool config={config} />,
+      title: config.toolbar.label,
+      type: types.TOOL,
+    });
+  });
+}
+
+export function registerCompositionThemeTool(config: unknown) {
+  const windowRecord = window as Window & {
+    [MANAGER_REGISTRATION_WINDOW_FLAG]?: boolean;
+  };
+
+  if (windowRecord[MANAGER_REGISTRATION_WINDOW_FLAG]) {
+    return;
+  }
+
+  const resolvedConfig = resolveThemeConfigFromUnknown(config);
+
+  if (resolvedConfig === null) {
+    return;
+  }
+
+  registerManagerTool(resolvedConfig);
+  windowRecord[MANAGER_REGISTRATION_WINDOW_FLAG] = true;
+}
+
+const windowConfig = getWindowCompositionThemeConfig();
+
+if (windowConfig !== null) {
+  registerCompositionThemeTool(windowConfig);
+}
