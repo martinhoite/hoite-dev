@@ -45,7 +45,7 @@ const preview: Preview = {
       components: {
         Story: story(),
       },
-      template: '<div class="site-nuxt-storybook-shell theme theme--dark"><Story /></div>',
+      template: '<div class="site-nuxt-storybook-shell"><Story /></div>',
     }),
   ],
 };

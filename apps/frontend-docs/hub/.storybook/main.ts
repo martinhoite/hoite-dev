@@ -1,49 +1,45 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import tailwindcss from '@tailwindcss/vite';
 
+import { compositionThemeConfig } from '../../shared/storybook/compositionThemeConfig.ts';
 import {
+  createFrontendDocsAddons,
   createFrontendDocsStorybookConfig,
-  frontendDocsDefaultAddons,
   frontendDocsStoryGlobs,
 } from '../../shared/storybook/config.ts';
 
 const STORYBOOK_LOCAL_HOST = 'frontend-docs.local.hoite.dev';
 
+function createRef(title: string, url: string | undefined) {
+  if (!url) {
+    return {
+      disable: true as const,
+    };
+  }
+
+  return {
+    title,
+    url,
+  };
+}
+
 const config = createFrontendDocsStorybookConfig<StorybookConfig>({
-  addons: [...frontendDocsDefaultAddons, '@storybook/addon-themes'],
+  addons: createFrontendDocsAddons(compositionThemeConfig),
   frameworkName: '@storybook/react-vite',
   host: STORYBOOK_LOCAL_HOST,
   mainFileUrl: import.meta.url,
   refs: () => {
     const reactStorybookUrl = process.env.STORYBOOK_REACT_REF_URL;
     const vueStorybookUrl = process.env.STORYBOOK_VUE_REF_URL;
-    const siteNuxtComponentsStorybookUrl = process.env.STORYBOOK_SITE_NUXT_COMPONENTS_REF_URL;
 
     return {
-      react: reactStorybookUrl
-        ? {
-            title: 'React',
-            url: reactStorybookUrl,
-          }
-        : {
-            disable: true,
-          },
-      vue: vueStorybookUrl
-        ? {
-            title: 'Vue',
-            url: vueStorybookUrl,
-          }
-        : {
-            disable: true,
-          },
-      sitenuxtcomponents: siteNuxtComponentsStorybookUrl
-        ? {
-            title: 'Site Nuxt Components',
-            url: siteNuxtComponentsStorybookUrl,
-          }
-        : {
-            disable: true,
-          },
+      react: createRef('React', reactStorybookUrl),
+      vue: createRef('Vue', vueStorybookUrl),
+      // Restore when site-nuxt docs return to active maintenance:
+      // sitenuxtcomponents: createRef(
+      //   'Site Nuxt Components',
+      //   process.env.STORYBOOK_SITE_NUXT_COMPONENTS_REF_URL,
+      // ),
     };
   },
   stories: frontendDocsStoryGlobs,

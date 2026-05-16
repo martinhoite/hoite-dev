@@ -67,6 +67,18 @@ function asArray(value: unknown): unknown[] {
   return [];
 }
 
+export function createFrontendDocsAddons(
+  compositionThemeOptions: unknown,
+): readonly FrontendDocsAddon[] {
+  return [
+    ...frontendDocsDefaultAddons,
+    {
+      name: '@hoite-dev/storybook-addon-composition-theme',
+      options: compositionThemeOptions,
+    },
+  ];
+}
+
 function asRecord(value: unknown): Record<string, unknown> {
   if (value && typeof value === 'object' && !Array.isArray(value)) {
     return value as Record<string, unknown>;

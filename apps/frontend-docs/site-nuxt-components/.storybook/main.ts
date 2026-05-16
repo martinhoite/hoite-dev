@@ -6,9 +6,10 @@ import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import postcssNested from 'postcss-nested';
 
+import { compositionThemeConfig } from '../../shared/storybook/compositionThemeConfig.ts';
 import {
+  createFrontendDocsAddons,
   createFrontendDocsStorybookConfig,
-  frontendDocsDefaultAddons,
   frontendDocsStoryGlobs,
 } from '../../shared/storybook/config.ts';
 import { siteNuxtAutoImportsPlugin } from './siteNuxtAutoImportsPlugin.ts';
@@ -18,7 +19,7 @@ const CURRENT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const SITE_NUXT_ROOT = path.resolve(CURRENT_DIR, '../../../site-nuxt');
 
 const config = createFrontendDocsStorybookConfig<StorybookConfig>({
-  addons: frontendDocsDefaultAddons,
+  addons: createFrontendDocsAddons(compositionThemeConfig),
   frameworkName: '@storybook/vue3-vite',
   host: STORYBOOK_LOCAL_HOST,
   mainFileUrl: import.meta.url,
