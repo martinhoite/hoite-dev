@@ -188,10 +188,8 @@ export const Playground: Story = {
   render: (args) => ({
     components: { IconPlaygroundPreview },
     setup() {
-      const normalizedArgs = normalizeIconArgs(args);
-
       return {
-        args: normalizedArgs,
+        args: computed(() => normalizeIconArgs(args)),
       };
     },
     template: `<IconPlaygroundPreview v-bind="args" />`,
