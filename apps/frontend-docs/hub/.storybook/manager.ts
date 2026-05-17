@@ -4,6 +4,7 @@ import '@hoite-dev/ui/tokens.css';
 import '../../shared/storybook/hoiteThemeManager.css';
 import {
   createHoiteStorybookThemeOptions,
+  frontendDocsManagerConfig,
   type HoiteStorybookThemeName,
 } from '@hoite-dev/frontend-docs-shared/storybook';
 
@@ -33,6 +34,7 @@ function isContractDocsStory(state: State) {
 
 function applyCurrentStorybookTheme(): void {
   addons.setConfig({
+    ...frontendDocsManagerConfig,
     layoutCustomisations: {
       showPanel(state, defaultValue) {
         if (isContractDocsStory(state)) {

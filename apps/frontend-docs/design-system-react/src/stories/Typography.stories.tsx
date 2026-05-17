@@ -1,4 +1,8 @@
-import { StoryInfoPanel, StoryStack } from '@hoite-dev/frontend-docs-shared/storybook';
+import {
+  createFrontendDocsPlaygroundParameters,
+  StoryInfoPanel,
+  StoryStack,
+} from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   resolveTypographyDefaultTag,
   supportedTypographyTags,
@@ -87,7 +91,7 @@ function normalizeVariant(variant: TypographyStoryArgs['variant']): TypographyVa
 export const Playground: Story = {
   args: defaultTypographyArgs,
   name: 'Playground',
-  parameters: {
+  parameters: createFrontendDocsPlaygroundParameters({
     controls: {
       include: ['children', 'variant', 'tag'],
       sort: 'none',
@@ -97,7 +101,7 @@ export const Playground: Story = {
         story: typographyDocs.storyDescriptions.playground,
       },
     },
-  },
+  }),
   render: (args) => (
     <StoryStack>
       <StoryInfoPanel>

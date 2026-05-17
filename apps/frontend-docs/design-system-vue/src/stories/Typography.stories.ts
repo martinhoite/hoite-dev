@@ -1,4 +1,7 @@
-import { withStoryStack } from '@hoite-dev/frontend-docs-shared/storybook';
+import {
+  createFrontendDocsPlaygroundParameters,
+  withStoryStack,
+} from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   supportedTypographyTags,
   type TypographyTag,
@@ -71,7 +74,7 @@ type Story = StoryObj<TypographyStoryArgs>;
 export const Playground: Story = {
   args: defaultTypographyArgs,
   name: 'Playground',
-  parameters: {
+  parameters: createFrontendDocsPlaygroundParameters({
     controls: {
       include: ['children', 'variant', 'tag'],
       sort: 'none',
@@ -81,7 +84,7 @@ export const Playground: Story = {
         story: typographyDocs.storyDescriptions.playground,
       },
     },
-  },
+  }),
   render: (args) => ({
     components: { Typography },
     setup() {

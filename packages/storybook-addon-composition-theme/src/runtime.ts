@@ -7,6 +7,7 @@ import { defineCompositionThemeConfig } from './config.js';
 
 export const COMPOSITION_THEME_CONFIG_WINDOW_KEY = '__COMPOSITION_THEME_CONFIG__';
 export const COMPOSITION_THEME_CHANNEL_EVENT = 'composition-theme/theme-selected';
+export const STORYBOOK_PREVIEW_WRAPPER_ID = 'storybook-preview-wrapper';
 export const STORYBOOK_PREVIEW_IFRAME_ID = 'storybook-preview-iframe';
 export const STORYBOOK_REF_IFRAME_ID_PREFIX = 'storybook-ref-';
 
@@ -188,22 +189,17 @@ export function isStorybookPreviewIframe(
 }
 
 export function getStorybookPreviewIframes(targetDocument?: Document): HTMLIFrameElement[] {
-  if (targetDocument !== undefined) {
-    return Array.from(
-      targetDocument.querySelectorAll<HTMLIFrameElement>(
-        `#${STORYBOOK_PREVIEW_IFRAME_ID}, iframe[id^="${STORYBOOK_REF_IFRAME_ID_PREFIX}"]`,
-      ),
-    );
-  }
-
-  const doc = safeDocument();
+  const doc = targetDocument ?? safeDocument();
 
   if (doc === null) {
     return [];
   }
 
+  const previewWrapper = doc.getElementById(STORYBOOK_PREVIEW_WRAPPER_ID);
+  const searchRoot = previewWrapper ?? doc;
+
   return Array.from(
-    doc.querySelectorAll<HTMLIFrameElement>(
+    searchRoot.querySelectorAll<HTMLIFrameElement>(
       `#${STORYBOOK_PREVIEW_IFRAME_ID}, iframe[id^="${STORYBOOK_REF_IFRAME_ID_PREFIX}"]`,
     ),
   );

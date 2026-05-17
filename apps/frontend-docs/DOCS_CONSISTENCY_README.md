@@ -39,6 +39,10 @@ Use these shared utilities first:
 - Story layout wrappers:
   - React: `StoryInfoPanel` and `StoryStack` from `@hoite-dev/frontend-docs-shared/storybook`
   - Vue: `withStoryStack` from `@hoite-dev/frontend-docs-shared/storybook`
+- Playground addon-panel parameters:
+  - `createFrontendDocsPlaygroundParameters(...)` from `@hoite-dev/frontend-docs-shared/storybook`
+- Manager toolbar configuration:
+  - `frontendDocsManagerConfig` from `@hoite-dev/frontend-docs-shared/storybook`
 - Hub contract helpers:
   - `hub/src/stories/contractDocs.tsx`
 - Storybook app config factory:
@@ -75,6 +79,7 @@ These helpers live in `hub/src/stories/contractDocs.tsx` and keep contract pages
 - In app `.storybook/main.ts`, use:
   - `createFrontendDocsStorybookConfig<StorybookConfig>(...)`
   - `createFrontendDocsAddons(compositionThemeConfig)` for addon registration
+- In app `.storybook/manager.ts`, use the shared manager toolbar config from `@hoite-dev/frontend-docs-shared/storybook`.
 - Keep `@hoite-dev/ui/*.css` side-effect imports in each app's `preview.ts`.
 - Do not move those CSS imports into shared Storybook helper modules.
 - Keep docs theming on `@hoite-dev/storybook-addon-composition-theme` with shared `compositionThemeConfig`.
@@ -85,6 +90,9 @@ These helpers live in `hub/src/stories/contractDocs.tsx` and keep contract pages
 ## Controls Rules
 
 - Use `parameters.controls.sort = 'none'` when control order is intentional.
+- Use `createFrontendDocsPlaygroundParameters(...)` for playground stories. The shared default shows Controls and Accessibility, and hides Actions, Interactions, and the Docs Code panel.
+- A story can deliberately override playground addon visibility through the helper's `addons` option, for example `addons: { actions: true, code: true }`.
+- The shared manager config hides toolbar tools that are not verified for the current stories: Reload story, Measure, Outline, and Vision filter.
 - Use `tags: ['!dev']` for showcase-only stories when needed.
 - Keep live controls focused on meaningful component behavior.
 - Keep hub contract stories docs-only and disable controls when the page exists to document a fixed shared contract rather than an interactive implementation.

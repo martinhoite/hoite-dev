@@ -15,6 +15,7 @@ import {
   isValidThemeId,
   resolveThemeConfigFromUnknown,
   resolveThemeFromEnvironment,
+  STORYBOOK_PREVIEW_WRAPPER_ID,
   writeStoredThemeId,
 } from './runtime.js';
 
@@ -156,8 +157,10 @@ function CompositionThemeTool({ config }: CompositionThemeToolProps) {
       scheduleThemeApplication();
     });
 
-    if (document.body) {
-      observer.observe(document.body, {
+    const previewWrapper = document.getElementById(STORYBOOK_PREVIEW_WRAPPER_ID);
+
+    if (previewWrapper) {
+      observer.observe(previewWrapper, {
         attributeFilter: ['data-is-loaded', 'data-is-storybook', 'src'],
         attributes: true,
         childList: true,

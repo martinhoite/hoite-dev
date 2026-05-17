@@ -1,4 +1,8 @@
-import { StoryInfoPanel, StoryStack } from '@hoite-dev/frontend-docs-shared/storybook';
+import {
+  createFrontendDocsPlaygroundParameters,
+  StoryInfoPanel,
+  StoryStack,
+} from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   type LoadingColor,
   type LoadingSize,
@@ -159,7 +163,7 @@ function getSurfaceClass(color: LoadingColor): string {
 
 export const LoaderPlayground: Story = {
   name: 'Loader Playground',
-  parameters: {
+  parameters: createFrontendDocsPlaygroundParameters({
     controls: {
       include: ['size', 'color', 'ariaLabel'],
       sort: 'none',
@@ -169,7 +173,7 @@ export const LoaderPlayground: Story = {
         story: loadingDocs.storyDescriptions.playground,
       },
     },
-  },
+  }),
   render: (args) => {
     const ariaLabel = hasText(args.ariaLabel) ? args.ariaLabel : undefined;
 
@@ -188,12 +192,12 @@ export const LoaderPlayground: Story = {
 
 export const ProgressPlayground: Story = {
   name: 'Progress Playground',
-  parameters: {
+  parameters: createFrontendDocsPlaygroundParameters({
     controls: {
       include: ['size', 'color', 'label', 'ariaLabel', 'value', 'max', 'indeterminate'],
       sort: 'none',
     },
-  },
+  }),
   render: (args) => {
     const ariaLabel = hasText(args.ariaLabel) ? args.ariaLabel : undefined;
     const label = hasText(args.label) ? args.label : undefined;
@@ -222,7 +226,7 @@ export const ProgressPlayground: Story = {
 
 export const CircularProgressPlayground: Story = {
   name: 'CircularProgress Playground',
-  parameters: {
+  parameters: createFrontendDocsPlaygroundParameters({
     controls: {
       include: [
         'size',
@@ -239,7 +243,7 @@ export const CircularProgressPlayground: Story = {
       ],
       sort: 'none',
     },
-  },
+  }),
   render: (args) => {
     const ariaLabel = hasText(args.ariaLabel) ? args.ariaLabel : undefined;
     const label = hasText(args.label) ? args.label : undefined;

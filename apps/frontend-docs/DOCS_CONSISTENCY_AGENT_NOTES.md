@@ -14,6 +14,8 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 - `FrameworkComponentDocsPage` from `@hoite-dev/frontend-docs-shared/docs`
 - `DesignSystemDocsPage` from `@hoite-dev/frontend-docs-shared/docs`
 - `StoryInfoPanel`, `StoryStack`, and `withStoryStack` from `@hoite-dev/frontend-docs-shared/storybook`
+- `createFrontendDocsPlaygroundParameters(...)` from `@hoite-dev/frontend-docs-shared/storybook`
+- `frontendDocsManagerConfig` from `@hoite-dev/frontend-docs-shared/storybook`
 - `hub/src/stories/contractDocs.tsx`
 - `createFrontendDocsStorybookConfig(...)` from `@hoite-dev/frontend-docs-shared/storybook`
 - `createFrontendDocsAddons(compositionThemeConfig)` from `@hoite-dev/frontend-docs-shared/storybook`
@@ -24,6 +26,8 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 - Keep framework-specific source links present for each framework docs page.
 - Keep Storybook config through `createFrontendDocsStorybookConfig<StorybookConfig>(...)`.
 - Register theme addon through `createFrontendDocsAddons(compositionThemeConfig)`.
+- Use `createFrontendDocsPlaygroundParameters(...)` for playground stories so addon-panel visibility stays consistent; override its `addons` option per story when a playground deliberately needs something beyond the default Controls and Accessibility panels.
+- Keep manager toolbar visibility through `frontendDocsManagerConfig`; do not re-enable Reload story, Measure, Outline, or Vision filter unless the current stories verify those tools.
 - Keep `@hoite-dev/ui/*.css` imports local to each Storybook app's `preview.ts`.
 - Keep hub contract stories docs-only and disable controls when they document fixed shared contracts.
 

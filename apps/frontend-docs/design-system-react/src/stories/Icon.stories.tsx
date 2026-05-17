@@ -1,4 +1,8 @@
-import { StoryInfoPanel, StoryStack } from '@hoite-dev/frontend-docs-shared/storybook';
+import {
+  createFrontendDocsPlaygroundParameters,
+  StoryInfoPanel,
+  StoryStack,
+} from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   type IconName,
   type IconRotation,
@@ -141,7 +145,7 @@ function normalizeIconArgs(args: IconStoryArgs): IconStoryArgs {
 
 export const Playground: Story = {
   name: 'Playground',
-  parameters: {
+  parameters: createFrontendDocsPlaygroundParameters({
     controls: {
       include: ['name', 'size', 'rotation', 'variant'],
       sort: 'none',
@@ -151,7 +155,7 @@ export const Playground: Story = {
         story: iconDocs.storyDescriptions.playground,
       },
     },
-  },
+  }),
   render: (args) => <IconPlaygroundPreview {...normalizeIconArgs(args)} />,
 };
 
