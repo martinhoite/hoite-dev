@@ -32,18 +32,18 @@ If you want the short execution checklist for automation or fast implementation 
 Use these shared utilities first:
 
 - Public React/Vue docs page composition:
-  - `shared/docs/FrameworkComponentDocsPage.tsx`
+  - `FrameworkComponentDocsPage` from `@hoite-dev/frontend-docs-shared/docs`
 - Shared docs building blocks:
-  - `shared/docs/DesignSystemDocsPage.tsx`
-  - `shared/docs/DocsExample.tsx`
+  - `DesignSystemDocsPage` from `@hoite-dev/frontend-docs-shared/docs`
+  - internal helpers in `apps/frontend-docs/shared/docs`
 - Story layout wrappers:
-  - React: `shared/storybook/reactStoryLayouts.tsx`
-  - Vue: `shared/storybook/vueStoryTemplates.ts`
+  - React: `StoryInfoPanel` and `StoryStack` from `@hoite-dev/frontend-docs-shared/storybook`
+  - Vue: `withStoryStack` from `@hoite-dev/frontend-docs-shared/storybook`
 - Hub contract helpers:
   - `hub/src/stories/contractDocs.tsx`
 - Storybook app config factory:
-  - `shared/storybook/config.ts`
-  - `createFrontendDocsAddons(...)` from `shared/storybook/config.ts`
+  - `createFrontendDocsStorybookConfig(...)` from `@hoite-dev/frontend-docs-shared/storybook`
+  - `createFrontendDocsAddons(...)` from `@hoite-dev/frontend-docs-shared/storybook`
 
 ## React + Vue Docs Workflow
 
@@ -79,7 +79,7 @@ These helpers live in `hub/src/stories/contractDocs.tsx` and keep contract pages
 - Do not move those CSS imports into shared Storybook helper modules.
 - Keep docs theming on `@hoite-dev/storybook-addon-composition-theme` with shared `compositionThemeConfig`.
 - Do not add local Storybook globals/decorators for design-system theme state.
-- Keep shared preview surface overrides in `shared/storybook/hoiteThemePreview.css`.
+- Keep shared preview surface overrides in `apps/frontend-docs/shared/storybook/hoiteThemePreview.css`.
 - Let addon preset bootstrap own manager/preview theme bootstrap behavior.
 
 ## Controls Rules
@@ -87,6 +87,7 @@ These helpers live in `hub/src/stories/contractDocs.tsx` and keep contract pages
 - Use `parameters.controls.sort = 'none'` when control order is intentional.
 - Use `tags: ['!dev']` for showcase-only stories when needed.
 - Keep live controls focused on meaningful component behavior.
+- Keep hub contract stories docs-only and disable controls when the page exists to document a fixed shared contract rather than an interactive implementation.
 - Keep non-visual passthrough details in docs text or tables.
 
 ## Done Checklist
@@ -97,6 +98,7 @@ A docs change is complete when:
 2. React and Vue remain aligned in structure and intent.
 3. Source links are correct.
 4. Lint and typecheck pass for touched frontend-docs apps.
+5. The related docs are verified working in the composed setup by running Docker when composition or deployment output is affected.
 
 Recommended checks:
 

@@ -4,7 +4,7 @@
 
 It documents and proves the React wrappers from `@hoite-dev/ui-react`. Shared foundations such as tokens and contract-level documentation still belong in `@hoite-dev/frontend-docs-hub`.
 
-For public component docs, this workspace uses attached MDX pages with shared docs metadata from `@hoite-dev/ui` and shared rendering helpers from `apps/frontend-docs/shared/docs`. The React CSF *(Component Story Format)* stories provide the rendered examples and React-specific controls.
+For public component docs, this workspace uses attached MDX pages with shared docs metadata from `@hoite-dev/ui` and shared rendering helpers from `@hoite-dev/frontend-docs-shared/docs`. The React CSF *(Component Story Format)* stories provide the rendered examples and React-specific controls.
 
 ## Extensions
 

@@ -7,10 +7,9 @@ Scope:
 - `design-system-react`: React implementation docs for the shared design system.
 - `design-system-vue`: Vue implementation docs for the shared design system.
 - `site-nuxt-components`: integration PoC for app-specific component documentation from `apps/site-nuxt`.
-- `shared/docs`: cross-Storybook docs rendering helpers and source-link utilities for aligned React and Vue design-system docs pages.
-- `shared/storybook`: shared Storybook setup helpers used across frontend docs apps.
+- `shared`: the internal `@hoite-dev/frontend-docs-shared` package for cross-Storybook docs rendering helpers, source-link utilities, and shared Storybook setup.
 
-`site-nuxt-components` is an integration PoC. It exists to prove that app-specific Storybooks can be built, referenced by the hub, and deployed alongside the design system docs.
+`site-nuxt-components` is an integration PoC. It exists to prove that app-specific Storybooks can be built and share the same docs infrastructure. Its hub ref is currently parked until the app-specific docs return to active maintenance.
 
 Design-system docs pattern:
 - Public React and Vue component docs use attached MDX pages.
