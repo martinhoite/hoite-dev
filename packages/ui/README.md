@@ -4,6 +4,8 @@ Shared UI foundation package for the Hoite Dev design system.
 
 This package owns the shared styling foundation used by the framework packages. It contains the design token source, generated CSS custom properties, compiled shared CSS, and public style-related exports such as CVA definitions, token values, and related types.
 
+For JavaScript adapters that need literal theme color values instead of CSS custom properties, such as Storybook manager theming, the token build also emits the narrow `@hoite-dev/ui/theme-color-values` subpath from the same token source.
+
 It also owns shared design-system docs metadata that belongs with the styling contract, such as component copy, usage notes, controls guidance, and source-link metadata used by both React and Vue Storybook docs pages.
 
 It does not contain framework-specific component implementations. Those live in packages such as `@hoite-dev/ui-react`.
