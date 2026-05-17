@@ -11,9 +11,6 @@ importers:
       '@biomejs/biome':
         specifier: ^2.4.15
         version: 2.4.15
-      '@hoite-dev/storybook-addon-composition-theme':
-        specifier: workspace:*
-        version: link:packages/storybook-addon-composition-theme
       '@types/node':
         specifier: 24.12.0
         version: 24.12.0
