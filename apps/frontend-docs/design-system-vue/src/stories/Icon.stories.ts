@@ -1,4 +1,4 @@
-import { withStoryStack } from '@frontend-docs-shared/storybook/vueStoryTemplates';
+import { withStoryStack } from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   type IconName,
   type IconRotation,

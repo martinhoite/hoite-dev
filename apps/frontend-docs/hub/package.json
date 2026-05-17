@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "sync:favicon": "node ./scripts/sync-favicon.mjs",
-    "prebuild": "node ../shared/storybook/prepareStorybook.mjs --skip-cache-clear --sync-favicon",
-    "predev": "node ../shared/storybook/prepareStorybook.mjs --sync-favicon",
+    "sync:brand-assets": "node ./scripts/sync-brand-assets.mjs",
+    "prebuild": "node ../shared/storybook/prepareStorybook.mjs --skip-cache-clear --sync-brand-assets",
+    "predev": "node ../shared/storybook/prepareStorybook.mjs --sync-brand-assets",
     "build": "storybook build",
     "dev": "storybook dev --host frontend-docs.local.hoite.dev --port 6006 --https --ssl-cert ../../../ssl/local.hoite.dev.pem --ssl-key ../../../ssl/local.hoite.dev-key.pem",
     "format": "biome check --write .storybook src scripts package.json tsconfig.json README.md",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@hoite-dev/brand-assets": "workspace:*",
+    "@hoite-dev/frontend-docs-shared": "workspace:*",
     "@hoite-dev/ui": "workspace:*",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"

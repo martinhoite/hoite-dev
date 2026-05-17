@@ -1,0 +1,109 @@
+html,
+body {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-family: var(--typography-family-body);
+}
+
+.sidebar-container {
+  background: var(--color-bg-surface);
+  border-right: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+}
+
+.sidebar-container .search-field {
+  background: var(--color-bg-field);
+  border: 1px solid var(--color-border-default);
+}
+
+.sidebar-container .search-field:focus-within {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 1px var(--color-border-focus);
+}
+
+.sidebar-container .search-field input {
+  color: var(--color-text-primary);
+}
+
+.sidebar-container .search-field input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.sidebar-container .search-field code {
+  color: var(--color-text-muted);
+}
+
+.sidebar-subheading button {
+  color: var(--color-text-secondary);
+}
+
+.sidebar-item button,
+.sidebar-item a {
+  color: var(--color-text-primary);
+}
+
+.sidebar-item svg[type="story"] {
+  color: var(--color-text-brand) !important;
+}
+
+.sidebar-item svg[type="document"] {
+  color: var(--color-text-primary) !important;
+}
+
+.sidebar-item[data-selected="true"] {
+  background: var(--color-bg-selected) !important;
+  box-shadow: inset 3px 0 0 var(--color-border-focus);
+}
+
+.sidebar-item[data-selected="true"] button,
+.sidebar-item[data-selected="true"] a {
+  color: var(--color-text-primary);
+}
+
+.sidebar-item[data-selected="true"] svg[type="story"] {
+  color: var(--color-text-primary) !important;
+}
+
+.sidebar-item[data-selected="false"]:hover {
+  background: var(--color-state-overlay-hover);
+}
+
+section.sb-bar {
+  background: var(--color-bg-surface);
+  border-bottom-color: var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+
+.hoite-storybook-brand {
+  align-items: center;
+  color: var(--color-text-primary);
+  display: inline-flex;
+  font-family: var(--typography-family-heading);
+  font-size: var(--typography-size-14);
+  font-weight: var(--typography-weight-semibold);
+  gap: var(--spacing-8);
+  line-height: var(--typography-line-height-20);
+  white-space: nowrap;
+}
+
+.hoite-storybook-brand__mark {
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 1.5rem;
+  stroke: currentColor;
+  stroke-width: 100;
+  width: 1.5rem;
+}
+
+#storybook-preview-iframe,
+iframe[id^="storybook-ref-"] {
+  background: var(--color-bg-canvas);
+  transition: background-color var(--motion-duration-moderate) var(--motion-easing-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #storybook-preview-iframe,
+  iframe[id^="storybook-ref-"] {
+    transition: none;
+  }
+}

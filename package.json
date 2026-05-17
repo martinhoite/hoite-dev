@@ -16,7 +16,7 @@
     "dev:frontend-docs:design-system-react": "turbo dev --filter=@hoite-dev/frontend-docs-design-system-react",
     "dev:frontend-docs:design-system-vue": "turbo dev --filter=@hoite-dev/frontend-docs-design-system-vue",
     "dev:frontend-docs:site-nuxt-components": "turbo dev --filter=@hoite-dev/frontend-docs-site-nuxt-components",
-    "docker:frontend-docs": "docker build -f apps/frontend-docs/hub/Dockerfile -t hoite-frontend-docs . && docker run --rm -p 8080:80 hoite-frontend-docs",
+    "docker:frontend-docs": "docker build --no-cache -f apps/frontend-docs/hub/Dockerfile -t hoite-frontend-docs . && docker run --rm -p 8080:80 hoite-frontend-docs",
     "dev:site:nuxt": "turbo dev --filter=@hoite-dev/site-nuxt",
     "format": "turbo format",
     "generate:content:umbraco": "node ./scripts/generate-umbraco-client.mjs",

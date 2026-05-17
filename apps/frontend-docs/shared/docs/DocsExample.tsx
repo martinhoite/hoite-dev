@@ -9,7 +9,13 @@ type StoryHeadingLike = {
   storyName?: string;
 };
 
-export function DocsExample({ children, story }: { children: ReactNode; story: StoryHeadingLike }) {
+export function DocsExample({
+  children,
+  story,
+}: {
+  children?: ReactNode;
+  story: StoryHeadingLike;
+}) {
   const title = story.name ?? story.storyName ?? 'Example';
 
   return createElement('div', { className: exampleClassName }, [

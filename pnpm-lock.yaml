@@ -35,6 +35,9 @@ importers:
 
   apps/frontend-docs/design-system-react:
     dependencies:
+      '@hoite-dev/frontend-docs-shared':
+        specifier: workspace:*
+        version: link:../shared
       '@hoite-dev/ui':
         specifier: workspace:*
         version: link:../../../packages/ui
@@ -81,6 +84,9 @@ importers:
 
   apps/frontend-docs/design-system-vue:
     dependencies:
+      '@hoite-dev/frontend-docs-shared':
+        specifier: workspace:*
+        version: link:../shared
       '@hoite-dev/ui':
         specifier: workspace:*
         version: link:../../../packages/ui
@@ -136,6 +142,9 @@ importers:
       '@hoite-dev/brand-assets':
         specifier: workspace:*
         version: link:../../../packages/brand-assets
+      '@hoite-dev/frontend-docs-shared':
+        specifier: workspace:*
+        version: link:../shared
       '@hoite-dev/ui':
         specifier: workspace:*
         version: link:../../../packages/ui
@@ -174,8 +183,27 @@ importers:
         specifier: ^8.0.11
         version: 8.0.11(@types/node@25.6.2)(@vitejs/devtools@0.1.21)(esbuild@0.28.0)(jiti@2.7.0)(sass@1.99.0)(terser@5.47.1)(yaml@2.8.4)
 
+  apps/frontend-docs/shared:
+    dependencies:
+      '@hoite-dev/storybook-addon-composition-theme':
+        specifier: workspace:*
+        version: link:../../../packages/storybook-addon-composition-theme
+      '@hoite-dev/ui':
+        specifier: workspace:*
+        version: link:../../../packages/ui
+      react:
+        specifier: ^19.2.6
+        version: 19.2.6
+    devDependencies:
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
+
   apps/frontend-docs/site-nuxt-components:
     dependencies:
+      '@hoite-dev/frontend-docs-shared':
+        specifier: workspace:*
+        version: link:../shared
       '@hoite-dev/ui':
         specifier: workspace:*
         version: link:../../../packages/ui

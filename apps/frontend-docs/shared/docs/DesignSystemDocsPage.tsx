@@ -13,7 +13,7 @@ const controlsContentClassName =
   'min-w-0 [&>div]:overflow-x-auto [&_code]:whitespace-normal [&_code]:[overflow-wrap:anywhere]';
 
 type DocsSectionBlockProps = {
-  children: ReactNode;
+  children?: ReactNode;
   title: string;
 };
 
@@ -49,16 +49,22 @@ export function DesignSystemDocsPage({
         links: sourceLinks,
       }),
       ...renderDocsSections(docs.sections),
-      createElement(DocsSectionBlock, {
-        children: examples,
-        key: 'examples',
-        title: 'Examples',
-      }),
-      createElement(DocsSectionBlock, {
-        children: createElement('div', { className: controlsContentClassName }, controls),
-        key: 'controls',
-        title: 'Controls',
-      }),
+      createElement(
+        DocsSectionBlock,
+        {
+          key: 'examples',
+          title: 'Examples',
+        },
+        examples,
+      ),
+      createElement(
+        DocsSectionBlock,
+        {
+          key: 'controls',
+          title: 'Controls',
+        },
+        createElement('div', { className: controlsContentClassName }, controls),
+      ),
     ]),
   ]);
 }

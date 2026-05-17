@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@hoite-dev/frontend-docs-shared": "workspace:*",
     "@hoite-dev/ui": "workspace:*",
     "@hoite-dev/umbraco-client": "workspace:*",
     "react": "^19.2.6",

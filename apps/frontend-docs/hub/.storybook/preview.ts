@@ -7,8 +7,8 @@ import '@hoite-dev/ui/loading.css';
 import '@hoite-dev/ui/typography.css';
 import '../../shared/storybook/hoiteThemePreview.css';
 
+import { frontendDocsPreviewParameters } from '@hoite-dev/frontend-docs-shared/storybook';
 import type { Preview } from '@storybook/react-vite';
-import { frontendDocsPreviewParameters } from '../../shared/storybook/previewParameters.ts';
 
 const preview: Preview = {
   parameters: frontendDocsPreviewParameters,

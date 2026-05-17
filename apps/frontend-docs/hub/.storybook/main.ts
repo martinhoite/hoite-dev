@@ -1,12 +1,12 @@
-import type { StorybookConfig } from '@storybook/react-vite';
-import tailwindcss from '@tailwindcss/vite';
-
-import { compositionThemeConfig } from '../../shared/storybook/compositionThemeConfig.ts';
 import {
+  compositionThemeConfig,
   createFrontendDocsAddons,
   createFrontendDocsStorybookConfig,
   frontendDocsStoryGlobs,
-} from '../../shared/storybook/config.ts';
+  withHoitePreviewHead,
+} from '@hoite-dev/frontend-docs-shared/storybook';
+import type { StorybookConfig } from '@storybook/react-vite';
+import tailwindcss from '@tailwindcss/vite';
 
 const STORYBOOK_LOCAL_HOST = 'frontend-docs.local.hoite.dev';
 
@@ -27,7 +27,6 @@ const config = createFrontendDocsStorybookConfig<StorybookConfig>({
   addons: createFrontendDocsAddons(compositionThemeConfig),
   frameworkName: '@storybook/react-vite',
   host: STORYBOOK_LOCAL_HOST,
-  mainFileUrl: import.meta.url,
   refs: () => {
     const reactStorybookUrl = process.env.STORYBOOK_REACT_REF_URL;
     const vueStorybookUrl = process.env.STORYBOOK_VUE_REF_URL;
@@ -80,10 +79,12 @@ config.managerHead = (head) => {
 };
 
 config.previewHead = (head) => {
-  return `${head}
+  return withHoitePreviewHead(
+    `${head}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/png" href="/favicon.png" />
-`;
+`,
+  );
 };
 
 export default config;

@@ -18,9 +18,7 @@ apps/**/node_modules
 apps/**/.env
 apps/**/.env.*
 !apps/**/.env.example
-apps/frontend-docs/hub/public/design-tokens.source.json
-apps/frontend-docs/hub/public/favicon.png
-apps/frontend-docs/hub/public/favicon.svg
+apps/frontend-docs/hub/public/*
 
 packages/*/.build
 packages/*/dist

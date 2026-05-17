@@ -153,7 +153,13 @@ body,
   color: var(--color-text-primary);
 }
 
-.sbdocs-wrapper .sbdocs-content .sbdocs-preview .sbdocs-preview-actions button {
+.sbdocs-wrapper .sbdocs-content .sbdocs-preview-actions button {
+  border-color: var(--color-border-default);
+  color: var(--color-text-primary);
+}
+
+.sbdocs-wrapper .sbdocs-content .sbdocs-preview-actions button:hover {
+  background: var(--color-bg-field-hover);
   color: var(--color-text-primary);
 }
 

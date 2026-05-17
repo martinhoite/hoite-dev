@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const args = new Set(process.argv.slice(2));
 const shouldClearCache = !args.has('--skip-cache-clear');
-const shouldSyncFavicon = args.has('--sync-favicon');
+const shouldSyncBrandAssets = args.has('--sync-brand-assets');
 
 function runCommand(command, commandArgs) {
   const result = spawnSync(command, commandArgs, {
@@ -44,8 +44,8 @@ if (shouldClearCache) {
   });
 }
 
-if (shouldSyncFavicon) {
-  runCommand('node', ['./scripts/sync-favicon.mjs']);
+if (shouldSyncBrandAssets) {
+  runCommand('node', ['./scripts/sync-brand-assets.mjs']);
 }
 
 runPnpm(['--filter', '@hoite-dev/storybook-addon-composition-theme', 'run', 'build']);
