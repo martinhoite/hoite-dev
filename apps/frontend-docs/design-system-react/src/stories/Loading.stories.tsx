@@ -1,6 +1,11 @@
 import {
+  createFrontendDocsComponentSnippet,
   createFrontendDocsPlaygroundParameters,
   StoryInfoPanel,
+  StoryPlayground,
+  StoryPlaygroundContent,
+  StoryPlaygroundPreview,
+  StoryPlaygroundSnippet,
   StoryStack,
 } from '@hoite-dev/frontend-docs-shared/storybook';
 import {
@@ -12,6 +17,8 @@ import {
 } from '@hoite-dev/ui';
 import { CircularProgress, Loader, Progress } from '@hoite-dev/ui-react';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
+
+import { StorybookSourceSnippet } from './StorybookSourceSnippet';
 
 type CircularValueDisplay = 'fraction' | 'percent';
 
@@ -176,16 +183,42 @@ export const LoaderPlayground: Story = {
   }),
   render: (args) => {
     const ariaLabel = hasText(args.ariaLabel) ? args.ariaLabel : undefined;
+    const snippet = createFrontendDocsComponentSnippet({
+      componentName: 'Loader',
+      framework: 'react',
+      props: [
+        {
+          name: 'aria-label',
+          value: ariaLabel,
+        },
+        {
+          name: 'color',
+          value: args.color,
+        },
+        {
+          name: 'size',
+          value: args.size,
+        },
+      ],
+    });
 
     return (
-      <StoryStack>
+      <StoryPlayground>
         <StoryInfoPanel className='text-sm text-[var(--color-text-secondary)]'>
-          Loader uses `aria-label` or `aria-labelledby` when it is not decorative.
+          Use <code>aria-label</code> or <code>aria-labelledby</code> when no visible label is
+          present.
         </StoryInfoPanel>
-        <div className={getSurfaceClass(args.color)}>
-          <Loader aria-label={ariaLabel} color={args.color} size={args.size} />
-        </div>
-      </StoryStack>
+        <StoryPlaygroundContent split>
+          <StoryPlaygroundPreview>
+            <div className={getSurfaceClass(args.color)}>
+              <Loader aria-label={ariaLabel} color={args.color} size={args.size} />
+            </div>
+          </StoryPlaygroundPreview>
+          <StoryPlaygroundSnippet>
+            <StorybookSourceSnippet code={snippet} />
+          </StoryPlaygroundSnippet>
+        </StoryPlaygroundContent>
+      </StoryPlayground>
     );
   },
 };
@@ -202,24 +235,63 @@ export const ProgressPlayground: Story = {
     const ariaLabel = hasText(args.ariaLabel) ? args.ariaLabel : undefined;
     const label = hasText(args.label) ? args.label : undefined;
     const value = args.indeterminate ? undefined : args.value;
+    const snippet = createFrontendDocsComponentSnippet({
+      componentName: 'Progress',
+      framework: 'react',
+      props: [
+        {
+          name: 'aria-label',
+          value: ariaLabel,
+        },
+        {
+          name: 'color',
+          value: args.color,
+        },
+        {
+          name: 'label',
+          value: label,
+        },
+        {
+          name: 'max',
+          value: args.max,
+        },
+        {
+          name: 'size',
+          value: args.size,
+        },
+        {
+          name: 'value',
+          value,
+        },
+      ],
+    });
 
     return (
-      <StoryStack>
+      <StoryPlayground>
         <StoryInfoPanel className='text-sm text-[var(--color-text-secondary)]'>
-          Progress uses native <code>&lt;progress&gt;</code> semantics with shared numeric
-          normalization.
+          Indeterminate progress omits <code>value</code>; otherwise value is normalized against{' '}
+          <code>max</code>.
         </StoryInfoPanel>
-        <div className={getSurfaceClass(args.color)}>
-          <Progress
-            aria-label={ariaLabel}
-            color={args.color}
-            label={label}
-            max={args.max}
-            size={args.size}
-            value={value}
-          />
-        </div>
-      </StoryStack>
+        <StoryPlaygroundContent split>
+          <StoryPlaygroundPreview className='min-w-0 w-full'>
+            <div
+              className={`${getSurfaceClass(args.color)} box-border w-full [&_.progress-field]:w-full`}
+            >
+              <Progress
+                aria-label={ariaLabel}
+                color={args.color}
+                label={label}
+                max={args.max}
+                size={args.size}
+                value={value}
+              />
+            </div>
+          </StoryPlaygroundPreview>
+          <StoryPlaygroundSnippet>
+            <StorybookSourceSnippet code={snippet} />
+          </StoryPlaygroundSnippet>
+        </StoryPlaygroundContent>
+      </StoryPlayground>
     );
   },
 };
@@ -248,27 +320,89 @@ export const CircularProgressPlayground: Story = {
     const ariaLabel = hasText(args.ariaLabel) ? args.ariaLabel : undefined;
     const label = hasText(args.label) ? args.label : undefined;
     const valueLabel = hasText(args.valueLabel) ? args.valueLabel : undefined;
+    const labelClassName = args.labelClassName || undefined;
+    const valueClassName = args.valueClassName || undefined;
+    const snippet = createFrontendDocsComponentSnippet({
+      componentName: 'CircularProgress',
+      framework: 'react',
+      props: [
+        {
+          name: 'aria-label',
+          value: ariaLabel,
+        },
+        {
+          name: 'color',
+          value: args.color,
+        },
+        {
+          name: 'label',
+          value: label,
+        },
+        {
+          name: 'labelClassName',
+          value: labelClassName,
+        },
+        {
+          name: 'max',
+          value: args.max,
+        },
+        {
+          defaultValue: true,
+          name: 'showValue',
+          value: args.showValue,
+        },
+        {
+          name: 'size',
+          value: args.size,
+        },
+        {
+          name: 'value',
+          value: args.value,
+        },
+        {
+          name: 'valueClassName',
+          value: valueClassName,
+        },
+        {
+          name: 'valueDisplay',
+          value: args.valueDisplay,
+        },
+        {
+          name: 'valueLabel',
+          value: valueLabel,
+        },
+      ],
+    });
+
     return (
-      <StoryStack>
+      <StoryPlayground>
         <StoryInfoPanel className='text-sm text-[var(--color-text-secondary)]'>
-          CircularProgress supports centered value text as percentage or step fraction.
+          Center value text can be generated as a percent or step fraction, or replaced with{' '}
+          <code>valueLabel</code>.
         </StoryInfoPanel>
-        <div className={getSurfaceClass(args.color)}>
-          <CircularProgress
-            aria-label={ariaLabel}
-            color={args.color}
-            label={label}
-            labelClassName={args.labelClassName || undefined}
-            max={args.max}
-            showValue={args.showValue}
-            size={args.size}
-            value={args.value}
-            valueClassName={args.valueClassName || undefined}
-            valueDisplay={args.valueDisplay}
-            valueLabel={valueLabel}
-          />
-        </div>
-      </StoryStack>
+        <StoryPlaygroundContent split>
+          <StoryPlaygroundPreview>
+            <div className={getSurfaceClass(args.color)}>
+              <CircularProgress
+                aria-label={ariaLabel}
+                color={args.color}
+                label={label}
+                labelClassName={labelClassName}
+                max={args.max}
+                showValue={args.showValue}
+                size={args.size}
+                value={args.value}
+                valueClassName={valueClassName}
+                valueDisplay={args.valueDisplay}
+                valueLabel={valueLabel}
+              />
+            </div>
+          </StoryPlaygroundPreview>
+          <StoryPlaygroundSnippet>
+            <StorybookSourceSnippet code={snippet} />
+          </StoryPlaygroundSnippet>
+        </StoryPlaygroundContent>
+      </StoryPlayground>
     );
   },
 };
