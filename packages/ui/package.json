@@ -34,7 +34,7 @@
       "default": "./dist/themes.css"
     },
     "./theme-color-values": {
-      "types": "./dist/theme-color-values.d.ts",
+      "types": "./src/theme-color-values.d.ts",
       "import": "./dist/theme-color-values.js"
     }
   },

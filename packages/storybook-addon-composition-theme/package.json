@@ -7,19 +7,19 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./src/index.ts",
       "default": "./dist/index.js"
     },
     "./preset": {
-      "types": "./dist/preset.d.ts",
+      "types": "./src/preset.ts",
       "default": "./dist/preset.js"
     },
     "./manager": {
-      "types": "./dist/manager.d.ts",
+      "types": "./src/manager.tsx",
       "default": "./dist/manager.js"
     },
     "./preview": {
-      "types": "./dist/preview.d.ts",
+      "types": "./src/preview.ts",
       "default": "./dist/preview.js"
     },
     "./package.json": "./package.json"
