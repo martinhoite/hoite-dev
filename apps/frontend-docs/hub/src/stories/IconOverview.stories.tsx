@@ -17,16 +17,20 @@ const sizeKeys = [...supportedIconSizes] as IconSize[];
 const variantKeys = [...supportedIconVariants] as IconVariant[];
 
 const meta: Meta = {
-  title: 'Design System/Contracts/Static/Icon',
+  title: 'Design System/Contracts/Static',
 };
 
 export default meta;
 
 type Story = StoryObj;
 
-export const Overview: Story = {
-  name: 'Docs',
+export const Icon: Story = {
+  name: 'Icon',
+  tags: ['contract-docs'],
   parameters: {
+    controls: {
+      disable: true,
+    },
     docsOnly: true,
   },
   render: () => {

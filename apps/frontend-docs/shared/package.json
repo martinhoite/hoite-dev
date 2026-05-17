@@ -1,0 +1,22 @@
+{
+  "name": "@hoite-dev/frontend-docs-shared",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./docs": "./docs/index.ts",
+    "./storybook": "./storybook/index.ts",
+    "./storybook/prepareStorybook": "./storybook/prepareStorybook.mjs"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@hoite-dev/storybook-addon-composition-theme": "workspace:*",
+    "@hoite-dev/ui": "workspace:*",
+    "react": "^19.2.6"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14"
+  }
+}

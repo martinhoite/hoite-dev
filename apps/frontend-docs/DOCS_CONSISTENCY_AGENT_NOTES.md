@@ -11,26 +11,28 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 
 ## Required Reuse
 
-- `shared/docs/FrameworkComponentDocsPage.tsx`
-- `shared/docs/DesignSystemDocsPage.tsx`
-- `shared/docs/DocsExample.tsx`
-- `shared/storybook/reactStoryLayouts.tsx`
-- `shared/storybook/vueStoryTemplates.ts`
+- `FrameworkComponentDocsPage` from `@hoite-dev/frontend-docs-shared/docs`
+- `DesignSystemDocsPage` from `@hoite-dev/frontend-docs-shared/docs`
+- `StoryInfoPanel`, `StoryStack`, and `withStoryStack` from `@hoite-dev/frontend-docs-shared/storybook`
 - `hub/src/stories/contractDocs.tsx`
-- `shared/storybook/config.ts`
+- `createFrontendDocsStorybookConfig(...)` from `@hoite-dev/frontend-docs-shared/storybook`
+- `createFrontendDocsAddons(compositionThemeConfig)` from `@hoite-dev/frontend-docs-shared/storybook`
 
 ## Consistency Rules
 
 - Keep React and Vue docs aligned on section order, control intent, and example intent.
 - Keep framework-specific source links present for each framework docs page.
 - Keep Storybook config through `createFrontendDocsStorybookConfig<StorybookConfig>(...)`.
+- Register theme addon through `createFrontendDocsAddons(compositionThemeConfig)`.
 - Keep `@hoite-dev/ui/*.css` imports local to each Storybook app's `preview.ts`.
+- Keep hub contract stories docs-only and disable controls when they document fixed shared contracts.
 
 ## Theming
 
-- Keep Storybook theming on `@storybook/addon-themes` with `withThemeByDataAttribute` in each app `preview.ts`.
-- Keep shared preview surface/theme overrides in `shared/storybook/hoiteThemePreview.css`.
-- Do not add per-app `preview-head.html` or `manager-head.html` theme bootstrapping unless explicitly required.
+- Keep Storybook theming on `@hoite-dev/storybook-addon-composition-theme`.
+- Keep storage + root attribute application as theme source of truth.
+- Keep shared preview surface/theme overrides in `apps/frontend-docs/shared/storybook/hoiteThemePreview.css`.
+- Do not add per-app Storybook globals/decorators for design-system theme state.
 
 ## Validation
 

@@ -8,6 +8,49 @@ let isRegistered = false;
 let missingWebSyntaxErrors = new Set();
 let unexpectedWebSyntaxMismatchWarnings = new Set();
 
+const themeColorValueDefinitions = [
+  {
+    key: 'colorBgCanvas',
+    path: ['bg', 'canvas'],
+  },
+  {
+    key: 'colorBgSurface',
+    path: ['bg', 'surface'],
+  },
+  {
+    key: 'colorBgField',
+    path: ['bg', 'field'],
+  },
+  {
+    key: 'colorBgSelected',
+    path: ['bg', 'selected'],
+  },
+  {
+    key: 'colorTextPrimary',
+    path: ['text', 'primary'],
+  },
+  {
+    key: 'colorTextSecondary',
+    path: ['text', 'secondary'],
+  },
+  {
+    key: 'colorTextInverse',
+    path: ['text', 'inverse'],
+  },
+  {
+    key: 'colorTextBrand',
+    path: ['text', 'brand'],
+  },
+  {
+    key: 'colorBorderDefault',
+    path: ['border', 'default'],
+  },
+  {
+    key: 'colorBorderFocus',
+    path: ['border', 'focus'],
+  },
+];
+
 function trimNumber(value) {
   return Number.parseFloat(value.toFixed(4)).toString();
 }
@@ -273,6 +316,84 @@ export function withSharedLayerPrelude(css, sharedLayerPrelude) {
   return [sharedLayerPrelude, css].filter(Boolean).join('\n\n');
 }
 
+function readThemeColorValue(themeTokens, tokenPath) {
+  let token = themeTokens.color;
+
+  for (const pathSegment of tokenPath) {
+    token = token[pathSegment];
+  }
+
+  return token.$value.hex.toLowerCase();
+}
+
+function createThemeColorValues(themeTokens) {
+  return Object.fromEntries(
+    themeColorValueDefinitions.map(({ key, path: tokenPath }) => [
+      key,
+      readThemeColorValue(themeTokens, tokenPath),
+    ]),
+  );
+}
+
+function formatThemeColorValueObject(themeColorValues, indent) {
+  return Object.entries(themeColorValues)
+    .map(([key, value]) => `${indent}${key}: '${value}',`)
+    .join('\n');
+}
+
+function formatThemeColorValueDeclaration(themeColorValues, indent) {
+  return Object.entries(themeColorValues)
+    .map(([key, value]) => `${indent}readonly ${key}: '${value}';`)
+    .join('\n');
+}
+
+async function buildThemeColorValueArtifacts({ distDir, sourceDir, themeVariants }) {
+  const themeColorValues = Object.fromEntries(
+    await Promise.all(
+      themeVariants.map(async (themeVariant) => {
+        const themeSource = await fs.readFile(path.join(sourceDir, themeVariant.source), 'utf8');
+        const themeName = path.basename(themeVariant.source, '.tokens.json').toLowerCase();
+
+        return [themeName, createThemeColorValues(JSON.parse(themeSource))];
+      }),
+    ),
+  );
+
+  const themeColorValueEntries = Object.entries(themeColorValues);
+  const runtimeSource = `/**
+ * Generated literal theme color values for JS adapters that cannot consume CSS variables,
+ * such as Storybook manager theming.
+ */
+export const hoiteThemeColorValues = {
+${themeColorValueEntries
+  .map(
+    ([themeName, values]) =>
+      `  ${themeName}: {\n${formatThemeColorValueObject(values, '    ')}\n  },`,
+  )
+  .join('\n')}
+};
+`;
+  const declarationSource = `/**
+ * Generated literal theme color values for JS adapters that cannot consume CSS variables,
+ * such as Storybook manager theming.
+ */
+export declare const hoiteThemeColorValues: {
+${themeColorValueEntries
+  .map(
+    ([themeName, values]) =>
+      `  readonly ${themeName}: {\n${formatThemeColorValueDeclaration(values, '    ')}\n  };`,
+  )
+  .join('\n')}
+};
+
+export type HoiteThemeName = keyof typeof hoiteThemeColorValues;
+export type HoiteThemeColorName = keyof typeof hoiteThemeColorValues[HoiteThemeName];
+`;
+
+  await fs.writeFile(path.join(distDir, 'theme-color-values.js'), runtimeSource);
+  await fs.writeFile(path.join(distDir, 'theme-color-values.d.ts'), declarationSource);
+}
+
 export async function buildTokenArtifacts({
   buildDir,
   distDir,
@@ -377,6 +498,11 @@ export async function buildTokenArtifacts({
 
   await fs.writeFile(path.join(distDir, 'tokens.css'), layeredTokensCss);
   await fs.writeFile(path.join(distDir, 'themes.css'), layeredThemeCss);
+  await buildThemeColorValueArtifacts({
+    distDir,
+    sourceDir,
+    themeVariants,
+  });
 
   return {
     sharedLayerPrelude,

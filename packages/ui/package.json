@@ -32,6 +32,10 @@
     "./themes.css": {
       "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/themes.css"
+    },
+    "./theme-color-values": {
+      "types": "./src/theme-color-values.d.ts",
+      "import": "./dist/theme-color-values.js"
     }
   },
   "scripts": {

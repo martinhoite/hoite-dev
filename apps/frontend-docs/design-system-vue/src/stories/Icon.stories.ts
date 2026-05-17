@@ -1,4 +1,4 @@
-import { withStoryStack } from '@frontend-docs-shared/storybook/vueStoryTemplates';
+import { withStoryStack } from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   type IconName,
   type IconRotation,
@@ -188,10 +188,8 @@ export const Playground: Story = {
   render: (args) => ({
     components: { IconPlaygroundPreview },
     setup() {
-      const normalizedArgs = normalizeIconArgs(args);
-
       return {
-        args: normalizedArgs,
+        args: computed(() => normalizeIconArgs(args)),
       };
     },
     template: `<IconPlaygroundPreview v-bind="args" />`,

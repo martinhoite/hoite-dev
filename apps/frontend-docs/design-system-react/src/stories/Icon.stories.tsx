@@ -1,4 +1,4 @@
-import { StoryInfoPanel, StoryStack } from '@frontend-docs-shared/storybook/reactStoryLayouts';
+import { StoryInfoPanel, StoryStack } from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   type IconName,
   type IconRotation,

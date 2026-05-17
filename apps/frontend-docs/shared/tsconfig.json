@@ -3,11 +3,7 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
-    "paths": {
-      "react": ["../hub/node_modules/@types/react"],
-      "react/jsx-runtime": ["../hub/node_modules/@types/react/jsx-runtime"]
-    },
-    "types": ["node"]
+    "types": ["node", "react"]
   },
   "include": ["docs/**/*.ts", "docs/**/*.tsx", "storybook/**/*.ts", "storybook/**/*.tsx"]
 }

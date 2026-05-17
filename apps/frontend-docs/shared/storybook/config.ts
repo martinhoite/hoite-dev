@@ -1,6 +1,3 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
 export const frontendDocsCoreConfig = {
   allowedHosts: true,
 } as const;
@@ -14,19 +11,12 @@ export const frontendDocsStoryGlobs = ['../src/**/*.mdx', '../src/**/*.stories.@
 
 type FrontendDocsViteOptions = {
   host: string;
-  aliases?: Record<string, string>;
   plugins: unknown[];
 };
 
-export function createFrontendDocsViteOptions({ aliases, host, plugins }: FrontendDocsViteOptions) {
+export function createFrontendDocsViteOptions({ host, plugins }: FrontendDocsViteOptions) {
   return {
     plugins,
-    resolve:
-      aliases === undefined
-        ? undefined
-        : {
-            alias: aliases,
-          },
     server: {
       host,
       allowedHosts: true,
@@ -51,10 +41,8 @@ type FrontendDocsStorybookConfigOptions = {
   addons: readonly FrontendDocsAddon[];
   frameworkName: FrontendDocsFrameworkName;
   host: string;
-  mainFileUrl: string;
   refs?: () => Record<string, FrontendDocsRefEntry>;
   stories: readonly string[];
-  viteAliases?: Record<string, string>;
   viteConfigOverride?: ViteConfigLike;
   vitePlugins: unknown[];
 };
@@ -65,6 +53,18 @@ function asArray(value: unknown): unknown[] {
   }
 
   return [];
+}
+
+export function createFrontendDocsAddons(
+  compositionThemeOptions: unknown,
+): readonly FrontendDocsAddon[] {
+  return [
+    ...frontendDocsDefaultAddons,
+    {
+      name: '@hoite-dev/storybook-addon-composition-theme',
+      options: compositionThemeOptions,
+    },
+  ];
 }
 
 function asRecord(value: unknown): Record<string, unknown> {
@@ -120,10 +120,8 @@ export function createFrontendDocsStorybookConfig<TConfig>({
   addons,
   frameworkName,
   host,
-  mainFileUrl,
   refs,
   stories,
-  viteAliases,
   viteConfigOverride,
   vitePlugins,
 }: FrontendDocsStorybookConfigOptions): TConfig {
@@ -137,18 +135,7 @@ export function createFrontendDocsStorybookConfig<TConfig>({
     refs,
     stories,
     async viteFinal(existingViteConfig: ViteConfigLike) {
-      const currentDirectory = path.dirname(fileURLToPath(mainFileUrl));
-      const frontendDocsSharedRoot = path.resolve(currentDirectory, '../../shared');
-      const aliasMap: Record<string, string> = {
-        '@frontend-docs-shared': frontendDocsSharedRoot,
-      };
-
-      if (viteAliases) {
-        Object.assign(aliasMap, viteAliases);
-      }
-
       const baseViteConfig = createFrontendDocsViteOptions({
-        aliases: aliasMap,
         host,
         plugins: [...vitePlugins],
       });

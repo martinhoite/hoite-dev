@@ -66,11 +66,14 @@ function renderExamples(
     Fragment,
     null,
     examples.map((story, index) =>
-      createElement(DocsExample, {
-        key: `example-${index}`,
-        children: createElement(CanvasBlock, { of: story }),
-        story,
-      }),
+      createElement(
+        DocsExample,
+        {
+          key: `example-${index}`,
+          story,
+        },
+        createElement(CanvasBlock, { of: story }),
+      ),
     ),
   );
 }

@@ -12,16 +12,20 @@ import { CodeChipList, ContractPage, ContractSection, ContractTable } from './co
 const variantKeys = Object.keys(typographyVariantConfig) as TypographyVariant[];
 
 const meta: Meta = {
-  title: 'Design System/Contracts/Static/Typography',
+  title: 'Design System/Contracts/Static',
 };
 
 export default meta;
 
 type Story = StoryObj;
 
-export const Overview: Story = {
-  name: 'Docs',
+export const Typography: Story = {
+  name: 'Typography',
+  tags: ['contract-docs'],
   parameters: {
+    controls: {
+      disable: true,
+    },
     docsOnly: true,
   },
   render: () => {
