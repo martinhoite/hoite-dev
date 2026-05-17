@@ -117,7 +117,9 @@ export const compositionThemeConfig = defineCompositionThemeConfig({
 - Documents covered:
   - Storybook manager document
   - Active preview iframe document
+  - Composed ref preview iframe documents
 - Bootstrap runs early in both manager and preview head to reduce initial flash
+- Manager runtime reapplies the current theme when preview/ref iframes load, reconnect, or return from a restored tab
 - No live system preference listeners
 
 Theme resolution order:

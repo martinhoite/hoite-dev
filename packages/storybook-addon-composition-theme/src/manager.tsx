@@ -6,11 +6,12 @@ import { addons, types } from 'storybook/manager-api';
 
 import type { CompositionThemeOption, ResolvedCompositionThemeConfig } from './config.js';
 import {
-  applyThemeToActivePreviewIframe,
   applyThemeToManagerDocument,
+  applyThemeToPreviewIframes,
   COMPOSITION_THEME_CHANNEL_EVENT,
   getConfiguredThemeOptions,
   getWindowCompositionThemeConfig,
+  isStorybookPreviewIframe,
   isValidThemeId,
   resolveThemeConfigFromUnknown,
   resolveThemeFromEnvironment,
@@ -92,6 +93,14 @@ function resolveInitialTheme(config: ResolvedCompositionThemeConfig): string | n
   return null;
 }
 
+function applyThemeToStorybookDocuments(
+  config: ResolvedCompositionThemeConfig,
+  themeId: string | null,
+): void {
+  applyThemeToManagerDocument(config, themeId);
+  applyThemeToPreviewIframes(config, themeId);
+}
+
 type CompositionThemeToolProps = {
   config: ResolvedCompositionThemeConfig;
 };
@@ -106,8 +115,74 @@ function CompositionThemeTool({ config }: CompositionThemeToolProps) {
   const selectedThemeOption = findThemeOption(themeOptions, themeId);
 
   React.useEffect(() => {
-    applyThemeToManagerDocument(config, themeId);
-    applyThemeToActivePreviewIframe(config, themeId);
+    applyThemeToStorybookDocuments(config, themeId);
+  }, [config, themeId]);
+
+  React.useEffect(() => {
+    let scheduledFrameId: number | null = null;
+
+    const applyCurrentTheme = () => {
+      applyThemeToStorybookDocuments(config, themeId);
+    };
+
+    const scheduleThemeApplication = () => {
+      if (scheduledFrameId !== null) {
+        return;
+      }
+
+      scheduledFrameId = window.requestAnimationFrame(() => {
+        scheduledFrameId = null;
+        applyCurrentTheme();
+      });
+    };
+
+    const handleFrameLoad = (event: Event) => {
+      if (!isStorybookPreviewIframe(event.target)) {
+        return;
+      }
+
+      scheduleThemeApplication();
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState !== 'visible') {
+        return;
+      }
+
+      scheduleThemeApplication();
+    };
+
+    const observer = new MutationObserver(() => {
+      scheduleThemeApplication();
+    });
+
+    if (document.body) {
+      observer.observe(document.body, {
+        attributeFilter: ['data-is-loaded', 'data-is-storybook', 'src'],
+        attributes: true,
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    window.addEventListener('focus', scheduleThemeApplication);
+    window.addEventListener('pageshow', scheduleThemeApplication);
+    window.addEventListener('load', handleFrameLoad, true);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    scheduleThemeApplication();
+
+    return () => {
+      if (scheduledFrameId !== null) {
+        window.cancelAnimationFrame(scheduledFrameId);
+      }
+
+      observer.disconnect();
+      window.removeEventListener('focus', scheduleThemeApplication);
+      window.removeEventListener('pageshow', scheduleThemeApplication);
+      window.removeEventListener('load', handleFrameLoad, true);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, [config, themeId]);
 
   React.useEffect(() => {
@@ -118,8 +193,7 @@ function CompositionThemeTool({ config }: CompositionThemeToolProps) {
 
       const resolvedTheme = resolveInitialTheme(config);
       setThemeId(resolvedTheme);
-      applyThemeToManagerDocument(config, resolvedTheme);
-      applyThemeToActivePreviewIframe(config, resolvedTheme);
+      applyThemeToStorybookDocuments(config, resolvedTheme);
     };
 
     window.addEventListener('storage', handleStorage);
@@ -135,8 +209,7 @@ function CompositionThemeTool({ config }: CompositionThemeToolProps) {
     }
 
     writeStoredThemeId(config.storageKey, nextThemeId);
-    applyThemeToManagerDocument(config, nextThemeId);
-    applyThemeToActivePreviewIframe(config, nextThemeId);
+    applyThemeToStorybookDocuments(config, nextThemeId);
     emitThemeSelection(nextThemeId);
     setThemeId(nextThemeId);
   };

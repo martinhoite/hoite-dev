@@ -8,6 +8,7 @@ import { defineCompositionThemeConfig } from './config.js';
 export const COMPOSITION_THEME_CONFIG_WINDOW_KEY = '__COMPOSITION_THEME_CONFIG__';
 export const COMPOSITION_THEME_CHANNEL_EVENT = 'composition-theme/theme-selected';
 export const STORYBOOK_PREVIEW_IFRAME_ID = 'storybook-preview-iframe';
+export const STORYBOOK_REF_IFRAME_ID_PREFIX = 'storybook-ref-';
 
 function safeWindow(): Window | null {
   if (typeof window === 'undefined') {
@@ -169,18 +170,50 @@ export function applyThemeToActivePreviewIframe(
   config: ResolvedCompositionThemeConfig,
   themeId: string | null,
 ): boolean {
+  return applyThemeToPreviewIframes(config, themeId) > 0;
+}
+
+export function isStorybookPreviewIframe(
+  element: EventTarget | null,
+): element is HTMLIFrameElement {
+  if (!(element instanceof HTMLIFrameElement)) {
+    return false;
+  }
+
+  if (element.id === STORYBOOK_PREVIEW_IFRAME_ID) {
+    return true;
+  }
+
+  return element.id.startsWith(STORYBOOK_REF_IFRAME_ID_PREFIX);
+}
+
+export function getStorybookPreviewIframes(targetDocument?: Document): HTMLIFrameElement[] {
+  if (targetDocument !== undefined) {
+    return Array.from(
+      targetDocument.querySelectorAll<HTMLIFrameElement>(
+        `#${STORYBOOK_PREVIEW_IFRAME_ID}, iframe[id^="${STORYBOOK_REF_IFRAME_ID_PREFIX}"]`,
+      ),
+    );
+  }
+
   const doc = safeDocument();
 
   if (doc === null) {
-    return false;
+    return [];
   }
 
-  const iframe = doc.getElementById(STORYBOOK_PREVIEW_IFRAME_ID);
+  return Array.from(
+    doc.querySelectorAll<HTMLIFrameElement>(
+      `#${STORYBOOK_PREVIEW_IFRAME_ID}, iframe[id^="${STORYBOOK_REF_IFRAME_ID_PREFIX}"]`,
+    ),
+  );
+}
 
-  if (!(iframe instanceof HTMLIFrameElement)) {
-    return false;
-  }
-
+function applyThemeToIframeDocument(
+  config: ResolvedCompositionThemeConfig,
+  themeId: string | null,
+  iframe: HTMLIFrameElement,
+): boolean {
   try {
     const previewDocument = iframe.contentDocument;
 
@@ -194,6 +227,19 @@ export function applyThemeToActivePreviewIframe(
   } catch {
     return false;
   }
+}
+
+export function applyThemeToPreviewIframes(
+  config: ResolvedCompositionThemeConfig,
+  themeId: string | null,
+): number {
+  return getStorybookPreviewIframes().reduce((appliedCount, iframe) => {
+    if (applyThemeToIframeDocument(config, themeId, iframe)) {
+      return appliedCount + 1;
+    }
+
+    return appliedCount;
+  }, 0);
 }
 
 export function resolveThemeConfigFromUnknown(

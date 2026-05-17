@@ -14,6 +14,7 @@ import { addons } from 'storybook/manager-api';
 const WORKAROUND_ADDON_ID =
   '@hoite-dev/frontend-docs-hub/storybook-composition-preview-frame-workaround';
 const MAIN_PREVIEW_IFRAME_ID = 'storybook-preview-iframe';
+const IDLE_PREVIEW_IFRAME_HREF = 'iframe.html?id=*&viewMode=story';
 
 function toAbsoluteHref(href: string): string {
   return new URL(href, window.location.href).href;
@@ -35,16 +36,54 @@ function isComposedRefPreviewFrame(api: API, iframe: HTMLIFrameElement): boolean
   });
 }
 
-function reconcileMainPreviewFrameIdentity(api: API): void {
-  const currentStory = api.getCurrentStoryData();
+function getActiveRefId(api: API): string | null {
+  const path = new URLSearchParams(window.location.search).get('path');
 
-  if (!currentStory) {
+  if (path) {
+    const urlRefId = Object.keys(api.getRefs()).find((refId) => {
+      return path.startsWith(`/docs/${refId}_`) || path.startsWith(`/story/${refId}_`);
+    });
+
+    if (urlRefId) {
+      return urlRefId;
+    }
+  }
+
+  const { storyId } = api.getUrlState();
+
+  if (!storyId) {
+    return null;
+  }
+
+  return (
+    Object.keys(api.getRefs()).find((refId) => {
+      return storyId.startsWith(`${refId}_`);
+    }) ?? null
+  );
+}
+
+function setPreviewIframeHref(iframe: HTMLIFrameElement, href: string): void {
+  const nextHref = toAbsoluteHref(href);
+
+  if (getIframeHref(iframe) === nextHref) {
     return;
   }
 
+  iframe.src = nextHref;
+}
+
+function reconcileMainPreviewFrameIdentity(api: API): void {
   const previewIframe = document.getElementById(MAIN_PREVIEW_IFRAME_ID);
 
   if (!(previewIframe instanceof HTMLIFrameElement)) {
+    return;
+  }
+
+  const { viewMode } = api.getUrlState();
+  const activeRefId = getActiveRefId(api);
+
+  if (activeRefId !== null) {
+    setPreviewIframeHref(previewIframe, IDLE_PREVIEW_IFRAME_HREF);
     return;
   }
 
@@ -52,9 +91,13 @@ function reconcileMainPreviewFrameIdentity(api: API): void {
     return;
   }
 
-  const { viewMode } = api.getUrlState();
-
   if (viewMode !== 'docs' && viewMode !== 'story') {
+    return;
+  }
+
+  const currentStory = api.getCurrentStoryData();
+
+  if (!currentStory) {
     return;
   }
 
@@ -62,7 +105,7 @@ function reconcileMainPreviewFrameIdentity(api: API): void {
     viewMode,
   });
 
-  previewIframe.src = previewHref;
+  setPreviewIframeHref(previewIframe, previewHref);
 }
 
 function createReconciliationScheduler(api: API): () => void {
