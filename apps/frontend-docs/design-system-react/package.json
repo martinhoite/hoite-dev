@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "prebuild": "node ../shared/storybook/prepareStorybook.mjs --skip-cache-clear",
-    "predev": "node ../shared/storybook/prepareStorybook.mjs",
+    "prebuild": "node ../shared/storybook/prepareStorybook.mjs",
+    "predev": "node ../shared/storybook/prepareStorybook.mjs --skip-cache-clear",
     "build": "storybook build",
     "dev": "storybook dev --host design-system-react.local.hoite.dev --port 6007 --https --ssl-cert ../../../ssl/local.hoite.dev.pem --ssl-key ../../../ssl/local.hoite.dev-key.pem",
     "format": "biome check --write .storybook src package.json tsconfig.json README.md",
