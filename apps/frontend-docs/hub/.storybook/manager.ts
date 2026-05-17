@@ -6,9 +6,12 @@ import {
   createHoiteStorybookThemeOptions,
   frontendDocsManagerConfig,
   type HoiteStorybookThemeName,
+  registerFrontendDocsPlaygroundCodeTool,
 } from '@hoite-dev/frontend-docs-shared/storybook';
 
-import { addons, type State } from 'storybook/manager-api';
+import * as React from 'react';
+import { Button } from 'storybook/internal/components';
+import { addons, type State, types } from 'storybook/manager-api';
 import { create } from 'storybook/theming';
 import { registerStorybookCompositionPreviewFrameWorkaround } from './storybookCompositionPreviewFrameWorkaround.ts';
 
@@ -45,7 +48,7 @@ function applyCurrentStorybookTheme(): void {
       },
       showToolbar(state: State, defaultValue: boolean) {
         if (isContractDocsStory(state)) {
-          return false;
+          return true;
         }
 
         return defaultValue;
@@ -77,3 +80,9 @@ function observeThemeChanges(): void {
 applyCurrentStorybookTheme();
 observeThemeChanges();
 registerStorybookCompositionPreviewFrameWorkaround();
+registerFrontendDocsPlaygroundCodeTool({
+  Button,
+  React,
+  addons,
+  types,
+});

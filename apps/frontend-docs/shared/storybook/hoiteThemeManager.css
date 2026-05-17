@@ -74,6 +74,17 @@ section.sb-bar {
   color: var(--color-text-secondary);
 }
 
+section.sb-bar #composition-theme-tool,
+section.sb-bar button[aria-label="Switch global theme"],
+section.sb-bar button[aria-label="Theme: Switch global theme"] {
+  order: -20;
+}
+
+section.sb-bar #frontend-docs-playground-code-tool,
+section.sb-bar button[aria-label="Snippets: Show code snippets in playgrounds for easy copy"] {
+  order: -10;
+}
+
 .hoite-storybook-brand {
   align-items: center;
   color: var(--color-text-primary);

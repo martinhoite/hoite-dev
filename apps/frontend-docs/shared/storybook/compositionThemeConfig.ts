@@ -17,5 +17,6 @@ export const compositionThemeConfig = defineCompositionThemeConfig({
   toolbar: {
     control: 'toggle',
     label: 'Theme',
+    title: 'Theme: Switch global theme',
   },
 });

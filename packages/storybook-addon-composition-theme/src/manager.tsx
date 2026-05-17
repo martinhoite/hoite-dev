@@ -20,6 +20,7 @@ import {
 } from './runtime.js';
 
 const COMPOSITION_THEME_ADDON_ID = '@hoite-dev/storybook-addon-composition-theme';
+const COMPOSITION_THEME_BUTTON_ID = 'composition-theme-tool';
 const COMPOSITION_THEME_TOOL_ID = `${COMPOSITION_THEME_ADDON_ID}/tool`;
 const MANAGER_REGISTRATION_WINDOW_FLAG = '__compositionThemeManagerRegistered__';
 
@@ -227,15 +228,17 @@ function CompositionThemeTool({ config }: CompositionThemeToolProps) {
     }
 
     const icon = currentThemeId === config.lightTheme.id ? <SunThemeIcon /> : <MoonThemeIcon />;
+    const title = config.toolbar.title ?? `${config.toolbar.label}: ${currentLabel}`;
 
     return (
       <Button
-        ariaLabel={`${config.toolbar.label}: ${currentLabel}`}
+        ariaLabel={title}
+        id={COMPOSITION_THEME_BUTTON_ID}
         key={COMPOSITION_THEME_TOOL_ID}
         onClick={() => {
           setExplicitTheme(nextThemeId);
         }}
-        tooltip={`${config.toolbar.label}: ${currentLabel}`}
+        tooltip={title}
         variant='ghost'
       >
         {icon}
@@ -247,10 +250,11 @@ function CompositionThemeTool({ config }: CompositionThemeToolProps) {
   if (config.kind === 'custom' && config.toolbar.control === 'dropdown') {
     const resolvedThemeId = selectedThemeOption?.id ?? themeOptions[0]?.id;
     const currentLabel = selectedThemeOption?.label ?? config.toolbar.label;
+    const title = config.toolbar.title ?? `${config.toolbar.label}: ${currentLabel}`;
 
     return (
       <Select
-        ariaLabel={`${config.toolbar.label}: ${currentLabel}`}
+        ariaLabel={title}
         defaultOptions={resolvedThemeId}
         key={COMPOSITION_THEME_TOOL_ID}
         onSelect={(value) => {
@@ -341,7 +345,7 @@ function registerManagerTool(config: ResolvedCompositionThemeConfig) {
         return viewMode === 'story' || viewMode === 'docs';
       },
       render: () => <CompositionThemeTool config={config} />,
-      title: config.toolbar.label,
+      title: config.toolbar.title ?? config.toolbar.label,
       type: types.TOOL,
     });
   });
