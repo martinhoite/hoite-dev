@@ -1,4 +1,12 @@
-import { StoryInfoPanel, StoryStack } from '@frontend-docs-shared/storybook/reactStoryLayouts';
+import {
+  createFrontendDocsComponentSnippet,
+  createFrontendDocsPlaygroundParameters,
+  StoryInfoPanel,
+  StoryPlayground,
+  StoryPlaygroundContent,
+  StoryPlaygroundPreview,
+  StoryPlaygroundSnippet,
+} from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   resolveTypographyDefaultTag,
   supportedTypographyTags,
@@ -9,6 +17,8 @@ import {
 } from '@hoite-dev/ui';
 import { Typography } from '@hoite-dev/ui-react';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
+
+import { StorybookSourceSnippet } from './StorybookSourceSnippet';
 
 const defaultTagOption = 'Default variant tag';
 const variantKeys = Object.keys(typographyVariantConfig) as TypographyVariant[];
@@ -87,7 +97,7 @@ function normalizeVariant(variant: TypographyStoryArgs['variant']): TypographyVa
 export const Playground: Story = {
   args: defaultTypographyArgs,
   name: 'Playground',
-  parameters: {
+  parameters: createFrontendDocsPlaygroundParameters({
     controls: {
       include: ['children', 'variant', 'tag'],
       sort: 'none',
@@ -97,26 +107,50 @@ export const Playground: Story = {
         story: typographyDocs.storyDescriptions.playground,
       },
     },
+  }),
+  render: (args) => {
+    const tag = normalizeTag(args.tag);
+    const variant = normalizeVariant(args.variant);
+    const snippet = createFrontendDocsComponentSnippet({
+      children: args.children,
+      componentName: 'Typography',
+      framework: 'react',
+      props: [
+        {
+          name: 'variant',
+          value: variant,
+        },
+        {
+          name: 'tag',
+          value: tag,
+        },
+      ],
+    });
+
+    return (
+      <StoryPlayground>
+        <StoryInfoPanel>
+          <p className='m-0 text-sm text-[var(--color-text-primary)]'>
+            The default tag follows the selected variant. Supported passthroughs: <code>id</code>,{' '}
+            <code>title</code>, <code>aria-label</code>, and deliberate <code>data-*</code>{' '}
+            attributes.
+          </p>
+        </StoryInfoPanel>
+        <StoryPlaygroundContent split>
+          <StoryPlaygroundPreview>
+            <div className='text-center'>
+              <Typography tag={tag} variant={variant}>
+                {args.children}
+              </Typography>
+            </div>
+          </StoryPlaygroundPreview>
+          <StoryPlaygroundSnippet>
+            <StorybookSourceSnippet code={snippet} />
+          </StoryPlaygroundSnippet>
+        </StoryPlaygroundContent>
+      </StoryPlayground>
+    );
   },
-  render: (args) => (
-    <StoryStack>
-      <StoryInfoPanel>
-        <p className='m-0 text-sm text-[var(--color-text-primary)]'>
-          Use <code>variant</code>, <code>tag</code>, and text content as the main Typography API.
-          Leave <code>tag</code> on the default option to use the selected variant&apos;s standard
-          HTML element.
-        </p>
-        <p className='mb-0 mt-3 text-sm text-[var(--color-text-secondary)]'>
-          Supported passthrough attributes include <code>id</code>, <code>title</code>,{' '}
-          <code>aria-label</code>, and deliberate <code>data-*</code> attributes on the rendered
-          HTML element.
-        </p>
-      </StoryInfoPanel>
-      <Typography tag={normalizeTag(args.tag)} variant={normalizeVariant(args.variant)}>
-        {args.children}
-      </Typography>
-    </StoryStack>
-  ),
 };
 
 export const Variants: Story = {

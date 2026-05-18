@@ -6,6 +6,7 @@ Shared static branding assets for Hoite Dev apps.
 
 - `assets/favicon/favicon.svg`
 - `assets/favicon/favicon.png`
+- `assets/logo/hoite-dev-mark.svg`
 
 ## Usage
 

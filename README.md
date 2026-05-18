@@ -15,6 +15,7 @@ It contains the Hoite Dev site app, frontend documentation, shared design system
 - [Development setup and commands](./DEVELOPMENT.md)
 - [Workspace overview](#workspace-overview)
 - [Workspace docs](#workspace-docs)
+- [Third-party notices](#third-party-notices)
 - [License](#license)
 
 ## Workspace overview
@@ -28,13 +29,16 @@ Packages live under `packages/*` and provide shared code, styling, configuration
 |- apps/
 |  |- frontend-docs/
 |  |  |- hub/                     # Frontend docs hub for shared design system foundations and refs
+|  |  |- shared/                  # Internal workspace package for frontend-docs code shared across multiple Storybook apps
 |  |  |- design-system-react/     # React implementation docs for the shared design system
 |  |  |- design-system-vue/       # Vue implementation docs for the shared design system
 |  |  `- site-nuxt-components/    # Nuxt app-specific component docs PoC
 |  `- site-nuxt/                  # Site app built with Nuxt
 |- packages/
+|  |- brand-assets/      # Shared Hoite Dev brand assets
 |  |- biome-config/      # Shared Biome configuration
 |  |- diagnostics/       # Shared runtime diagnostics helpers
+|  |- storybook-addon-composition-theme/ # Storybook theme synchronization addon
 |  |- ui/                # Shared styling foundation for the Hoite Dev design system
 |  |- ui-react/          # React component package for the Hoite Dev design system
 |  |- ui-vue/            # Vue component package for the Hoite Dev design system
@@ -86,9 +90,17 @@ Source-oriented Umbraco content package.
 
 Shared Biome configuration.
 
+### `packages/brand-assets`
+
+Shared Hoite Dev brand assets consumed by app and docs surfaces.
+
 ### `packages/diagnostics`
 
 Shared runtime diagnostics helpers.
+
+### `packages/storybook-addon-composition-theme`
+
+Storybook addon for synchronizing theme state across the manager, preview, and composed refs.
 
 ## Workspace docs
 
@@ -106,7 +118,9 @@ Shared runtime diagnostics helpers.
 - [packages/ui](./packages/ui/README.md)
 - [packages/ui-react](./packages/ui-react/README.md)
 - [packages/ui-vue](./packages/ui-vue/README.md)
+- [packages/brand-assets](./packages/brand-assets/README.md)
 - [packages/diagnostics](./packages/diagnostics/README.md)
+- [packages/storybook-addon-composition-theme](./packages/storybook-addon-composition-theme/README.md)
 - [packages/umbraco-client](./packages/umbraco-client/README.md)
 
 ## Use of AI
@@ -114,6 +128,11 @@ Shared runtime diagnostics helpers.
 AI is used as a support tool for ideation, technical planning, refactoring support, documentation, and language refinement.
 
 It helps accelerate exploration and iteration, while final decisions, validation, and implementation remain my responsibility.
+
+## Third-party notices
+
+This project includes third-party assets and code.
+See [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) for details.
 
 ## License
 

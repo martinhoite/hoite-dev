@@ -1,4 +1,13 @@
-import { withStoryStack } from '@frontend-docs-shared/storybook/vueStoryTemplates';
+import {
+  copyFrontendDocsSnippetToClipboard,
+  createFrontendDocsComponentSnippet,
+  createFrontendDocsHighlightedSnippetHtml,
+  createFrontendDocsPlaygroundParameters,
+  createVueStoryPreview,
+  createVueStorySourcePanel,
+  withStoryPlayground,
+  withVueStoryPlaygroundContent,
+} from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   type IconName,
   type IconRotation,
@@ -12,7 +21,7 @@ import {
 } from '@hoite-dev/ui';
 import { Icon } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 
 type IconStoryArgs = {
   name: IconName;
@@ -36,6 +45,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     table: {
       category: 'Component API',
     },
+    type: {
+      name: 'string',
+    },
   },
   size: {
     control: 'select',
@@ -43,6 +55,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     options: supportedIconSizes,
     table: {
       category: 'Component API',
+    },
+    type: {
+      name: 'string',
     },
   },
   rotation: {
@@ -52,6 +67,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     table: {
       category: 'Component API',
     },
+    type: {
+      name: 'string',
+    },
   },
   variant: {
     control: 'select',
@@ -59,6 +77,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     options: supportedIconVariants,
     table: {
       category: 'Component API',
+    },
+    type: {
+      name: 'string',
     },
   },
 };
@@ -107,33 +128,72 @@ const IconPlaygroundPreview = defineComponent({
       variant: props.variant,
     }));
     const surfaceClass = computed(() => getSurfaceClass(props.variant));
+    const snippet = computed(() =>
+      createFrontendDocsComponentSnippet({
+        componentName: 'Icon',
+        framework: 'vue',
+        props: [
+          {
+            name: 'label',
+            value: 'Playground icon',
+          },
+          {
+            name: 'name',
+            value: props.name,
+          },
+          {
+            name: 'rotation',
+            value: props.rotation,
+          },
+          {
+            name: 'size',
+            value: props.size,
+          },
+          {
+            name: 'variant',
+            value: props.variant,
+          },
+        ],
+      }),
+    );
+    const copyButtonLabel = ref('Copy code');
+    const copySnippet = async () => {
+      copyButtonLabel.value = 'Copying';
+      copyButtonLabel.value = (await copyFrontendDocsSnippetToClipboard(snippet.value))
+        ? 'Copied'
+        : 'Copy error';
+    };
+    const highlightedSnippet = computed(() =>
+      createFrontendDocsHighlightedSnippetHtml(snippet.value),
+    );
 
     return {
+      copyButtonLabel,
+      copySnippet,
+      highlightedSnippet,
       iconArgs,
+      snippet,
       surfaceClass,
     };
   },
-  template: withStoryStack(`
+  template: withStoryPlayground(`
       <div
-        class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
+        class="rounded-lg border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
       >
         <p class="m-0 text-sm text-[var(--color-text-primary)]">
-          Use <code>name</code>, <code>size</code>, <code>rotation</code>, and
-          <code>variant</code> as the main visual Icon API.
-        </p>
-        <p class="mb-0 mt-3 text-sm text-[var(--color-text-secondary)]">
-          In app code, meaningful icons should also receive an accessible name with
-          <code>label</code> or <code>aria-label</code>.
-        </p>
-        <p class="mb-0 mt-3 text-sm text-[var(--color-text-secondary)]">
-          Supported passthrough attributes stay narrow: <code>id</code>, <code>title</code>,
-          <code>role</code>, <code>aria-label</code>, and deliberate <code>data-*</code>
-          attributes on the rendered SVG.
+          Meaningful icons need <code>label</code> or <code>aria-label</code>. Supported
+          passthroughs: <code>id</code>, <code>title</code>, <code>role</code>,
+          <code>aria-label</code>, and deliberate <code>data-*</code> attributes.
         </p>
       </div>
-      <div :class="surfaceClass">
-        <Icon v-bind="iconArgs" label="Playground icon" />
-      </div>
+      ${withVueStoryPlaygroundContent(`
+        ${createVueStoryPreview(`
+          <div :class="surfaceClass">
+            <Icon v-bind="iconArgs" label="Playground icon" />
+          </div>
+        `)}
+        ${createVueStorySourcePanel()}
+      `)}
   `),
 });
 
@@ -174,7 +234,7 @@ function normalizeIconArgs(args: IconStoryArgs): IconStoryArgs {
 
 export const Playground: Story = {
   name: 'Playground',
-  parameters: {
+  parameters: createFrontendDocsPlaygroundParameters({
     controls: {
       include: ['name', 'size', 'rotation', 'variant'],
       sort: 'none',
@@ -184,17 +244,15 @@ export const Playground: Story = {
         story: iconDocs.storyDescriptions.playground,
       },
     },
-  },
+  }),
   render: (args) => ({
     components: { IconPlaygroundPreview },
     setup() {
-      const normalizedArgs = normalizeIconArgs(args);
-
       return {
-        args: normalizedArgs,
+        args: computed(() => normalizeIconArgs(args)),
       };
     },
-    template: `<IconPlaygroundPreview v-bind="args" />`,
+    template: '<IconPlaygroundPreview v-bind="args" />',
   }),
 };
 

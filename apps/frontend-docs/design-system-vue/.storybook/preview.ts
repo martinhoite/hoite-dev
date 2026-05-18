@@ -7,25 +7,19 @@ import '@hoite-dev/ui/loading.css';
 import '@hoite-dev/ui/typography.css';
 import '../../shared/storybook/hoiteThemePreview.css';
 
-import { withThemeByDataAttribute } from '@storybook/addon-themes';
+import {
+  frontendDocsPreviewInitialGlobals,
+  frontendDocsPreviewParameters,
+  setupFrontendDocsPlaygroundCodePreview,
+} from '@hoite-dev/frontend-docs-shared/storybook';
 import type { Preview } from '@storybook/vue3-vite';
+import { addons } from 'storybook/preview-api';
+
+setupFrontendDocsPlaygroundCodePreview(addons.getChannel());
 
 const preview: Preview = {
-  decorators: [
-    withThemeByDataAttribute({
-      themes: {
-        light: 'light',
-        dark: 'dark',
-      },
-      defaultTheme: 'dark',
-      attributeName: 'data-theme',
-    }),
-  ],
-  parameters: {
-    backgrounds: {
-      disable: true,
-    },
-  },
+  initialGlobals: frontendDocsPreviewInitialGlobals,
+  parameters: frontendDocsPreviewParameters,
 };
 
 export default preview;

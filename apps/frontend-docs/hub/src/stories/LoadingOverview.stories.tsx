@@ -21,16 +21,20 @@ const colorKeys = [...supportedLoadingColors] as LoadingColor[];
 const sizeKeys = [...supportedLoadingSizes] as LoadingSize[];
 
 const meta: Meta = {
-  title: 'Design System/Contracts/Feedback/Loading',
+  title: 'Design System/Contracts/Feedback',
 };
 
 export default meta;
 
 type Story = StoryObj;
 
-export const Overview: Story = {
-  name: 'Docs',
+export const Loading: Story = {
+  name: 'Loading',
+  tags: ['contract-docs'],
   parameters: {
+    controls: {
+      disable: true,
+    },
     docsOnly: true,
   },
   render: () => {

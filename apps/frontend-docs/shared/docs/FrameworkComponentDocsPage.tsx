@@ -10,6 +10,8 @@ type StoryReference = {
   storyName?: string;
 };
 
+type CanvasSourceState = 'hidden' | 'shown' | 'none';
+
 type ControlSection = {
   story: StoryReference;
   title?: string;
@@ -17,7 +19,8 @@ type ControlSection = {
 
 type FrameworkComponentDocsPageProps = {
   argTypesBlock: ElementType<{ of: unknown }>;
-  canvasBlock: ElementType<{ of: unknown }>;
+  canvasBlock: ElementType<{ of: unknown; sourceState?: CanvasSourceState }>;
+  canvasSourceState?: CanvasSourceState;
   contractSourceLinks: readonly SourceLink[];
   controls: readonly ControlSection[];
   docs: ComponentDocs;
@@ -59,18 +62,22 @@ function renderControls(
 }
 
 function renderExamples(
-  CanvasBlock: ElementType<{ of: unknown }>,
+  CanvasBlock: FrameworkComponentDocsPageProps['canvasBlock'],
   examples: readonly StoryReference[],
+  sourceState: CanvasSourceState,
 ): ReactNode {
   return createElement(
     Fragment,
     null,
     examples.map((story, index) =>
-      createElement(DocsExample, {
-        key: `example-${index}`,
-        children: createElement(CanvasBlock, { of: story }),
-        story,
-      }),
+      createElement(
+        DocsExample,
+        {
+          key: `example-${index}`,
+          story,
+        },
+        createElement(CanvasBlock, { of: story, sourceState }),
+      ),
     ),
   );
 }
@@ -78,6 +85,7 @@ function renderExamples(
 export function FrameworkComponentDocsPage({
   argTypesBlock: ArgTypesBlock,
   canvasBlock: CanvasBlock,
+  canvasSourceState = 'none',
   contractSourceLinks,
   controls,
   docs,
@@ -89,7 +97,7 @@ export function FrameworkComponentDocsPage({
   return createElement(DesignSystemDocsPage, {
     controls: renderControls(ArgTypesBlock, controls),
     docs,
-    examples: renderExamples(CanvasBlock, examples),
+    examples: renderExamples(CanvasBlock, examples, canvasSourceState),
     sourceLinks: [
       ...contractSourceLinks,
       ...createFrameworkSourceLinks(framework, implementationPath, storiesPath),

@@ -19,8 +19,8 @@ export const typographyDocs = {
   sections: [
     {
       items: [
-        'Use `variant`, `tag`, and text content as the main component API.',
-        'Leave `tag` on the default option to use the selected variant tag mapping.',
+        'Use [code]variant[/code], [code]tag[/code], and text content as the main component API.',
+        'Leave [code]tag[/code] on the default option to use the selected variant tag mapping.',
         'Developers may pass richer content when needed, but it is rendered inside the chosen Typography tag.',
       ],
       title: 'Usage Notes',
@@ -28,14 +28,14 @@ export const typographyDocs = {
     {
       items: [
         'Default tag mappings are intentional and should usually be preserved to keep document structure and semantics predictable.',
-        'Override `tag` deliberately when the surrounding document outline or inline semantics require it.',
-        'Supported passthrough attributes stay narrow: `id`, `title`, `aria-label`, and deliberate `data-*` attributes on the rendered HTML element.',
+        'Override [code]tag[/code] deliberately when the surrounding document outline or inline semantics require it.',
+        'Supported passthrough attributes stay narrow: [code]id[/code], [code]title[/code], [code]aria-label[/code], and deliberate [code]data-*[/code] attributes on the rendered HTML element.',
       ],
       title: 'Accessibility Notes',
     },
     {
       items: [
-        'Storybook controls focus on `children`, `variant`, and `tag` because they cover the meaningful visible API.',
+        'Storybook controls focus on [code]children[/code], [code]variant[/code], and [code]tag[/code] because they cover the meaningful visible API.',
         'Non-visual passthrough attributes are documented here instead of exposed as noisy controls.',
       ],
       title: 'Controls Guidance',

@@ -17,16 +17,20 @@ const sizeKeys = [...supportedIconSizes] as IconSize[];
 const variantKeys = [...supportedIconVariants] as IconVariant[];
 
 const meta: Meta = {
-  title: 'Design System/Contracts/Static/Icon',
+  title: 'Design System/Contracts/Static',
 };
 
 export default meta;
 
 type Story = StoryObj;
 
-export const Overview: Story = {
-  name: 'Docs',
+export const Icon: Story = {
+  name: 'Icon',
+  tags: ['contract-docs'],
   parameters: {
+    controls: {
+      disable: true,
+    },
     docsOnly: true,
   },
   render: () => {
@@ -124,6 +128,15 @@ export const Overview: Story = {
             All current icons are authored as 24 by 24 stroke-based paths. The primitive enforces
             <code> fill=&quot;none&quot; </code>, <code>stroke=&quot;currentColor&quot;</code>, a
             stroke width of <code> 2 </code>, and round line caps and joins across every icon.
+          </p>
+        </ContractSection>
+        <ContractSection title='Attribution'>
+          <p className='m-0 text-sm text-[var(--color-text-secondary)]'>
+            Icon SVG path data is derived from{' '}
+            <a href='https://github.com/tabler/tabler-icons' rel='noreferrer' target='_blank'>
+              Tabler Icons
+            </a>
+            , which is licensed under the MIT License.
           </p>
         </ContractSection>
         <ContractSection title='Accessibility contract'>
