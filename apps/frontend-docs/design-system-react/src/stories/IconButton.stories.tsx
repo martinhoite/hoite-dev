@@ -327,11 +327,11 @@ export const States: Story = {
                   aria-label={`${state} create action`}
                   className={
                     state === 'Hover'
-                      ? 'icon-button--force-hover'
+                      ? 'frontend-docs-force-hover'
                       : state === 'Focused'
-                        ? 'icon-button--force-focused'
+                        ? 'frontend-docs-force-focused'
                         : state === 'Pressed'
-                          ? 'icon-button--force-pressed'
+                          ? 'frontend-docs-force-pressed'
                           : undefined
                   }
                   disabled={state === 'Disabled'}
