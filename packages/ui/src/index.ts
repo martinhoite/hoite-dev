@@ -15,6 +15,12 @@ export {
   supportedButtonSizes,
   supportedButtonVariants,
 } from './components/primitives/action/button';
+export {
+  iconButtonDocs,
+  iconButtonVariants,
+  supportedIconButtonSizes,
+  supportedIconButtonVariants,
+} from './components/primitives/action/icon-button';
 
 export {
   iconDefinitions,
@@ -73,6 +79,11 @@ export type {
   ButtonVariant,
   ButtonVariantProps,
 } from './components/primitives/action/button';
+export type {
+  IconButtonSize,
+  IconButtonVariant,
+  IconButtonVariantProps,
+} from './components/primitives/action/icon-button';
 export type {
   IconDefinition,
   IconName,

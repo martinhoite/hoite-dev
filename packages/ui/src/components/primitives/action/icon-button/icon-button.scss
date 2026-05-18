@@ -1,0 +1,110 @@
+@layer components.icon-button {
+  .icon-button {
+    --icon-button-background: var(--color-bg-brand);
+    --icon-button-border-color: transparent;
+    --icon-button-border-width: var(--stroke-thin);
+    --icon-button-content-color: var(--color-text-on-brand);
+    --icon-button-radius: var(--radius-md);
+    --icon-button-size: var(--size-control-md);
+
+    align-items: center;
+    appearance: none;
+    background-color: var(--icon-button-background);
+    border: var(--icon-button-border-width) solid var(--icon-button-border-color);
+    border-radius: var(--icon-button-radius);
+    box-sizing: border-box;
+    color: var(--icon-button-content-color);
+    cursor: pointer;
+    display: inline-flex;
+    flex-shrink: 0;
+    height: var(--icon-button-size);
+    justify-content: center;
+    margin: 0;
+    min-width: var(--icon-button-size);
+    padding: 0;
+    position: relative;
+    text-decoration: none;
+    transition:
+      background-color var(--motion-duration-fast) var(--motion-easing-standard),
+      border-color var(--motion-duration-fast) var(--motion-easing-standard),
+      color var(--motion-duration-fast) var(--motion-easing-standard);
+    user-select: none;
+    vertical-align: middle;
+    width: var(--icon-button-size);
+
+    &:hover:not(:disabled),
+    &--force-hover:not(:disabled) {
+      --icon-button-background: var(--color-bg-brand-hover);
+    }
+
+    &:active:not(:disabled),
+    &--force-pressed:not(:disabled) {
+      --icon-button-background: var(--color-bg-brand-active);
+      --icon-button-border-color: var(--color-bg-brand-active);
+    }
+
+    &:focus-visible,
+    &--force-focused {
+      outline: var(--stroke-focus-ring) solid var(--color-border-focus);
+      outline-offset: calc(-1 * var(--stroke-focus-ring));
+    }
+
+    &:disabled {
+      --icon-button-background: var(--color-bg-neutral);
+      --icon-button-border-color: var(--color-border-subtle);
+      --icon-button-content-color: var(--color-text-disabled);
+
+      cursor: not-allowed;
+    }
+
+    &--secondary {
+      --icon-button-background: var(--color-bg-neutral);
+      --icon-button-content-color: var(--color-text-primary);
+
+      &:hover:not(:disabled),
+      &.icon-button--force-hover:not(:disabled) {
+        --icon-button-background: var(--color-bg-neutral-hover);
+        --icon-button-border-color: var(--color-border-strong);
+      }
+
+      &:active:not(:disabled),
+      &.icon-button--force-pressed:not(:disabled) {
+        --icon-button-background: var(--color-bg-neutral-active);
+        --icon-button-border-color: var(--color-bg-neutral-active);
+      }
+
+      &:disabled {
+        --icon-button-background: var(--color-bg-field-disabled);
+        --icon-button-border-color: var(--color-border-subtle);
+        --icon-button-content-color: var(--color-text-disabled);
+      }
+    }
+
+    &--small {
+      --icon-button-radius: var(--radius-sm);
+      --icon-button-size: var(--size-control-sm);
+    }
+
+    &--medium {
+      --icon-button-radius: var(--radius-md);
+      --icon-button-size: var(--size-control-md);
+    }
+
+    &--large {
+      --icon-button-radius: var(--radius-lg);
+      --icon-button-size: var(--size-control-lg);
+    }
+
+    &__visual,
+    &__loader {
+      color: currentColor;
+      flex-shrink: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .icon-button {
+      transition-duration: var(--motion-duration-instant);
+    }
+  }
+}
