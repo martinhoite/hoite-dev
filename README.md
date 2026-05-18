@@ -15,6 +15,7 @@ It contains the Hoite Dev site app, frontend documentation, shared design system
 - [Development setup and commands](./DEVELOPMENT.md)
 - [Workspace overview](#workspace-overview)
 - [Workspace docs](#workspace-docs)
+- [Third-party notices](#third-party-notices)
 - [License](#license)
 
 ## Workspace overview
@@ -127,6 +128,11 @@ Storybook addon for synchronizing theme state across the manager, preview, and c
 AI is used as a support tool for ideation, technical planning, refactoring support, documentation, and language refinement.
 
 It helps accelerate exploration and iteration, while final decisions, validation, and implementation remain my responsibility.
+
+## Third-party notices
+
+This project includes third-party assets and code.
+See [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) for details.
 
 ## License
 
