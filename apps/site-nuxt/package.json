@@ -26,13 +26,13 @@
     "@modyfi/vite-plugin-yaml": "^1.1.1",
     "@nuxt/devtools": "^3.2.4",
     "@nuxt/eslint": "^1.15.2",
-    "eslint": "^10.3.0",
+    "eslint": "^10.4.0",
     "postcss-calc": "^10.1.1",
     "postcss-nested": "^7.0.2",
-    "postcss-preset-env": "^11.2.1",
+    "postcss-preset-env": "^11.3.0",
     "postcss-reporter": "^7.1.0",
     "prettier": "^3.8.3",
-    "vue-tsc": "^3.2.8"
+    "vue-tsc": "^3.2.9"
   },
   "dependencies": {
     "@hoite-dev/umbraco-client": "workspace:*",
