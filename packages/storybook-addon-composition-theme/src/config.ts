@@ -17,6 +17,7 @@ export type CompositionThemeLightDarkConfig<ThemeId extends string = string> =
     toolbar?: {
       control?: 'toggle' | 'buttons';
       label?: string;
+      title?: string;
     };
   };
 
@@ -27,6 +28,7 @@ export type CompositionThemeCustomConfig<ThemeId extends string = string> =
     toolbar?: {
       control?: 'dropdown' | 'buttons';
       label?: string;
+      title?: string;
     };
   } & (
       | {
@@ -54,6 +56,7 @@ export type ResolvedCompositionThemeLightDarkConfig<ThemeId extends string = str
   toolbar: {
     control: 'toggle' | 'buttons';
     label: string;
+    title?: string;
   };
 };
 
@@ -65,6 +68,7 @@ export type ResolvedCompositionThemeCustomConfig<ThemeId extends string = string
   toolbar: {
     control: 'dropdown' | 'buttons';
     label: string;
+    title?: string;
   };
 };
 
@@ -132,6 +136,16 @@ function resolveToolbarLabel(label: string | undefined): string {
   assertNonEmptyString(label, 'toolbar.label');
 
   return label;
+}
+
+function resolveToolbarTitle(title: string | undefined): string | undefined {
+  if (title === undefined) {
+    return undefined;
+  }
+
+  assertNonEmptyString(title, 'toolbar.title');
+
+  return title;
 }
 
 function ensureLightDarkConfigIsValid(config: CompositionThemeLightDarkConfig) {
@@ -244,6 +258,7 @@ export function defineCompositionThemeConfig<ThemeId extends string>(
       toolbar: {
         control: config.toolbar?.control ?? 'toggle',
         label: resolveToolbarLabel(config.toolbar?.label),
+        title: resolveToolbarTitle(config.toolbar?.title),
       },
     };
 
@@ -260,6 +275,7 @@ export function defineCompositionThemeConfig<ThemeId extends string>(
     toolbar: {
       control: config.toolbar?.control ?? 'dropdown',
       label: resolveToolbarLabel(config.toolbar?.label),
+      title: resolveToolbarTitle(config.toolbar?.title),
     },
   };
 

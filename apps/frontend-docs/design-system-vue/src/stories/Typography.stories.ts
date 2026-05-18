@@ -1,6 +1,12 @@
 import {
+  copyFrontendDocsSnippetToClipboard,
+  createFrontendDocsComponentSnippet,
+  createFrontendDocsHighlightedSnippetHtml,
   createFrontendDocsPlaygroundParameters,
-  withStoryStack,
+  createVueStoryPreview,
+  createVueStorySourcePanel,
+  withStoryPlayground,
+  withVueStoryPlaygroundContent,
 } from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   supportedTypographyTags,
@@ -11,7 +17,7 @@ import {
 } from '@hoite-dev/ui';
 import { Typography } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const defaultTagOption = 'Default variant tag';
 const variantKeys = Object.keys(typographyVariantConfig) as TypographyVariant[];
@@ -89,31 +95,65 @@ export const Playground: Story = {
     components: { Typography },
     setup() {
       const normalizedVariant = computed(() => normalizeVariant(args.variant));
+      const normalizedTag = computed(() => normalizeTag(args.tag));
+      const snippet = computed(() =>
+        createFrontendDocsComponentSnippet({
+          children: args.children,
+          componentName: 'Typography',
+          framework: 'vue',
+          props: [
+            {
+              name: 'variant',
+              value: normalizedVariant.value,
+            },
+            {
+              name: 'tag',
+              value: normalizedTag.value,
+            },
+          ],
+        }),
+      );
+      const copyButtonLabel = ref('Copy code');
+      const copySnippet = async () => {
+        copyButtonLabel.value = 'Copying';
+        copyButtonLabel.value = (await copyFrontendDocsSnippetToClipboard(snippet.value))
+          ? 'Copied'
+          : 'Copy error';
+      };
+      const highlightedSnippet = computed(() =>
+        createFrontendDocsHighlightedSnippetHtml(snippet.value),
+      );
 
       return {
         args,
-        normalizedTag: computed(() => normalizeTag(args.tag)),
+        copyButtonLabel,
+        copySnippet,
+        highlightedSnippet,
+        normalizedTag,
         normalizedVariant,
+        snippet,
       };
     },
-    template: withStoryStack(`
+    template: withStoryPlayground(`
         <div
-          class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
+          class="rounded-lg border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
         >
           <p class="m-0 text-sm text-[var(--color-text-primary)]">
-            Use <code>variant</code>, <code>tag</code>, and text content as the main Typography API.
-            Leave <code>tag</code> on the default option to use the selected variant's standard HTML
-            element.
-          </p>
-          <p class="mb-0 mt-3 text-sm text-[var(--color-text-secondary)]">
-            Supported passthrough attributes include <code>id</code>, <code>title</code>,
-            <code>aria-label</code>, and deliberate <code>data-*</code> attributes on the rendered
-            HTML element.
+            The default tag follows the selected variant. Supported passthroughs: <code>id</code>,
+            <code>title</code>, <code>aria-label</code>, and deliberate <code>data-*</code>
+            attributes.
           </p>
         </div>
-        <Typography :tag="normalizedTag" :variant="normalizedVariant">
-          {{ args.children }}
-        </Typography>
+        ${withVueStoryPlaygroundContent(`
+          ${createVueStoryPreview(`
+            <div class="text-center">
+              <Typography :tag="normalizedTag" :variant="normalizedVariant">
+                {{ args.children }}
+              </Typography>
+            </div>
+          `)}
+          ${createVueStorySourcePanel()}
+        `)}
     `),
   }),
 };

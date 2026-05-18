@@ -35,25 +35,25 @@ export const loadingDocs = {
   sections: [
     {
       items: [
-        'Use `Loader` for non-quantified wait states and `Progress` or `CircularProgress` when a numeric completion value is meaningful.',
-        'All three primitives share the same `size` and `color` model so loading states stay visually consistent.',
-        'Progress primitives normalize invalid `max` and `value` input and clamp out-of-range values before rendering.',
+        'Use [code]Loader[/code] for non-quantified wait states and [code]Progress[/code] or [code]CircularProgress[/code] when a numeric completion value is meaningful.',
+        'All three primitives share the same [code]size[/code] and [code]color[/code] model so loading states stay visually consistent.',
+        'Progress primitives normalize invalid [code]max[/code] and [code]value[/code] input and clamp out-of-range values before rendering.',
         'Indeterminate states include built-in motion; reduced-motion settings disable those animations.',
       ],
       title: 'Usage Notes',
     },
     {
       items: [
-        'Provide a visible `label` for `Progress` and `CircularProgress` when possible. Wrappers connect labels to native progress semantics.',
-        'For unlabeled usage, pass `aria-label` or `aria-labelledby` so assistive technologies announce purpose and state.',
-        'Progress and CircularProgress keep a native `<progress>` element as the semantic source while custom visuals remain `aria-hidden`.',
+        'Provide a visible [code]label[/code] for [code]Progress[/code] and [code]CircularProgress[/code] when possible. Wrappers connect labels to native progress semantics.',
+        'For unlabeled usage, pass [code]aria-label[/code] or [code]aria-labelledby[/code] so assistive technologies announce purpose and state.',
+        'Progress and CircularProgress keep a native [code]<progress>[/code] element as the semantic source while custom visuals remain [code]aria-hidden[/code].',
       ],
       title: 'Accessibility Notes',
     },
     {
       items: [
         'Use one curated Loading docs entry that shows Loader, Progress, and CircularProgress side by side.',
-        'Keep controls focused on meaningful loading behavior while passthrough attributes stay native (`aria-*`, `id`, `data-*`).',
+        'Keep controls focused on meaningful loading behavior while passthrough attributes stay native ([code]aria-*[/code], [code]id[/code], [code]data-*[/code]).',
       ],
       title: 'Controls Guidance',
     },

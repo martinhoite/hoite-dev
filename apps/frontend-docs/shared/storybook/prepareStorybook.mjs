@@ -36,12 +36,17 @@ function runPnpm(commandArgs) {
 }
 
 if (shouldClearCache) {
-  const storybookCachePath = path.resolve(process.cwd(), 'node_modules/.cache/storybook');
+  const storybookCachePaths = [
+    path.resolve(process.cwd(), 'node_modules/.cache/storybook'),
+    path.resolve(process.cwd(), 'storybook-static'),
+  ];
 
-  rmSync(storybookCachePath, {
-    force: true,
-    recursive: true,
-  });
+  for (const storybookCachePath of storybookCachePaths) {
+    rmSync(storybookCachePath, {
+      force: true,
+      recursive: true,
+    });
+  }
 }
 
 if (shouldSyncBrandAssets) {

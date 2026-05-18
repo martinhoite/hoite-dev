@@ -1,5 +1,10 @@
 export const frontendDocsCoreConfig = {
+  disableWhatsNewNotifications: true,
   allowedHosts: true,
+} as const;
+
+export const frontendDocsParametersConfig = {
+  actions: { disable: true },
 } as const;
 
 export const frontendDocsDefaultAddons = [
@@ -59,11 +64,11 @@ export function createFrontendDocsAddons(
   compositionThemeOptions: unknown,
 ): readonly FrontendDocsAddon[] {
   return [
-    ...frontendDocsDefaultAddons,
     {
       name: '@hoite-dev/storybook-addon-composition-theme',
       options: compositionThemeOptions,
     },
+    ...frontendDocsDefaultAddons,
   ];
 }
 
@@ -128,6 +133,7 @@ export function createFrontendDocsStorybookConfig<TConfig>({
   return {
     addons: [...addons],
     core: frontendDocsCoreConfig,
+    parameters: frontendDocsParametersConfig,
     framework: {
       name: frameworkName,
       options: {},

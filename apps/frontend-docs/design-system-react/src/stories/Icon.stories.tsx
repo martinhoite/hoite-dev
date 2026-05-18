@@ -1,7 +1,11 @@
 import {
+  createFrontendDocsComponentSnippet,
   createFrontendDocsPlaygroundParameters,
   StoryInfoPanel,
-  StoryStack,
+  StoryPlayground,
+  StoryPlaygroundContent,
+  StoryPlaygroundPreview,
+  StoryPlaygroundSnippet,
 } from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   type IconName,
@@ -17,6 +21,8 @@ import {
 import { Icon } from '@hoite-dev/ui-react';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
+
+import { StorybookSourceSnippet } from './StorybookSourceSnippet';
 
 type IconStoryArgs = {
   name: IconName;
@@ -40,6 +46,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     table: {
       category: 'Component API',
     },
+    type: {
+      name: 'string',
+    },
   },
   size: {
     control: 'select',
@@ -47,6 +56,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     options: supportedIconSizes,
     table: {
       category: 'Component API',
+    },
+    type: {
+      name: 'string',
     },
   },
   rotation: {
@@ -56,6 +68,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     table: {
       category: 'Component API',
     },
+    type: {
+      name: 'string',
+    },
   },
   variant: {
     control: 'select',
@@ -63,6 +78,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     options: supportedIconVariants,
     table: {
       category: 'Component API',
+    },
+    type: {
+      name: 'string',
     },
   },
 };
@@ -101,27 +119,53 @@ function getShowcaseSurfaceClass(variant: IconVariant): string {
 }
 
 function IconPlaygroundPreview(iconArgs: IconStoryArgs): ReactElement {
+  const snippet = createFrontendDocsComponentSnippet({
+    componentName: 'Icon',
+    framework: 'react',
+    props: [
+      {
+        name: 'label',
+        value: 'Playground icon',
+      },
+      {
+        name: 'name',
+        value: iconArgs.name,
+      },
+      {
+        name: 'rotation',
+        value: iconArgs.rotation,
+      },
+      {
+        name: 'size',
+        value: iconArgs.size,
+      },
+      {
+        name: 'variant',
+        value: iconArgs.variant,
+      },
+    ],
+  });
+
   return (
-    <StoryStack>
+    <StoryPlayground>
       <StoryInfoPanel>
         <p className='m-0 text-sm text-[var(--color-text-primary)]'>
-          Use <code>name</code>, <code>size</code>, <code>rotation</code>, and <code>variant</code>{' '}
-          as the main visual Icon API.
-        </p>
-        <p className='mb-0 mt-3 text-sm text-[var(--color-text-secondary)]'>
-          In app code, meaningful icons should also receive an accessible name with{' '}
-          <code>label</code> or <code>aria-label</code>.
-        </p>
-        <p className='mb-0 mt-3 text-sm text-[var(--color-text-secondary)]'>
-          Supported passthrough attributes stay narrow: <code>id</code>, <code>title</code>,{' '}
-          <code>role</code>, <code>aria-label</code>, and deliberate <code>data-*</code> attributes
-          on the rendered SVG.
+          Meaningful icons need <code>label</code> or <code>aria-label</code>. Supported
+          passthroughs: <code>id</code>, <code>title</code>, <code>role</code>,{' '}
+          <code>aria-label</code>, and deliberate <code>data-*</code> attributes.
         </p>
       </StoryInfoPanel>
-      <div className={getSurfaceClass(iconArgs.variant)}>
-        <Icon {...iconArgs} label='Playground icon' />
-      </div>
-    </StoryStack>
+      <StoryPlaygroundContent split>
+        <StoryPlaygroundPreview>
+          <div className={getSurfaceClass(iconArgs.variant)}>
+            <Icon {...iconArgs} label='Playground icon' />
+          </div>
+        </StoryPlaygroundPreview>
+        <StoryPlaygroundSnippet>
+          <StorybookSourceSnippet code={snippet} />
+        </StoryPlaygroundSnippet>
+      </StoryPlaygroundContent>
+    </StoryPlayground>
   );
 }
 

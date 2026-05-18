@@ -1,8 +1,6 @@
 import { createElement, type ReactNode } from 'react';
 
-const stackBaseClassName = 'grid gap-4';
-const infoPanelBaseClassName =
-  'rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4';
+import { frontendDocsStoryLayoutClasses } from './storyLayoutClasses.ts';
 
 type StoryStackProps = {
   children: ReactNode;
@@ -14,6 +12,14 @@ type StoryInfoPanelProps = {
   className?: string;
 };
 
+type StoryPlaygroundSnippetProps = {
+  children: ReactNode;
+};
+
+type StoryPlaygroundContentProps = StoryStackProps & {
+  split?: boolean;
+};
+
 function joinClassNames(...classNames: Array<string | undefined>): string {
   return classNames
     .filter((className) => className !== undefined && className.length > 0)
@@ -23,7 +29,7 @@ function joinClassNames(...classNames: Array<string | undefined>): string {
 export function StoryStack({ children, className }: StoryStackProps) {
   return createElement(
     'div',
-    { className: joinClassNames(stackBaseClassName, className) },
+    { className: joinClassNames(frontendDocsStoryLayoutClasses.stack, className) },
     children,
   );
 }
@@ -31,7 +37,45 @@ export function StoryStack({ children, className }: StoryStackProps) {
 export function StoryInfoPanel({ children, className }: StoryInfoPanelProps) {
   return createElement(
     'div',
-    { className: joinClassNames(infoPanelBaseClassName, className) },
+    { className: joinClassNames(frontendDocsStoryLayoutClasses.infoPanel, className) },
     children,
   );
+}
+
+export function StoryPlayground({ children, className }: StoryStackProps) {
+  return createElement(
+    'div',
+    { className: joinClassNames(frontendDocsStoryLayoutClasses.playground, className) },
+    children,
+  );
+}
+
+export function StoryPlaygroundContent({
+  children,
+  className,
+  split = false,
+}: StoryPlaygroundContentProps) {
+  return createElement(
+    'div',
+    {
+      className: joinClassNames(
+        frontendDocsStoryLayoutClasses.playgroundContent,
+        split ? frontendDocsStoryLayoutClasses.playgroundContentSplit : undefined,
+        className,
+      ),
+    },
+    children,
+  );
+}
+
+export function StoryPlaygroundPreview({ children, className }: StoryStackProps) {
+  return createElement(
+    'div',
+    { className: joinClassNames(frontendDocsStoryLayoutClasses.playgroundPreview, className) },
+    children,
+  );
+}
+
+export function StoryPlaygroundSnippet({ children }: StoryPlaygroundSnippetProps) {
+  return createElement('div', { className: frontendDocsStoryLayoutClasses.snippetPanel }, children);
 }

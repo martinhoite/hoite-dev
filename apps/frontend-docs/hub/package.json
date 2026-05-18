@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "sync:brand-assets": "node ./scripts/sync-brand-assets.mjs",
-    "prebuild": "node ../shared/storybook/prepareStorybook.mjs --skip-cache-clear --sync-brand-assets",
-    "predev": "node ../shared/storybook/prepareStorybook.mjs --sync-brand-assets",
+    "prebuild": "node ../shared/storybook/prepareStorybook.mjs --sync-brand-assets",
+    "predev": "node ../shared/storybook/prepareStorybook.mjs --sync-brand-assets --skip-cache-clear",
     "build": "storybook build",
     "dev": "storybook dev --host frontend-docs.local.hoite.dev --port 6006 --https --ssl-cert ../../../ssl/local.hoite.dev.pem --ssl-key ../../../ssl/local.hoite.dev-key.pem",
     "format": "biome check --write .storybook src scripts package.json tsconfig.json README.md",

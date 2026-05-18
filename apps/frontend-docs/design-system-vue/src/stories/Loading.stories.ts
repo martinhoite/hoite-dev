@@ -1,6 +1,13 @@
 import {
+  copyFrontendDocsSnippetToClipboard,
+  createFrontendDocsComponentSnippet,
+  createFrontendDocsHighlightedSnippetHtml,
   createFrontendDocsPlaygroundParameters,
+  createVueStoryPreview,
+  createVueStorySourcePanel,
+  withStoryPlayground,
   withStoryStack,
+  withVueStoryPlaygroundContent,
 } from '@hoite-dev/frontend-docs-shared/storybook';
 import {
   type LoadingColor,
@@ -11,7 +18,7 @@ import {
 } from '@hoite-dev/ui';
 import { CircularProgress, Loader, Progress } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
-import { computed, defineComponent } from 'vue';
+import { type ComputedRef, computed, defineComponent, ref } from 'vue';
 
 type CircularValueDisplay = 'fraction' | 'percent';
 
@@ -29,6 +36,25 @@ type LoadingStoryArgs = {
   value: number;
   valueDisplay: CircularValueDisplay;
 };
+
+function createSnippetCopyState(snippet: ComputedRef<string>) {
+  const copyButtonLabel = ref('Copy code');
+  const highlightedSnippet = computed(() =>
+    createFrontendDocsHighlightedSnippetHtml(snippet.value),
+  );
+  const copySnippet = async () => {
+    copyButtonLabel.value = 'Copying';
+    copyButtonLabel.value = (await copyFrontendDocsSnippetToClipboard(snippet.value))
+      ? 'Copied'
+      : 'Copy error';
+  };
+
+  return {
+    copyButtonLabel,
+    copySnippet,
+    highlightedSnippet,
+  };
+}
 
 const storyArgTypes: Partial<ArgTypes<LoadingStoryArgs>> = {
   size: {
@@ -146,19 +172,49 @@ const LoaderPlaygroundPreview = defineComponent({
       return undefined;
     });
     const surfaceClass = computed(() => getSurfaceClass(props.color));
+    const snippet = computed(() =>
+      createFrontendDocsComponentSnippet({
+        componentName: 'Loader',
+        framework: 'vue',
+        props: [
+          {
+            name: 'aria-label',
+            value: normalizedAriaLabel.value,
+          },
+          {
+            name: 'color',
+            value: props.color,
+          },
+          {
+            name: 'size',
+            value: props.size,
+          },
+        ],
+      }),
+    );
+    const { copyButtonLabel, copySnippet, highlightedSnippet } = createSnippetCopyState(snippet);
 
     return {
+      copyButtonLabel,
+      copySnippet,
+      highlightedSnippet,
       normalizedAriaLabel,
+      snippet,
       surfaceClass,
     };
   },
-  template: withStoryStack(`
-      <div class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]">
-        Loader uses <code>aria-label</code> or <code>aria-labelledby</code> when it is not decorative.
+  template: withStoryPlayground(`
+      <div class="rounded-lg border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]">
+        Use <code>aria-label</code> or <code>aria-labelledby</code> when no visible label is present.
       </div>
-      <div :class="surfaceClass">
-        <Loader :aria-label="normalizedAriaLabel" :color="color" :size="size" />
-      </div>
+      ${withVueStoryPlaygroundContent(`
+        ${createVueStoryPreview(`
+          <div :class="surfaceClass">
+            <Loader :aria-label="normalizedAriaLabel" :color="color" :size="size" />
+          </div>
+        `)}
+        ${createVueStorySourcePanel()}
+      `)}
   `),
 });
 
@@ -221,28 +277,73 @@ const ProgressPlaygroundPreview = defineComponent({
       return props.value;
     });
     const surfaceClass = computed(() => getSurfaceClass(props.color));
+    const snippet = computed(() =>
+      createFrontendDocsComponentSnippet({
+        componentName: 'Progress',
+        framework: 'vue',
+        props: [
+          {
+            name: 'aria-label',
+            value: normalizedAriaLabel.value,
+          },
+          {
+            name: 'color',
+            value: props.color,
+          },
+          {
+            name: 'label',
+            value: normalizedLabel.value,
+          },
+          {
+            name: 'max',
+            value: props.max,
+          },
+          {
+            name: 'size',
+            value: props.size,
+          },
+          {
+            name: 'value',
+            value: normalizedValue.value,
+          },
+        ],
+      }),
+    );
+    const { copyButtonLabel, copySnippet, highlightedSnippet } = createSnippetCopyState(snippet);
 
     return {
+      copyButtonLabel,
+      copySnippet,
+      highlightedSnippet,
       normalizedAriaLabel,
       normalizedLabel,
       normalizedValue,
+      snippet,
       surfaceClass,
     };
   },
-  template: withStoryStack(`
-      <div class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]">
-        Progress uses native <code>&lt;progress&gt;</code> semantics with shared numeric normalization.
+  template: withStoryPlayground(`
+      <div class="rounded-lg border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]">
+        Indeterminate progress omits <code>value</code>; otherwise value is normalized against <code>max</code>.
       </div>
-      <div :class="surfaceClass">
-        <Progress
-          :aria-label="normalizedAriaLabel"
-          :color="color"
-          :label="normalizedLabel"
-          :max="max"
-          :size="size"
-          :value="normalizedValue"
-        />
-      </div>
+      ${withVueStoryPlaygroundContent(`
+        ${createVueStoryPreview(
+          `
+          <div :class="[surfaceClass, 'box-border w-full [&_.progress-field]:w-full']">
+            <Progress
+              :aria-label="normalizedAriaLabel"
+              :color="color"
+              :label="normalizedLabel"
+              :max="max"
+              :size="size"
+              :value="normalizedValue"
+            />
+          </div>
+        `,
+          'min-w-0 w-full',
+        )}
+        ${createVueStorySourcePanel()}
+      `)}
   `),
 });
 
@@ -317,33 +418,96 @@ const CircularProgressPlaygroundPreview = defineComponent({
       return undefined;
     });
     const surfaceClass = computed(() => getSurfaceClass(props.color));
+    const snippet = computed(() =>
+      createFrontendDocsComponentSnippet({
+        componentName: 'CircularProgress',
+        framework: 'vue',
+        props: [
+          {
+            name: 'aria-label',
+            value: normalizedAriaLabel.value,
+          },
+          {
+            name: 'color',
+            value: props.color,
+          },
+          {
+            name: 'label',
+            value: normalizedLabel.value,
+          },
+          {
+            name: 'label-class',
+            value: props.labelClass,
+          },
+          {
+            name: 'max',
+            value: props.max,
+          },
+          {
+            defaultValue: true,
+            name: 'show-value',
+            value: props.showValue,
+          },
+          {
+            name: 'size',
+            value: props.size,
+          },
+          {
+            name: 'value',
+            value: props.value,
+          },
+          {
+            name: 'value-class',
+            value: props.valueClass,
+          },
+          {
+            name: 'value-display',
+            value: props.valueDisplay,
+          },
+          {
+            name: 'value-label',
+            value: normalizedValueLabel.value,
+          },
+        ],
+      }),
+    );
+    const { copyButtonLabel, copySnippet, highlightedSnippet } = createSnippetCopyState(snippet);
 
     return {
+      copyButtonLabel,
+      copySnippet,
+      highlightedSnippet,
       normalizedAriaLabel,
       normalizedLabel,
       normalizedValueLabel,
+      snippet,
       surfaceClass,
     };
   },
-  template: withStoryStack(`
-      <div class="rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]">
-        CircularProgress supports centered value text as percentage or step fraction.
+  template: withStoryPlayground(`
+      <div class="rounded-lg border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4 text-sm text-[var(--color-text-secondary)]">
+        Center value text can be generated as a percent or step fraction, or replaced with <code>valueLabel</code>.
       </div>
-      <div :class="surfaceClass">
-        <CircularProgress
-          :aria-label="normalizedAriaLabel"
-          :color="color"
-          :label="normalizedLabel"
-          :label-class="labelClass || undefined"
-          :max="max"
-          :show-value="showValue"
-          :size="size"
-          :value="value"
-          :value-class="valueClass || undefined"
-          :value-display="valueDisplay"
-          :value-label="normalizedValueLabel"
-        />
-      </div>
+      ${withVueStoryPlaygroundContent(`
+        ${createVueStoryPreview(`
+          <div :class="surfaceClass">
+            <CircularProgress
+              :aria-label="normalizedAriaLabel"
+              :color="color"
+              :label="normalizedLabel"
+              :label-class="labelClass || undefined"
+              :max="max"
+              :show-value="showValue"
+              :size="size"
+              :value="value"
+              :value-class="valueClass || undefined"
+              :value-display="valueDisplay"
+              :value-label="normalizedValueLabel"
+            />
+          </div>
+        `)}
+        ${createVueStorySourcePanel()}
+      `)}
   `),
 });
 

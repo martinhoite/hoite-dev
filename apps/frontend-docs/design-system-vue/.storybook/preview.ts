@@ -7,10 +7,18 @@ import '@hoite-dev/ui/loading.css';
 import '@hoite-dev/ui/typography.css';
 import '../../shared/storybook/hoiteThemePreview.css';
 
-import { frontendDocsPreviewParameters } from '@hoite-dev/frontend-docs-shared/storybook';
+import {
+  frontendDocsPreviewInitialGlobals,
+  frontendDocsPreviewParameters,
+  setupFrontendDocsPlaygroundCodePreview,
+} from '@hoite-dev/frontend-docs-shared/storybook';
 import type { Preview } from '@storybook/vue3-vite';
+import { addons } from 'storybook/preview-api';
+
+setupFrontendDocsPlaygroundCodePreview(addons.getChannel());
 
 const preview: Preview = {
+  initialGlobals: frontendDocsPreviewInitialGlobals,
   parameters: frontendDocsPreviewParameters,
 };
 

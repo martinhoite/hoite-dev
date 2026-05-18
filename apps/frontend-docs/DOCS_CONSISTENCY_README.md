@@ -90,7 +90,7 @@ These helpers live in `hub/src/stories/contractDocs.tsx` and keep contract pages
 ## Controls Rules
 
 - Use `parameters.controls.sort = 'none'` when control order is intentional.
-- Use `createFrontendDocsPlaygroundParameters(...)` for playground stories. The shared default shows Controls and Accessibility, and hides Actions, Interactions, and the Docs Code panel.
+- Use `createFrontendDocsPlaygroundParameters(...)` for playground stories. The shared default shows Controls and Accessibility, hides Actions, Interactions, and the Docs Code panel.
 - A story can deliberately override playground addon visibility through the helper's `addons` option, for example `addons: { actions: true, code: true }`.
 - The shared manager config hides toolbar tools that are not verified for the current stories: Reload story, Measure, Outline, and Vision filter.
 - Use `tags: ['!dev']` for showcase-only stories when needed.
