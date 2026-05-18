@@ -1,11 +1,11 @@
 import {
+  type DataAttributes,
   resolveTypographyDefaultTag,
   type TypographyTag,
   type TypographyVariant,
   typographyVariants,
 } from '@hoite-dev/ui';
 import type { AriaAttributes, PropsWithChildren, ReactElement } from 'react';
-import type { DataAttributes } from '../../../../types/dom';
 
 type TypographyBaseProps = {
   tag?: TypographyTag;

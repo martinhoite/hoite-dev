@@ -1,4 +1,5 @@
 import {
+  type DataAttributes,
   type IconName,
   type IconRotation,
   type IconSize,
@@ -7,8 +8,6 @@ import {
   resolveIconDefinition,
 } from '@hoite-dev/ui';
 import type { AriaRole, ReactElement } from 'react';
-
-import type { DataAttributes } from '../../../../types/dom';
 
 type IconBaseProps = {
   className?: string;

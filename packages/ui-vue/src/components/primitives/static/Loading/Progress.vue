@@ -5,10 +5,10 @@ import {
   type LoadingColor,
   type LoadingSize,
   normalizeProgressValue,
+  pickAriaAndDataAttributes,
   progressVariants,
 } from '@hoite-dev/ui';
 import { computed, defineComponent, getCurrentInstance, type PropType, watchEffect } from 'vue';
-import { pickAriaAndDataAttributes } from '../../../../utils/attributes';
 
 type ProgressBaseProps = {
   color?: LoadingColor;

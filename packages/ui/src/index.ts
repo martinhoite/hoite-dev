@@ -72,6 +72,8 @@ export const tokens = {
 
 export const tokenThemes = tokens.color;
 
+export { pickAriaAndDataAttributes } from './dom-attributes';
+
 export type ThemeName = (typeof themeNames)[number];
 export type Tokens = typeof tokens;
 export type {
@@ -108,6 +110,7 @@ export type {
   TypographyVariant,
   TypographyVariantProps,
 } from './components/primitives/static/typography';
+export type { DataAttributes } from './dom-attributes';
 export type ColorThemeTokens = (typeof tokenThemes)[ThemeName];
 export type LayoutTokens = typeof tokens.layout;
 export type MotionTokens = typeof tokens.motion;

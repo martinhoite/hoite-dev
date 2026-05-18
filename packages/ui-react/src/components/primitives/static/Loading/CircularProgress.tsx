@@ -1,6 +1,7 @@
 import { warnInDevelopment } from '@hoite-dev/diagnostics';
 import {
   circularProgressVariants,
+  type DataAttributes,
   describeProgressNormalizationWarning,
   type LoadingColor,
   type LoadingSize,
@@ -14,8 +15,6 @@ import {
   useId,
   useMemo,
 } from 'react';
-
-import type { DataAttributes } from '../../../../types/dom';
 
 type CircularProgressBaseProps = {
   color?: LoadingColor;

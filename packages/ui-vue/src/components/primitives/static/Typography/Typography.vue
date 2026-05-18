@@ -1,12 +1,12 @@
 <script lang="ts">
 import {
+  pickAriaAndDataAttributes,
   resolveTypographyDefaultTag,
   type TypographyTag,
   type TypographyVariant,
   typographyVariants,
 } from '@hoite-dev/ui';
 import { computed, defineComponent, type PropType } from 'vue';
-import { pickAriaAndDataAttributes } from '../../../../utils/attributes';
 
 type TypographyBaseProps = {
   id?: string;
