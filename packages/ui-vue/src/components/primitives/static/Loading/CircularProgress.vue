@@ -6,9 +6,9 @@ import {
   type LoadingColor,
   type LoadingSize,
   normalizeProgressValue,
+  pickAriaAndDataAttributes,
 } from '@hoite-dev/ui';
 import { computed, defineComponent, getCurrentInstance, type PropType, watchEffect } from 'vue';
-import { pickAriaAndDataAttributes } from '../../../../utils/attributes';
 
 type CircularProgressBaseProps = {
   color?: LoadingColor;

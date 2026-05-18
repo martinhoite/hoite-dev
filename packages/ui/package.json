@@ -21,6 +21,14 @@
       "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/icon.css"
     },
+    "./button.css": {
+      "types": "./src/types/css-side-effect.d.ts",
+      "default": "./dist/button.css"
+    },
+    "./icon-button.css": {
+      "types": "./src/types/css-side-effect.d.ts",
+      "default": "./dist/icon-button.css"
+    },
     "./loading.css": {
       "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/loading.css"

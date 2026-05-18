@@ -1,8 +1,12 @@
 <script lang="ts">
 import { warnInDevelopment } from '@hoite-dev/diagnostics';
-import { type LoadingColor, type LoadingSize, loaderVariants } from '@hoite-dev/ui';
+import {
+  type LoadingColor,
+  type LoadingSize,
+  loaderVariants,
+  pickAriaAndDataAttributes,
+} from '@hoite-dev/ui';
 import { computed, defineComponent, type PropType, watchEffect } from 'vue';
-import { pickAriaAndDataAttributes } from '../../../../utils/attributes';
 
 type LoaderBaseProps = {
   color?: LoadingColor;

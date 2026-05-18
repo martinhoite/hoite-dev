@@ -7,11 +7,7 @@ body,
 .docs-story,
 .sbdocs-wrapper,
 .sbdocs-content,
-.sbdocs,
-.sbdocs-wrapper .sbdocs-content :where(*),
-.sbdocs-wrapper .sbdocs-content table :where(*),
-.sbdocs-wrapper .sbdocs-content .docblock-argstable-body :where(*),
-.sbdocs-wrapper .sbdocs-content .docblock-argstable-head :where(*) {
+.sbdocs {
   transition:
     background-color var(--motion-duration-moderate) var(--motion-easing-standard),
     border-color var(--motion-duration-moderate) var(--motion-easing-standard),
@@ -30,11 +26,7 @@ body,
   .docs-story,
   .sbdocs-wrapper,
   .sbdocs-content,
-  .sbdocs,
-  .sbdocs-wrapper .sbdocs-content :where(*),
-  .sbdocs-wrapper .sbdocs-content table :where(*),
-  .sbdocs-wrapper .sbdocs-content .docblock-argstable-body :where(*),
-  .sbdocs-wrapper .sbdocs-content .docblock-argstable-head :where(*) {
+  .sbdocs {
     transition: none;
   }
 }

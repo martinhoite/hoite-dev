@@ -1,5 +1,6 @@
 import { warnInDevelopment } from '@hoite-dev/diagnostics';
 import {
+  type DataAttributes,
   describeProgressNormalizationWarning,
   type LoadingColor,
   type LoadingSize,
@@ -24,6 +25,7 @@ type ProgressBaseProps = {
 };
 
 export type ProgressProps = ProgressBaseProps &
+  DataAttributes &
   Omit<ComponentPropsWithoutRef<'progress'>, 'children' | 'color' | 'max' | 'value'>;
 
 type ProgressVisualStyle = CSSProperties & {

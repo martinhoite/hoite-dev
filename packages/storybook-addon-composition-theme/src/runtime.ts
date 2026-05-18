@@ -153,7 +153,14 @@ export function applyThemeToDocument(
   }
 
   if (themeId === null || !isValidThemeId(config, themeId)) {
-    root.removeAttribute(config.attributeName);
+    if (root.hasAttribute(config.attributeName)) {
+      root.removeAttribute(config.attributeName);
+    }
+
+    return;
+  }
+
+  if (root.getAttribute(config.attributeName) === themeId) {
     return;
   }
 

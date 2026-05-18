@@ -10,6 +10,19 @@ import strokeTokens from './tokens/source/stroke/Value.tokens.json';
 import typographyTokens from './tokens/source/typography/Value.tokens.json';
 
 export {
+  buttonDocs,
+  buttonVariants,
+  supportedButtonSizes,
+  supportedButtonVariants,
+} from './components/primitives/action/button';
+export {
+  iconButtonDocs,
+  iconButtonVariants,
+  supportedIconButtonSizes,
+  supportedIconButtonVariants,
+} from './components/primitives/action/icon-button';
+
+export {
   iconDefinitions,
   iconDocs,
   iconVariants,
@@ -59,8 +72,20 @@ export const tokens = {
 
 export const tokenThemes = tokens.color;
 
+export { pickAriaAndDataAttributes } from './dom-attributes';
+
 export type ThemeName = (typeof themeNames)[number];
 export type Tokens = typeof tokens;
+export type {
+  ButtonSize,
+  ButtonVariant,
+  ButtonVariantProps,
+} from './components/primitives/action/button';
+export type {
+  IconButtonSize,
+  IconButtonVariant,
+  IconButtonVariantProps,
+} from './components/primitives/action/icon-button';
 export type {
   IconDefinition,
   IconName,
@@ -85,6 +110,7 @@ export type {
   TypographyVariant,
   TypographyVariantProps,
 } from './components/primitives/static/typography';
+export type { DataAttributes } from './dom-attributes';
 export type ColorThemeTokens = (typeof tokenThemes)[ThemeName];
 export type LayoutTokens = typeof tokens.layout;
 export type MotionTokens = typeof tokens.motion;

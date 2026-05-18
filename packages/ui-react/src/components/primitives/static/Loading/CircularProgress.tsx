@@ -1,6 +1,7 @@
 import { warnInDevelopment } from '@hoite-dev/diagnostics';
 import {
   circularProgressVariants,
+  type DataAttributes,
   describeProgressNormalizationWarning,
   type LoadingColor,
   type LoadingSize,
@@ -37,6 +38,7 @@ const radius = 18;
 const circumference = 2 * Math.PI * radius;
 
 export type CircularProgressProps = CircularProgressBaseProps &
+  DataAttributes &
   Omit<ComponentPropsWithoutRef<'progress'>, 'children' | 'color' | 'max' | 'value'>;
 
 function isPresent(value: string | undefined): boolean {

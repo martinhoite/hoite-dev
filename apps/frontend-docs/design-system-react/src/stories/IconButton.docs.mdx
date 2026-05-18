@@ -1,0 +1,19 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import { iconButtonDocs } from '@hoite-dev/ui';
+
+import { FrameworkComponentDocsPage } from '@hoite-dev/frontend-docs-shared/docs';
+import * as Stories from './IconButton.stories';
+
+<Meta of={Stories} />
+
+<FrameworkComponentDocsPage
+  argTypesBlock={ArgTypes}
+  canvasBlock={Canvas}
+  contractSourceLinks={iconButtonDocs.sourceLinks}
+  controls={[{ story: Stories.Playground }]}
+  docs={iconButtonDocs}
+  examples={[Stories.Variants, Stories.Sizes, Stories.States, Stories.Loading]}
+  framework="React"
+  implementationPath="packages/ui-react/src/components/primitives/action/IconButton/IconButton.tsx"
+  storiesPath="apps/frontend-docs/design-system-react/src/stories/IconButton.stories.tsx"
+/>
