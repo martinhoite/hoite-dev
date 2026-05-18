@@ -51,6 +51,12 @@ The `site-nuxt-components` Storybook remains available as a separate app-specifi
 
 In normal local development, the referenced Storybooks run side by side instead of being composed automatically. The preferred deployed model remains one unified public frontend docs experience, with the hub at `/` and same-domain refs such as `/refs/react/` and `/refs/vue/`.
 
+## Storybook workarounds
+
+The hub registers temporary Storybook 10.4.0 composition guards in `.storybook/storybookCompositionPreviewFrameWorkaround.ts`.
+
+The frontend docs workspace README describes the known composition issues. Keep the implementation hub-local and re-check it after Storybook upgrades.
+
 ## Production container
 
 `apps/frontend-docs/hub` is the canonical production frontend docs deploy target.

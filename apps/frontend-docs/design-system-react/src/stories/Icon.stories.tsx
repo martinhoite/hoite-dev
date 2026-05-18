@@ -46,6 +46,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     table: {
       category: 'Component API',
     },
+    type: {
+      name: 'string',
+    },
   },
   size: {
     control: 'select',
@@ -53,6 +56,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     options: supportedIconSizes,
     table: {
       category: 'Component API',
+    },
+    type: {
+      name: 'string',
     },
   },
   rotation: {
@@ -62,6 +68,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     table: {
       category: 'Component API',
     },
+    type: {
+      name: 'string',
+    },
   },
   variant: {
     control: 'select',
@@ -69,6 +78,9 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
     options: supportedIconVariants,
     table: {
       category: 'Component API',
+    },
+    type: {
+      name: 'string',
     },
   },
 };
