@@ -1,4 +1,7 @@
 export type {
+  ButtonSize,
+  ButtonVariant,
+  ButtonVariantProps,
   CircularProgressVariantProps,
   IconDefinition,
   IconName,
@@ -18,6 +21,8 @@ export type {
   TypographyVariant,
 } from '@hoite-dev/ui';
 export {
+  buttonDocs,
+  buttonVariants,
   describeProgressNormalizationWarning,
   iconDefinitions,
   iconDocs,
@@ -28,6 +33,8 @@ export {
   progressVariants,
   resolveIconDefinition,
   resolveTypographyDefaultTag,
+  supportedButtonSizes,
+  supportedButtonVariants,
   supportedIconNames,
   supportedIconRotations,
   supportedIconSizes,
@@ -42,6 +49,8 @@ export {
   typographyVariantConfig,
   typographyVariants,
 } from '@hoite-dev/ui';
+export type { ButtonProps } from './components/primitives/action/Button';
+export { Button } from './components/primitives/action/Button';
 export type { IconProps } from './components/primitives/static/Icon';
 export { Icon } from './components/primitives/static/Icon';
 export type {

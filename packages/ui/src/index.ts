@@ -10,6 +10,13 @@ import strokeTokens from './tokens/source/stroke/Value.tokens.json';
 import typographyTokens from './tokens/source/typography/Value.tokens.json';
 
 export {
+  buttonDocs,
+  buttonVariants,
+  supportedButtonSizes,
+  supportedButtonVariants,
+} from './components/primitives/action/button';
+
+export {
   iconDefinitions,
   iconDocs,
   iconVariants,
@@ -61,6 +68,11 @@ export const tokenThemes = tokens.color;
 
 export type ThemeName = (typeof themeNames)[number];
 export type Tokens = typeof tokens;
+export type {
+  ButtonSize,
+  ButtonVariant,
+  ButtonVariantProps,
+} from './components/primitives/action/button';
 export type {
   IconDefinition,
   IconName,
