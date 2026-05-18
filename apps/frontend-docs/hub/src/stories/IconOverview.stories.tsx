@@ -130,6 +130,15 @@ export const Icon: Story = {
             stroke width of <code> 2 </code>, and round line caps and joins across every icon.
           </p>
         </ContractSection>
+        <ContractSection title='Attribution'>
+          <p className='m-0 text-sm text-[var(--color-text-secondary)]'>
+            Icon SVG path data is derived from{' '}
+            <a href='https://github.com/tabler/tabler-icons' rel='noreferrer' target='_blank'>
+              Tabler Icons
+            </a>
+            , which is licensed under the MIT License.
+          </p>
+        </ContractSection>
         <ContractSection title='Accessibility contract'>
           <p className='m-0 text-sm text-[var(--color-text-secondary)]'>
             Icons without <code>label</code> or <code>aria-label</code> are decorative and hidden

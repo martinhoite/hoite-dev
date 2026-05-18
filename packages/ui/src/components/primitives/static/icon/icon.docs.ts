@@ -27,25 +27,31 @@ export const iconDocs = {
   sections: [
     {
       items: [
-        'Use `name`, `size`, `rotation`, and `variant` as the main visual API.',
-        'Keep interactive icon-only behavior in `IconButton`; `Icon` stays a static SVG primitive.',
+        'Use [code]name[/code], [code]size[/code], [code]rotation[/code], and [code]variant[/code] as the main visual API.',
+        'Keep interactive icon-only behavior in [code]IconButton[/code]; [code]Icon[/code] stays a static SVG primitive.',
       ],
       title: 'Usage Notes',
     },
     {
       items: [
-        'Meaningful icons should receive an accessible name with `label` or `aria-label`.',
-        'Icons without `label` or `aria-label` are decorative and hidden from assistive technology.',
-        'If both are provided, `label` wins.',
+        'Meaningful icons should receive an accessible name with [code]label[/code] or [code]aria-label[/code].',
+        'Icons without [code]label[/code] or [code]aria-label[/code] are decorative and hidden from assistive technology.',
+        'If both are provided, [code]label[/code] wins.',
       ],
       title: 'Accessibility Notes',
     },
     {
       items: [
-        'Storybook controls focus on the visual API: `name`, `size`, `rotation`, and `variant`.',
-        'Narrow passthrough attributes such as `id`, `title`, `role`, `aria-label`, and deliberate `data-*` attributes are supported but not exposed as noisy playground controls.',
+        'Storybook controls focus on the visual API: [code]name[/code], [code]size[/code], [code]rotation[/code], and [code]variant[/code].',
+        'Narrow passthrough attributes such as [code]id[/code], [code]title[/code], [code]role[/code], [code]aria-label[/code], and deliberate [code]data-*[/code] attributes are supported but not exposed as noisy playground controls.',
       ],
       title: 'Controls Guidance',
+    },
+    {
+      paragraphs: [
+        'Icon SVG path data is derived from [url=https://github.com/tabler/tabler-icons]Tabler Icons[/url], which is licensed under the MIT License.',
+      ],
+      title: 'Attribution',
     },
   ] satisfies readonly DocsSection[],
   sourceLinks: [

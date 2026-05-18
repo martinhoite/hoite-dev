@@ -1,8 +1,10 @@
 import { createElement, type ReactNode } from 'react';
 
 import type { DocsSection } from './docsTypes';
+import { renderInlineBbCode } from './inlineBbCode';
 
 const sectionClassName = 'grid gap-4';
+const paragraphClassName = 'm-0';
 const listClassName = '!m-0 grid !pl-5';
 
 function renderParagraphs(paragraphs: readonly string[] | undefined): ReactNode[] {
@@ -10,7 +12,13 @@ function renderParagraphs(paragraphs: readonly string[] | undefined): ReactNode[
     return [];
   }
 
-  return paragraphs.map((paragraph) => createElement('p', { key: paragraph }, paragraph));
+  return paragraphs.map((paragraph) =>
+    createElement(
+      'p',
+      { className: paragraphClassName, key: paragraph },
+      renderInlineBbCode(paragraph),
+    ),
+  );
 }
 
 function renderItems(items: readonly string[] | undefined): ReactNode | null {
@@ -24,7 +32,7 @@ function renderItems(items: readonly string[] | undefined): ReactNode | null {
       className: listClassName,
       key: 'items',
     },
-    items.map((item) => createElement('li', { key: item }, item)),
+    items.map((item) => createElement('li', { key: item }, renderInlineBbCode(item))),
   );
 }
 
