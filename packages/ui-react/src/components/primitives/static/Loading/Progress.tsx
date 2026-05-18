@@ -15,6 +15,8 @@ import {
   useMemo,
 } from 'react';
 
+import type { DataAttributes } from '../../../../types/dom';
+
 type ProgressBaseProps = {
   color?: LoadingColor;
   label?: string;
@@ -24,6 +26,7 @@ type ProgressBaseProps = {
 };
 
 export type ProgressProps = ProgressBaseProps &
+  DataAttributes &
   Omit<ComponentPropsWithoutRef<'progress'>, 'children' | 'color' | 'max' | 'value'>;
 
 type ProgressVisualStyle = CSSProperties & {
