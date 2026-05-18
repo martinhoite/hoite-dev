@@ -7,8 +7,5 @@
 
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
-@theme {
-  --color-surface-raised: var(--color-bg-surface-raised);
-}
 @source "../../../shared/docs";
 @source "../../../shared/storybook";

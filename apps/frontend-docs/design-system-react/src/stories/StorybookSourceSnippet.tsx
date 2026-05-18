@@ -9,11 +9,6 @@ type StorybookSourceSnippetProps = {
 
 const sourceSnippetThemeClassName = 'frontend-docs-source-snippet';
 const sourceSnippetStyles = `
-.frontend-docs-source-snippet .docblock-source,
-.frontend-docs-source-snippet .docblock-source pre.prismjs {
-  background: var(--color-bg-surface-raised) !important;
-}
-
 .frontend-docs-source-snippet .docblock-source button {
   align-items: center;
   display: inline-flex;

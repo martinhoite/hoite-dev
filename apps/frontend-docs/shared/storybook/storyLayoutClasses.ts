@@ -4,8 +4,7 @@ export const frontendDocsStoryLayoutClasses = {
   playgroundContent: 'frontend-docs-story-playground-content grid gap-6',
   playgroundContentSplit: 'frontend-docs-story-playground-content--has-snippet',
   playgroundPreview: 'grid place-items-center py-10',
-  snippetBody:
-    'relative overflow-hidden rounded-lg border border-[var(--color-border-muted)] bg-surface-raised',
+  snippetBody: 'relative overflow-hidden rounded-lg border border-[var(--color-border-muted)]',
   snippetCode: 'block whitespace-pre text-sm leading-6 text-[var(--color-text-primary)]',
   snippetCopyButton:
     'absolute bottom-0 right-0 inline-flex w-fit items-center gap-1.5 border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] px-3 py-1.5 text-sm font-medium text-[var(--color-text-primary)]',

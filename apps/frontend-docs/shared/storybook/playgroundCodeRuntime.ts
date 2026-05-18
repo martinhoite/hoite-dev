@@ -2,7 +2,7 @@ export type FrontendDocsPlaygroundCodeVisibility = 'hide' | 'show';
 
 export const frontendDocsPlaygroundCodeAttribute = 'data-playground-code';
 export const frontendDocsPlaygroundCodeChannelEvent = 'frontend-docs/playground-code-selected';
-export const frontendDocsPlaygroundCodeDefaultVisibility = 'hide';
+export const frontendDocsPlaygroundCodeDefaultVisibility = 'show';
 export const frontendDocsPlaygroundCodeStorageKey = 'hoite-dev:frontend-docs:playground-code';
 export const frontendDocsPlaygroundCodeWindowMessageType =
   'hoite-dev:frontend-docs:playground-code';
