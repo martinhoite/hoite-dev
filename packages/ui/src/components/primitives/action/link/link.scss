@@ -1,0 +1,42 @@
+@layer components.link {
+  .link {
+    box-sizing: border-box;
+    color: var(--color-text-link);
+    cursor: pointer;
+    font-family: var(--typography-family-body);
+    font-size: var(--typography-size-16);
+    font-weight: var(--typography-weight-regular);
+    line-height: var(--typography-line-height-24);
+    margin: 0;
+    transition:
+      background-color var(--motion-duration-fast) var(--motion-easing-standard),
+      border-color var(--motion-duration-fast) var(--motion-easing-standard),
+      color var(--motion-duration-fast) var(--motion-easing-standard);
+  }
+
+  .link--text {
+    display: inline;
+    text-decoration-line: underline;
+    text-decoration-skip-ink: auto;
+    text-underline-offset: 0.125em;
+  }
+
+  .link--text:visited {
+    color: var(--color-text-link-visited);
+  }
+
+  .link--text:hover {
+    color: var(--color-text-link-hover);
+  }
+
+  .link--text:focus-visible {
+    outline: var(--stroke-focus-ring) solid var(--color-border-focus);
+    outline-offset: var(--spacing-4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .link {
+      transition-duration: var(--motion-duration-instant);
+    }
+  }
+}

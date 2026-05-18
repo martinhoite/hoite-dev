@@ -29,6 +29,10 @@
       "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/icon-button.css"
     },
+    "./link.css": {
+      "types": "./src/types/css-side-effect.d.ts",
+      "default": "./dist/link.css"
+    },
     "./loading.css": {
       "types": "./src/types/css-side-effect.d.ts",
       "default": "./dist/loading.css"
