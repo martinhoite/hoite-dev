@@ -2,12 +2,12 @@ import { createElement } from 'react';
 
 import { createSourceUrl, type SourceLink } from './sourceLinks';
 
-const sourceListClassName = 'grid gap-3';
+const sourceListClassName = 'grid min-w-0 gap-3';
 const sourceHeadingClassName = 'm-0';
 const sourceItemsClassName = '!m-0 grid gap-2 !pl-5';
-const sourceItemClassName = 'grid gap-0.5 grid-rows-2';
+const sourceItemClassName = 'grid min-w-0 grid-rows-2 gap-0.5';
 const sourceLinkClassName = 'content-center';
-const sourcePathClassName = 'p-2 !whitespace-normal w-max';
+const sourcePathClassName = 'w-fit max-w-full p-2 !whitespace-normal [overflow-wrap:anywhere]';
 
 function addSoftBreaks(label: string) {
   return label.replaceAll('/', '/\u200B');

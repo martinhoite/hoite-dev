@@ -1,0 +1,52 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import { linkDocs } from '@hoite-dev/ui';
+
+import { FrameworkComponentDocsPage } from '@hoite-dev/frontend-docs-shared/docs';
+import { StorybookSourceSnippet } from './StorybookSourceSnippet';
+import * as Stories from './Link.stories';
+
+export const nuxtRouterLinkDocsSource = `<script setup lang="ts">
+import { linkVariants } from '@hoite-dev/ui';
+</script>
+
+<template>
+  <NuxtLink
+    to="/about"
+    :class="linkVariants({ appearance: 'link' })"
+  >
+    About
+  </NuxtLink>
+
+  <NuxtLink
+    to="/contact"
+    :class="linkVariants({ appearance: 'button' })"
+  >
+    Contact
+  </NuxtLink>
+</template>`;
+
+<Meta of={Stories} />
+
+<FrameworkComponentDocsPage
+  argTypesBlock={ArgTypes}
+  canvasBlock={Canvas}
+  contractSourceLinks={linkDocs.sourceLinks}
+  controls={[{ story: Stories.Playground }]}
+  docs={linkDocs}
+  examples={[
+    Stories.NativeUsage,
+    Stories.Appearances,
+    Stories.States,
+    {
+      code: nuxtRouterLinkDocsSource,
+      description:
+        'Framework-managed links can keep their routing behavior while sharing the same visual styling as Hoite Dev <Link/> by importing the styles from @hoite-dev/ui.',
+      language: 'html',
+      title: 'Nuxt router link styling',
+    },
+  ]}
+  framework="Vue"
+  implementationPath="packages/ui-vue/src/components/primitives/action/Link/Link.vue"
+  sourceBlock={StorybookSourceSnippet}
+  storiesPath="apps/frontend-docs/design-system-vue/src/stories/Link.stories.ts"
+/>

@@ -1,5 +1,13 @@
 import { frontendDocsStoryLayoutClasses } from '@hoite-dev/frontend-docs-shared/storybook';
-import { type ComponentProps, type ReactElement, useEffect, useState } from 'react';
+import {
+  type ComponentProps,
+  type ComponentType,
+  createElement,
+  type ReactElement,
+  type ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 import { SyntaxHighlighter } from 'storybook/internal/components';
 import { ensure, ThemeProvider, themes } from 'storybook/theming';
 
@@ -13,6 +21,10 @@ type StorybookSourceSnippetProps = {
 };
 
 const sourceSnippetThemeClassName = 'frontend-docs-source-snippet';
+const StorybookThemeProvider = ThemeProvider as ComponentType<{
+  children?: ReactNode;
+  theme: ReturnType<typeof ensure>;
+}>;
 const sourceSnippetStyles = `
 .frontend-docs-source-snippet .docblock-source,
 .frontend-docs-source-snippet .docblock-source pre,
@@ -56,7 +68,7 @@ function joinClassNames(...classNames: Array<string | false | undefined>): strin
 export function StorybookSourceSnippet({
   code,
   copyable = true,
-  language = 'tsx',
+  language = 'html',
   panel = 'story',
 }: StorybookSourceSnippetProps): ReactElement {
   const [previewTheme, setPreviewTheme] = useState(readPreviewTheme);
@@ -77,24 +89,31 @@ export function StorybookSourceSnippet({
     };
   }, []);
 
-  return (
-    <div
-      className={joinClassNames(panel === 'story' && frontendDocsStoryLayoutClasses.snippetPanel)}
-    >
-      <ThemeProvider theme={ensure(sourceTheme)}>
-        <div className={sourceSnippetThemeClassName}>
-          <style>{sourceSnippetStyles}</style>
-          <SyntaxHighlighter
-            bordered
-            className='docblock-source sb-unstyled'
-            copyable={copyable}
-            language={language}
-            padded
-          >
-            {code}
-          </SyntaxHighlighter>
-        </div>
-      </ThemeProvider>
-    </div>
+  return createElement(
+    'div',
+    {
+      className: joinClassNames(panel === 'story' && frontendDocsStoryLayoutClasses.snippetPanel),
+    },
+    createElement(
+      StorybookThemeProvider,
+      {
+        theme: ensure(sourceTheme),
+      },
+      createElement('div', { className: sourceSnippetThemeClassName }, [
+        createElement('style', { key: 'styles' }, sourceSnippetStyles),
+        createElement(
+          SyntaxHighlighter,
+          {
+            bordered: true,
+            className: 'docblock-source sb-unstyled',
+            copyable,
+            key: 'source',
+            language,
+            padded: true,
+          },
+          code,
+        ),
+      ]),
+    ),
   );
 }

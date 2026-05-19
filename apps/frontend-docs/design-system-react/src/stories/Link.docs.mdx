@@ -1,0 +1,49 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import { linkDocs } from '@hoite-dev/ui';
+
+import { FrameworkComponentDocsPage } from '@hoite-dev/frontend-docs-shared/docs';
+import { StorybookSourceSnippet } from './StorybookSourceSnippet';
+import * as Stories from './Link.stories';
+
+export const nextRouterLinkDocsSource = `import NextLink from 'next/link';
+import { linkVariants } from '@hoite-dev/ui';
+
+<NextLink
+  href="/about"
+  className={linkVariants({ appearance: 'link' })}
+>
+  About
+</NextLink>
+
+<NextLink
+  href="/contact"
+  className={linkVariants({ appearance: 'button' })}
+>
+  Contact
+</NextLink>`;
+
+<Meta of={Stories} />
+
+<FrameworkComponentDocsPage
+  argTypesBlock={ArgTypes}
+  canvasBlock={Canvas}
+  contractSourceLinks={linkDocs.sourceLinks}
+  controls={[{ story: Stories.Playground }]}
+  docs={linkDocs}
+  examples={[
+    Stories.NativeUsage,
+    Stories.Appearances,
+    Stories.States,
+    {
+      code: nextRouterLinkDocsSource,
+      description:
+        'Framework-managed links can keep their routing behavior while sharing the same visual styling as Hoite Dev <Link/> by importing the styles from @hoite-dev/ui.',
+      language: 'tsx',
+      title: 'Next.js router link styling',
+    },
+  ]}
+  framework="React"
+  implementationPath="packages/ui-react/src/components/primitives/action/Link/Link.tsx"
+  sourceBlock={StorybookSourceSnippet}
+  storiesPath="apps/frontend-docs/design-system-react/src/stories/Link.stories.tsx"
+/>

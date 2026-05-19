@@ -3,7 +3,7 @@ import { createElement, type ReactNode } from 'react';
 import type { DocsSection } from './docsTypes';
 import { renderInlineBbCode } from './inlineBbCode';
 
-const sectionClassName = 'grid gap-4';
+const sectionClassName = 'grid min-w-0 gap-4';
 const paragraphClassName = 'm-0';
 const listClassName = '!m-0 grid !pl-5';
 
