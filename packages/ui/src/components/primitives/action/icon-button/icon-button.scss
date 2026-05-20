@@ -32,19 +32,16 @@
     vertical-align: middle;
     width: var(--icon-button-size);
 
-    &:hover:not(:disabled),
-    &--force-hover:not(:disabled) {
+    &:hover:not(:disabled) {
       --icon-button-background: var(--color-bg-brand-hover);
     }
 
-    &:active:not(:disabled),
-    &--force-pressed:not(:disabled) {
+    &:active:not(:disabled) {
       --icon-button-background: var(--color-bg-brand-active);
       --icon-button-border-color: var(--color-bg-brand-active);
     }
 
-    &:focus-visible,
-    &--force-focused {
+    &:focus-visible {
       outline: var(--stroke-focus-ring) solid var(--color-border-focus);
       outline-offset: calc(-1 * var(--stroke-focus-ring));
     }
@@ -61,14 +58,12 @@
       --icon-button-background: var(--color-bg-neutral);
       --icon-button-content-color: var(--color-text-primary);
 
-      &:hover:not(:disabled),
-      &.icon-button--force-hover:not(:disabled) {
+      &:hover:not(:disabled) {
         --icon-button-background: var(--color-bg-neutral-hover);
         --icon-button-border-color: var(--color-border-strong);
       }
 
-      &:active:not(:disabled),
-      &.icon-button--force-pressed:not(:disabled) {
+      &:active:not(:disabled) {
         --icon-button-background: var(--color-bg-neutral-active);
         --icon-button-border-color: var(--color-bg-neutral-active);
       }

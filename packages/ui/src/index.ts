@@ -21,6 +21,15 @@ export {
   supportedIconButtonSizes,
   supportedIconButtonVariants,
 } from './components/primitives/action/icon-button';
+export {
+  linkDocs,
+  linkRelToString,
+  linkVariants,
+  resolveLinkRel,
+  supportedLinkAppearances,
+  supportedLinkRelTokens,
+  supportedLinkTargets,
+} from './components/primitives/action/link';
 
 export {
   iconDefinitions,
@@ -86,6 +95,13 @@ export type {
   IconButtonVariant,
   IconButtonVariantProps,
 } from './components/primitives/action/icon-button';
+export type {
+  LinkAppearance,
+  LinkRel,
+  LinkRelToken,
+  LinkTarget,
+  LinkVariantProps,
+} from './components/primitives/action/link';
 export type {
   IconDefinition,
   IconName,

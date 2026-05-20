@@ -414,9 +414,9 @@ export const States: Story = {
                   <IconButton
                     :aria-label="state + ' create action'"
                     :class="{
-                      'icon-button--force-hover': state === 'Hover',
-                      'icon-button--force-focused': state === 'Focused',
-                      'icon-button--force-pressed': state === 'Pressed',
+                      'frontend-docs-force-hover': state === 'Hover',
+                      'frontend-docs-force-focused': state === 'Focused',
+                      'frontend-docs-force-pressed': state === 'Pressed',
                     }"
                     :disabled="state === 'Disabled'"
                     icon="plus"

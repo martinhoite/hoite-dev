@@ -4,6 +4,7 @@ import '@hoite-dev/ui/themes.css';
 import '@hoite-dev/ui/tokens.css';
 import '@hoite-dev/ui/button.css';
 import '@hoite-dev/ui/icon-button.css';
+import '@hoite-dev/ui/link.css';
 import '@hoite-dev/ui/icon.css';
 import '@hoite-dev/ui/loading.css';
 import '@hoite-dev/ui/typography.css';

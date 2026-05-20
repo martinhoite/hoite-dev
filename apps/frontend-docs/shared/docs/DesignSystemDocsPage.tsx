@@ -7,8 +7,8 @@ import { SourceLinksList } from './SourceLinksList';
 import type { SourceLink } from './sourceLinks';
 
 const pageClassName = 'py-6 md:py-8';
-const contentClassName = 'mx-auto grid max-w-5xl gap-8';
-const sectionClassName = 'grid gap-4';
+const contentClassName = 'mx-auto grid w-full min-w-0 max-w-5xl gap-8';
+const sectionClassName = 'grid min-w-0 gap-4';
 const controlsContentClassName =
   'min-w-0 [&>div]:overflow-x-auto [&_code]:whitespace-normal [&_code]:[overflow-wrap:anywhere]';
 

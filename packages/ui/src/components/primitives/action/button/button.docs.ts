@@ -35,7 +35,6 @@ export const buttonDocs = {
   sections: [
     {
       items: [
-        'Use Button for native button actions, not navigation.',
         'Use [code]variant[/code] and [code]size[/code] as the main visual API.',
         'Use [code]leadingIcon[/code] and [code]trailingIcon[/code] when an action benefits from a small supporting icon.',
         'Use IconButton for icon-only actions.',

@@ -11,6 +11,11 @@ export type {
   IconRotation,
   IconSize,
   IconVariant,
+  LinkAppearance,
+  LinkRel,
+  LinkRelToken,
+  LinkTarget,
+  LinkVariantProps,
   LoaderVariantProps,
   LoadingColor,
   LoadingSize,
@@ -32,11 +37,15 @@ export {
   iconDefinitions,
   iconDocs,
   iconVariants,
+  linkDocs,
+  linkRelToString,
+  linkVariants,
   loaderVariants,
   loadingDocs,
   normalizeProgressValue,
   progressVariants,
   resolveIconDefinition,
+  resolveLinkRel,
   resolveTypographyDefaultTag,
   supportedButtonSizes,
   supportedButtonVariants,
@@ -46,6 +55,9 @@ export {
   supportedIconRotations,
   supportedIconSizes,
   supportedIconVariants,
+  supportedLinkAppearances,
+  supportedLinkRelTokens,
+  supportedLinkTargets,
   supportedLoadingColors,
   supportedLoadingSizes,
   supportedTypographyTags,
@@ -60,6 +72,8 @@ export type { ButtonProps } from './components/primitives/action/Button';
 export { Button } from './components/primitives/action/Button';
 export type { IconButtonProps } from './components/primitives/action/IconButton';
 export { IconButton } from './components/primitives/action/IconButton';
+export type { LinkProps } from './components/primitives/action/Link';
+export { Link } from './components/primitives/action/Link';
 export type { IconProps } from './components/primitives/static/Icon';
 export { Icon } from './components/primitives/static/Icon';
 export type {

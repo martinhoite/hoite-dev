@@ -227,6 +227,11 @@ export const styleBundles = [
     output: 'icon-button.css',
   },
   {
+    entry: path.join(packageDir, 'src', 'components', 'primitives', 'action', 'link', 'link.scss'),
+    includeLayerPrelude: true,
+    output: 'link.css',
+  },
+  {
     entry: path.join(
       packageDir,
       'src',

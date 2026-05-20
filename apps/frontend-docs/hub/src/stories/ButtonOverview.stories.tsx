@@ -5,10 +5,17 @@ import {
   type IconButtonSize,
   type IconButtonVariant,
   iconButtonVariants,
+  type LinkAppearance,
+  type LinkRelToken,
+  type LinkTarget,
+  linkVariants,
   supportedButtonSizes,
   supportedButtonVariants,
   supportedIconButtonSizes,
   supportedIconButtonVariants,
+  supportedLinkAppearances,
+  supportedLinkRelTokens,
+  supportedLinkTargets,
 } from '@hoite-dev/ui';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -18,6 +25,9 @@ const sizeKeys = [...supportedButtonSizes] as ButtonSize[];
 const variantKeys = [...supportedButtonVariants] as ButtonVariant[];
 const iconButtonSizeKeys = [...supportedIconButtonSizes] as IconButtonSize[];
 const iconButtonVariantKeys = [...supportedIconButtonVariants] as IconButtonVariant[];
+const linkAppearanceKeys = [...supportedLinkAppearances] as LinkAppearance[];
+const linkRelTokenKeys = [...supportedLinkRelTokens] as LinkRelToken[];
+const linkTargetKeys = [...supportedLinkTargets] as LinkTarget[];
 
 const meta: Meta = {
   title: 'Design System/Contracts/Action',
@@ -258,6 +268,100 @@ export const IconButton: Story = {
           <p className='m-0 text-sm text-[var(--color-text-secondary)]'>
             IconButton is icon-only and must be named with <code>aria-label</code> or{' '}
             <code>aria-labelledby</code>. It does not provide custom naming aliases.
+          </p>
+        </ContractSection>
+      </ContractPage>
+    );
+  },
+};
+
+export const Link: Story = {
+  name: 'Link',
+  tags: ['contract-docs'],
+  parameters: {
+    controls: {
+      disable: true,
+    },
+    docsOnly: true,
+  },
+  render: () => {
+    const appearanceRows = linkAppearanceKeys.map((appearance) => {
+      const tokens =
+        appearance === 'button'
+          ? 'brand background, on-brand text, button-like spacing'
+          : 'link, hover, visited, and focus text tokens';
+
+      return {
+        appearance,
+        classOutput: linkVariants({ appearance }),
+        tokens,
+      };
+    });
+
+    return (
+      <ContractPage>
+        <ContractSection title='Supported Link API'>
+          <CodeChipList
+            getItemKey={(item) => item}
+            items={['href', 'appearance', 'children', 'target', 'rel']}
+          />
+        </ContractSection>
+        <ContractSection title='Appearance contract'>
+          <ContractTable
+            columns={[
+              {
+                header: 'Appearance',
+                render: (item) => item.appearance,
+              },
+              {
+                header: 'Token mapping',
+                render: (item) => item.tokens,
+              },
+              {
+                breakAll: true,
+                header: 'Class output',
+                render: (item) => item.classOutput,
+              },
+            ]}
+            getRowKey={(item) => item.appearance}
+            rows={appearanceRows}
+          />
+        </ContractSection>
+        <ContractSection title='Supported target values'>
+          <CodeChipList getItemKey={(item) => item} items={linkTargetKeys} />
+        </ContractSection>
+        <ContractSection title='Supported rel tokens'>
+          <CodeChipList getItemKey={(item) => item} items={linkRelTokenKeys} />
+        </ContractSection>
+        <ContractSection title='Native behavior contract'>
+          <p className='m-0 text-sm text-[var(--color-text-secondary)]'>
+            Link renders a native <code>a</code>. Button-like navigation still uses anchor semantics
+            and does not include button-only props such as <code>type</code>, <code>disabled</code>,
+            or loading state.
+          </p>
+        </ContractSection>
+        <ContractSection title='New-tab safety contract'>
+          <p className='m-0 text-sm text-[var(--color-text-secondary)]'>
+            When <code>target=&quot;_blank&quot;</code> is used and <code>rel</code> is omitted,
+            Link defaults <code>rel</code> to <code>noopener noreferrer</code>. This covers a common
+            security footgun while keeping the default in the shared contract instead of in
+            individual framework wrappers.
+          </p>
+          <p className='m-0 text-sm text-[var(--color-text-secondary)]'>
+            An explicit <code>rel</code> value overrides that default. Consumers can pass one or
+            more supported tokens, or pass an empty array to opt out entirely.
+          </p>
+        </ContractSection>
+        <ContractSection title='Accessibility contract'>
+          <p className='m-0 text-sm text-[var(--color-text-secondary)]'>
+            Link should have visible content. Button-like links remain links, so they do not gain
+            button-specific semantics or behavior.
+          </p>
+        </ContractSection>
+        <ContractSection title='Framework routing contract'>
+          <p className='m-0 text-sm text-[var(--color-text-secondary)]'>
+            Next.js and Nuxt routing remain owned by their framework link components. Consumers can
+            apply Hoite Dev styling to those components with <code>linkVariants</code>.
           </p>
         </ContractSection>
       </ContractPage>

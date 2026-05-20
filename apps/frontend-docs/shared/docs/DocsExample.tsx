@@ -1,8 +1,8 @@
 import { createElement, type ReactNode } from 'react';
 
-const exampleClassName = 'grid gap-1';
+const exampleClassName = 'grid min-w-0 gap-1';
 const canvasWrapperClassName =
-  '[&>:first-child]:!mt-0 [&_.sbdocs-preview]:my-0 [&_.sbdocs-preview]:rounded-xl';
+  'min-w-0 [&>:first-child]:!mt-0 [&_.docs-story]:min-w-0 [&_.sbdocs-preview]:my-0 [&_.sbdocs-preview]:min-w-0 [&_.sbdocs-preview]:overflow-hidden [&_.sbdocs-preview]:rounded-xl';
 
 type StoryHeadingLike = {
   name?: string;

@@ -413,13 +413,13 @@ export const States: Story = {
           <span className='text-sm font-medium text-[var(--color-text-secondary)]'>{variant}</span>
           <div className='flex flex-wrap gap-3'>
             <Button variant={variant}>Default</Button>
-            <Button className='button--force-hover' variant={variant}>
+            <Button className='frontend-docs-force-hover' variant={variant}>
               Hover
             </Button>
-            <Button className='button--force-focused' variant={variant}>
+            <Button className='frontend-docs-force-focused' variant={variant}>
               Focused
             </Button>
-            <Button className='button--force-pressed' variant={variant}>
+            <Button className='frontend-docs-force-pressed' variant={variant}>
               Pressed
             </Button>
             <Button disabled variant={variant}>

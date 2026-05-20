@@ -10,6 +10,15 @@ type StoryReference = {
   storyName?: string;
 };
 
+type SourceExample = {
+  code: string;
+  description: string;
+  language: 'html' | 'tsx';
+  title: string;
+};
+
+type DocsExampleReference = SourceExample | StoryReference;
+
 type CanvasSourceState = 'hidden' | 'shown' | 'none';
 
 type ControlSection = {
@@ -24,11 +33,21 @@ type FrameworkComponentDocsPageProps = {
   contractSourceLinks: readonly SourceLink[];
   controls: readonly ControlSection[];
   docs: ComponentDocs;
-  examples: readonly StoryReference[];
+  examples: readonly DocsExampleReference[];
   framework: 'React' | 'Vue';
   implementationPath: string;
+  sourceBlock?: ElementType<{
+    code: string;
+    copyable?: boolean;
+    language?: SourceExample['language'];
+    panel?: 'none' | 'story';
+  }>;
   storiesPath: string;
 };
+
+function isSourceExample(example: DocsExampleReference): example is SourceExample {
+  return 'code' in example;
+}
 
 function renderControls(
   ArgTypesBlock: ElementType<{ of: unknown }>,
@@ -63,22 +82,54 @@ function renderControls(
 
 function renderExamples(
   CanvasBlock: FrameworkComponentDocsPageProps['canvasBlock'],
-  examples: readonly StoryReference[],
+  examples: readonly DocsExampleReference[],
   sourceState: CanvasSourceState,
+  SourceBlock?: FrameworkComponentDocsPageProps['sourceBlock'],
 ): ReactNode {
   return createElement(
     Fragment,
     null,
-    examples.map((story, index) =>
-      createElement(
+    examples.map((example, index) => {
+      if (isSourceExample(example)) {
+        return createElement(
+          DocsExample,
+          {
+            key: `example-${index}`,
+            story: {
+              name: example.title,
+            },
+          },
+          createElement(Fragment, null, [
+            createElement(
+              'p',
+              {
+                className: 'm-0 text-sm text-[var(--color-text-secondary)]',
+                key: 'description',
+              },
+              example.description,
+            ),
+            SourceBlock
+              ? createElement(SourceBlock, {
+                  code: example.code,
+                  copyable: false,
+                  key: 'source',
+                  language: example.language,
+                  panel: 'none',
+                })
+              : null,
+          ]),
+        );
+      }
+
+      return createElement(
         DocsExample,
         {
           key: `example-${index}`,
-          story,
+          story: example,
         },
-        createElement(CanvasBlock, { of: story, sourceState }),
-      ),
-    ),
+        createElement(CanvasBlock, { of: example, sourceState }),
+      );
+    }),
   );
 }
 
@@ -92,12 +143,13 @@ export function FrameworkComponentDocsPage({
   examples,
   framework,
   implementationPath,
+  sourceBlock: SourceBlock,
   storiesPath,
 }: FrameworkComponentDocsPageProps) {
   return createElement(DesignSystemDocsPage, {
     controls: renderControls(ArgTypesBlock, controls),
     docs,
-    examples: renderExamples(CanvasBlock, examples, canvasSourceState),
+    examples: renderExamples(CanvasBlock, examples, canvasSourceState, SourceBlock),
     sourceLinks: [
       ...contractSourceLinks,
       ...createFrameworkSourceLinks(framework, implementationPath, storiesPath),
