@@ -66,7 +66,7 @@ export { default as Button } from './components/primitives/action/Button';
 export type { IconButtonProps } from './components/primitives/action/IconButton';
 export { default as IconButton } from './components/primitives/action/IconButton';
 export type { LinkProps } from './components/primitives/action/Link';
-export { HoiteLink, Link } from './components/primitives/action/Link';
+export { Link } from './components/primitives/action/Link';
 export type { IconProps } from './components/primitives/static/Icon';
 export { default as Icon } from './components/primitives/static/Icon';
 export type {

@@ -9,7 +9,7 @@ import {
   withVueStoryPlaygroundContent,
 } from '@hoite-dev/frontend-docs-shared/storybook';
 import { type LinkAppearance, linkDocs, supportedLinkAppearances } from '@hoite-dev/ui';
-import { HoiteLink } from '@hoite-dev/ui-vue';
+import { Link } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed, defineComponent, ref } from 'vue';
 
@@ -63,7 +63,7 @@ function normalizeLinkArgs(args: LinkStoryArgs): LinkStoryArgs {
 }
 
 const LinkPlaygroundPreview = defineComponent({
-  components: { HoiteLink },
+  components: { Link },
   props: {
     appearance: {
       required: true,
@@ -86,7 +86,7 @@ const LinkPlaygroundPreview = defineComponent({
     const snippet = computed(() =>
       createFrontendDocsComponentSnippet({
         children: props.children,
-        componentName: 'HoiteLink',
+        componentName: 'Link',
         framework: 'vue',
         props: [
           {
@@ -124,13 +124,13 @@ const LinkPlaygroundPreview = defineComponent({
         class="rounded-lg border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
       >
         <p class="m-0 text-sm text-[var(--color-text-primary)]">
-          HoiteLink renders a native <code>a</code> for navigation. Keep framework routing in
+          Link renders a native <code>a</code> for navigation. Keep framework routing in
           NuxtLink and apply Hoite Dev styling with <code>linkVariants</code>.
         </p>
       </div>
       ${withVueStoryPlaygroundContent(`
         ${createVueStoryPreview(`
-          <HoiteLink v-bind="linkArgs">{{ children }}</HoiteLink>
+          <Link v-bind="linkArgs">{{ children }}</Link>
         `)}
         ${createVueStorySourcePanel()}
       `)}
@@ -192,11 +192,11 @@ export const NativeUsage: Story = {
   },
   tags: ['!dev'],
   render: () => ({
-    components: { HoiteLink },
+    components: { Link },
     template: `
       <div class="flex flex-wrap items-center gap-4">
-        <HoiteLink href="#native-link-about">About</HoiteLink>
-        <HoiteLink href="#native-link-contact" appearance="button">Contact</HoiteLink>
+        <Link href="#native-link-about">About</Link>
+        <Link href="#native-link-contact" appearance="button">Contact</Link>
       </div>
     `,
   }),
@@ -216,7 +216,7 @@ export const Appearances: Story = {
   },
   tags: ['!dev'],
   render: () => ({
-    components: { HoiteLink },
+    components: { Link },
     setup() {
       return {
         appearances: supportedLinkAppearances,
@@ -224,14 +224,14 @@ export const Appearances: Story = {
     },
     template: `
       <div class="flex flex-wrap items-center gap-4">
-        <HoiteLink
+        <Link
           v-for="appearance in appearances"
           :key="appearance"
           :appearance="appearance"
           :href="'#' + appearance + '-appearance'"
         >
           {{ appearance === 'button' ? 'Button-like link' : 'Text link' }}
-        </HoiteLink>
+        </Link>
       </div>
     `,
   }),
@@ -251,25 +251,25 @@ export const States: Story = {
   },
   tags: ['!dev'],
   render: () => ({
-    components: { HoiteLink },
+    components: { Link },
     template: `
       <div class="grid gap-4 md:grid-cols-2">
         <div class="grid content-start gap-3 rounded-lg border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-4">
           <span class="text-sm font-medium text-[var(--color-text-secondary)]">link</span>
           <div class="flex flex-wrap items-start gap-4">
-            <HoiteLink href="#link-state-default">Default</HoiteLink>
-            <HoiteLink class="frontend-docs-force-hover" href="#link-state-hover">Hover</HoiteLink>
-            <HoiteLink class="frontend-docs-force-focused" href="#link-state-focused">Focused</HoiteLink>
-            <HoiteLink class="frontend-docs-force-visited" href="#link-state-visited">Visited</HoiteLink>
+            <Link href="#link-state-default">Default</Link>
+            <Link class="frontend-docs-force-hover" href="#link-state-hover">Hover</Link>
+            <Link class="frontend-docs-force-focused" href="#link-state-focused">Focused</Link>
+            <Link class="frontend-docs-force-visited" href="#link-state-visited">Visited</Link>
           </div>
         </div>
         <div class="grid content-start gap-3 rounded-lg border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-4">
           <span class="text-sm font-medium text-[var(--color-text-secondary)]">button</span>
           <div class="flex flex-wrap items-start gap-3">
-            <HoiteLink appearance="button" href="#button-link-state-default">Default</HoiteLink>
-            <HoiteLink appearance="button" class="frontend-docs-force-hover" href="#button-link-state-hover">Hover</HoiteLink>
-            <HoiteLink appearance="button" class="frontend-docs-force-focused" href="#button-link-state-focused">Focused</HoiteLink>
-            <HoiteLink appearance="button" class="frontend-docs-force-pressed" href="#button-link-state-pressed">Pressed</HoiteLink>
+            <Link appearance="button" href="#button-link-state-default">Default</Link>
+            <Link appearance="button" class="frontend-docs-force-hover" href="#button-link-state-hover">Hover</Link>
+            <Link appearance="button" class="frontend-docs-force-focused" href="#button-link-state-focused">Focused</Link>
+            <Link appearance="button" class="frontend-docs-force-pressed" href="#button-link-state-pressed">Pressed</Link>
           </div>
         </div>
       </div>
