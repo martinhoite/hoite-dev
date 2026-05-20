@@ -8,21 +8,36 @@ import {
   withStoryPlayground,
   withVueStoryPlaygroundContent,
 } from '@hoite-dev/frontend-docs-shared/storybook';
-import { type LinkAppearance, linkDocs, supportedLinkAppearances } from '@hoite-dev/ui';
+import {
+  type LinkAppearance,
+  type LinkRel,
+  type LinkRelToken,
+  type LinkTarget,
+  linkDocs,
+  supportedLinkAppearances,
+  supportedLinkRelTokens,
+  supportedLinkTargets,
+} from '@hoite-dev/ui';
 import { Link } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, type PropType, ref } from 'vue';
+
+const linkPlaygroundControlNames = ['children', 'href', 'appearance', 'target', 'rel'] as const;
 
 type LinkStoryArgs = {
   appearance: LinkAppearance;
   children: string;
   href: string;
+  rel: LinkRelToken[];
+  target?: LinkTarget;
 };
 
-const defaultLinkArgs: LinkStoryArgs = {
+const defaultLinkStoryArgs: LinkStoryArgs = {
   appearance: 'link',
   children: 'Read the case study',
   href: '#link-playground',
+  rel: [],
+  target: undefined,
 };
 
 const storyArgTypes: Partial<ArgTypes<LinkStoryArgs>> = {
@@ -49,17 +64,50 @@ const storyArgTypes: Partial<ArgTypes<LinkStoryArgs>> = {
       category: 'Native / passthrough attributes',
     },
   },
+  rel: {
+    control: 'check',
+    description: linkDocs.argTypeDescriptions.rel,
+    options: supportedLinkRelTokens,
+    table: {
+      category: 'Native / passthrough attributes',
+    },
+  },
+  target: {
+    control: 'select',
+    description: linkDocs.argTypeDescriptions.target,
+    options: supportedLinkTargets,
+    table: {
+      category: 'Native / passthrough attributes',
+    },
+  },
 };
 
-function normalizeLinkArgs(args: LinkStoryArgs): LinkStoryArgs {
+function normalizeLinkStoryArgs(args: LinkStoryArgs): LinkStoryArgs {
   const appearance = supportedLinkAppearances.includes(args.appearance)
     ? args.appearance
-    : defaultLinkArgs.appearance;
+    : defaultLinkStoryArgs.appearance;
+  const rel = Array.isArray(args.rel)
+    ? args.rel.filter((token): token is LinkRelToken => supportedLinkRelTokens.includes(token))
+    : defaultLinkStoryArgs.rel;
+  const target =
+    args.target !== undefined && supportedLinkTargets.includes(args.target)
+      ? args.target
+      : undefined;
 
   return {
     ...args,
     appearance,
+    rel,
+    target,
   };
+}
+
+function resolveLinkStoryRel(rel: LinkStoryArgs['rel']): LinkRel | undefined {
+  return rel.length > 0 ? rel : undefined;
+}
+
+function resolveLinkStoryTarget(target: LinkStoryArgs['target']): LinkTarget | undefined {
+  return target;
 }
 
 const LinkPlaygroundPreview = defineComponent({
@@ -77,11 +125,21 @@ const LinkPlaygroundPreview = defineComponent({
       required: true,
       type: String,
     },
+    rel: {
+      required: true,
+      type: Array as PropType<LinkRelToken[]>,
+    },
+    target: {
+      required: false,
+      type: String as PropType<LinkTarget>,
+    },
   },
   setup(props) {
     const linkArgs = computed(() => ({
       appearance: props.appearance,
       href: props.href,
+      rel: resolveLinkStoryRel(props.rel),
+      target: resolveLinkStoryTarget(props.target),
     }));
     const snippet = computed(() =>
       createFrontendDocsComponentSnippet({
@@ -94,9 +152,19 @@ const LinkPlaygroundPreview = defineComponent({
             value: props.href,
           },
           {
-            defaultValue: defaultLinkArgs.appearance,
+            defaultValue: defaultLinkStoryArgs.appearance,
             name: 'appearance',
             value: props.appearance,
+          },
+          {
+            defaultValue: defaultLinkStoryArgs.target,
+            name: 'target',
+            value: props.target,
+          },
+          {
+            defaultValue: defaultLinkStoryArgs.rel,
+            name: 'rel',
+            value: props.rel,
           },
         ],
       }),
@@ -124,8 +192,11 @@ const LinkPlaygroundPreview = defineComponent({
         class="rounded-lg border border-[var(--color-border-muted)] bg-[var(--color-bg-subtle)] p-4"
       >
         <p class="m-0 text-sm text-[var(--color-text-primary)]">
-          Link renders a native <code>a</code> for navigation. Keep framework routing in
-          NuxtLink and apply Hoite Dev styling with <code>linkVariants</code>.
+          Link renders a native <code>a</code> for navigation. Use <code>target</code> and
+          <code>rel</code> as native anchor passthroughs here. When
+          <code>target="_blank"</code> is used without an explicit <code>rel</code>, Link
+          defaults <code>rel</code> to <code>noopener noreferrer</code>. Pass
+          <code>rel</code> explicitly to override that default.
         </p>
       </div>
       ${withVueStoryPlaygroundContent(`
@@ -138,12 +209,12 @@ const LinkPlaygroundPreview = defineComponent({
 });
 
 const meta: Meta<LinkStoryArgs> = {
-  args: defaultLinkArgs,
+  args: defaultLinkStoryArgs,
   argTypes: storyArgTypes,
   component: LinkPlaygroundPreview,
   parameters: {
     controls: {
-      include: ['children', 'href', 'appearance'],
+      include: [...linkPlaygroundControlNames],
       sort: 'none',
     },
   },
@@ -158,7 +229,7 @@ export const Playground: Story = {
   name: 'Playground',
   parameters: createFrontendDocsPlaygroundParameters({
     controls: {
-      include: ['children', 'href', 'appearance'],
+      include: [...linkPlaygroundControlNames],
       sort: 'none',
     },
     docs: {
@@ -171,34 +242,10 @@ export const Playground: Story = {
     components: { LinkPlaygroundPreview },
     setup() {
       return {
-        args: computed(() => normalizeLinkArgs(args)),
+        args: computed(() => normalizeLinkStoryArgs(args)),
       };
     },
     template: '<LinkPlaygroundPreview v-bind="args" />',
-  }),
-};
-
-export const NativeUsage: Story = {
-  name: 'Native Link',
-  parameters: {
-    controls: {
-      disable: true,
-    },
-    docs: {
-      description: {
-        story: linkDocs.storyDescriptions.nativeUsage,
-      },
-    },
-  },
-  tags: ['!dev'],
-  render: () => ({
-    components: { Link },
-    template: `
-      <div class="flex flex-wrap items-center gap-4">
-        <Link href="#native-link-about">About</Link>
-        <Link href="#native-link-contact" appearance="button">Contact</Link>
-      </div>
-    `,
   }),
 };
 

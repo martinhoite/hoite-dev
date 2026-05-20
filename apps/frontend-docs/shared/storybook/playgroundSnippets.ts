@@ -1,6 +1,12 @@
 type FrontendDocsSnippetFramework = 'react' | 'vue';
 
-type FrontendDocsSnippetPropValue = boolean | number | string | null | undefined;
+type FrontendDocsSnippetPropValue =
+  | boolean
+  | number
+  | readonly string[]
+  | string
+  | null
+  | undefined;
 
 export type FrontendDocsSnippetProp = {
   defaultValue?: FrontendDocsSnippetPropValue;
@@ -49,12 +55,24 @@ function shouldRenderProp(prop: FrontendDocsSnippetProp): boolean {
     return false;
   }
 
+  if (Array.isArray(prop.value)) {
+    return prop.value.length > 0;
+  }
+
   return prop.value !== prop.defaultValue;
+}
+
+function formatArrayLiteral(values: readonly string[]): string {
+  return `[${values.map((value) => `'${value}'`).join(', ')}]`;
 }
 
 function formatReactProp({ name, value }: FrontendDocsSnippetProp): string {
   if (typeof value === 'boolean') {
     return value ? name : `${name}={false}`;
+  }
+
+  if (Array.isArray(value)) {
+    return `${name}={${formatArrayLiteral(value)}}`;
   }
 
   if (typeof value === 'number') {
@@ -67,6 +85,10 @@ function formatReactProp({ name, value }: FrontendDocsSnippetProp): string {
 function formatVueProp({ name, value }: FrontendDocsSnippetProp): string {
   if (typeof value === 'boolean') {
     return value ? name : `:${name}="false"`;
+  }
+
+  if (Array.isArray(value)) {
+    return `:${name}="${formatArrayLiteral(value)}"`;
   }
 
   if (typeof value === 'number') {

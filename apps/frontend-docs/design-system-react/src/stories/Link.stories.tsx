@@ -7,23 +7,38 @@ import {
   StoryPlaygroundPreview,
   StoryPlaygroundSnippet,
 } from '@hoite-dev/frontend-docs-shared/storybook';
-import { type LinkAppearance, linkDocs, supportedLinkAppearances } from '@hoite-dev/ui';
+import {
+  type LinkAppearance,
+  type LinkRel,
+  type LinkRelToken,
+  type LinkTarget,
+  linkDocs,
+  supportedLinkAppearances,
+  supportedLinkRelTokens,
+  supportedLinkTargets,
+} from '@hoite-dev/ui';
 import { Link } from '@hoite-dev/ui-react';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
 
 import { StorybookSourceSnippet } from './StorybookSourceSnippet';
 
+const linkPlaygroundControlNames = ['children', 'href', 'appearance', 'target', 'rel'] as const;
+
 type LinkStoryArgs = {
   appearance: LinkAppearance;
   children: string;
   href: string;
+  rel: LinkRelToken[];
+  target?: LinkTarget;
 };
 
-const defaultLinkArgs: LinkStoryArgs = {
+const defaultLinkStoryArgs: LinkStoryArgs = {
   appearance: 'link',
   children: 'Read the case study',
   href: '#link-playground',
+  rel: [],
+  target: undefined,
 };
 
 const storyArgTypes: Partial<ArgTypes<LinkStoryArgs>> = {
@@ -50,15 +65,31 @@ const storyArgTypes: Partial<ArgTypes<LinkStoryArgs>> = {
       category: 'Native / passthrough attributes',
     },
   },
+  rel: {
+    control: 'check',
+    description: linkDocs.argTypeDescriptions.rel,
+    options: supportedLinkRelTokens,
+    table: {
+      category: 'Native / passthrough attributes',
+    },
+  },
+  target: {
+    control: 'select',
+    description: linkDocs.argTypeDescriptions.target,
+    options: supportedLinkTargets,
+    table: {
+      category: 'Native / passthrough attributes',
+    },
+  },
 };
 
 const meta: Meta<LinkStoryArgs> = {
-  args: defaultLinkArgs,
+  args: defaultLinkStoryArgs,
   argTypes: storyArgTypes,
   component: LinkPlaygroundPreview,
   parameters: {
     controls: {
-      include: ['children', 'href', 'appearance'],
+      include: [...linkPlaygroundControlNames],
       sort: 'none',
     },
   },
@@ -69,18 +100,37 @@ export default meta;
 
 type Story = StoryObj<LinkStoryArgs>;
 
-function normalizeLinkArgs(args: LinkStoryArgs): LinkStoryArgs {
+function normalizeLinkStoryArgs(args: LinkStoryArgs): LinkStoryArgs {
   const appearance = supportedLinkAppearances.includes(args.appearance)
     ? args.appearance
-    : defaultLinkArgs.appearance;
+    : defaultLinkStoryArgs.appearance;
+  const rel = Array.isArray(args.rel)
+    ? args.rel.filter((token): token is LinkRelToken => supportedLinkRelTokens.includes(token))
+    : defaultLinkStoryArgs.rel;
+  const target =
+    args.target !== undefined && supportedLinkTargets.includes(args.target)
+      ? args.target
+      : undefined;
 
   return {
     ...args,
     appearance,
+    rel,
+    target,
   };
 }
 
+function resolveLinkStoryRel(rel: LinkStoryArgs['rel']): LinkRel | undefined {
+  return rel.length > 0 ? rel : undefined;
+}
+
+function resolveLinkStoryTarget(target: LinkStoryArgs['target']): LinkTarget | undefined {
+  return target;
+}
+
 function LinkPlaygroundPreview(args: LinkStoryArgs): ReactElement {
+  const rel = resolveLinkStoryRel(args.rel);
+  const target = resolveLinkStoryTarget(args.target);
   const snippet = createFrontendDocsComponentSnippet({
     children: args.children,
     componentName: 'Link',
@@ -91,9 +141,19 @@ function LinkPlaygroundPreview(args: LinkStoryArgs): ReactElement {
         value: args.href,
       },
       {
-        defaultValue: defaultLinkArgs.appearance,
+        defaultValue: defaultLinkStoryArgs.appearance,
         name: 'appearance',
         value: args.appearance,
+      },
+      {
+        defaultValue: defaultLinkStoryArgs.target,
+        name: 'target',
+        value: args.target,
+      },
+      {
+        defaultValue: defaultLinkStoryArgs.rel,
+        name: 'rel',
+        value: args.rel,
       },
     ],
   });
@@ -102,13 +162,16 @@ function LinkPlaygroundPreview(args: LinkStoryArgs): ReactElement {
     <StoryPlayground>
       <StoryInfoPanel>
         <p className='m-0 text-sm text-[var(--color-text-primary)]'>
-          Link renders a native <code>a</code> for navigation. Keep framework routing in the
-          framework link component and apply Hoite Dev styling with <code>linkVariants</code>.
+          Link renders a native <code>a</code> for navigation. Use <code>target</code> and{' '}
+          <code>rel</code> as native anchor passthroughs here. When{' '}
+          <code>target=&quot;_blank&quot;</code> is used without an explicit <code>rel</code>, Link
+          defaults <code>rel</code> to <code>noopener noreferrer</code>. Pass <code>rel</code>{' '}
+          explicitly to override that default.
         </p>
       </StoryInfoPanel>
       <StoryPlaygroundContent split>
         <StoryPlaygroundPreview>
-          <Link appearance={args.appearance} href={args.href}>
+          <Link appearance={args.appearance} href={args.href} rel={rel} target={target}>
             {args.children}
           </Link>
         </StoryPlaygroundPreview>
@@ -124,7 +187,7 @@ export const Playground: Story = {
   name: 'Playground',
   parameters: createFrontendDocsPlaygroundParameters({
     controls: {
-      include: ['children', 'href', 'appearance'],
+      include: [...linkPlaygroundControlNames],
       sort: 'none',
     },
     docs: {
@@ -133,30 +196,7 @@ export const Playground: Story = {
       },
     },
   }),
-  render: (args) => <LinkPlaygroundPreview {...normalizeLinkArgs(args)} />,
-};
-
-export const NativeUsage: Story = {
-  name: 'Native Link',
-  parameters: {
-    controls: {
-      disable: true,
-    },
-    docs: {
-      description: {
-        story: linkDocs.storyDescriptions.nativeUsage,
-      },
-    },
-  },
-  tags: ['!dev'],
-  render: () => (
-    <div className='flex flex-wrap items-center gap-4'>
-      <Link href='#native-link-about'>About</Link>
-      <Link appearance='button' href='#native-link-contact'>
-        Contact
-      </Link>
-    </div>
-  ),
+  render: (args) => <LinkPlaygroundPreview {...normalizeLinkStoryArgs(args)} />,
 };
 
 export const Appearances: Story = {
