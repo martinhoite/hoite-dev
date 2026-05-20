@@ -23,8 +23,12 @@ export {
 } from './components/primitives/action/icon-button';
 export {
   linkDocs,
+  linkRelToString,
   linkVariants,
+  resolveLinkRel,
   supportedLinkAppearances,
+  supportedLinkRelTokens,
+  supportedLinkTargets,
 } from './components/primitives/action/link';
 
 export {
@@ -93,6 +97,9 @@ export type {
 } from './components/primitives/action/icon-button';
 export type {
   LinkAppearance,
+  LinkRel,
+  LinkRelToken,
+  LinkTarget,
   LinkVariantProps,
 } from './components/primitives/action/link';
 export type {

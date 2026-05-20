@@ -1,5 +1,11 @@
 import { warnInDevelopment } from '@hoite-dev/diagnostics';
-import { type LinkAppearance, linkVariants } from '@hoite-dev/ui';
+import {
+  type LinkAppearance,
+  type LinkRel,
+  type LinkTarget,
+  linkVariants,
+  resolveLinkRel,
+} from '@hoite-dev/ui';
 import {
   Children,
   type ComponentPropsWithoutRef,
@@ -12,9 +18,12 @@ type LinkBaseProps = {
   appearance?: LinkAppearance;
   children: ReactNode;
   href: string;
+  rel?: LinkRel;
+  target?: LinkTarget;
 };
 
-export type LinkProps = LinkBaseProps & Omit<ComponentPropsWithoutRef<'a'>, 'children' | 'href'>;
+export type LinkProps = LinkBaseProps &
+  Omit<ComponentPropsWithoutRef<'a'>, 'children' | 'href' | 'rel' | 'target'>;
 
 function hasVisibleContent(children: ReactNode): boolean {
   return Children.toArray(children).some((child) => {
@@ -35,9 +44,12 @@ export function Link({
   children,
   className,
   href,
+  rel,
+  target,
   ...restProps
 }: LinkProps): ReactElement {
   const hasContent = hasVisibleContent(children);
+  const resolvedRel = resolveLinkRel(target, rel);
 
   useEffect(() => {
     if (hasContent) {
@@ -48,7 +60,13 @@ export function Link({
   }, [hasContent]);
 
   return (
-    <a {...restProps} className={linkVariants({ appearance, className })} href={href}>
+    <a
+      {...restProps}
+      className={linkVariants({ appearance, className })}
+      href={href}
+      rel={resolvedRel}
+      target={target}
+    >
       {children}
     </a>
   );

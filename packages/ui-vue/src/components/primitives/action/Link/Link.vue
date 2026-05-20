@@ -1,20 +1,33 @@
 <script lang="ts">
 import { warnInDevelopment } from '@hoite-dev/diagnostics';
-import { type LinkAppearance, linkVariants } from '@hoite-dev/ui';
+import {
+  type LinkAppearance,
+  type LinkRel,
+  type LinkTarget,
+  linkVariants,
+  resolveLinkRel,
+} from '@hoite-dev/ui';
 import { Comment, computed, defineComponent, type PropType, Text, watchEffect } from 'vue';
 
 type LinkBaseProps = {
   appearance?: LinkAppearance;
   href: string;
+  rel?: LinkRel;
+  target?: LinkTarget;
 };
 
 export type LinkProps = LinkBaseProps;
 
 function pickAnchorAttributes(attrs: Record<string, unknown>): Record<string, unknown> {
   return Object.fromEntries(
-    Object.entries(attrs).filter(([key]) => key !== 'class' && key !== 'style'),
+    Object.entries(attrs).filter(
+      ([key]) =>
+        key !== 'class' && key !== 'style' && key !== 'href' && key !== 'rel' && key !== 'target',
+    ),
   );
 }
+
+const linkRelPropType = [String, Array] as unknown as PropType<LinkRel>;
 
 export default defineComponent({
   inheritAttrs: false,
@@ -27,6 +40,14 @@ export default defineComponent({
       required: true,
       type: String,
     },
+    rel: {
+      required: false,
+      type: linkRelPropType,
+    },
+    target: {
+      required: false,
+      type: String as PropType<LinkTarget>,
+    },
   },
   setup(props: Readonly<LinkBaseProps>, { attrs, slots }) {
     const restAttrs = computed(() => pickAnchorAttributes(attrs));
@@ -36,6 +57,7 @@ export default defineComponent({
         class: attrs.class,
       }),
     );
+    const resolvedRel = computed(() => resolveLinkRel(props.target, props.rel));
     const hasVisibleContent = computed(() => {
       const slotNodes = slots.default?.() ?? [];
 
@@ -64,6 +86,7 @@ export default defineComponent({
       className,
       hasVisibleContent,
       restAttrs,
+      resolvedRel,
     };
   },
 });
@@ -74,7 +97,9 @@ export default defineComponent({
     v-bind="restAttrs"
     :class="className"
     :href="href"
+    :rel="resolvedRel"
     :style="$attrs.style"
+    :target="target"
   >
     <slot></slot>
   </a>
