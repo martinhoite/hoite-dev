@@ -17,7 +17,7 @@
     "@hoite-dev/ui": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^19.2.14"
+    "@types/react": "^19.2.15"
   },
   "peerDependencies": {
     "react": "^19.2.5"
