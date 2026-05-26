@@ -24,6 +24,8 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 
 - Keep React and Vue docs aligned on section order, control intent, and example intent.
 - Keep framework-specific source links present for each framework docs page.
+- Allow framework-native prop naming differences such as React `className` and Vue `class` /
+  `*Class` when they describe the same styling passthrough intent.
 - Keep Storybook config through `createFrontendDocsStorybookConfig<StorybookConfig>(...)`.
 - Register theme addon through `createFrontendDocsAddons(compositionThemeConfig)`.
 - Use `createFrontendDocsPlaygroundParameters(...)` for playground stories so addon-panel visibility stays consistent; override its `addons` option per story when a playground deliberately needs something beyond the default Controls and Accessibility panels.

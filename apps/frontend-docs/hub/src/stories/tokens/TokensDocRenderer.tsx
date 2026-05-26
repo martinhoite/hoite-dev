@@ -49,6 +49,8 @@ export function TokensDocRenderer() {
   const colorRows = useMemo(() => {
     return createColorRows();
   }, []);
+  // Build categories once without computed CSS values so we can discover every
+  // variable name, then rebuild after reading resolved values from the page.
   const initialCategories = useMemo(() => {
     return createTokenCategories();
   }, []);

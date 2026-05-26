@@ -8,6 +8,10 @@ export function isRecord(value: unknown): value is Record<string, unknown> {
   return false;
 }
 
+/**
+ * Prefers the explicit Figma code syntax extension when it exists, then falls
+ * back to a deterministic CSS custom property name derived from the token path.
+ */
 export function resolveCssVar(path: readonly string[], leaf: Record<string, unknown>): string {
   const extensions = leaf.$extensions;
 
@@ -39,6 +43,10 @@ export function resolveCssVar(path: readonly string[], leaf: Record<string, unkn
   return `--${fallback.toLowerCase()}`;
 }
 
+/**
+ * Figma exports color components as normalized 0..1 channel values. Convert
+ * those records into browser-ready rgb/rgba strings for tables and swatches.
+ */
 function formatRgbaFromComponents(value: unknown): string | null {
   if (!isRecord(value)) {
     return null;
@@ -62,6 +70,10 @@ function formatRgbaFromComponents(value: unknown): string | null {
   return `rgb(${red}, ${green}, ${blue})`;
 }
 
+/**
+ * Produces a stable string for arbitrary token values. This keeps unsupported
+ * object shapes visible in docs instead of silently dropping them.
+ */
 export function resolveTokenValue(value: TokenValue): string {
   if (value === null) {
     return 'null';
@@ -135,6 +147,10 @@ export function resolveColorSwatchValue(value: TokenValue): string | null {
   return null;
 }
 
+/**
+ * Extracts the first numeric value from CSS-like strings so scale tokens sort
+ * by magnitude. Composite values intentionally fall back to their first number.
+ */
 export function parseNumber(value: unknown): number | null {
   if (typeof value === 'number') {
     return value;
@@ -144,6 +160,7 @@ export function parseNumber(value: unknown): number | null {
     return null;
   }
 
+  // Match the first signed integer or decimal inside a CSS-like value.
   const match = /-?\d*\.?\d+/.exec(value);
 
   if (!match?.[0]) {
@@ -153,6 +170,10 @@ export function parseNumber(value: unknown): number | null {
   return Number(match[0]);
 }
 
+/**
+ * Normalizes duration tokens to milliseconds for motion previews. Bare numbers
+ * are treated as milliseconds, matching the display convention in the docs.
+ */
 export function parseDurationMs(value: unknown): number | null {
   if (typeof value === 'number') {
     return value;
@@ -163,6 +184,7 @@ export function parseDurationMs(value: unknown): number | null {
   }
 
   const trimmed = value.trim();
+  // Match plain duration values such as "120", "120ms", or "0.2s".
   const unitMatch = /^(-?\d*\.?\d+)\s*(ms|s)?$/i.exec(trimmed);
 
   if (!unitMatch) {

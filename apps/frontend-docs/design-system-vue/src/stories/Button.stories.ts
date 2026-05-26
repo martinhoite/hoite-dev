@@ -1,7 +1,5 @@
 import {
-  copyFrontendDocsSnippetToClipboard,
   createFrontendDocsComponentSnippet,
-  createFrontendDocsHighlightedSnippetHtml,
   createFrontendDocsPlaygroundParameters,
   createVueStoryPreview,
   createVueStorySourcePanel,
@@ -20,20 +18,19 @@ import {
 import { Button } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed, defineComponent, onBeforeUnmount, ref } from 'vue';
+import { createVueSnippetCopyState } from './vueSnippetCopyState';
 
-const noIconOption = 'None';
-
-type ButtonIconOption = IconName | typeof noIconOption;
+type ButtonIconOption = IconName | undefined;
 
 type ButtonStoryArgs = {
   children: string;
   disabled: boolean;
   isLoading: boolean;
-  leadingIcon: ButtonIconOption;
+  leadingIcon?: ButtonIconOption;
   loadingLabel: string;
   preventLoadingShrink: boolean;
   size: ButtonSize;
-  trailingIcon: ButtonIconOption;
+  trailingIcon?: ButtonIconOption;
   variant: ButtonVariant;
 };
 
@@ -41,15 +38,11 @@ const defaultButtonArgs: ButtonStoryArgs = {
   children: 'Primary action',
   disabled: false,
   isLoading: false,
-  leadingIcon: noIconOption,
   loadingLabel: '',
   preventLoadingShrink: false,
   size: 'medium',
-  trailingIcon: noIconOption,
   variant: 'primary',
 };
-
-const iconOptions = [noIconOption, ...supportedIconNames] as const;
 
 const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
   children: {
@@ -77,7 +70,7 @@ const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
   leadingIcon: {
     control: 'select',
     description: buttonDocs.argTypeDescriptions.leadingIcon,
-    options: iconOptions,
+    options: supportedIconNames,
     table: {
       category: 'Component API',
     },
@@ -107,7 +100,7 @@ const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
   trailingIcon: {
     control: 'select',
     description: buttonDocs.argTypeDescriptions.trailingIcon,
-    options: iconOptions,
+    options: supportedIconNames,
     table: {
       category: 'Component API',
     },
@@ -123,11 +116,7 @@ const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
 };
 
 function normalizeIcon(icon: ButtonIconOption): IconName | undefined {
-  if (icon === noIconOption) {
-    return undefined;
-  }
-
-  if (supportedIconNames.includes(icon)) {
+  if (icon !== undefined && supportedIconNames.includes(icon)) {
     return icon;
   }
 
@@ -142,9 +131,9 @@ function normalizeButtonArgs(args: ButtonStoryArgs): ButtonStoryArgs {
 
   return {
     ...args,
-    leadingIcon: normalizeIcon(args.leadingIcon) ?? noIconOption,
+    leadingIcon: normalizeIcon(args.leadingIcon),
     size,
-    trailingIcon: normalizeIcon(args.trailingIcon) ?? noIconOption,
+    trailingIcon: normalizeIcon(args.trailingIcon),
     variant,
   };
 }
@@ -165,7 +154,6 @@ const ButtonPlaygroundPreview = defineComponent({
       type: Boolean,
     },
     leadingIcon: {
-      required: true,
       type: String as () => ButtonIconOption,
     },
     loadingLabel: {
@@ -181,7 +169,6 @@ const ButtonPlaygroundPreview = defineComponent({
       type: String as () => ButtonSize,
     },
     trailingIcon: {
-      required: true,
       type: String as () => ButtonIconOption,
     },
     variant: {
@@ -248,16 +235,7 @@ const ButtonPlaygroundPreview = defineComponent({
         ],
       }),
     );
-    const copyButtonLabel = ref('Copy code');
-    const copySnippet = async () => {
-      copyButtonLabel.value = 'Copying';
-      copyButtonLabel.value = (await copyFrontendDocsSnippetToClipboard(snippet.value))
-        ? 'Copied'
-        : 'Copy error';
-    };
-    const highlightedSnippet = computed(() =>
-      createFrontendDocsHighlightedSnippetHtml(snippet.value),
-    );
+    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
 
     return {
       buttonArgs,

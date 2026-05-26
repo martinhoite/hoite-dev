@@ -31,6 +31,10 @@ export type TokenPreviewKind =
 
 export type CssValueMap = Record<string, string>;
 
+/**
+ * Normalized leaf token data. The source token tree can nest arbitrary groups,
+ * but the stories render a flat list first and add grouping back later.
+ */
 export type TokenRow = {
   cssVarName: string;
   description: string | null;
@@ -72,6 +76,11 @@ export type TokenCategory = {
 
 const tokenSource = tokens as Record<string, unknown>;
 
+/**
+ * A token leaf is any object that looks like a design token, even if it only
+ * carries metadata. Groups can contain `$` keys too, so callers still recurse
+ * into non-leaf objects instead of treating every record as renderable.
+ */
 function isTokenLeaf(value: unknown): value is Record<string, unknown> {
   if (!isRecord(value)) {
     return false;
@@ -84,6 +93,11 @@ function isTokenLeaf(value: unknown): value is Record<string, unknown> {
   return false;
 }
 
+/**
+ * Converts the nested token export into display rows. `path` tracks the token's
+ * location so CSS variable names, duplicate-name suffixes, and group labels can
+ * be derived from the same source of truth.
+ */
 export function flattenTokenTree(tree: unknown, path: readonly string[] = []): TokenRow[] {
   if (!isRecord(tree)) {
     return [];
@@ -92,6 +106,8 @@ export function flattenTokenTree(tree: unknown, path: readonly string[] = []): T
   if (isTokenLeaf(tree)) {
     const cssVarName = resolveCssVar(path, tree);
     const rawPath = path.join('.');
+    // Drop the top-level category and leaf key from section labels. The middle
+    // path segments are the human-facing groups shown in the token tables.
     const groupPath = path.length > 2 ? path.slice(1, -1).join(' / ') : 'Base';
 
     return [
@@ -110,6 +126,8 @@ export function flattenTokenTree(tree: unknown, path: readonly string[] = []): T
   const leaves: TokenRow[] = [];
 
   for (const [key, child] of Object.entries(tree)) {
+    // Design-token metadata keys describe the current node; they are not child
+    // groups and should not become their own rows.
     if (key.startsWith('$')) {
       continue;
     }
@@ -120,6 +138,10 @@ export function flattenTokenTree(tree: unknown, path: readonly string[] = []): T
   return leaves;
 }
 
+/**
+ * Color tokens are special-cased because the docs combine light and dark rows
+ * into one comparison table instead of using the generic category renderer.
+ */
 function isColorToken(token: TokenRow): boolean {
   if (token.tokenType === 'color') {
     return true;
@@ -132,13 +154,103 @@ function isColorToken(token: TokenRow): boolean {
   return false;
 }
 
+/**
+ * Declarative matcher for the generic token preview components. Color and none
+ * are excluded because they are resolved by explicit guard clauses.
+ */
+type TokenPreviewKindRule = {
+  kind: Exclude<TokenPreviewKind, 'color' | 'none'>;
+  matches: (token: TokenRow) => boolean;
+};
+
+function cssVarIncludes(fragment: string): (token: TokenRow) => boolean {
+  return (token) => token.cssVarName.includes(fragment);
+}
+
+/**
+ * Ordered from most specific to most general. Some names overlap, for example
+ * layout grid tokens may also include size-like values, so first match wins.
+ */
+const tokenPreviewKindRules: readonly TokenPreviewKindRule[] = [
+  {
+    kind: 'motion-duration',
+    matches: cssVarIncludes('--motion-duration'),
+  },
+  {
+    kind: 'motion-easing',
+    matches: cssVarIncludes('--motion-easing'),
+  },
+  {
+    kind: 'layout-grid-columns',
+    matches: (token) =>
+      token.cssVarName.includes('--layout-grid-') && token.cssVarName.includes('-columns'),
+  },
+  {
+    kind: 'layout-gutter',
+    matches: cssVarIncludes('--layout-gutter-'),
+  },
+  {
+    kind: 'layout-container',
+    matches: cssVarIncludes('--layout-container-'),
+  },
+  {
+    kind: 'typography-weight',
+    matches: cssVarIncludes('--typography-weight-'),
+  },
+  {
+    kind: 'typography-size',
+    matches: cssVarIncludes('--typography-size-'),
+  },
+  {
+    kind: 'typography-letter-spacing',
+    matches: cssVarIncludes('--typography-letter-spacing-'),
+  },
+  {
+    kind: 'typography-family',
+    matches: cssVarIncludes('--typography-family-'),
+  },
+  {
+    kind: 'typography-line-height',
+    matches: cssVarIncludes('--typography-line-height-'),
+  },
+  {
+    kind: 'typography-paragraph-spacing',
+    matches: cssVarIncludes('--typography-paragraph-spacing-'),
+  },
+  {
+    kind: 'radius',
+    matches: cssVarIncludes('--radius-'),
+  },
+  {
+    kind: 'stroke',
+    matches: cssVarIncludes('--stroke-'),
+  },
+  {
+    kind: 'spacing',
+    matches: cssVarIncludes('--spacing-'),
+  },
+  {
+    kind: 'size',
+    matches: cssVarIncludes('--size-'),
+  },
+];
+
+/**
+ * Selects the preview renderer for a token row. Category/group exclusions run
+ * before CSS-name matching because a token can technically match a preview kind
+ * while still being clearer without a visual preview in the docs.
+ */
 function resolvePreviewKind(category: string, token: TokenRow): TokenPreviewKind {
   const normalizedGroup = token.groupPath.toLowerCase();
 
+  // Loading tokens include timing and size values, but the loading table reads
+  // better as raw API data than as a set of tiny visual previews.
   if (normalizedGroup.includes('loading')) {
     return 'none';
   }
 
+  // Grid container tokens describe named breakpoint containers, not a single
+  // visual measure, so a generic layout preview would be misleading.
   if (category === 'layout' && normalizedGroup === 'grid-container') {
     return 'none';
   }
@@ -147,69 +259,20 @@ function resolvePreviewKind(category: string, token: TokenRow): TokenPreviewKind
     return 'color';
   }
 
-  if (token.cssVarName.includes('--motion-duration')) {
-    return 'motion-duration';
-  }
+  const matchingRule = tokenPreviewKindRules.find((rule) => rule.matches(token));
 
-  if (token.cssVarName.includes('--motion-easing')) {
-    return 'motion-easing';
-  }
-
-  if (token.cssVarName.includes('--layout-grid-') && token.cssVarName.includes('-columns')) {
-    return 'layout-grid-columns';
-  }
-
-  if (token.cssVarName.includes('--layout-gutter-')) {
-    return 'layout-gutter';
-  }
-
-  if (token.cssVarName.includes('--layout-container-')) {
-    return 'layout-container';
-  }
-
-  if (token.cssVarName.includes('--typography-weight-')) {
-    return 'typography-weight';
-  }
-
-  if (token.cssVarName.includes('--typography-size-')) {
-    return 'typography-size';
-  }
-
-  if (token.cssVarName.includes('--typography-letter-spacing-')) {
-    return 'typography-letter-spacing';
-  }
-
-  if (token.cssVarName.includes('--typography-family-')) {
-    return 'typography-family';
-  }
-
-  if (token.cssVarName.includes('--typography-line-height-')) {
-    return 'typography-line-height';
-  }
-
-  if (token.cssVarName.includes('--typography-paragraph-spacing-')) {
-    return 'typography-paragraph-spacing';
-  }
-
-  if (token.cssVarName.includes('--radius-')) {
-    return 'radius';
-  }
-
-  if (token.cssVarName.includes('--stroke-')) {
-    return 'stroke';
-  }
-
-  if (token.cssVarName.includes('--spacing-')) {
-    return 'spacing';
-  }
-
-  if (token.cssVarName.includes('--size-')) {
-    return 'size';
+  if (matchingRule) {
+    return matchingRule.kind;
   }
 
   return 'none';
 }
 
+/**
+ * When two source tokens resolve to the same CSS variable, keep the CSS var as
+ * the primary label and append the source leaf name so both rows remain
+ * distinguishable in the docs table.
+ */
 function normalizeDuplicateDisplayNames(rows: TokenCategoryRow[]): TokenCategoryRow[] {
   const displayCounts = new Map<string, number>();
 
@@ -233,6 +296,11 @@ function normalizeDuplicateDisplayNames(rows: TokenCategoryRow[]): TokenCategory
   });
 }
 
+/**
+ * Sort numeric scales by their resolved runtime value when possible, then fall
+ * back to CSS variable names for non-numeric tokens such as font families and
+ * easing functions.
+ */
 function sortRows(rows: TokenCategoryRow[], cssValues: CssValueMap): TokenCategoryRow[] {
   return [...rows].sort((leftRow, rightRow) => {
     const left = parseNumber(cssValues[leftRow.cssVarName] || leftRow.value);
@@ -246,6 +314,10 @@ function sortRows(rows: TokenCategoryRow[], cssValues: CssValueMap): TokenCatego
   });
 }
 
+/**
+ * Returns non-color token categories in stable docs order. Primitive tokens are
+ * kept first because other token groups often reference them conceptually.
+ */
 function getNonColorTokenEntries(): [string, unknown][] {
   const entries = Object.entries(tokenSource).filter(([category]) => category !== 'color');
 
@@ -268,6 +340,11 @@ function getNonColorTokenEntries(): [string, unknown][] {
   return entries;
 }
 
+/**
+ * Builds the dedicated color table by joining light and dark theme tokens on
+ * CSS variable name. Theme-only tokens are still included with a null value on
+ * the missing side.
+ */
 export function createColorRows(): ColorTokenRow[] {
   const colorTokens = isRecord(tokenSource.color) ? tokenSource.color : {};
   const lightTokens = flattenTokenTree(colorTokens.light, ['color']);
@@ -328,6 +405,11 @@ export function createColorRows(): ColorTokenRow[] {
   return rows;
 }
 
+/**
+ * Builds the generic token category model consumed by the hub stories:
+ * flatten each source tree, add preview metadata, group by display section, and
+ * sort rows with optional resolved CSS values from the running Storybook frame.
+ */
 export function createTokenCategories(cssValues: CssValueMap = {}): TokenCategory[] {
   return getNonColorTokenEntries().map(([category, tree]) => {
     const flattened = flattenTokenTree(tree, [category]);

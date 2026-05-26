@@ -1,7 +1,5 @@
 import {
-  copyFrontendDocsSnippetToClipboard,
   createFrontendDocsComponentSnippet,
-  createFrontendDocsHighlightedSnippetHtml,
   createFrontendDocsPlaygroundParameters,
   createVueStoryPreview,
   createVueStorySourcePanel,
@@ -18,7 +16,8 @@ import {
 } from '@hoite-dev/ui';
 import { CircularProgress, Loader, Progress } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
-import { type ComputedRef, computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { createVueSnippetCopyState } from './vueSnippetCopyState';
 
 type CircularValueDisplay = 'fraction' | 'percent';
 
@@ -36,25 +35,6 @@ type LoadingStoryArgs = {
   value: number;
   valueDisplay: CircularValueDisplay;
 };
-
-function createSnippetCopyState(snippet: ComputedRef<string>) {
-  const copyButtonLabel = ref('Copy code');
-  const highlightedSnippet = computed(() =>
-    createFrontendDocsHighlightedSnippetHtml(snippet.value),
-  );
-  const copySnippet = async () => {
-    copyButtonLabel.value = 'Copying';
-    copyButtonLabel.value = (await copyFrontendDocsSnippetToClipboard(snippet.value))
-      ? 'Copied'
-      : 'Copy error';
-  };
-
-  return {
-    copyButtonLabel,
-    copySnippet,
-    highlightedSnippet,
-  };
-}
 
 const storyArgTypes: Partial<ArgTypes<LoadingStoryArgs>> = {
   size: {
@@ -192,7 +172,7 @@ const LoaderPlaygroundPreview = defineComponent({
         ],
       }),
     );
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createSnippetCopyState(snippet);
+    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
 
     return {
       copyButtonLabel,
@@ -309,7 +289,7 @@ const ProgressPlaygroundPreview = defineComponent({
         ],
       }),
     );
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createSnippetCopyState(snippet);
+    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
 
     return {
       copyButtonLabel,
@@ -471,7 +451,7 @@ const CircularProgressPlaygroundPreview = defineComponent({
         ],
       }),
     );
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createSnippetCopyState(snippet);
+    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
 
     return {
       copyButtonLabel,
