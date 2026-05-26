@@ -3,6 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { CssValueMap } from './tokenModel';
 
+/**
+ * Reads resolved CSS custom property values from the docs root when possible.
+ * Falling back to body/document keeps the first render useful before refs attach.
+ */
 function readCssValues(varNames: readonly string[], rootElement: HTMLElement | null): CssValueMap {
   if (typeof window === 'undefined') {
     return {};
@@ -46,6 +50,9 @@ export function useComputedCssValues(
       setValues(readCssValues(varNamesRef.current, element));
     });
 
+    // Storybook and the app shell both express theme changes through attributes
+    // on root/body. Re-read computed vars when those attributes change so the
+    // tables track light/dark and composed theme switches without a page reload.
     observer.observe(root, {
       attributeFilter: ['class', 'data-color-mode', 'data-theme'],
       attributes: true,

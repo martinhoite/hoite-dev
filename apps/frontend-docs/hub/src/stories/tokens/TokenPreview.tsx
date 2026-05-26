@@ -13,6 +13,10 @@ type TokenPreviewProps = {
 
 const previewBorderColor = 'var(--color-border-strong)';
 
+/**
+ * Shared motion sample used by duration and easing tokens. The static filled
+ * state keeps reduced-motion previews meaningful without running animation.
+ */
 function MotionSweepPreview({
   animation,
   shouldAnimate,
@@ -61,6 +65,10 @@ function renderMotionEasingPreview(cssValue: string, prefersReducedMotion: boole
   );
 }
 
+/**
+ * Uses a fixed twelve-column sample so grid column tokens can show relative
+ * density while staying the same physical size in every table row.
+ */
 function renderLayoutGridColumnsPreview(row: TokenCategoryRow) {
   return (
     <div
@@ -134,6 +142,8 @@ function renderLayoutContainerPreview(row: TokenCategoryRow) {
 }
 
 function renderStrokePreview(row: TokenCategoryRow) {
+  // Focus/highlight stroke tokens need a visible focus-color sample; generic
+  // stroke-width tokens are clearer against the default border color.
   const focusStrokeTokens = ['focus-ring', 'stroke-highlight'];
   const usesFocusStrokeColor = focusStrokeTokens.some((tokenName) =>
     row.cssVarName.includes(tokenName),
@@ -178,6 +188,11 @@ function renderSizePreview(row: TokenCategoryRow) {
   );
 }
 
+/**
+ * TokenPreview is intentionally convention-driven: tokenModel chooses the
+ * preview kind, and this switch translates that metadata into compact table
+ * visuals rather than full component examples.
+ */
 export function TokenPreview({ cssValue, prefersReducedMotion, row }: TokenPreviewProps) {
   switch (row.previewKind) {
     case 'color':
