@@ -23,19 +23,17 @@ import { useEffect, useRef, useState } from 'react';
 
 import { StorybookSourceSnippet } from './StorybookSourceSnippet';
 
-const noIconOption = 'None';
-
-type ButtonIconOption = IconName | typeof noIconOption;
+type ButtonIconOption = IconName | undefined;
 
 type ButtonStoryArgs = {
   children: string;
   disabled: boolean;
   isLoading: boolean;
-  leadingIcon: ButtonIconOption;
+  leadingIcon?: ButtonIconOption;
   loadingLabel: string;
   preventLoadingShrink: boolean;
   size: ButtonSize;
-  trailingIcon: ButtonIconOption;
+  trailingIcon?: ButtonIconOption;
   variant: ButtonVariant;
 };
 
@@ -43,15 +41,11 @@ const defaultButtonArgs: ButtonStoryArgs = {
   children: 'Primary action',
   disabled: false,
   isLoading: false,
-  leadingIcon: noIconOption,
   loadingLabel: '',
   preventLoadingShrink: false,
   size: 'medium',
-  trailingIcon: noIconOption,
   variant: 'primary',
 };
-
-const iconOptions = [noIconOption, ...supportedIconNames] as const;
 
 const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
   children: {
@@ -79,7 +73,7 @@ const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
   leadingIcon: {
     control: 'select',
     description: buttonDocs.argTypeDescriptions.leadingIcon,
-    options: iconOptions,
+    options: supportedIconNames,
     table: {
       category: 'Component API',
     },
@@ -109,7 +103,7 @@ const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
   trailingIcon: {
     control: 'select',
     description: buttonDocs.argTypeDescriptions.trailingIcon,
-    options: iconOptions,
+    options: supportedIconNames,
     table: {
       category: 'Component API',
     },
@@ -152,11 +146,7 @@ export default meta;
 type Story = StoryObj<ButtonStoryArgs>;
 
 function normalizeIcon(icon: ButtonIconOption): IconName | undefined {
-  if (icon === noIconOption) {
-    return undefined;
-  }
-
-  if (supportedIconNames.includes(icon)) {
+  if (icon !== undefined && supportedIconNames.includes(icon)) {
     return icon;
   }
 
@@ -171,9 +161,9 @@ function normalizeButtonArgs(args: ButtonStoryArgs): ButtonStoryArgs {
 
   return {
     ...args,
-    leadingIcon: normalizeIcon(args.leadingIcon) ?? noIconOption,
+    leadingIcon: normalizeIcon(args.leadingIcon),
     size,
-    trailingIcon: normalizeIcon(args.trailingIcon) ?? noIconOption,
+    trailingIcon: normalizeIcon(args.trailingIcon),
     variant,
   };
 }

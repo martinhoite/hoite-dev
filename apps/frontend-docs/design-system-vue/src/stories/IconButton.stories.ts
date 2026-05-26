@@ -1,7 +1,5 @@
 import {
-  copyFrontendDocsSnippetToClipboard,
   createFrontendDocsComponentSnippet,
-  createFrontendDocsHighlightedSnippetHtml,
   createFrontendDocsPlaygroundParameters,
   createVueStoryPreview,
   createVueStorySourcePanel,
@@ -20,6 +18,7 @@ import {
 import { IconButton } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed, defineComponent, onBeforeUnmount, ref } from 'vue';
+import { createVueSnippetCopyState } from './vueSnippetCopyState';
 
 type IconButtonStoryArgs = {
   'aria-label': string;
@@ -179,16 +178,7 @@ const IconButtonPlaygroundPreview = defineComponent({
         ],
       }),
     );
-    const copyButtonLabel = ref('Copy code');
-    const copySnippet = async () => {
-      copyButtonLabel.value = 'Copying';
-      copyButtonLabel.value = (await copyFrontendDocsSnippetToClipboard(snippet.value))
-        ? 'Copied'
-        : 'Copy error';
-    };
-    const highlightedSnippet = computed(() =>
-      createFrontendDocsHighlightedSnippetHtml(snippet.value),
-    );
+    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
 
     return {
       copyButtonLabel,
