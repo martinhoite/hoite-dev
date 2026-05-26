@@ -62,6 +62,10 @@ Use these shared utilities first:
 
 If React and Vue differ, document why in the story or docs description.
 
+Framework prop naming can follow framework conventions without extra explanation. For example,
+React stories may expose `className` while Vue stories expose `class` or component-specific
+`*Class` props for the same styling passthrough intent.
+
 ## Hub Contract Workflow
 
 For `hub/src/stories/*Overview.stories.tsx`, prefer:
