@@ -1,5 +1,4 @@
 import {
-  createFrontendDocsComponentSnippet,
   createFrontendDocsPlaygroundParameters,
   StoryInfoPanel,
   StoryPlayground,
@@ -7,11 +6,17 @@ import {
   StoryPlaygroundPreview,
   StoryPlaygroundSnippet,
 } from '@hoite-dev/frontend-docs-shared/storybook';
+import { StorybookSourceSnippet } from '@hoite-dev/frontend-docs-shared/storybook/source-snippet';
 import {
-  type IconName,
-  type IconRotation,
-  type IconSize,
-  type IconVariant,
+  createIconPlaygroundControls,
+  createIconPlaygroundSnippet,
+  defaultIconStoryArgs,
+  getIconPlaygroundSurfaceClass,
+  getIconShowcaseSurfaceClass,
+  type IconStoryArgs,
+  normalizeIconStoryArgs,
+} from '@hoite-dev/frontend-docs-shared/storybook/story-configs';
+import {
   iconDocs,
   supportedIconNames,
   supportedIconRotations,
@@ -21,22 +26,6 @@ import {
 import { Icon } from '@hoite-dev/ui-react';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
-
-import { StorybookSourceSnippet } from './StorybookSourceSnippet';
-
-type IconStoryArgs = {
-  name: IconName;
-  rotation: IconRotation;
-  size: IconSize;
-  variant: IconVariant;
-};
-
-const defaultIconArgs: IconStoryArgs = {
-  name: 'chevron',
-  rotation: '0',
-  size: 'md',
-  variant: 'primary',
-};
 
 const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
   name: {
@@ -86,14 +75,11 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
 };
 
 const meta: Meta<IconStoryArgs> = {
-  args: defaultIconArgs,
+  args: defaultIconStoryArgs,
   argTypes: storyArgTypes,
   component: IconPlaygroundPreview,
   parameters: {
-    controls: {
-      include: ['name', 'size', 'rotation', 'variant'],
-      sort: 'none',
-    },
+    controls: createIconPlaygroundControls(),
   },
   title: 'Primitives/Static/Icon',
 };
@@ -102,49 +88,9 @@ export default meta;
 
 type Story = StoryObj<IconStoryArgs>;
 
-function getSurfaceClass(variant: IconVariant | undefined): string {
-  if (variant === 'on-fill') {
-    return 'inline-flex w-fit items-center rounded-xl bg-[var(--color-bg-brand)] p-4';
-  }
-
-  return 'inline-flex w-fit items-center rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-4';
-}
-
-function getShowcaseSurfaceClass(variant: IconVariant): string {
-  if (variant === 'on-fill') {
-    return 'grid min-h-28 place-items-center rounded-xl bg-[var(--color-bg-brand)] p-4 text-[var(--color-text-on-fill)]';
-  }
-
-  return 'grid min-h-28 place-items-center rounded-xl border border-[var(--color-border-muted)] bg-[var(--color-bg-surface)] p-4 text-[var(--color-text-primary)]';
-}
-
 function IconPlaygroundPreview(iconArgs: IconStoryArgs): ReactElement {
-  const snippet = createFrontendDocsComponentSnippet({
-    componentName: 'Icon',
-    framework: 'react',
-    props: [
-      {
-        name: 'label',
-        value: 'Playground icon',
-      },
-      {
-        name: 'name',
-        value: iconArgs.name,
-      },
-      {
-        name: 'rotation',
-        value: iconArgs.rotation,
-      },
-      {
-        name: 'size',
-        value: iconArgs.size,
-      },
-      {
-        name: 'variant',
-        value: iconArgs.variant,
-      },
-    ],
-  });
+  const normalizedArgs = normalizeIconStoryArgs(iconArgs);
+  const snippet = createIconPlaygroundSnippet('react', normalizedArgs);
 
   return (
     <StoryPlayground>
@@ -157,8 +103,8 @@ function IconPlaygroundPreview(iconArgs: IconStoryArgs): ReactElement {
       </StoryInfoPanel>
       <StoryPlaygroundContent split>
         <StoryPlaygroundPreview>
-          <div className={getSurfaceClass(iconArgs.variant)}>
-            <Icon {...iconArgs} label='Playground icon' />
+          <div className={getIconPlaygroundSurfaceClass(normalizedArgs.variant)}>
+            <Icon {...normalizedArgs} label='Playground icon' />
           </div>
         </StoryPlaygroundPreview>
         <StoryPlaygroundSnippet>
@@ -169,38 +115,17 @@ function IconPlaygroundPreview(iconArgs: IconStoryArgs): ReactElement {
   );
 }
 
-function normalizeIconArgs(args: IconStoryArgs): IconStoryArgs {
-  const name = supportedIconNames.includes(args.name) ? args.name : defaultIconArgs.name;
-  const size = supportedIconSizes.includes(args.size) ? args.size : defaultIconArgs.size;
-  const rotation = supportedIconRotations.includes(args.rotation)
-    ? args.rotation
-    : defaultIconArgs.rotation;
-  const variant = supportedIconVariants.includes(args.variant)
-    ? args.variant
-    : defaultIconArgs.variant;
-
-  return {
-    name,
-    rotation,
-    size,
-    variant,
-  };
-}
-
 export const Playground: Story = {
   name: 'Playground',
   parameters: createFrontendDocsPlaygroundParameters({
-    controls: {
-      include: ['name', 'size', 'rotation', 'variant'],
-      sort: 'none',
-    },
+    controls: createIconPlaygroundControls(),
     docs: {
       description: {
         story: iconDocs.storyDescriptions.playground,
       },
     },
   }),
-  render: (args) => <IconPlaygroundPreview {...normalizeIconArgs(args)} />,
+  render: (args) => <IconPlaygroundPreview {...normalizeIconStoryArgs(args)} />,
 };
 
 export const AllIcons: Story = {
@@ -303,7 +228,7 @@ export const Variants: Story = {
   render: () => (
     <div className='grid gap-4 md:grid-cols-2'>
       {supportedIconVariants.map((variant) => (
-        <div className={getShowcaseSurfaceClass(variant)} key={variant}>
+        <div className={getIconShowcaseSurfaceClass(variant)} key={variant}>
           <div className='grid justify-items-center gap-3 text-center'>
             <Icon label={`${variant} plus icon`} name='plus' variant={variant} />
             <span className='text-sm text-inherit'>{variant}</span>

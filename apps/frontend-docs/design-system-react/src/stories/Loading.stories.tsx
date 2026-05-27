@@ -8,6 +8,7 @@ import {
   StoryPlaygroundSnippet,
   StoryStack,
 } from '@hoite-dev/frontend-docs-shared/storybook';
+import { StorybookSourceSnippet } from '@hoite-dev/frontend-docs-shared/storybook/source-snippet';
 import {
   type LoadingColor,
   type LoadingSize,
@@ -17,8 +18,6 @@ import {
 } from '@hoite-dev/ui';
 import { CircularProgress, Loader, Progress } from '@hoite-dev/ui-react';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
-
-import { StorybookSourceSnippet } from './StorybookSourceSnippet';
 
 type CircularValueDisplay = 'fraction' | 'percent';
 

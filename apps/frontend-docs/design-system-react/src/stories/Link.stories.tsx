@@ -7,6 +7,7 @@ import {
   StoryPlaygroundPreview,
   StoryPlaygroundSnippet,
 } from '@hoite-dev/frontend-docs-shared/storybook';
+import { StorybookSourceSnippet } from '@hoite-dev/frontend-docs-shared/storybook/source-snippet';
 import {
   type LinkAppearance,
   type LinkRel,
@@ -20,8 +21,6 @@ import {
 import { Link } from '@hoite-dev/ui-react';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
-
-import { StorybookSourceSnippet } from './StorybookSourceSnippet';
 
 const linkPlaygroundControlNames = ['children', 'href', 'appearance', 'target', 'rel'] as const;
 

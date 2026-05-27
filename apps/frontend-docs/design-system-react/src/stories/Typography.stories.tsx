@@ -7,6 +7,7 @@ import {
   StoryPlaygroundPreview,
   StoryPlaygroundSnippet,
 } from '@hoite-dev/frontend-docs-shared/storybook';
+import { StorybookSourceSnippet } from '@hoite-dev/frontend-docs-shared/storybook/source-snippet';
 import {
   resolveTypographyDefaultTag,
   supportedTypographyTags,
@@ -17,8 +18,6 @@ import {
 } from '@hoite-dev/ui';
 import { Typography } from '@hoite-dev/ui-react';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
-
-import { StorybookSourceSnippet } from './StorybookSourceSnippet';
 
 const defaultTagOption = 'Default variant tag';
 const variantKeys = Object.keys(typographyVariantConfig) as TypographyVariant[];
