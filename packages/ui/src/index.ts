@@ -10,6 +10,12 @@ import strokeTokens from './tokens/source/stroke/Value.tokens.json';
 import typographyTokens from './tokens/source/typography/Value.tokens.json';
 
 export {
+  resolveActionIconSize,
+  resolveActionIconVariant,
+  resolveActionLoaderColor,
+  resolveActionLoaderSize,
+} from './components/primitives/action/actionVisualResolvers';
+export {
   buttonDocs,
   buttonVariants,
   supportedButtonSizes,

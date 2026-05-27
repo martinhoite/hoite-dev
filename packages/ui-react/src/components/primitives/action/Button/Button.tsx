@@ -4,9 +4,10 @@ import {
   type ButtonVariant,
   buttonVariants,
   type IconName,
-  type IconSize,
-  type IconVariant,
-  type LoadingSize,
+  resolveActionIconSize,
+  resolveActionIconVariant,
+  resolveActionLoaderColor,
+  resolveActionLoaderSize,
 } from '@hoite-dev/ui';
 import {
   Children,
@@ -60,46 +61,6 @@ function hasVisibleContent(children: ReactNode, loadingLabel: string | undefined
   });
 }
 
-function resolveLoaderColor(variant: ButtonVariant | undefined, isDisabled: boolean) {
-  if (isDisabled || variant === 'secondary') {
-    return 'secondary';
-  }
-
-  return 'on-fill';
-}
-
-function resolveIconVariant(variant: ButtonVariant | undefined, isDisabled: boolean): IconVariant {
-  if (isDisabled) {
-    return 'disabled';
-  }
-
-  if (variant === 'secondary') {
-    return 'primary';
-  }
-
-  return 'on-fill';
-}
-
-function resolveIconSize(size: ButtonSize | undefined): IconSize {
-  if (size === 'small') {
-    return 'sm';
-  }
-
-  if (size === 'large') {
-    return 'lg';
-  }
-
-  return 'md';
-}
-
-function resolveLoaderSize(size: ButtonSize | undefined): LoadingSize {
-  if (size === 'small') {
-    return 'small';
-  }
-
-  return 'medium';
-}
-
 export function Button({
   children,
   className,
@@ -123,10 +84,10 @@ export function Button({
     isLoading && (leadingIcon !== undefined || (!trailingIcon && hasContent));
   const shouldShowTrailingLoader =
     isLoading && leadingIcon === undefined && trailingIcon !== undefined;
-  const loaderColor = resolveLoaderColor(variant, isButtonDisabled);
-  const loaderSize = resolveLoaderSize(size);
-  const iconSize = resolveIconSize(size);
-  const iconVariant = resolveIconVariant(variant, isButtonDisabled);
+  const loaderColor = resolveActionLoaderColor(variant, isButtonDisabled);
+  const loaderSize = resolveActionLoaderSize(size);
+  const iconSize = resolveActionIconSize(size);
+  const iconVariant = resolveActionIconVariant(variant, isButtonDisabled);
   const buttonStyle =
     preventLoadingShrink && isLoading && preservedWidth !== undefined
       ? { ...restProps.style, minWidth: `${preservedWidth}px` }

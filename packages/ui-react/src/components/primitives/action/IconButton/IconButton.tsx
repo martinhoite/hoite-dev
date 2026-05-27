@@ -3,10 +3,11 @@ import {
   type IconButtonSize,
   type IconButtonVariant,
   type IconName,
-  type IconSize,
-  type IconVariant,
   iconButtonVariants,
-  type LoadingSize,
+  resolveActionIconSize,
+  resolveActionIconVariant,
+  resolveActionLoaderColor,
+  resolveActionLoaderSize,
 } from '@hoite-dev/ui';
 import type { ComponentPropsWithoutRef, ReactElement } from 'react';
 import { useEffect } from 'react';
@@ -43,41 +44,6 @@ function isPresent(value: string | undefined): boolean {
   return value.trim().length > 0;
 }
 
-function resolveIconVariant(
-  variant: IconButtonVariant | undefined,
-  isDisabled: boolean,
-): IconVariant {
-  if (isDisabled) {
-    return 'disabled';
-  }
-
-  if (variant === 'secondary') {
-    return 'primary';
-  }
-
-  return 'on-fill';
-}
-
-function resolveIconSize(size: IconButtonSize | undefined): IconSize {
-  if (size === 'small') {
-    return 'sm';
-  }
-
-  if (size === 'large') {
-    return 'lg';
-  }
-
-  return 'md';
-}
-
-function resolveLoaderSize(size: IconButtonSize | undefined): LoadingSize {
-  if (size === 'small') {
-    return 'small';
-  }
-
-  return 'medium';
-}
-
 export function IconButton({
   className,
   disabled = false,
@@ -89,10 +55,10 @@ export function IconButton({
   ...restProps
 }: IconButtonProps): ReactElement {
   const isButtonDisabled = disabled || isLoading;
-  const iconSize = resolveIconSize(size);
-  const iconVariant = resolveIconVariant(variant, isButtonDisabled);
-  const loaderSize = resolveLoaderSize(size);
-  const loaderColor = isButtonDisabled || variant === 'secondary' ? 'secondary' : 'on-fill';
+  const iconSize = resolveActionIconSize(size);
+  const iconVariant = resolveActionIconVariant(variant, isButtonDisabled);
+  const loaderSize = resolveActionLoaderSize(size);
+  const loaderColor = resolveActionLoaderColor(variant, isButtonDisabled);
   const ariaLabel = restProps['aria-label'];
   const ariaLabelledBy = restProps['aria-labelledby'];
 
