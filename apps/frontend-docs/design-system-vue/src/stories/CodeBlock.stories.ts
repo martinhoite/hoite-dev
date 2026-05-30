@@ -35,8 +35,17 @@ type CodeBlockPlaygroundArgs = Omit<CodeBlockProps, 'language'> & {
   lightTheme?: CodeBlockTheme;
 };
 
-const defaultCodeBlockPlaygroundArgs: Pick<
+type NormalizedCodeBlockPlaygroundArgs = Omit<
   CodeBlockPlaygroundArgs,
+  'darkTheme' | 'language' | 'lightTheme'
+> & {
+  darkTheme: CodeBlockTheme;
+  language: CodeBlockProps['language'];
+  lightTheme: CodeBlockTheme;
+};
+
+const defaultCodeBlockPlaygroundArgs: Pick<
+  NormalizedCodeBlockPlaygroundArgs,
   'darkTheme' | 'language' | 'lightTheme'
 > = {
   darkTheme: codeBlockShikiThemes.dark,
@@ -59,7 +68,9 @@ function isSupportedCodeBlockTheme(
   return typeof value === 'string' && supportedCodeBlockThemes.includes(value as CodeBlockTheme);
 }
 
-function normalizeCodeBlockPlaygroundArgs(args: CodeBlockPlaygroundArgs): CodeBlockPlaygroundArgs {
+function normalizeCodeBlockPlaygroundArgs(
+  args: CodeBlockPlaygroundArgs,
+): NormalizedCodeBlockPlaygroundArgs {
   const darkTheme = isSupportedCodeBlockTheme(args.darkTheme)
     ? args.darkTheme
     : defaultCodeBlockPlaygroundArgs.darkTheme;
@@ -87,7 +98,7 @@ function resolvePlaygroundCodeBlockProps({
   language,
   lightTheme,
   showCopy,
-}: CodeBlockPlaygroundArgs): CodeBlockProps {
+}: NormalizedCodeBlockPlaygroundArgs): CodeBlockProps {
   const hasCustomThemes =
     lightTheme !== codeBlockShikiThemes.light || darkTheme !== codeBlockShikiThemes.dark;
 
@@ -218,7 +229,7 @@ function createVueCodeBlockSnippet({
   darkTheme,
   lightTheme,
   ...args
-}: CodeBlockPlaygroundArgs): string {
+}: NormalizedCodeBlockPlaygroundArgs): string {
   const normalizedArgs = normalizeCodeBlockPlaygroundArgs({
     darkTheme,
     lightTheme,
