@@ -244,6 +244,19 @@ export const styleBundles = [
     includeLayerPrelude: true,
     output: 'loading.css',
   },
+  {
+    entry: path.join(
+      packageDir,
+      'src',
+      'components',
+      'primitives',
+      'static',
+      'code-block',
+      'code-block.scss',
+    ),
+    includeLayerPrelude: true,
+    output: 'code-block.css',
+  },
 ];
 
 export const distFontAssets = [

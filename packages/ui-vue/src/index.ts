@@ -3,6 +3,16 @@ export type {
   ButtonVariant,
   ButtonVariantProps,
   CircularProgressVariantProps,
+  CodeBlockHighlightResult,
+  CodeBlockHighlightStatus,
+  CodeBlockLanguage,
+  CodeBlockLanguageAlias,
+  CodeBlockNormalizedLanguage,
+  CodeBlockPlainTextLanguage,
+  CodeBlockShikiLanguage,
+  CodeBlockTheme,
+  CodeBlockThemeMode,
+  CodeBlockThemes,
   IconButtonSize,
   IconButtonVariant,
   IconButtonVariantProps,
@@ -31,7 +41,17 @@ export type {
 export {
   buttonDocs,
   buttonVariants,
+  codeBlockDocs,
+  codeBlockShikiThemes,
+  codeBlockThemeModes,
+  codeBlockVariants,
+  createCodeBlockCopyAnnouncement,
+  createCodeBlockCopyButtonLabel,
+  createCodeBlockVisibleLabel,
+  defaultCodeBlockCopiedLabel,
+  defaultCodeBlockCopyLabel,
   describeProgressNormalizationWarning,
+  highlightCodeBlock,
   iconButtonDocs,
   iconButtonVariants,
   iconDefinitions,
@@ -44,11 +64,14 @@ export {
   loadingDocs,
   normalizeProgressValue,
   progressVariants,
+  resolveCodeBlockThemes,
   resolveIconDefinition,
   resolveLinkRel,
   resolveTypographyDefaultTag,
   supportedButtonSizes,
   supportedButtonVariants,
+  supportedCodeBlockLanguages,
+  supportedCodeBlockThemes,
   supportedIconButtonSizes,
   supportedIconButtonVariants,
   supportedIconNames,
@@ -74,6 +97,8 @@ export type { IconButtonProps } from './components/primitives/action/IconButton'
 export { default as IconButton } from './components/primitives/action/IconButton';
 export type { LinkProps } from './components/primitives/action/Link';
 export { Link } from './components/primitives/action/Link';
+export type { CodeBlockProps } from './components/primitives/static/CodeBlock';
+export { default as CodeBlock } from './components/primitives/static/CodeBlock';
 export type { IconProps } from './components/primitives/static/Icon';
 export { default as Icon } from './components/primitives/static/Icon';
 export type {

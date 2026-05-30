@@ -38,6 +38,23 @@ export {
 } from './components/primitives/action/link';
 
 export {
+  codeBlockDocs,
+  codeBlockShikiThemes,
+  codeBlockThemeModes,
+  codeBlockVariants,
+  createCodeBlockCopyAnnouncement,
+  createCodeBlockCopyButtonLabel,
+  createCodeBlockVisibleLabel,
+  defaultCodeBlockCopiedLabel,
+  defaultCodeBlockCopyLabel,
+  highlightCodeBlock,
+  normalizeCodeBlockLanguage,
+  resolveCodeBlockThemes,
+  supportedCodeBlockLanguages,
+  supportedCodeBlockThemes,
+} from './components/primitives/static/code-block';
+
+export {
   iconDefinitions,
   iconDocs,
   iconVariants,
@@ -108,6 +125,19 @@ export type {
   LinkTarget,
   LinkVariantProps,
 } from './components/primitives/action/link';
+export type {
+  CodeBlockHighlightResult,
+  CodeBlockHighlightStatus,
+  CodeBlockLanguage,
+  CodeBlockLanguageAlias,
+  CodeBlockNormalizedLanguage,
+  CodeBlockPlainTextLanguage,
+  CodeBlockProps,
+  CodeBlockShikiLanguage,
+  CodeBlockTheme,
+  CodeBlockThemeMode,
+  CodeBlockThemes,
+} from './components/primitives/static/code-block';
 export type {
   IconDefinition,
   IconName,
