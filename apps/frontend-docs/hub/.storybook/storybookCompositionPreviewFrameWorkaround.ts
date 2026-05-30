@@ -208,59 +208,162 @@ function setPreviewIframeHref(iframe: HTMLIFrameElement, href: string): void {
   iframe.src = nextHref;
 }
 
-function reconcileMainPreviewFrameIdentity(api: API): void {
+function getRefPreviewIframe(refId: string): HTMLIFrameElement | null {
+  const previewIframe = document.getElementById(`storybook-ref-${refId}`);
+
+  if (previewIframe instanceof HTMLIFrameElement) {
+    return previewIframe;
+  }
+
+  return null;
+}
+
+function getMainPreviewIframe(): HTMLIFrameElement | null {
   const previewIframe = document.getElementById(MAIN_PREVIEW_IFRAME_ID);
 
+  if (previewIframe instanceof HTMLIFrameElement) {
+    return previewIframe;
+  }
+
+  return null;
+}
+
+function reconcileMainPreviewFrameIdentity(api: API): boolean {
+  const previewIframe = getMainPreviewIframe();
+
   if (!(previewIframe instanceof HTMLIFrameElement)) {
-    return;
+    return false;
   }
 
   const { viewMode } = api.getUrlState();
   const activeRefId = getActiveRefId(api);
 
   if (activeRefId !== null) {
+    const didChangePreviewHref =
+      getIframeHref(previewIframe) !== toAbsoluteHref(IDLE_PREVIEW_IFRAME_HREF);
     setPreviewIframeHref(previewIframe, IDLE_PREVIEW_IFRAME_HREF);
-    return;
+    return didChangePreviewHref;
   }
 
   if (!isComposedRefPreviewFrame(api, previewIframe)) {
-    return;
+    return false;
   }
 
   if (viewMode !== 'docs' && viewMode !== 'story') {
-    return;
+    return false;
   }
 
   const currentStory = api.getCurrentStoryData();
 
   if (!currentStory) {
-    return;
+    return false;
   }
 
   const { previewHref } = api.getStoryHrefs(currentStory.id, {
     viewMode,
   });
 
+  const didChangePreviewHref = getIframeHref(previewIframe) !== toAbsoluteHref(previewHref);
+  setPreviewIframeHref(previewIframe, previewHref);
+  return didChangePreviewHref;
+}
+
+function reconcileActiveRefPreviewFrameIdentity(api: API): void {
+  const activeRefId = getActiveRefId(api);
+
+  if (activeRefId === null) {
+    return;
+  }
+
+  const previewIframe = getRefPreviewIframe(activeRefId);
+
+  if (previewIframe === null) {
+    return;
+  }
+
+  const { storyId, viewMode } = api.getUrlState();
+
+  if (!storyId || (viewMode !== 'docs' && viewMode !== 'story')) {
+    return;
+  }
+
+  const { previewHref } = api.getStoryHrefs(storyId, {
+    refId: activeRefId,
+    viewMode,
+  });
+
   setPreviewIframeHref(previewIframe, previewHref);
 }
 
-function reconcileCompositionPreviewFrames(api: API): void {
-  reconcileMainPreviewFrameIdentity(api);
+function reconcileCompositionPreviewFrames(api: API, includeActiveRef = false): void {
+  const didResetMainPreviewFrame = reconcileMainPreviewFrameIdentity(api);
+
+  if (includeActiveRef && !didResetMainPreviewFrame) {
+    reconcileActiveRefPreviewFrameIdentity(api);
+  }
+
   reconcileInitialComposedRefArgs(api);
 }
 
-function createReconciliationScheduler(api: API): () => void {
-  let scheduledFrameId: number | null = null;
+type ReconciliationSchedulerOptions = {
+  immediate?: boolean;
+  followUpAnimationFrame?: boolean;
+  includeActiveRef?: boolean;
+};
 
-  return () => {
+function createReconciliationScheduler(
+  api: API,
+  {
+    immediate = false,
+    followUpAnimationFrame = false,
+    includeActiveRef = false,
+  }: ReconciliationSchedulerOptions = {},
+): () => void {
+  let isRunning = false;
+  let scheduledFrameId: number | null = null;
+  let scheduledMicrotask = false;
+
+  function runReconciliation(): void {
+    if (isRunning) {
+      return;
+    }
+
+    isRunning = true;
+    reconcileCompositionPreviewFrames(api, includeActiveRef);
+    isRunning = false;
+  }
+
+  function scheduleAnimationFrameReconciliation(): void {
     if (scheduledFrameId !== null) {
       return;
     }
 
     scheduledFrameId = window.requestAnimationFrame(() => {
       scheduledFrameId = null;
-      reconcileCompositionPreviewFrames(api);
+      runReconciliation();
     });
+  }
+
+  return () => {
+    if (immediate) {
+      runReconciliation();
+      return;
+    }
+
+    if (!scheduledMicrotask) {
+      scheduledMicrotask = true;
+      queueMicrotask(() => {
+        scheduledMicrotask = false;
+        runReconciliation();
+      });
+    }
+
+    if (!followUpAnimationFrame) {
+      return;
+    }
+
+    // Story selection can still commit late iframe updates after the initial microtask pass.
+    scheduleAnimationFrameReconciliation();
   };
 }
 
@@ -279,26 +382,32 @@ function observePreviewFrameChanges(scheduleReconciliation: () => void): void {
 
 export function registerStorybookCompositionPreviewFrameWorkaround(): void {
   addons.register(WORKAROUND_ADDON_ID, (api) => {
-    const scheduleReconciliation = createReconciliationScheduler(api);
+    const schedulePreviewWrapperReconciliation = createReconciliationScheduler(api, {
+      immediate: true,
+    });
+    const scheduleStorySelectionReconciliation = createReconciliationScheduler(api, {
+      followUpAnimationFrame: true,
+      includeActiveRef: true,
+    });
 
     if (document.body) {
-      observePreviewFrameChanges(scheduleReconciliation);
+      observePreviewFrameChanges(schedulePreviewWrapperReconciliation);
     } else {
       window.addEventListener(
         'DOMContentLoaded',
         () => {
-          observePreviewFrameChanges(scheduleReconciliation);
+          observePreviewFrameChanges(schedulePreviewWrapperReconciliation);
         },
         { once: true },
       );
     }
 
     window.addEventListener('popstate', () => {
-      scheduleReconciliation();
+      scheduleStorySelectionReconciliation();
     });
-    api.on(STORYBOOK_CURRENT_STORY_WAS_SET_EVENT, scheduleReconciliation);
-    api.on(STORYBOOK_STORY_PREPARED_EVENT, scheduleReconciliation);
+    api.on(STORYBOOK_CURRENT_STORY_WAS_SET_EVENT, scheduleStorySelectionReconciliation);
+    api.on(STORYBOOK_STORY_PREPARED_EVENT, scheduleStorySelectionReconciliation);
 
-    scheduleReconciliation();
+    scheduleStorySelectionReconciliation();
   });
 }
