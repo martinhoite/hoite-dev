@@ -13,7 +13,7 @@ type StoryReference = {
 type SourceExample = {
   code: string;
   description: string;
-  language: 'html' | 'tsx';
+  language: 'html' | 'tsx' | 'vue';
   title: string;
 };
 

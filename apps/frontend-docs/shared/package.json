@@ -17,6 +17,7 @@
   "dependencies": {
     "@hoite-dev/storybook-addon-composition-theme": "workspace:*",
     "@hoite-dev/ui": "workspace:*",
+    "@hoite-dev/ui-react": "workspace:*",
     "react": "^19.2.6",
     "storybook": "^10.4.0"
   },
