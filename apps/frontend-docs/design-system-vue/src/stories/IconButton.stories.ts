@@ -19,13 +19,12 @@ import {
   supportedIconButtonVariants,
   supportedIconNames,
 } from '@hoite-dev/ui';
-import { IconButton } from '@hoite-dev/ui-vue';
+import { CodeBlock, IconButton } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed, defineComponent, onBeforeUnmount, ref } from 'vue';
-import { createVueSnippetCopyState } from './vueSnippetCopyState';
 
 const storyArgTypes: Partial<ArgTypes<IconButtonStoryArgs>> = {
-  'aria-label': {
+  ariaLabel: {
     control: 'text',
     description: iconButtonDocs.argTypeDescriptions['aria-label'],
     name: 'aria-label',
@@ -74,9 +73,9 @@ const storyArgTypes: Partial<ArgTypes<IconButtonStoryArgs>> = {
 };
 
 const IconButtonPlaygroundPreview = defineComponent({
-  components: { IconButton },
+  components: { CodeBlock, IconButton },
   props: {
-    'aria-label': {
+    ariaLabel: {
       required: true,
       type: String,
     },
@@ -102,24 +101,30 @@ const IconButtonPlaygroundPreview = defineComponent({
     },
   },
   setup(props) {
-    const iconButtonArgs = computed(() => ({
-      ...normalizeIconButtonStoryArgs({
-        'aria-label': props['aria-label'],
+    const iconButtonStoryArgs = computed(() =>
+      normalizeIconButtonStoryArgs({
+        ariaLabel: props.ariaLabel,
         disabled: props.disabled,
         icon: props.icon,
         isLoading: props.isLoading,
         size: props.size,
         variant: props.variant,
       }),
+    );
+    const iconButtonProps = computed(() => ({
+      'aria-label': iconButtonStoryArgs.value.ariaLabel,
+      disabled: iconButtonStoryArgs.value.disabled,
+      icon: iconButtonStoryArgs.value.icon,
+      isLoading: iconButtonStoryArgs.value.isLoading,
+      size: iconButtonStoryArgs.value.size,
+      variant: iconButtonStoryArgs.value.variant,
     }));
-    const snippet = computed(() => createIconButtonPlaygroundSnippet('vue', iconButtonArgs.value));
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
+    const snippet = computed(() =>
+      createIconButtonPlaygroundSnippet('vue', iconButtonStoryArgs.value),
+    );
 
     return {
-      copyButtonLabel,
-      copySnippet,
-      highlightedSnippet,
-      iconButtonArgs,
+      iconButtonProps,
       snippet,
     };
   },
@@ -134,9 +139,9 @@ const IconButtonPlaygroundPreview = defineComponent({
     </div>
     ${withVueStoryPlaygroundContent(`
       ${createVueStoryPreview(`
-        <IconButton v-bind="iconButtonArgs" />
+        <IconButton v-bind="iconButtonProps" />
       `)}
-      ${createVueStorySourcePanel()}
+      ${createVueStorySourcePanel('snippet', "'html'", "'Vue'")}
     `)}
   `),
 });

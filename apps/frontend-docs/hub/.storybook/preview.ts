@@ -8,6 +8,7 @@ import '@hoite-dev/ui/link.css';
 import '@hoite-dev/ui/icon.css';
 import '@hoite-dev/ui/loading.css';
 import '@hoite-dev/ui/typography.css';
+import '@hoite-dev/ui/code-block.css';
 import '../../shared/storybook/hoiteThemePreview.css';
 
 import {

@@ -13,7 +13,7 @@ import { createFrontendDocsPlaygroundControls, normalizeStoryValue } from './sto
 type FrontendDocsSnippetFramework = 'react' | 'vue';
 
 export type IconButtonStoryArgs = {
-  'aria-label': string;
+  ariaLabel: string;
   disabled: boolean;
   icon: IconName;
   isLoading: boolean;
@@ -22,7 +22,7 @@ export type IconButtonStoryArgs = {
 };
 
 export const defaultIconButtonStoryArgs: IconButtonStoryArgs = {
-  'aria-label': 'Create item',
+  ariaLabel: 'Create item',
   disabled: false,
   icon: 'plus',
   isLoading: false,
@@ -36,7 +36,7 @@ export const iconButtonPlaygroundControlInclude = [
   'size',
   'isLoading',
   'disabled',
-  'aria-label',
+  'ariaLabel',
 ] as const satisfies readonly (keyof IconButtonStoryArgs)[];
 
 export const iconButtonStateLabels = [
@@ -105,7 +105,7 @@ export function createIconButtonPlaygroundSnippet(
       },
       {
         name: 'aria-label',
-        value: normalizedArgs['aria-label'],
+        value: normalizedArgs.ariaLabel,
       },
     ],
   });

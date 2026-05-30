@@ -38,18 +38,6 @@ function escapeTextContent(value: string): string {
     .replaceAll('}', '&#125;');
 }
 
-function escapeSnippetHtml(value: string): string {
-  return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
-}
-
-function createSnippetToken(className: string, value: string): string {
-  return `<span class="${className}">${escapeSnippetHtml(value)}</span>`;
-}
-
 function shouldRenderProp(prop: FrontendDocsSnippetProp): boolean {
   if (prop.value === undefined || prop.value === null || prop.value === '') {
     return false;
@@ -147,49 +135,4 @@ export function createFrontendDocsComponentSnippet(
   return [`${openingTag}>`, formatChildren(options.children), `</${options.componentName}>`].join(
     '\n',
   );
-}
-
-export async function copyFrontendDocsSnippetToClipboard(snippet: string): Promise<boolean> {
-  if (!globalThis.navigator?.clipboard) {
-    return false;
-  }
-
-  await globalThis.navigator.clipboard.writeText(snippet);
-  return true;
-}
-
-export function createFrontendDocsHighlightedSnippetHtml(snippet: string): string {
-  const tokenPattern =
-    /("[^"\n]*")|(<\/?)([A-Z][A-Za-z0-9.]*)|(\s)(:?[A-Za-z][A-Za-z0-9-]*)(=)|(\{(?:false|true|\d+)\}|(?:false|true|\d+))/g;
-  let highlightedSnippet = '';
-  let lastIndex = 0;
-
-  for (const match of snippet.matchAll(tokenPattern)) {
-    const matchIndex = match.index ?? 0;
-
-    highlightedSnippet += escapeSnippetHtml(snippet.slice(lastIndex, matchIndex));
-
-    if (match[1]) {
-      highlightedSnippet += createSnippetToken('frontend-docs-snippet-token-string', match[1]);
-    } else if (match[2] && match[3]) {
-      highlightedSnippet += `${escapeSnippetHtml(match[2])}${createSnippetToken(
-        'frontend-docs-snippet-token-tag',
-        match[3],
-      )}`;
-    } else if (match[4] && match[5] && match[6]) {
-      highlightedSnippet += `${escapeSnippetHtml(match[4])}${createSnippetToken(
-        'frontend-docs-snippet-token-attribute',
-        match[5],
-      )}${escapeSnippetHtml(match[6])}`;
-    } else if (match[7]) {
-      highlightedSnippet += createSnippetToken('frontend-docs-snippet-token-literal', match[7]);
-    } else {
-      highlightedSnippet += escapeSnippetHtml(match[0]);
-    }
-
-    lastIndex = matchIndex + match[0].length;
-  }
-
-  highlightedSnippet += escapeSnippetHtml(snippet.slice(lastIndex));
-  return highlightedSnippet;
 }

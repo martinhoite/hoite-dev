@@ -21,10 +21,9 @@ import {
   supportedIconSizes,
   supportedIconVariants,
 } from '@hoite-dev/ui';
-import { Icon } from '@hoite-dev/ui-vue';
+import { CodeBlock, Icon } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed, defineComponent } from 'vue';
-import { createVueSnippetCopyState } from './vueSnippetCopyState';
 
 const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
   name: {
@@ -74,7 +73,7 @@ const storyArgTypes: Partial<ArgTypes<IconStoryArgs>> = {
 };
 
 const IconPlaygroundPreview = defineComponent({
-  components: { Icon },
+  components: { CodeBlock, Icon },
   props: {
     name: {
       required: true,
@@ -104,12 +103,8 @@ const IconPlaygroundPreview = defineComponent({
     );
     const surfaceClass = computed(() => getIconPlaygroundSurfaceClass(iconArgs.value.variant));
     const snippet = computed(() => createIconPlaygroundSnippet('vue', iconArgs.value));
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
 
     return {
-      copyButtonLabel,
-      copySnippet,
-      highlightedSnippet,
       iconArgs,
       snippet,
       surfaceClass,
@@ -131,7 +126,7 @@ const IconPlaygroundPreview = defineComponent({
             <Icon v-bind="iconArgs" label="Playground icon" />
           </div>
         `)}
-        ${createVueStorySourcePanel()}
+        ${createVueStorySourcePanel('snippet', "'html'", "'Vue'")}
       `)}
   `),
 });

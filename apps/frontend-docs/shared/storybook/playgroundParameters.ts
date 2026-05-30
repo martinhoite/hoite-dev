@@ -1,3 +1,5 @@
+import { frontendDocsStoryPlaygroundPreviewA11yContextSelector } from './storyLayoutClasses.ts';
+
 export type FrontendDocsPlaygroundAddonId =
   | 'a11y'
   | 'actions'
@@ -38,6 +40,7 @@ export function createFrontendDocsPlaygroundParameters({
       disable: !resolvedAddons.actions,
     },
     a11y: {
+      context: frontendDocsStoryPlaygroundPreviewA11yContextSelector,
       disable: !resolvedAddons.a11y,
     },
     controls: {

@@ -21,10 +21,9 @@ import {
   supportedButtonVariants,
   supportedIconNames,
 } from '@hoite-dev/ui';
-import { Button } from '@hoite-dev/ui-vue';
+import { Button, CodeBlock } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed, defineComponent, onBeforeUnmount, ref } from 'vue';
-import { createVueSnippetCopyState } from './vueSnippetCopyState';
 
 const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
   children: {
@@ -98,7 +97,7 @@ const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
 };
 
 const ButtonPlaygroundPreview = defineComponent({
-  components: { Button },
+  components: { Button, CodeBlock },
   props: {
     children: {
       required: true,
@@ -150,13 +149,10 @@ const ButtonPlaygroundPreview = defineComponent({
       }),
     );
     const snippet = computed(() => createButtonPlaygroundSnippet('vue', buttonArgs.value));
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
 
     return {
       buttonArgs,
-      copyButtonLabel,
-      copySnippet,
-      highlightedSnippet,
+      snippet,
     };
   },
   template: withStoryPlayground(`
@@ -173,7 +169,7 @@ const ButtonPlaygroundPreview = defineComponent({
         ${createVueStoryPreview(`
           <Button v-bind="buttonArgs">{{ children }}</Button>
         `)}
-        ${createVueStorySourcePanel()}
+        ${createVueStorySourcePanel('snippet', "'html'", "'Vue'")}
       `)}
   `),
 });

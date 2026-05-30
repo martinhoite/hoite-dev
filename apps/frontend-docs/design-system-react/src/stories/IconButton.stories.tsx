@@ -27,7 +27,7 @@ import type { ReactElement } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
 const storyArgTypes: Partial<ArgTypes<IconButtonStoryArgs>> = {
-  'aria-label': {
+  ariaLabel: {
     control: 'text',
     description: iconButtonDocs.argTypeDescriptions['aria-label'],
     name: 'aria-label',
@@ -104,7 +104,7 @@ function IconButtonPlaygroundPreview(args: IconButtonStoryArgs): ReactElement {
       <StoryPlaygroundContent split>
         <StoryPlaygroundPreview>
           <IconButton
-            aria-label={normalizedArgs['aria-label']}
+            aria-label={normalizedArgs.ariaLabel}
             disabled={normalizedArgs.disabled}
             icon={normalizedArgs.icon}
             isLoading={normalizedArgs.isLoading}
