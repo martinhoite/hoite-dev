@@ -10,6 +10,12 @@ import strokeTokens from './tokens/source/stroke/Value.tokens.json';
 import typographyTokens from './tokens/source/typography/Value.tokens.json';
 
 export {
+  resolveActionIconSize,
+  resolveActionIconVariant,
+  resolveActionLoaderColor,
+  resolveActionLoaderSize,
+} from './components/primitives/action/actionVisualResolvers';
+export {
   buttonDocs,
   buttonVariants,
   supportedButtonSizes,
@@ -30,6 +36,23 @@ export {
   supportedLinkRelTokens,
   supportedLinkTargets,
 } from './components/primitives/action/link';
+
+export {
+  codeBlockDocs,
+  codeBlockShikiThemes,
+  codeBlockThemeModes,
+  codeBlockVariants,
+  createCodeBlockCopyAnnouncement,
+  createCodeBlockCopyButtonLabel,
+  createCodeBlockVisibleLabel,
+  defaultCodeBlockCopiedLabel,
+  defaultCodeBlockCopyLabel,
+  highlightCodeBlock,
+  normalizeCodeBlockLanguage,
+  resolveCodeBlockThemes,
+  supportedCodeBlockLanguages,
+  supportedCodeBlockThemes,
+} from './components/primitives/static/code-block';
 
 export {
   iconDefinitions,
@@ -102,6 +125,19 @@ export type {
   LinkTarget,
   LinkVariantProps,
 } from './components/primitives/action/link';
+export type {
+  CodeBlockHighlightResult,
+  CodeBlockHighlightStatus,
+  CodeBlockLanguage,
+  CodeBlockLanguageAlias,
+  CodeBlockNormalizedLanguage,
+  CodeBlockPlainTextLanguage,
+  CodeBlockProps,
+  CodeBlockShikiLanguage,
+  CodeBlockTheme,
+  CodeBlockThemeMode,
+  CodeBlockThemes,
+} from './components/primitives/static/code-block';
 export type {
   IconDefinition,
   IconName,

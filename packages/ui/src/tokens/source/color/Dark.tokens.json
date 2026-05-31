@@ -660,6 +660,36 @@
             "targetVariableSetName": "Primitives"
           }
         }
+      },
+      "code": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.12156862765550613,
+            0.12156862765550613,
+            0.12156862765550613
+          ],
+          "alpha": 1,
+          "hex": "#1F1F1F"
+        },
+        "$description": "Dedicated code surface background for editor-like blocks and rendered code samples.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1160:427",
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-bg-code)"
+          },
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:4a60615f8d71305c6a1f952393816e07efd73c7e/-1:-1",
+            "targetVariableName": "neutral/925",
+            "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
+            "targetVariableSetName": "Primitives"
+          }
+        }
       }
     },
     "text": {

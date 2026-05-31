@@ -241,6 +241,29 @@
           }
         }
       },
+      "925": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.12156862765550613,
+            0.12156862765550613,
+            0.12156862765550613
+          ],
+          "alpha": 1,
+          "hex": "#1F1F1F"
+        },
+        "$description": "Primitive neutral tone 925. Deep editor-like neutral step for semantic aliases that need a darker surface than neutral 900 without dropping fully to neutral 950; avoid binding this token directly in components unless you are extending the system palette.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1160:426",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--primitive-neutral-925)"
+          }
+        }
+      },
       "950": {
         "$type": "color",
         "$value": {

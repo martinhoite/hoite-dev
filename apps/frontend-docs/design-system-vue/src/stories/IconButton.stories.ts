@@ -1,5 +1,4 @@
 import {
-  createFrontendDocsComponentSnippet,
   createFrontendDocsPlaygroundParameters,
   createVueStoryPreview,
   createVueStorySourcePanel,
@@ -7,39 +6,25 @@ import {
   withVueStoryPlaygroundContent,
 } from '@hoite-dev/frontend-docs-shared/storybook';
 import {
-  type IconButtonSize,
-  type IconButtonVariant,
-  type IconName,
+  createIconButtonPlaygroundControls,
+  createIconButtonPlaygroundSnippet,
+  defaultIconButtonStoryArgs,
+  type IconButtonStoryArgs,
+  iconButtonStateLabels,
+  normalizeIconButtonStoryArgs,
+} from '@hoite-dev/frontend-docs-shared/storybook/story-configs';
+import {
   iconButtonDocs,
   supportedIconButtonSizes,
   supportedIconButtonVariants,
   supportedIconNames,
 } from '@hoite-dev/ui';
-import { IconButton } from '@hoite-dev/ui-vue';
+import { CodeBlock, IconButton } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed, defineComponent, onBeforeUnmount, ref } from 'vue';
-import { createVueSnippetCopyState } from './vueSnippetCopyState';
-
-type IconButtonStoryArgs = {
-  'aria-label': string;
-  disabled: boolean;
-  icon: IconName;
-  isLoading: boolean;
-  size: IconButtonSize;
-  variant: IconButtonVariant;
-};
-
-const defaultIconButtonArgs: IconButtonStoryArgs = {
-  'aria-label': 'Create item',
-  disabled: false,
-  icon: 'plus',
-  isLoading: false,
-  size: 'medium',
-  variant: 'primary',
-};
 
 const storyArgTypes: Partial<ArgTypes<IconButtonStoryArgs>> = {
-  'aria-label': {
+  ariaLabel: {
     control: 'text',
     description: iconButtonDocs.argTypeDescriptions['aria-label'],
     name: 'aria-label',
@@ -87,27 +72,10 @@ const storyArgTypes: Partial<ArgTypes<IconButtonStoryArgs>> = {
   },
 };
 
-function normalizeIconButtonArgs(args: IconButtonStoryArgs): IconButtonStoryArgs {
-  const icon = supportedIconNames.includes(args.icon) ? args.icon : defaultIconButtonArgs.icon;
-  const size = supportedIconButtonSizes.includes(args.size)
-    ? args.size
-    : defaultIconButtonArgs.size;
-  const variant = supportedIconButtonVariants.includes(args.variant)
-    ? args.variant
-    : defaultIconButtonArgs.variant;
-
-  return {
-    ...args,
-    icon,
-    size,
-    variant,
-  };
-}
-
 const IconButtonPlaygroundPreview = defineComponent({
-  components: { IconButton },
+  components: { CodeBlock, IconButton },
   props: {
-    'aria-label': {
+    ariaLabel: {
       required: true,
       type: String,
     },
@@ -117,7 +85,7 @@ const IconButtonPlaygroundPreview = defineComponent({
     },
     icon: {
       required: true,
-      type: String as () => IconName,
+      type: String as () => IconButtonStoryArgs['icon'],
     },
     isLoading: {
       required: true,
@@ -125,66 +93,38 @@ const IconButtonPlaygroundPreview = defineComponent({
     },
     size: {
       required: true,
-      type: String as () => IconButtonSize,
+      type: String as () => IconButtonStoryArgs['size'],
     },
     variant: {
       required: true,
-      type: String as () => IconButtonVariant,
+      type: String as () => IconButtonStoryArgs['variant'],
     },
   },
   setup(props) {
-    const iconButtonArgs = computed(() => ({
-      'aria-label': props['aria-label'],
-      disabled: props.disabled,
-      icon: props.icon,
-      isLoading: props.isLoading,
-      size: props.size,
-      variant: props.variant,
-    }));
-    const snippet = computed(() =>
-      createFrontendDocsComponentSnippet({
-        componentName: 'IconButton',
-        framework: 'vue',
-        props: [
-          {
-            defaultValue: defaultIconButtonArgs.icon,
-            name: 'icon',
-            value: props.icon,
-          },
-          {
-            defaultValue: defaultIconButtonArgs.variant,
-            name: 'variant',
-            value: props.variant,
-          },
-          {
-            defaultValue: defaultIconButtonArgs.size,
-            name: 'size',
-            value: props.size,
-          },
-          {
-            defaultValue: false,
-            name: 'isLoading',
-            value: props.isLoading,
-          },
-          {
-            defaultValue: false,
-            name: 'disabled',
-            value: props.disabled,
-          },
-          {
-            name: 'aria-label',
-            value: props['aria-label'],
-          },
-        ],
+    const iconButtonStoryArgs = computed(() =>
+      normalizeIconButtonStoryArgs({
+        ariaLabel: props.ariaLabel,
+        disabled: props.disabled,
+        icon: props.icon,
+        isLoading: props.isLoading,
+        size: props.size,
+        variant: props.variant,
       }),
     );
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
+    const iconButtonProps = computed(() => ({
+      'aria-label': iconButtonStoryArgs.value.ariaLabel,
+      disabled: iconButtonStoryArgs.value.disabled,
+      icon: iconButtonStoryArgs.value.icon,
+      isLoading: iconButtonStoryArgs.value.isLoading,
+      size: iconButtonStoryArgs.value.size,
+      variant: iconButtonStoryArgs.value.variant,
+    }));
+    const snippet = computed(() =>
+      createIconButtonPlaygroundSnippet('vue', iconButtonStoryArgs.value),
+    );
 
     return {
-      copyButtonLabel,
-      copySnippet,
-      highlightedSnippet,
-      iconButtonArgs,
+      iconButtonProps,
       snippet,
     };
   },
@@ -199,22 +139,19 @@ const IconButtonPlaygroundPreview = defineComponent({
     </div>
     ${withVueStoryPlaygroundContent(`
       ${createVueStoryPreview(`
-        <IconButton v-bind="iconButtonArgs" />
+        <IconButton v-bind="iconButtonProps" />
       `)}
-      ${createVueStorySourcePanel()}
+      ${createVueStorySourcePanel('snippet', "'html'", "'Vue'")}
     `)}
   `),
 });
 
 const meta: Meta<IconButtonStoryArgs> = {
-  args: defaultIconButtonArgs,
+  args: defaultIconButtonStoryArgs,
   argTypes: storyArgTypes,
   component: IconButtonPlaygroundPreview,
   parameters: {
-    controls: {
-      include: ['icon', 'variant', 'size', 'isLoading', 'disabled', 'aria-label'],
-      sort: 'none',
-    },
+    controls: createIconButtonPlaygroundControls(),
   },
   title: 'Primitives/Action/IconButton',
 };
@@ -222,8 +159,6 @@ const meta: Meta<IconButtonStoryArgs> = {
 export default meta;
 
 type Story = StoryObj<IconButtonStoryArgs>;
-
-const stateLabels = ['Default', 'Hover', 'Focused', 'Pressed', 'Disabled', 'Loading'] as const;
 
 const InteractiveLoadingExample = defineComponent({
   components: { IconButton },
@@ -277,10 +212,7 @@ const InteractiveLoadingExample = defineComponent({
 export const Playground: Story = {
   name: 'Playground',
   parameters: createFrontendDocsPlaygroundParameters({
-    controls: {
-      include: ['icon', 'variant', 'size', 'isLoading', 'disabled', 'aria-label'],
-      sort: 'none',
-    },
+    controls: createIconButtonPlaygroundControls(),
     docs: {
       description: {
         story: iconButtonDocs.storyDescriptions.playground,
@@ -291,7 +223,7 @@ export const Playground: Story = {
     components: { IconButtonPlaygroundPreview },
     setup() {
       return {
-        args: computed(() => normalizeIconButtonArgs(args)),
+        args: computed(() => normalizeIconButtonStoryArgs(args)),
       };
     },
     template: '<IconButtonPlaygroundPreview v-bind="args" />',
@@ -314,7 +246,6 @@ export const Variants: Story = {
     components: { IconButton },
     setup() {
       return {
-        stateLabels,
         variants: supportedIconButtonVariants,
       };
     },
@@ -383,8 +314,8 @@ export const States: Story = {
     components: { IconButton },
     setup() {
       return {
-        stateLabels,
         variants: supportedIconButtonVariants,
+        stateLabels: iconButtonStateLabels,
       };
     },
     template: `

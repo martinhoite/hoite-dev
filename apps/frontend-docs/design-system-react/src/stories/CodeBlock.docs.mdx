@@ -1,0 +1,23 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import { codeBlockDocs } from '@hoite-dev/ui';
+
+import { FrameworkComponentDocsPage } from '@hoite-dev/frontend-docs-shared/docs';
+import * as Stories from './CodeBlock.stories';
+
+<Meta of={Stories} />
+
+<FrameworkComponentDocsPage
+  argTypesBlock={ArgTypes}
+  canvasBlock={Canvas}
+  contractSourceLinks={codeBlockDocs.sourceLinks}
+  controls={[{ story: Stories.Playground }]}
+  docs={codeBlockDocs}
+  examples={[
+    Stories.Example,
+    Stories.WithCopyAction,
+    Stories.LongCodeOverflow,
+  ]}
+  framework="React"
+  implementationPath="packages/ui-react/src/components/primitives/static/CodeBlock/CodeBlock.tsx"
+  storiesPath="apps/frontend-docs/design-system-react/src/stories/CodeBlock.stories.tsx"
+/>

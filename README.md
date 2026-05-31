@@ -125,9 +125,11 @@ Storybook addon for synchronizing theme state across the manager, preview, and c
 
 ## Use of AI
 
-AI is used as a support tool for ideation, technical planning, refactoring support, documentation, and language refinement.
+AI is used as a support tool for ideation, technical and architectural planning, scaffolding, implementation support, refactoring, documentation, and language refinement.
 
-It helps accelerate exploration and iteration, while final decisions, validation, and implementation remain my responsibility.
+It helps accelerate exploration and delivery, while project direction, architectural decisions, review, and final acceptance remain my responsibility.
+
+Repo-local guides for AI-assisted workflows live under [`\.ai/skills/`](./.ai/README.md).
 
 ## Third-party notices
 

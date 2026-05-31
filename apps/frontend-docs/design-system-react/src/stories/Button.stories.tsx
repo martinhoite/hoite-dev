@@ -1,5 +1,4 @@
 import {
-  createFrontendDocsComponentSnippet,
   createFrontendDocsPlaygroundParameters,
   StoryInfoPanel,
   StoryPlayground,
@@ -7,11 +6,16 @@ import {
   StoryPlaygroundPreview,
   StoryPlaygroundSnippet,
 } from '@hoite-dev/frontend-docs-shared/storybook';
+import { StorybookSourceSnippet } from '@hoite-dev/frontend-docs-shared/storybook/source-snippet';
 import {
-  type ButtonSize,
-  type ButtonVariant,
+  type ButtonStoryArgs,
+  createButtonPlaygroundControls,
+  createButtonPlaygroundSnippet,
+  defaultButtonStoryArgs,
+  normalizeButtonStoryArgs,
+} from '@hoite-dev/frontend-docs-shared/storybook/story-configs';
+import {
   buttonDocs,
-  type IconName,
   supportedButtonSizes,
   supportedButtonVariants,
   supportedIconNames,
@@ -20,32 +24,6 @@ import { Button } from '@hoite-dev/ui-react';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
 import { useEffect, useRef, useState } from 'react';
-
-import { StorybookSourceSnippet } from './StorybookSourceSnippet';
-
-type ButtonIconOption = IconName | undefined;
-
-type ButtonStoryArgs = {
-  children: string;
-  disabled: boolean;
-  isLoading: boolean;
-  leadingIcon?: ButtonIconOption;
-  loadingLabel: string;
-  preventLoadingShrink: boolean;
-  size: ButtonSize;
-  trailingIcon?: ButtonIconOption;
-  variant: ButtonVariant;
-};
-
-const defaultButtonArgs: ButtonStoryArgs = {
-  children: 'Primary action',
-  disabled: false,
-  isLoading: false,
-  loadingLabel: '',
-  preventLoadingShrink: false,
-  size: 'medium',
-  variant: 'primary',
-};
 
 const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
   children: {
@@ -119,24 +97,11 @@ const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
 };
 
 const meta: Meta<ButtonStoryArgs> = {
-  args: defaultButtonArgs,
+  args: defaultButtonStoryArgs,
   argTypes: storyArgTypes,
   component: ButtonPlaygroundPreview,
   parameters: {
-    controls: {
-      include: [
-        'children',
-        'variant',
-        'size',
-        'leadingIcon',
-        'trailingIcon',
-        'isLoading',
-        'loadingLabel',
-        'preventLoadingShrink',
-        'disabled',
-      ],
-      sort: 'none',
-    },
+    controls: createButtonPlaygroundControls(),
   },
   title: 'Primitives/Action/Button',
 };
@@ -145,76 +110,9 @@ export default meta;
 
 type Story = StoryObj<ButtonStoryArgs>;
 
-function normalizeIcon(icon: ButtonIconOption): IconName | undefined {
-  if (icon !== undefined && supportedIconNames.includes(icon)) {
-    return icon;
-  }
-
-  return undefined;
-}
-
-function normalizeButtonArgs(args: ButtonStoryArgs): ButtonStoryArgs {
-  const size = supportedButtonSizes.includes(args.size) ? args.size : defaultButtonArgs.size;
-  const variant = supportedButtonVariants.includes(args.variant)
-    ? args.variant
-    : defaultButtonArgs.variant;
-
-  return {
-    ...args,
-    leadingIcon: normalizeIcon(args.leadingIcon),
-    size,
-    trailingIcon: normalizeIcon(args.trailingIcon),
-    variant,
-  };
-}
-
 function ButtonPlaygroundPreview(args: ButtonStoryArgs): ReactElement {
-  const leadingIcon = normalizeIcon(args.leadingIcon);
-  const trailingIcon = normalizeIcon(args.trailingIcon);
-  const snippet = createFrontendDocsComponentSnippet({
-    children: args.children,
-    componentName: 'Button',
-    framework: 'react',
-    props: [
-      {
-        defaultValue: defaultButtonArgs.variant,
-        name: 'variant',
-        value: args.variant,
-      },
-      {
-        defaultValue: defaultButtonArgs.size,
-        name: 'size',
-        value: args.size,
-      },
-      {
-        name: 'leadingIcon',
-        value: leadingIcon,
-      },
-      {
-        name: 'trailingIcon',
-        value: trailingIcon,
-      },
-      {
-        defaultValue: false,
-        name: 'isLoading',
-        value: args.isLoading,
-      },
-      {
-        name: 'loadingLabel',
-        value: args.loadingLabel,
-      },
-      {
-        defaultValue: false,
-        name: 'preventLoadingShrink',
-        value: args.preventLoadingShrink,
-      },
-      {
-        defaultValue: false,
-        name: 'disabled',
-        value: args.disabled,
-      },
-    ],
-  });
+  const normalizedArgs = normalizeButtonStoryArgs(args);
+  const snippet = createButtonPlaygroundSnippet('react', normalizedArgs);
 
   return (
     <StoryPlayground>
@@ -228,16 +126,16 @@ function ButtonPlaygroundPreview(args: ButtonStoryArgs): ReactElement {
       <StoryPlaygroundContent split>
         <StoryPlaygroundPreview>
           <Button
-            disabled={args.disabled}
-            isLoading={args.isLoading}
-            leadingIcon={leadingIcon}
-            loadingLabel={args.loadingLabel}
-            preventLoadingShrink={args.preventLoadingShrink}
-            size={args.size}
-            trailingIcon={trailingIcon}
-            variant={args.variant}
+            disabled={normalizedArgs.disabled}
+            isLoading={normalizedArgs.isLoading}
+            leadingIcon={normalizedArgs.leadingIcon}
+            loadingLabel={normalizedArgs.loadingLabel}
+            preventLoadingShrink={normalizedArgs.preventLoadingShrink}
+            size={normalizedArgs.size}
+            trailingIcon={normalizedArgs.trailingIcon}
+            variant={normalizedArgs.variant}
           >
-            {args.children}
+            {normalizedArgs.children}
           </Button>
         </StoryPlaygroundPreview>
         <StoryPlaygroundSnippet>
@@ -309,27 +207,14 @@ function InteractiveLoadingExample(): ReactElement {
 export const Playground: Story = {
   name: 'Playground',
   parameters: createFrontendDocsPlaygroundParameters({
-    controls: {
-      include: [
-        'children',
-        'variant',
-        'size',
-        'leadingIcon',
-        'trailingIcon',
-        'isLoading',
-        'loadingLabel',
-        'preventLoadingShrink',
-        'disabled',
-      ],
-      sort: 'none',
-    },
+    controls: createButtonPlaygroundControls(),
     docs: {
       description: {
         story: buttonDocs.storyDescriptions.playground,
       },
     },
   }),
-  render: (args) => <ButtonPlaygroundPreview {...normalizeButtonArgs(args)} />,
+  render: (args) => <ButtonPlaygroundPreview {...normalizeButtonStoryArgs(args)} />,
 };
 
 export const Variants: Story = {

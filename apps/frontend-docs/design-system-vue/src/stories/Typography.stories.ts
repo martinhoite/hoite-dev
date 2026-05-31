@@ -13,10 +13,9 @@ import {
   typographyDocs,
   typographyVariantConfig,
 } from '@hoite-dev/ui';
-import { Typography } from '@hoite-dev/ui-vue';
+import { CodeBlock, Typography } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed } from 'vue';
-import { createVueSnippetCopyState } from './vueSnippetCopyState';
 
 const defaultTagOption = 'Default variant tag';
 const variantKeys = Object.keys(typographyVariantConfig) as TypographyVariant[];
@@ -91,7 +90,7 @@ export const Playground: Story = {
     },
   }),
   render: (args) => ({
-    components: { Typography },
+    components: { CodeBlock, Typography },
     setup() {
       const normalizedVariant = computed(() => normalizeVariant(args.variant));
       const normalizedTag = computed(() => normalizeTag(args.tag));
@@ -112,14 +111,8 @@ export const Playground: Story = {
           ],
         }),
       );
-      const { copyButtonLabel, copySnippet, highlightedSnippet } =
-        createVueSnippetCopyState(snippet);
-
       return {
         args,
-        copyButtonLabel,
-        copySnippet,
-        highlightedSnippet,
         normalizedTag,
         normalizedVariant,
         snippet,
@@ -143,7 +136,7 @@ export const Playground: Story = {
               </Typography>
             </div>
           `)}
-          ${createVueStorySourcePanel()}
+          ${createVueStorySourcePanel('snippet', "'html'", "'Vue'")}
         `)}
     `),
   }),

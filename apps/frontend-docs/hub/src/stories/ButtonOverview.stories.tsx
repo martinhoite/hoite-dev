@@ -30,7 +30,7 @@ const linkRelTokenKeys = [...supportedLinkRelTokens] as LinkRelToken[];
 const linkTargetKeys = [...supportedLinkTargets] as LinkTarget[];
 
 const meta: Meta = {
-  title: 'Design System/Contracts/Action',
+  title: 'Design System/Contracts/Primitives/Action',
 };
 
 export default meta;

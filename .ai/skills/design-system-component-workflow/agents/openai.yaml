@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design System Component Workflow"
+  short_description: "Guide Hoite Dev component work across ui, React, Vue, and Storybook."
+  default_prompt: "Use $design-system-component-workflow to add or update a Hoite Dev design-system component without missing shared package, framework, or Storybook touch points."

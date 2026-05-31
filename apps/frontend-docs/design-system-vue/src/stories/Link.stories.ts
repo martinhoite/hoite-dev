@@ -16,10 +16,9 @@ import {
   supportedLinkRelTokens,
   supportedLinkTargets,
 } from '@hoite-dev/ui';
-import { Link } from '@hoite-dev/ui-vue';
+import { CodeBlock, Link } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed, defineComponent, type PropType } from 'vue';
-import { createVueSnippetCopyState } from './vueSnippetCopyState';
 
 const linkPlaygroundControlNames = ['children', 'href', 'appearance', 'target', 'rel'] as const;
 
@@ -110,7 +109,7 @@ function resolveLinkStoryTarget(target: LinkStoryArgs['target']): LinkTarget | u
 }
 
 const LinkPlaygroundPreview = defineComponent({
-  components: { Link },
+  components: { CodeBlock, Link },
   props: {
     appearance: {
       required: true,
@@ -168,13 +167,9 @@ const LinkPlaygroundPreview = defineComponent({
         ],
       }),
     );
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
-
     return {
-      copyButtonLabel,
-      copySnippet,
-      highlightedSnippet,
       linkArgs,
+      snippet,
     };
   },
   template: withStoryPlayground(`
@@ -193,7 +188,7 @@ const LinkPlaygroundPreview = defineComponent({
         ${createVueStoryPreview(`
           <Link v-bind="linkArgs">{{ children }}</Link>
         `)}
-        ${createVueStorySourcePanel()}
+        ${createVueStorySourcePanel('snippet', "'html'", "'Vue'")}
       `)}
   `),
 });

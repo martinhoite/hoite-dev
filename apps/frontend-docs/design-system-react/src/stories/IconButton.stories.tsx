@@ -1,5 +1,4 @@
 import {
-  createFrontendDocsComponentSnippet,
   createFrontendDocsPlaygroundParameters,
   StoryInfoPanel,
   StoryPlayground,
@@ -7,10 +6,16 @@ import {
   StoryPlaygroundPreview,
   StoryPlaygroundSnippet,
 } from '@hoite-dev/frontend-docs-shared/storybook';
+import { StorybookSourceSnippet } from '@hoite-dev/frontend-docs-shared/storybook/source-snippet';
 import {
-  type IconButtonSize,
-  type IconButtonVariant,
-  type IconName,
+  createIconButtonPlaygroundControls,
+  createIconButtonPlaygroundSnippet,
+  defaultIconButtonStoryArgs,
+  type IconButtonStoryArgs,
+  iconButtonStateLabels,
+  normalizeIconButtonStoryArgs,
+} from '@hoite-dev/frontend-docs-shared/storybook/story-configs';
+import {
   iconButtonDocs,
   supportedIconButtonSizes,
   supportedIconButtonVariants,
@@ -21,28 +26,8 @@ import type { ArgTypes, Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
-import { StorybookSourceSnippet } from './StorybookSourceSnippet';
-
-type IconButtonStoryArgs = {
-  'aria-label': string;
-  disabled: boolean;
-  icon: IconName;
-  isLoading: boolean;
-  size: IconButtonSize;
-  variant: IconButtonVariant;
-};
-
-const defaultIconButtonArgs: IconButtonStoryArgs = {
-  'aria-label': 'Create item',
-  disabled: false,
-  icon: 'plus',
-  isLoading: false,
-  size: 'medium',
-  variant: 'primary',
-};
-
 const storyArgTypes: Partial<ArgTypes<IconButtonStoryArgs>> = {
-  'aria-label': {
+  ariaLabel: {
     control: 'text',
     description: iconButtonDocs.argTypeDescriptions['aria-label'],
     name: 'aria-label',
@@ -91,14 +76,11 @@ const storyArgTypes: Partial<ArgTypes<IconButtonStoryArgs>> = {
 };
 
 const meta: Meta<IconButtonStoryArgs> = {
-  args: defaultIconButtonArgs,
+  args: defaultIconButtonStoryArgs,
   argTypes: storyArgTypes,
   component: IconButtonPlaygroundPreview,
   parameters: {
-    controls: {
-      include: ['icon', 'variant', 'size', 'isLoading', 'disabled', 'aria-label'],
-      sort: 'none',
-    },
+    controls: createIconButtonPlaygroundControls(),
   },
   title: 'Primitives/Action/IconButton',
 };
@@ -107,61 +89,9 @@ export default meta;
 
 type Story = StoryObj<IconButtonStoryArgs>;
 
-const stateLabels = ['Default', 'Hover', 'Focused', 'Pressed', 'Disabled', 'Loading'] as const;
-
-function normalizeIconButtonArgs(args: IconButtonStoryArgs): IconButtonStoryArgs {
-  const icon = supportedIconNames.includes(args.icon) ? args.icon : defaultIconButtonArgs.icon;
-  const size = supportedIconButtonSizes.includes(args.size)
-    ? args.size
-    : defaultIconButtonArgs.size;
-  const variant = supportedIconButtonVariants.includes(args.variant)
-    ? args.variant
-    : defaultIconButtonArgs.variant;
-
-  return {
-    ...args,
-    icon,
-    size,
-    variant,
-  };
-}
-
 function IconButtonPlaygroundPreview(args: IconButtonStoryArgs): ReactElement {
-  const snippet = createFrontendDocsComponentSnippet({
-    componentName: 'IconButton',
-    framework: 'react',
-    props: [
-      {
-        defaultValue: defaultIconButtonArgs.icon,
-        name: 'icon',
-        value: args.icon,
-      },
-      {
-        defaultValue: defaultIconButtonArgs.variant,
-        name: 'variant',
-        value: args.variant,
-      },
-      {
-        defaultValue: defaultIconButtonArgs.size,
-        name: 'size',
-        value: args.size,
-      },
-      {
-        defaultValue: false,
-        name: 'isLoading',
-        value: args.isLoading,
-      },
-      {
-        defaultValue: false,
-        name: 'disabled',
-        value: args.disabled,
-      },
-      {
-        name: 'aria-label',
-        value: args['aria-label'],
-      },
-    ],
-  });
+  const normalizedArgs = normalizeIconButtonStoryArgs(args);
+  const snippet = createIconButtonPlaygroundSnippet('react', normalizedArgs);
 
   return (
     <StoryPlayground>
@@ -174,12 +104,12 @@ function IconButtonPlaygroundPreview(args: IconButtonStoryArgs): ReactElement {
       <StoryPlaygroundContent split>
         <StoryPlaygroundPreview>
           <IconButton
-            aria-label={args['aria-label']}
-            disabled={args.disabled}
-            icon={args.icon}
-            isLoading={args.isLoading}
-            size={args.size}
-            variant={args.variant}
+            aria-label={normalizedArgs.ariaLabel}
+            disabled={normalizedArgs.disabled}
+            icon={normalizedArgs.icon}
+            isLoading={normalizedArgs.isLoading}
+            size={normalizedArgs.size}
+            variant={normalizedArgs.variant}
           />
         </StoryPlaygroundPreview>
         <StoryPlaygroundSnippet>
@@ -237,17 +167,14 @@ function InteractiveLoadingExample(): ReactElement {
 export const Playground: Story = {
   name: 'Playground',
   parameters: createFrontendDocsPlaygroundParameters({
-    controls: {
-      include: ['icon', 'variant', 'size', 'isLoading', 'disabled', 'aria-label'],
-      sort: 'none',
-    },
+    controls: createIconButtonPlaygroundControls(),
     docs: {
       description: {
         story: iconButtonDocs.storyDescriptions.playground,
       },
     },
   }),
-  render: (args) => <IconButtonPlaygroundPreview {...normalizeIconButtonArgs(args)} />,
+  render: (args) => <IconButtonPlaygroundPreview {...normalizeIconButtonStoryArgs(args)} />,
 };
 
 export const Variants: Story = {
@@ -321,7 +248,7 @@ export const States: Story = {
         >
           <span className='text-sm font-medium text-[var(--color-text-secondary)]'>{variant}</span>
           <div className='flex flex-wrap gap-3'>
-            {stateLabels.map((state) => (
+            {iconButtonStateLabels.map((state) => (
               <div className='grid justify-items-center gap-2' key={state}>
                 <IconButton
                   aria-label={`${state} create action`}

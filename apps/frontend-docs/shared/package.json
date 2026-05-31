@@ -6,15 +6,20 @@
   "exports": {
     "./docs": "./docs/index.ts",
     "./storybook": "./storybook/index.ts",
+    "./storybook/story-configs": "./storybook/storyConfigs.ts",
+    "./storybook/source-snippet": "./storybook/StorybookSourceSnippet.tsx",
     "./storybook/prepareStorybook": "./storybook/prepareStorybook.mjs"
   },
   "scripts": {
+    "lint": "biome check docs storybook package.json tsconfig.json README.md",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
     "@hoite-dev/storybook-addon-composition-theme": "workspace:*",
     "@hoite-dev/ui": "workspace:*",
-    "react": "^19.2.6"
+    "@hoite-dev/ui-react": "workspace:*",
+    "react": "^19.2.6",
+    "storybook": "^10.4.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.14"

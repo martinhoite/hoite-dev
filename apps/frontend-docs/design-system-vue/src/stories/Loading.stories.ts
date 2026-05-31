@@ -14,10 +14,9 @@ import {
   supportedLoadingColors,
   supportedLoadingSizes,
 } from '@hoite-dev/ui';
-import { CircularProgress, Loader, Progress } from '@hoite-dev/ui-vue';
+import { CircularProgress, CodeBlock, Loader, Progress } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed, defineComponent } from 'vue';
-import { createVueSnippetCopyState } from './vueSnippetCopyState';
 
 type CircularValueDisplay = 'fraction' | 'percent';
 
@@ -128,7 +127,7 @@ const storyArgTypes: Partial<ArgTypes<LoadingStoryArgs>> = {
 };
 
 const LoaderPlaygroundPreview = defineComponent({
-  components: { Loader },
+  components: { CodeBlock, Loader },
   props: {
     ariaLabel: {
       required: true,
@@ -172,12 +171,7 @@ const LoaderPlaygroundPreview = defineComponent({
         ],
       }),
     );
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
-
     return {
-      copyButtonLabel,
-      copySnippet,
-      highlightedSnippet,
       normalizedAriaLabel,
       snippet,
       surfaceClass,
@@ -193,13 +187,13 @@ const LoaderPlaygroundPreview = defineComponent({
             <Loader :aria-label="normalizedAriaLabel" :color="color" :size="size" />
           </div>
         `)}
-        ${createVueStorySourcePanel()}
+        ${createVueStorySourcePanel('snippet', "'html'", "'Vue'")}
       `)}
   `),
 });
 
 const ProgressPlaygroundPreview = defineComponent({
-  components: { Progress },
+  components: { CodeBlock, Progress },
   props: {
     ariaLabel: {
       required: true,
@@ -289,12 +283,7 @@ const ProgressPlaygroundPreview = defineComponent({
         ],
       }),
     );
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
-
     return {
-      copyButtonLabel,
-      copySnippet,
-      highlightedSnippet,
       normalizedAriaLabel,
       normalizedLabel,
       normalizedValue,
@@ -322,13 +311,13 @@ const ProgressPlaygroundPreview = defineComponent({
         `,
           'min-w-0 w-full',
         )}
-        ${createVueStorySourcePanel()}
+        ${createVueStorySourcePanel('snippet', "'html'", "'Vue'")}
       `)}
   `),
 });
 
 const CircularProgressPlaygroundPreview = defineComponent({
-  components: { CircularProgress },
+  components: { CircularProgress, CodeBlock },
   props: {
     ariaLabel: {
       required: true,
@@ -451,12 +440,7 @@ const CircularProgressPlaygroundPreview = defineComponent({
         ],
       }),
     );
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
-
     return {
-      copyButtonLabel,
-      copySnippet,
-      highlightedSnippet,
       normalizedAriaLabel,
       normalizedLabel,
       normalizedValueLabel,
@@ -486,7 +470,7 @@ const CircularProgressPlaygroundPreview = defineComponent({
             />
           </div>
         `)}
-        ${createVueStorySourcePanel()}
+        ${createVueStorySourcePanel('snippet', "'html'", "'Vue'")}
       `)}
   `),
 });

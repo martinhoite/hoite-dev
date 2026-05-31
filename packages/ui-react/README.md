@@ -13,6 +13,8 @@ It builds on the shared styling foundation from `@hoite-dev/ui` and exposes Reac
 - `@hoite-dev/ui` owns the shared styling foundation and contract-level exports
 - `@hoite-dev/ui-react` owns the React component implementations built on top of that foundation
 
+When a visual rule is part of the shared design-system contract, `@hoite-dev/ui-react` should consume the shared helper from `@hoite-dev/ui` instead of re-deriving it locally. React-specific rendering, DOM behavior, and component wiring should stay in this package.
+
 ## Storybook
 
 Shared foundations such as tokens and contract-level documentation belong in `apps/frontend-docs/hub`.

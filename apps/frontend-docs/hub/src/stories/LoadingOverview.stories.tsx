@@ -21,7 +21,7 @@ const colorKeys = [...supportedLoadingColors] as LoadingColor[];
 const sizeKeys = [...supportedLoadingSizes] as LoadingSize[];
 
 const meta: Meta = {
-  title: 'Design System/Contracts/Feedback',
+  title: 'Design System/Contracts/Primitives/Feedback',
 };
 
 export default meta;

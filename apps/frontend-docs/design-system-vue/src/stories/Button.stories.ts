@@ -1,11 +1,17 @@
 import {
-  createFrontendDocsComponentSnippet,
   createFrontendDocsPlaygroundParameters,
   createVueStoryPreview,
   createVueStorySourcePanel,
   withStoryPlayground,
   withVueStoryPlaygroundContent,
 } from '@hoite-dev/frontend-docs-shared/storybook';
+import {
+  type ButtonStoryArgs,
+  createButtonPlaygroundControls,
+  createButtonPlaygroundSnippet,
+  defaultButtonStoryArgs,
+  normalizeButtonStoryArgs,
+} from '@hoite-dev/frontend-docs-shared/storybook/story-configs';
 import {
   type ButtonSize,
   type ButtonVariant,
@@ -15,34 +21,9 @@ import {
   supportedButtonVariants,
   supportedIconNames,
 } from '@hoite-dev/ui';
-import { Button } from '@hoite-dev/ui-vue';
+import { Button, CodeBlock } from '@hoite-dev/ui-vue';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/vue3-vite';
 import { computed, defineComponent, onBeforeUnmount, ref } from 'vue';
-import { createVueSnippetCopyState } from './vueSnippetCopyState';
-
-type ButtonIconOption = IconName | undefined;
-
-type ButtonStoryArgs = {
-  children: string;
-  disabled: boolean;
-  isLoading: boolean;
-  leadingIcon?: ButtonIconOption;
-  loadingLabel: string;
-  preventLoadingShrink: boolean;
-  size: ButtonSize;
-  trailingIcon?: ButtonIconOption;
-  variant: ButtonVariant;
-};
-
-const defaultButtonArgs: ButtonStoryArgs = {
-  children: 'Primary action',
-  disabled: false,
-  isLoading: false,
-  loadingLabel: '',
-  preventLoadingShrink: false,
-  size: 'medium',
-  variant: 'primary',
-};
 
 const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
   children: {
@@ -115,31 +96,8 @@ const storyArgTypes: Partial<ArgTypes<ButtonStoryArgs>> = {
   },
 };
 
-function normalizeIcon(icon: ButtonIconOption): IconName | undefined {
-  if (icon !== undefined && supportedIconNames.includes(icon)) {
-    return icon;
-  }
-
-  return undefined;
-}
-
-function normalizeButtonArgs(args: ButtonStoryArgs): ButtonStoryArgs {
-  const size = supportedButtonSizes.includes(args.size) ? args.size : defaultButtonArgs.size;
-  const variant = supportedButtonVariants.includes(args.variant)
-    ? args.variant
-    : defaultButtonArgs.variant;
-
-  return {
-    ...args,
-    leadingIcon: normalizeIcon(args.leadingIcon),
-    size,
-    trailingIcon: normalizeIcon(args.trailingIcon),
-    variant,
-  };
-}
-
 const ButtonPlaygroundPreview = defineComponent({
-  components: { Button },
+  components: { Button, CodeBlock },
   props: {
     children: {
       required: true,
@@ -154,7 +112,7 @@ const ButtonPlaygroundPreview = defineComponent({
       type: Boolean,
     },
     leadingIcon: {
-      type: String as () => ButtonIconOption,
+      type: String as () => IconName | undefined,
     },
     loadingLabel: {
       required: true,
@@ -169,7 +127,7 @@ const ButtonPlaygroundPreview = defineComponent({
       type: String as () => ButtonSize,
     },
     trailingIcon: {
-      type: String as () => ButtonIconOption,
+      type: String as () => IconName | undefined,
     },
     variant: {
       required: true,
@@ -177,71 +135,24 @@ const ButtonPlaygroundPreview = defineComponent({
     },
   },
   setup(props) {
-    const leadingIcon = computed(() => normalizeIcon(props.leadingIcon));
-    const trailingIcon = computed(() => normalizeIcon(props.trailingIcon));
-    const buttonArgs = computed(() => ({
-      disabled: props.disabled,
-      isLoading: props.isLoading,
-      leadingIcon: leadingIcon.value,
-      loadingLabel: props.loadingLabel,
-      preventLoadingShrink: props.preventLoadingShrink,
-      size: props.size,
-      trailingIcon: trailingIcon.value,
-      variant: props.variant,
-    }));
-    const snippet = computed(() =>
-      createFrontendDocsComponentSnippet({
+    const buttonArgs = computed(() =>
+      normalizeButtonStoryArgs({
         children: props.children,
-        componentName: 'Button',
-        framework: 'vue',
-        props: [
-          {
-            defaultValue: defaultButtonArgs.variant,
-            name: 'variant',
-            value: props.variant,
-          },
-          {
-            defaultValue: defaultButtonArgs.size,
-            name: 'size',
-            value: props.size,
-          },
-          {
-            name: 'leadingIcon',
-            value: leadingIcon.value,
-          },
-          {
-            name: 'trailingIcon',
-            value: trailingIcon.value,
-          },
-          {
-            defaultValue: false,
-            name: 'isLoading',
-            value: props.isLoading,
-          },
-          {
-            name: 'loadingLabel',
-            value: props.loadingLabel,
-          },
-          {
-            defaultValue: false,
-            name: 'preventLoadingShrink',
-            value: props.preventLoadingShrink,
-          },
-          {
-            defaultValue: false,
-            name: 'disabled',
-            value: props.disabled,
-          },
-        ],
+        disabled: props.disabled,
+        isLoading: props.isLoading,
+        leadingIcon: props.leadingIcon,
+        loadingLabel: props.loadingLabel,
+        preventLoadingShrink: props.preventLoadingShrink,
+        size: props.size,
+        trailingIcon: props.trailingIcon,
+        variant: props.variant,
       }),
     );
-    const { copyButtonLabel, copySnippet, highlightedSnippet } = createVueSnippetCopyState(snippet);
+    const snippet = computed(() => createButtonPlaygroundSnippet('vue', buttonArgs.value));
 
     return {
       buttonArgs,
-      copyButtonLabel,
-      copySnippet,
-      highlightedSnippet,
+      snippet,
     };
   },
   template: withStoryPlayground(`
@@ -258,7 +169,7 @@ const ButtonPlaygroundPreview = defineComponent({
         ${createVueStoryPreview(`
           <Button v-bind="buttonArgs">{{ children }}</Button>
         `)}
-        ${createVueStorySourcePanel()}
+        ${createVueStorySourcePanel('snippet', "'html'", "'Vue'")}
       `)}
   `),
 });
@@ -327,24 +238,11 @@ const InteractiveLoadingExample = defineComponent({
 });
 
 const meta: Meta<ButtonStoryArgs> = {
-  args: defaultButtonArgs,
+  args: defaultButtonStoryArgs,
   argTypes: storyArgTypes,
   component: ButtonPlaygroundPreview,
   parameters: {
-    controls: {
-      include: [
-        'children',
-        'variant',
-        'size',
-        'leadingIcon',
-        'trailingIcon',
-        'isLoading',
-        'loadingLabel',
-        'preventLoadingShrink',
-        'disabled',
-      ],
-      sort: 'none',
-    },
+    controls: createButtonPlaygroundControls(),
   },
   title: 'Primitives/Action/Button',
 };
@@ -356,20 +254,7 @@ type Story = StoryObj<ButtonStoryArgs>;
 export const Playground: Story = {
   name: 'Playground',
   parameters: createFrontendDocsPlaygroundParameters({
-    controls: {
-      include: [
-        'children',
-        'variant',
-        'size',
-        'leadingIcon',
-        'trailingIcon',
-        'isLoading',
-        'loadingLabel',
-        'preventLoadingShrink',
-        'disabled',
-      ],
-      sort: 'none',
-    },
+    controls: createButtonPlaygroundControls(),
     docs: {
       description: {
         story: buttonDocs.storyDescriptions.playground,
@@ -380,7 +265,7 @@ export const Playground: Story = {
     components: { ButtonPlaygroundPreview },
     setup() {
       return {
-        args: computed(() => normalizeButtonArgs(args)),
+        args: computed(() => normalizeButtonStoryArgs(args)),
       };
     },
     template: '<ButtonPlaygroundPreview v-bind="args" />',

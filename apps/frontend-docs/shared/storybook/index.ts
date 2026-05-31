@@ -30,9 +30,7 @@ export {
   frontendDocsDefaultPlaygroundAddons,
 } from './playgroundParameters.ts';
 export {
-  copyFrontendDocsSnippetToClipboard,
   createFrontendDocsComponentSnippet,
-  createFrontendDocsHighlightedSnippetHtml,
   type FrontendDocsComponentSnippetOptions,
   type FrontendDocsSnippetProp,
 } from './playgroundSnippets.ts';

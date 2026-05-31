@@ -4,11 +4,11 @@ import {
   type IconButtonSize,
   type IconButtonVariant,
   type IconName,
-  type IconSize,
-  type IconVariant,
   iconButtonVariants,
-  type LoadingColor,
-  type LoadingSize,
+  resolveActionIconSize,
+  resolveActionIconVariant,
+  resolveActionLoaderColor,
+  resolveActionLoaderSize,
 } from '@hoite-dev/ui';
 import { computed, defineComponent, type PropType, watchEffect } from 'vue';
 
@@ -53,41 +53,6 @@ function resolveAriaBusy(
   }
 
   return undefined;
-}
-
-function resolveIconVariant(
-  variant: IconButtonVariant | undefined,
-  isDisabled: boolean,
-): IconVariant {
-  if (isDisabled) {
-    return 'disabled';
-  }
-
-  if (variant === 'secondary') {
-    return 'primary';
-  }
-
-  return 'on-fill';
-}
-
-function resolveIconSize(size: IconButtonSize | undefined): IconSize {
-  if (size === 'small') {
-    return 'sm';
-  }
-
-  if (size === 'large') {
-    return 'lg';
-  }
-
-  return 'md';
-}
-
-function resolveLoaderSize(size: IconButtonSize | undefined): LoadingSize {
-  if (size === 'small') {
-    return 'small';
-  }
-
-  return 'medium';
 }
 
 export default defineComponent({
@@ -136,16 +101,14 @@ export default defineComponent({
         variant: props.variant,
       }),
     );
-    const iconSize = computed(() => resolveIconSize(props.size));
-    const iconVariant = computed(() => resolveIconVariant(props.variant, isButtonDisabled.value));
-    const loaderColor = computed<LoadingColor>(() => {
-      if (isButtonDisabled.value || props.variant === 'secondary') {
-        return 'secondary';
-      }
-
-      return 'on-fill';
-    });
-    const loaderSize = computed(() => resolveLoaderSize(props.size));
+    const iconSize = computed(() => resolveActionIconSize(props.size));
+    const iconVariant = computed(() =>
+      resolveActionIconVariant(props.variant, isButtonDisabled.value),
+    );
+    const loaderColor = computed(() =>
+      resolveActionLoaderColor(props.variant, isButtonDisabled.value),
+    );
+    const loaderSize = computed(() => resolveActionLoaderSize(props.size));
 
     watchEffect(() => {
       if (
