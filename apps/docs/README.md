@@ -32,7 +32,7 @@ pnpm run dev:docs
 Then open:
 
 ```text
-http://docs.local.hoite.dev:3030
+https://docs.local.hoite.dev:3030
 ```
 
 ## Static host build

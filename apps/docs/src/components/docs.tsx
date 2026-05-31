@@ -1,6 +1,5 @@
 import Link from '@docusaurus/Link';
-import { codeBlockDocs, typographyDocs } from '@hoite-dev/ui';
-import { hoiteThemeColorValues } from '@hoite-dev/ui/theme-color-values';
+import { codeBlockDocs, tokens, typographyDocs } from '@hoite-dev/ui';
 import { type ReactNode, useEffect, useState } from 'react';
 
 type RouteCard = {
@@ -15,22 +14,87 @@ type StorybookLink = {
   summary: string;
 };
 
+type DocsHeroAction = {
+  href: string;
+  label: string;
+  tone?: 'primary' | 'secondary';
+};
+
+type DocsHeroMetric = {
+  label: string;
+  token: string;
+};
+
+type DocsHeroPanel = {
+  body: string;
+  href?: string;
+  label: string;
+  linkLabel?: string;
+  tone?: 'accent' | 'brand' | 'neutral';
+};
+
+type DocsShellGuidanceCard = {
+  body: string;
+  eyebrow: string;
+  title: string;
+  token: string;
+};
+
 type SourceLink = {
   label: string;
   path: string;
 };
 
-type ThemeColorKey = keyof typeof hoiteThemeColorValues.light;
-
-type ThemeColorReferenceRow = {
-  description: string;
-  key: ThemeColorKey;
-  token: string;
+type TokenLeaf = {
+  $description?: string;
+  $extensions?: {
+    'com.figma.codeSyntax'?: {
+      WEB?: string;
+    };
+  };
+  $type: string;
+  $value: unknown;
 };
 
-type ScaleReferenceRow = {
+type TokenPreviewKind =
+  | 'color'
+  | 'layout-container'
+  | 'layout-grid-columns'
+  | 'layout-gutter'
+  | 'motion-duration'
+  | 'motion-easing'
+  | 'radius'
+  | 'size'
+  | 'spacing'
+  | 'stroke'
+  | 'text'
+  | 'typography-family'
+  | 'typography-letter-spacing'
+  | 'typography-line-height'
+  | 'typography-paragraph-spacing'
+  | 'typography-size'
+  | 'typography-weight'
+  | 'z-stack';
+
+type TokenReferenceRow = {
   description: string;
-  previewKind: 'spacing' | 'typography-line-height' | 'typography-size' | 'typography-weight';
+  previewKind: TokenPreviewKind;
+  rawValue: unknown;
+  token: string;
+  type: string;
+};
+
+type TokenSection = {
+  heading: string;
+  navLabel: string;
+  rows: readonly TokenReferenceRow[];
+  slug: string;
+};
+
+type ThemedColorReferenceRow = {
+  description: string;
+  darkValue: string;
+  lightValue: string;
   token: string;
 };
 
@@ -47,88 +111,396 @@ const typographySamples = [
   { defaultTag: 'span', variant: 'caption-small' },
 ] as const;
 
-const themeColorReferenceRows: readonly ThemeColorReferenceRow[] = [
+const docsShellGuidanceCards: readonly DocsShellGuidanceCard[] = [
   {
-    description: 'Canvas and app-shell background.',
-    key: 'colorBgCanvas',
-    token: '--color-bg-canvas',
+    body: 'The docs shell should stay inside the same wide desktop frame used in the design system examples instead of stretching edge to edge.',
+    eyebrow: 'Frame',
+    title: 'Container width anchors the composition',
+    token: '--layout-container-max',
   },
   {
-    description: 'Raised surfaces such as cards, drawers, and panels.',
-    key: 'colorBgSurface',
-    token: '--color-bg-surface',
+    body: 'Horizontal padding should follow the layout gutter tokens so nav, page content, and footer columns align on the same rhythm.',
+    eyebrow: 'Gutter',
+    title: 'Outer spacing is a layout rule, not ad hoc padding',
+    token: '--layout-gutter-desktop',
   },
   {
-    description: 'Primary reading color for body copy and headings.',
-    key: 'colorTextPrimary',
-    token: '--color-text-primary',
+    body: 'Top-level sections need larger vertical cadence than card internals so the docs feel authored rather than stacked by defaults.',
+    eyebrow: 'Rhythm',
+    title: 'Section spacing should step up to editorial scale',
+    token: '--spacing-64',
   },
   {
-    description: 'Secondary reading color for supporting copy and meta text.',
-    key: 'colorTextSecondary',
-    token: '--color-text-secondary',
-  },
-  {
-    description: 'Default border color for cards, fields, and separators.',
-    key: 'colorBorderDefault',
-    token: '--color-border-default',
-  },
-  {
-    description: 'Focus ring and high-visibility interactive outline.',
-    key: 'colorBorderFocus',
-    token: '--color-border-focus',
+    body: 'The shell should move from canvas to surface to raised surface with restrained borders, not heavy custom chrome.',
+    eyebrow: 'Surface',
+    title: 'Layering comes from the surface tokens',
+    token: '--color-bg-surface-raised',
   },
 ] as const;
 
-const spacingReferenceRows: readonly ScaleReferenceRow[] = [
+function isTokenLeaf(value: unknown): value is TokenLeaf {
+  if (typeof value !== 'object' || value === null) {
+    return false;
+  }
+
+  const candidate = value as Record<string, unknown>;
+
+  if (typeof candidate.$type !== 'string') {
+    return false;
+  }
+
+  return '$value' in candidate;
+}
+
+function createFallbackCssVariable(path: readonly string[]) {
+  return `--${path.join('-')}`;
+}
+
+function extractCssVariableName(value: string) {
+  const match = value.match(/^var\((--[^)]+)\)$/);
+
+  if (match?.[1]) {
+    return match[1];
+  }
+
+  return value;
+}
+
+function inferTokenPreviewKind(
+  section: string,
+  path: readonly string[],
+  type: string,
+): TokenPreviewKind {
+  const joinedPath = path.join('.');
+
+  if (section === 'color' || section === 'primitive') {
+    return 'color';
+  }
+
+  if (section === 'layout') {
+    if (joinedPath.includes('columns')) {
+      return 'layout-grid-columns';
+    }
+
+    if (joinedPath.includes('gutter')) {
+      return 'layout-gutter';
+    }
+
+    return 'layout-container';
+  }
+
+  if (section === 'spacing') {
+    return 'spacing';
+  }
+
+  if (section === 'radius') {
+    return 'radius';
+  }
+
+  if (section === 'size') {
+    return 'size';
+  }
+
+  if (section === 'z-stack') {
+    return 'z-stack';
+  }
+
+  if (section === 'stroke') {
+    return 'stroke';
+  }
+
+  if (section === 'motion') {
+    if (type === 'number') {
+      return 'motion-duration';
+    }
+
+    if (joinedPath.includes('easing')) {
+      return 'motion-easing';
+    }
+
+    return 'text';
+  }
+
+  if (section === 'typography') {
+    if (joinedPath.includes('family')) {
+      return 'typography-family';
+    }
+
+    if (joinedPath.includes('letter-spacing')) {
+      return 'typography-letter-spacing';
+    }
+
+    if (joinedPath.includes('line-height')) {
+      return 'typography-line-height';
+    }
+
+    if (joinedPath.includes('paragraph-spacing')) {
+      return 'typography-paragraph-spacing';
+    }
+
+    if (joinedPath.includes('size')) {
+      return 'typography-size';
+    }
+
+    if (joinedPath.includes('weight')) {
+      return 'typography-weight';
+    }
+  }
+
+  return 'text';
+}
+
+function flattenTokenGroup({
+  path = [],
+  section,
+  value,
+}: {
+  path?: string[];
+  section: string;
+  value: unknown;
+}): TokenReferenceRow[] {
+  if (isTokenLeaf(value)) {
+    const webSyntax = value.$extensions?.['com.figma.codeSyntax']?.WEB;
+    const token = webSyntax ? extractCssVariableName(webSyntax) : createFallbackCssVariable(path);
+
+    return [
+      {
+        description: value.$description ?? '',
+        previewKind: inferTokenPreviewKind(section, path, value.$type),
+        rawValue: value.$value,
+        token,
+        type: value.$type,
+      },
+    ];
+  }
+
+  if (typeof value !== 'object' || value === null) {
+    return [];
+  }
+
+  const rows: TokenReferenceRow[] = [];
+
+  for (const [key, childValue] of Object.entries(value)) {
+    if (key === '$extensions') {
+      continue;
+    }
+
+    rows.push(
+      ...flattenTokenGroup({
+        path: [...path, key],
+        section,
+        value: childValue,
+      }),
+    );
+  }
+
+  return rows;
+}
+
+function formatTokenValue(value: unknown) {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (typeof value === 'number') {
+    return String(value);
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    const candidate = value as {
+      hex?: string;
+    };
+
+    if (typeof candidate.hex === 'string') {
+      return candidate.hex;
+    }
+  }
+
+  return String(value);
+}
+
+function parseTokenNumber(value: string) {
+  const match = /-?\d*\.?\d+/.exec(value);
+
+  if (!match?.[0]) {
+    return null;
+  }
+
+  return Number(match[0]);
+}
+
+function parseLengthPx(value: string) {
+  const trimmed = value.trim();
+  const match = /^(-?\d*\.?\d+)\s*(px|rem|%)?$/i.exec(trimmed);
+
+  if (!match) {
+    return parseTokenNumber(trimmed);
+  }
+
+  const numeric = Number(match[1]);
+  const unit = (match[2] ?? '').toLowerCase();
+
+  if (unit === 'rem') {
+    return numeric * 16;
+  }
+
+  return numeric;
+}
+
+function parseDurationMs(value: string) {
+  const trimmed = value.trim();
+  const match = /^(-?\d*\.?\d+)\s*(ms|s)?$/i.exec(trimmed);
+
+  if (!match) {
+    return parseTokenNumber(trimmed);
+  }
+
+  const numeric = Number(match[1]);
+  const unit = (match[2] ?? '').toLowerCase();
+
+  if (unit === 's') {
+    return numeric * 1000;
+  }
+
+  return numeric;
+}
+
+function createThemedColorRows(): ThemedColorReferenceRow[] {
+  const lightRows = flattenTokenGroup({
+    path: ['color'],
+    section: 'color',
+    value: tokens.color.light,
+  });
+  const darkRowsByToken = new Map(
+    flattenTokenGroup({
+      path: ['color'],
+      section: 'color',
+      value: tokens.color.dark,
+    }).map((row) => [row.token, row]),
+  );
+
+  return lightRows.map((row) => {
+    const darkRow = darkRowsByToken.get(row.token);
+
+    return {
+      description: row.description,
+      darkValue: formatTokenValue(darkRow?.rawValue ?? ''),
+      lightValue: formatTokenValue(row.rawValue),
+      token: row.token,
+    };
+  });
+}
+
+const semanticColorRows = createThemedColorRows();
+
+const primitiveColorRows = flattenTokenGroup({
+  path: ['primitive'],
+  section: 'primitive',
+  value: tokens.primitive,
+});
+
+const tokenReferenceSections: readonly TokenSection[] = [
   {
-    description: 'Compact gap for inline controls, dense chips, and tight button groups.',
-    previewKind: 'spacing',
-    token: '--spacing-8',
+    heading: 'Layout',
+    navLabel: 'Layout',
+    rows: flattenTokenGroup({
+      path: ['layout'],
+      section: 'layout',
+      value: tokens.layout,
+    }),
+    slug: 'layout',
   },
   {
-    description: 'Default small gap for stacked controls and card internals.',
-    previewKind: 'spacing',
-    token: '--spacing-16',
+    heading: 'Spacing',
+    navLabel: 'Spacing',
+    rows: flattenTokenGroup({
+      path: ['spacing'],
+      section: 'spacing',
+      value: tokens.spacing,
+    }),
+    slug: 'spacing',
   },
   {
-    description: 'Medium vertical rhythm for sections and grouped content.',
-    previewKind: 'spacing',
-    token: '--spacing-24',
+    heading: 'Radius',
+    navLabel: 'Radius',
+    rows: flattenTokenGroup({
+      path: ['radius'],
+      section: 'radius',
+      value: tokens.radius,
+    }),
+    slug: 'radius',
   },
   {
-    description: 'Large section spacing for page structure and hero layouts.',
-    previewKind: 'spacing',
-    token: '--spacing-32',
+    heading: 'Size',
+    navLabel: 'Size',
+    rows: flattenTokenGroup({
+      path: ['size'],
+      section: 'size',
+      value: tokens.size,
+    }),
+    slug: 'size',
+  },
+  {
+    heading: 'Z-stack',
+    navLabel: 'Z-stack',
+    rows: flattenTokenGroup({
+      path: ['z-stack'],
+      section: 'z-stack',
+      value: tokens.zStack,
+    }),
+    slug: 'z-stack',
+  },
+  {
+    heading: 'Stroke',
+    navLabel: 'Stroke',
+    rows: flattenTokenGroup({
+      path: ['stroke'],
+      section: 'stroke',
+      value: tokens.stroke,
+    }),
+    slug: 'stroke',
+  },
+  {
+    heading: 'Motion',
+    navLabel: 'Motion',
+    rows: flattenTokenGroup({
+      path: ['motion'],
+      section: 'motion',
+      value: tokens.motion,
+    }),
+    slug: 'motion',
+  },
+  {
+    heading: 'Typography',
+    navLabel: 'Typography',
+    rows: flattenTokenGroup({
+      path: ['typography'],
+      section: 'typography',
+      value: tokens.typography,
+    }),
+    slug: 'typography',
   },
 ] as const;
 
-const typographyReferenceRows: readonly ScaleReferenceRow[] = [
+const tokenReferenceNavItems = [
   {
-    description: 'Baseline body copy size.',
-    previewKind: 'typography-size',
-    token: '--typography-size-16',
+    navLabel: 'Color',
+    slug: 'color',
   },
-  {
-    description: 'Display-size heading step used in prominent page titles.',
-    previewKind: 'typography-size',
-    token: '--typography-size-30',
-  },
-  {
-    description: 'Standard multi-line reading rhythm for body content.',
-    previewKind: 'typography-line-height',
-    token: '--typography-line-height-24',
-  },
-  {
-    description: 'Semibold emphasis weight for labels and compact headings.',
-    previewKind: 'typography-weight',
-    token: '--typography-weight-semibold',
-  },
+  ...tokenReferenceSections.map((section) => ({
+    navLabel: section.navLabel,
+    slug: section.slug,
+  })),
 ] as const;
 
-const resolvedScaleTokens = [
-  ...spacingReferenceRows.map((row) => row.token),
-  ...typographyReferenceRows.map((row) => row.token),
+const resolvedReferenceTokens = [
+  ...new Set(
+    tokenReferenceSections.flatMap((section) => {
+      return section.rows.map((row) => row.token);
+    }),
+  ),
+  ...primitiveColorRows.map((row) => row.token),
+  ...docsShellGuidanceCards.map((card) => card.token),
 ] as const;
 
 function createSourceUrl(path: string) {
@@ -153,16 +525,18 @@ function createCodeBlockVisibleLabel({ label, language }: { label?: string; lang
 
 function useResolvedCssValues(tokens: readonly string[]) {
   const [values, setValues] = useState<Record<string, string>>({});
+  const tokenKey = JSON.stringify(tokens);
 
   useEffect(() => {
     const root = document.documentElement;
     const computedStyle = window.getComputedStyle(root);
+    const stableTokens = JSON.parse(tokenKey) as string[];
     const nextValues = Object.fromEntries(
-      tokens.map((token) => [token, computedStyle.getPropertyValue(token).trim()]),
+      stableTokens.map((token) => [token, computedStyle.getPropertyValue(token).trim()]),
     );
 
     setValues(nextValues);
-  }, [tokens]);
+  }, [tokenKey]);
 
   return values;
 }
@@ -171,15 +545,130 @@ function DocSectionHeading({ children }: { children: ReactNode }) {
   return <h2 className='docs-section-heading'>{children}</h2>;
 }
 
+function DocSubsectionHeading({ children }: { children: ReactNode }) {
+  return <h3 className='docs-section-subheading'>{children}</h3>;
+}
+
+export function TokenDisplayHeading({
+  children,
+  level,
+  sticky = true,
+}: {
+  children: ReactNode;
+  level: 'section' | 'subsection';
+  sticky?: boolean;
+}) {
+  const classNames = ['docs-token-display-heading', `docs-token-display-heading--${level}`];
+
+  if (!sticky) {
+    classNames.push('docs-token-display-heading--static');
+  }
+
+  return (
+    <div aria-hidden='true' className={classNames.join(' ')}>
+      {children}
+    </div>
+  );
+}
+
 function ColorSwatch({ value }: { value: string }) {
   return <span className='token-swatch' style={{ backgroundColor: value }} title={value} />;
 }
 
-function TokenCode({ children }: { children: ReactNode }) {
-  return <code className='token-code'>{children}</code>;
+function TokenCode({ children, className }: { children: ReactNode; className?: string }) {
+  return <code className={`token-code${className ? ` ${className}` : ''}`}>{children}</code>;
 }
 
-function TokenPreview({ row }: { row: ScaleReferenceRow }) {
+function MotionSweepPreview({
+  animation,
+  shouldAnimate,
+}: {
+  animation: string;
+  shouldAnimate: boolean;
+}) {
+  return (
+    <span className='token-preview token-preview--frame token-preview--motion'>
+      <span className='token-preview__motion-track'>
+        <span
+          className='token-preview__motion-sweep'
+          style={{
+            animation: shouldAnimate ? animation : 'none',
+            transform: shouldAnimate ? undefined : 'scaleX(1)',
+          }}
+        />
+      </span>
+    </span>
+  );
+}
+
+function TokenPreview({
+  prefersReducedMotion = false,
+  row,
+  value,
+}: {
+  prefersReducedMotion?: boolean;
+  row: TokenReferenceRow;
+  value: string;
+}) {
+  if (row.previewKind === 'color') {
+    return <ColorSwatch value={formatTokenValue(row.rawValue)} />;
+  }
+
+  if (row.previewKind === 'layout-grid-columns') {
+    const columns = Math.max(1, Math.min(parseTokenNumber(value) ?? 4, 12));
+    const cells: ReactNode[] = [];
+
+    for (let cellNumber = 1; cellNumber <= columns; cellNumber += 1) {
+      cells.push(
+        <span className='token-preview__layout-grid-cell' key={`${row.token}-${cellNumber}`} />,
+      );
+    }
+
+    return (
+      <span className='token-preview token-preview--frame token-preview--layout-grid'>
+        <span
+          className='token-preview__layout-grid'
+          style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+        >
+          {cells}
+        </span>
+      </span>
+    );
+  }
+
+  if (row.previewKind === 'layout-gutter') {
+    const gutterPx = Math.max(parseLengthPx(value) ?? 16, 2);
+    const gutterForPreview = Math.min(gutterPx, 48);
+
+    return (
+      <span className='token-preview token-preview--frame token-preview--layout-gutter'>
+        <span
+          className='token-preview__layout-gutter'
+          style={{
+            paddingLeft: `${gutterForPreview}px`,
+            paddingRight: `${gutterForPreview}px`,
+          }}
+        >
+          <span className='token-preview__layout-gutter-content'>Content</span>
+        </span>
+      </span>
+    );
+  }
+
+  if (row.previewKind === 'layout-container') {
+    const width = Math.min(Math.max(parseLengthPx(value) ?? 640, 240), 1280);
+    const widthPct = Math.round((width / 1280) * 100);
+
+    return (
+      <span className='token-preview token-preview--frame token-preview--layout-container'>
+        <span
+          className='token-preview__layout-container'
+          style={{ width: `${Math.max(20, Math.min(widthPct, 100))}%` }}
+        />
+      </span>
+    );
+  }
+
   if (row.previewKind === 'spacing') {
     return (
       <span className='token-preview token-preview--frame'>
@@ -191,11 +680,112 @@ function TokenPreview({ row }: { row: ScaleReferenceRow }) {
     );
   }
 
+  if (row.previewKind === 'radius') {
+    return (
+      <span className='token-preview token-preview--frame'>
+        <span
+          className='token-preview__radius'
+          style={{ borderRadius: `var(${row.token})` }}
+          title={value}
+        />
+      </span>
+    );
+  }
+
+  if (row.previewKind === 'size') {
+    const resolvedSize = parseLengthPx(value) ?? 16;
+    const clampedSize = Math.max(12, Math.min(resolvedSize, 48));
+
+    return (
+      <span className='token-preview token-preview--frame'>
+        <span
+          className='token-preview__size'
+          style={{
+            height: `${clampedSize}px`,
+            width: `${clampedSize}px`,
+          }}
+          title={value}
+        />
+      </span>
+    );
+  }
+
+  if (row.previewKind === 'stroke') {
+    return (
+      <span className='token-preview token-preview--frame'>
+        <span
+          className='token-preview__stroke'
+          style={{ borderWidth: `var(${row.token})` }}
+          title={value}
+        />
+      </span>
+    );
+  }
+
+  if (row.previewKind === 'motion-duration') {
+    const durationMs = Math.max(parseDurationMs(value) ?? 0, 0);
+    const shouldAnimate = !prefersReducedMotion && durationMs > 0;
+
+    return (
+      <MotionSweepPreview
+        animation={`hoite-docs-motion-sweep ${durationMs}ms var(--motion-easing-standard) infinite alternate`}
+        shouldAnimate={shouldAnimate}
+      />
+    );
+  }
+
+  if (row.previewKind === 'motion-easing') {
+    return (
+      <MotionSweepPreview
+        animation={`hoite-docs-motion-sweep var(--motion-duration-slow, 240ms) ${value} infinite alternate`}
+        shouldAnimate={!prefersReducedMotion}
+      />
+    );
+  }
+
   if (row.previewKind === 'typography-size') {
     return (
       <span className='token-preview token-preview--text'>
         <span className='token-preview__type-size' style={{ fontSize: `var(${row.token})` }}>
           Aa
+        </span>
+      </span>
+    );
+  }
+
+  if (row.previewKind === 'typography-family') {
+    return (
+      <span className='token-preview token-preview--text'>
+        <span className='token-preview__type-family' style={{ fontFamily: `var(${row.token})` }}>
+          The quick brown fox jumps over the lazy dog.
+        </span>
+      </span>
+    );
+  }
+
+  if (row.previewKind === 'typography-letter-spacing') {
+    return (
+      <span className='token-preview token-preview--text'>
+        <span
+          className='token-preview__type-letter-spacing'
+          style={{ letterSpacing: `var(${row.token})` }}
+        >
+          ALIGN
+        </span>
+      </span>
+    );
+  }
+
+  if (row.previewKind === 'typography-paragraph-spacing') {
+    return (
+      <span className='token-preview token-preview--text'>
+        <span className='token-preview__type-paragraph-spacing'>
+          <span>Paragraph</span>
+          <span
+            className='token-preview__type-paragraph-gap'
+            style={{ height: `var(${row.token})` }}
+          />
+          <span>Spacing</span>
         </span>
       </span>
     );
@@ -212,11 +802,19 @@ function TokenPreview({ row }: { row: ScaleReferenceRow }) {
     );
   }
 
+  if (row.previewKind === 'typography-weight') {
+    return (
+      <span className='token-preview token-preview--text'>
+        <span className='token-preview__type-weight' style={{ fontWeight: `var(${row.token})` }}>
+          Aa
+        </span>
+      </span>
+    );
+  }
+
   return (
     <span className='token-preview token-preview--text'>
-      <span className='token-preview__type-weight' style={{ fontWeight: `var(${row.token})` }}>
-        Aa
-      </span>
+      <span className='token-preview__text-value'>{value}</span>
     </span>
   );
 }
@@ -291,24 +889,94 @@ function CodeBlockSample({
 
 function TokenReferenceTable({
   heading,
+  hidePreviewColumn = false,
+  prefersReducedMotion,
   rows,
 }: {
-  heading: string;
-  rows: readonly ScaleReferenceRow[];
+  heading?: string;
+  hidePreviewColumn?: boolean;
+  prefersReducedMotion?: boolean;
+  rows: readonly TokenReferenceRow[];
 }) {
-  const resolvedValues = useResolvedCssValues(resolvedScaleTokens);
-  const sectionId = `token-${heading.toLowerCase()}`;
+  const resolvedValues = useResolvedCssValues(resolvedReferenceTokens);
+  const tableClassName = hidePreviewColumn
+    ? 'token-table token-table--value token-table--without-preview'
+    : 'token-table token-table--value';
 
   return (
-    <section className='docs-surface docs-surface--flush' id={sectionId}>
-      <DocSectionHeading>{heading}</DocSectionHeading>
+    <section className='docs-surface docs-surface--flush docs-token-section'>
+      {heading ? <DocSubsectionHeading>{heading}</DocSubsectionHeading> : null}
       <div className='token-table-wrap'>
-        <table className='token-table'>
+        <table className={tableClassName}>
+          <colgroup>
+            <col className='token-table__col-token' />
+            <col className='token-table__col-value' />
+            {hidePreviewColumn ? null : <col className='token-table__col-preview' />}
+            <col className='token-table__col-description' />
+          </colgroup>
           <thead>
             <tr>
               <th>Token</th>
               <th>Resolved value</th>
-              <th>Preview</th>
+              {hidePreviewColumn ? null : <th>Preview</th>}
+              <th>Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => {
+              const resolvedValue = resolvedValues[row.token] || `var(${row.token})`;
+
+              return (
+                <tr key={row.token}>
+                  <td data-label='Token'>
+                    <TokenCode>{row.token}</TokenCode>
+                  </td>
+                  <td data-label='Resolved value'>
+                    <TokenCode className='token-code--wrap'>{resolvedValue}</TokenCode>
+                  </td>
+                  {hidePreviewColumn ? null : (
+                    <td data-label='Preview'>
+                      <TokenPreview
+                        prefersReducedMotion={prefersReducedMotion}
+                        row={row}
+                        value={resolvedValue}
+                      />
+                    </td>
+                  )}
+                  <td data-label='Use'>{row.description}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+function ThemedColorReferenceTable({
+  heading,
+  rows,
+}: {
+  heading?: string;
+  rows: readonly ThemedColorReferenceRow[];
+}) {
+  return (
+    <section className='docs-surface docs-surface--flush docs-token-section'>
+      {heading ? <DocSubsectionHeading>{heading}</DocSubsectionHeading> : null}
+      <div className='token-table-wrap'>
+        <table className='token-table token-table--color'>
+          <colgroup>
+            <col className='token-table__col-token' />
+            <col className='token-table__col-color' />
+            <col className='token-table__col-color' />
+            <col className='token-table__col-description' />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Light</th>
+              <th>Dark</th>
               <th>Use</th>
             </tr>
           </thead>
@@ -319,11 +987,17 @@ function TokenReferenceTable({
                   <td data-label='Token'>
                     <TokenCode>{row.token}</TokenCode>
                   </td>
-                  <td data-label='Resolved value'>
-                    <TokenCode>{resolvedValues[row.token] || `var(${row.token})`}</TokenCode>
+                  <td data-label='Light'>
+                    <span className='token-color-cell'>
+                      <ColorSwatch value={row.lightValue} />
+                      <TokenCode className='token-code--wrap'>{row.lightValue}</TokenCode>
+                    </span>
                   </td>
-                  <td data-label='Preview'>
-                    <TokenPreview row={row} />
+                  <td data-label='Dark'>
+                    <span className='token-color-cell'>
+                      <ColorSwatch value={row.darkValue} />
+                      <TokenCode className='token-code--wrap'>{row.darkValue}</TokenCode>
+                    </span>
                   </td>
                   <td data-label='Use'>{row.description}</td>
                 </tr>
@@ -336,48 +1010,108 @@ function TokenReferenceTable({
   );
 }
 
-function ThemeColorReferenceTable() {
+export function DocsPageHero({
+  actions,
+  eyebrow,
+  meta,
+  metrics,
+  panels,
+  summary,
+  title,
+}: {
+  actions: readonly DocsHeroAction[];
+  eyebrow: string;
+  meta?: string;
+  metrics: readonly DocsHeroMetric[];
+  panels: readonly DocsHeroPanel[];
+  summary: string;
+  title: string;
+}) {
+  const resolvedValues = useResolvedCssValues(metrics.map((metric) => metric.token));
+
   return (
-    <section className='docs-surface docs-surface--flush' id='token-color'>
-      <DocSectionHeading>Color</DocSectionHeading>
-      <div className='token-table-wrap'>
-        <table className='token-table'>
-          <thead>
-            <tr>
-              <th>Token</th>
-              <th>Light</th>
-              <th>Dark</th>
-              <th>Use</th>
-            </tr>
-          </thead>
-          <tbody>
-            {themeColorReferenceRows.map((row) => {
-              const lightValue = hoiteThemeColorValues.light[row.key];
-              const darkValue = hoiteThemeColorValues.dark[row.key];
+    <section className='docs-hero-surface'>
+      <div className='docs-hero-grid'>
+        <div className='docs-hero-copy'>
+          <p className='docs-eyebrow'>{eyebrow}</p>
+          <div className='docs-hero-metrics'>
+            {metrics.map((metric) => {
+              const resolvedValue = resolvedValues[metric.token] || `var(${metric.token})`;
 
               return (
-                <tr key={row.token}>
-                  <td data-label='Token'>
-                    <TokenCode>{row.token}</TokenCode>
-                  </td>
-                  <td data-label='Light'>
-                    <span className='token-color-cell'>
-                      <ColorSwatch value={lightValue} />
-                      <TokenCode>{lightValue}</TokenCode>
-                    </span>
-                  </td>
-                  <td data-label='Dark'>
-                    <span className='token-color-cell'>
-                      <ColorSwatch value={darkValue} />
-                      <TokenCode>{darkValue}</TokenCode>
-                    </span>
-                  </td>
-                  <td data-label='Use'>{row.description}</td>
-                </tr>
+                <span className='docs-hero-metric' key={metric.token}>
+                  <span className='docs-hero-metric__label'>{metric.label}</span>
+                  <TokenCode>{resolvedValue}</TokenCode>
+                </span>
               );
             })}
-          </tbody>
-        </table>
+          </div>
+          <h1 className='docs-display-title'>{title}</h1>
+          <p className='docs-display-copy'>{summary}</p>
+          <div className='docs-action-row'>
+            {actions.map((action) => {
+              const tone = action.tone ?? 'secondary';
+
+              return (
+                <Link className={`docs-cta docs-cta--${tone}`} href={action.href} key={action.href}>
+                  {action.label}
+                </Link>
+              );
+            })}
+          </div>
+          {meta ? <p className='docs-hero-meta'>{meta}</p> : null}
+        </div>
+        <div className='docs-hero-panel-stack'>
+          {panels.map((panel) => {
+            const tone = panel.tone ?? 'neutral';
+
+            return (
+              <article className={`docs-hero-panel docs-hero-panel--${tone}`} key={panel.label}>
+                <p className='docs-hero-panel__label'>{panel.label}</p>
+                <p className='docs-hero-panel__body'>{panel.body}</p>
+                {panel.href ? (
+                  <Link className='docs-inline-link' href={panel.href}>
+                    {panel.linkLabel ?? 'Open reference'}
+                  </Link>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function DocsShellGuidanceGrid() {
+  const resolvedValues = useResolvedCssValues(docsShellGuidanceCards.map((card) => card.token));
+
+  return (
+    <section className='docs-surface'>
+      <div className='docs-section-copy'>
+        <p className='docs-eyebrow'>Token setup</p>
+        <DocSectionHeading>How the docs shell should read from the token system</DocSectionHeading>
+        <p className='docs-surface__intro'>
+          These are the token decisions that should drive the docs frame before any page-specific
+          decoration: layout width, gutters, section rhythm, and surface layering.
+        </p>
+      </div>
+      <div className='docs-guidance-grid'>
+        {docsShellGuidanceCards.map((card) => {
+          const resolvedValue = resolvedValues[card.token] || `var(${card.token})`;
+
+          return (
+            <article className='docs-guidance-card' key={card.token}>
+              <p className='docs-guidance-card__eyebrow'>{card.eyebrow}</p>
+              <h3 className='docs-guidance-card__title'>{card.title}</h3>
+              <p className='docs-guidance-card__body'>{card.body}</p>
+              <div className='docs-guidance-card__token'>
+                <TokenCode>{card.token}</TokenCode>
+                <TokenCode>{resolvedValue}</TokenCode>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
@@ -484,7 +1218,7 @@ export function TypographyContractSamples() {
                   <code>{sample.variant}</code>
                   <span>{Tag}</span>
                 </div>
-                <Tag className={className}>Shared {sample.variant} contract</Tag>
+                <Tag className={className}>The quick brown fox jumps over the lazy dog.</Tag>
               </article>
             );
           })}
@@ -521,26 +1255,116 @@ export function CodeBlockContractSamples() {
   );
 }
 
+function TokenSectionTable({
+  hidePreviewColumn = false,
+  prefersReducedMotion = false,
+  slug,
+}: {
+  hidePreviewColumn?: boolean;
+  prefersReducedMotion?: boolean;
+  slug: string;
+}) {
+  const section = tokenReferenceSections.find((candidate) => candidate.slug === slug);
+
+  if (!section) {
+    return null;
+  }
+
+  return (
+    <TokenReferenceTable
+      hidePreviewColumn={hidePreviewColumn}
+      prefersReducedMotion={prefersReducedMotion}
+      rows={section.rows}
+    />
+  );
+}
+
+export function TokenCategoryNav() {
+  return (
+    <section className='docs-surface'>
+      <nav className='token-nav' aria-label='Token categories'>
+        {tokenReferenceNavItems.map((item) => {
+          return (
+            <a className='token-nav__link' href={`#token-${item.slug}`} key={item.slug}>
+              {item.navLabel}
+            </a>
+          );
+        })}
+      </nav>
+    </section>
+  );
+}
+
+export function SemanticColorReferenceSection() {
+  return <ThemedColorReferenceTable rows={semanticColorRows} />;
+}
+
+export function PrimitiveColorReferenceSection() {
+  return <TokenReferenceTable rows={primitiveColorRows} />;
+}
+
+export function LayoutReferenceSection() {
+  return <TokenSectionTable slug='layout' />;
+}
+
+export function SpacingReferenceSection() {
+  return <TokenSectionTable slug='spacing' />;
+}
+
+export function RadiusReferenceSection() {
+  return <TokenSectionTable slug='radius' />;
+}
+
+export function SizeReferenceSection() {
+  return <TokenSectionTable slug='size' />;
+}
+
+export function ZStackReferenceSection() {
+  return <TokenSectionTable hidePreviewColumn slug='z-stack' />;
+}
+
+export function StrokeReferenceSection() {
+  return <TokenSectionTable slug='stroke' />;
+}
+
+export function MotionReferenceSection() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  return (
+    <div className='docs-stack-md'>
+      <label className='token-motion-toggle'>
+        <input
+          checked={prefersReducedMotion}
+          onChange={(event) => {
+            setPrefersReducedMotion(event.target.checked);
+          }}
+          type='checkbox'
+        />
+        Simulate reduced motion
+      </label>
+      <TokenSectionTable prefersReducedMotion={prefersReducedMotion} slug='motion' />
+    </div>
+  );
+}
+
+export function TypographyReferenceSection() {
+  return <TokenSectionTable slug='typography' />;
+}
+
 export function TokenReferenceTables() {
   return (
     <div className='docs-stack-lg'>
-      <section className='docs-surface'>
-        <DocSectionHeading>Browse by category</DocSectionHeading>
-        <nav className='token-nav' aria-label='Token categories'>
-          <a className='token-nav__link' href='#token-color'>
-            Color
-          </a>
-          <a className='token-nav__link' href='#token-spacing'>
-            Spacing
-          </a>
-          <a className='token-nav__link' href='#token-typography'>
-            Typography
-          </a>
-        </nav>
-      </section>
-      <ThemeColorReferenceTable />
-      <TokenReferenceTable heading='Spacing' rows={spacingReferenceRows} />
-      <TokenReferenceTable heading='Typography' rows={typographyReferenceRows} />
+      <TokenCategoryNav />
+      <SemanticColorReferenceSection />
+      <PrimitiveColorReferenceSection />
+      <LayoutReferenceSection />
+      <SpacingReferenceSection />
+      <RadiusReferenceSection />
+      <SizeReferenceSection />
+      <ZStackReferenceSection />
+      <StrokeReferenceSection />
+      <MotionReferenceSection />
+      <TypographyReferenceSection />
     </div>
   );
 }

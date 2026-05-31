@@ -42,7 +42,7 @@ const config: Config = {
   ],
   themeConfig: {
     colorMode: {
-      defaultMode: 'light',
+      defaultMode: 'dark',
       disableSwitch: false,
       respectPrefersColorScheme: false,
     },
@@ -55,28 +55,13 @@ const config: Config = {
       },
       items: [
         {
-          label: 'Design System',
-          position: 'left',
-          to: '/design-system/',
-        },
-        {
-          label: 'Packages',
-          position: 'left',
-          to: '/packages/ui/',
-        },
-        {
-          label: 'Architecture',
-          position: 'left',
-          to: '/architecture/frontend-docs/',
-        },
-        {
           href: 'pathname:///design-system/react/',
-          label: 'React Storybook',
+          label: 'React Docs',
           position: 'right',
         },
         {
           href: 'pathname:///design-system/vue/',
-          label: 'Vue Storybook',
+          label: 'Vue Docs',
           position: 'right',
         },
       ],
@@ -86,6 +71,10 @@ const config: Config = {
         {
           title: 'Docs',
           items: [
+            {
+              label: 'Overview',
+              to: '/',
+            },
             {
               label: 'Design System',
               to: '/design-system/',
@@ -97,7 +86,24 @@ const config: Config = {
           ],
         },
         {
-          title: 'Storybook',
+          title: 'Reference',
+          items: [
+            {
+              label: 'Components',
+              to: '/design-system/components/',
+            },
+            {
+              label: '@hoite-dev/ui',
+              to: '/packages/ui/',
+            },
+            {
+              label: 'Architecture',
+              to: '/architecture/frontend-docs/',
+            },
+          ],
+        },
+        {
+          title: 'Framework Docs',
           items: [
             {
               label: 'React',
@@ -110,6 +116,8 @@ const config: Config = {
           ],
         },
       ],
+      copyright:
+        'Hoite Dev docs shell assembled from shared design-system tokens and package surfaces.',
     },
   } satisfies Preset.ThemeConfig,
 };

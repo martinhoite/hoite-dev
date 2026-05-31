@@ -1,9 +1,23 @@
 ---
 title: Tokens
 sidebar_position: 2
+toc_max_heading_level: 3
 ---
 
-import { TokenReferenceTables } from '@site/src/components/docs';
+import {
+  LayoutReferenceSection,
+  MotionReferenceSection,
+  PrimitiveColorReferenceSection,
+  RadiusReferenceSection,
+  SemanticColorReferenceSection,
+  SizeReferenceSection,
+  SpacingReferenceSection,
+  StrokeReferenceSection,
+  TokenCategoryNav,
+  TokenDisplayHeading,
+  TypographyReferenceSection,
+  ZStackReferenceSection,
+} from '@site/src/components/docs';
 
 # Tokens
 
@@ -11,8 +25,119 @@ Theme-aware token reference for the Hoite Dev design system. These values origin
 
 ## What is shown here
 
-- Light and dark reference values for the core color surface.
-- Representative spacing and typography tokens used most often in product work.
-- Runtime-resolved CSS variable output from the shared theme layer with quick visual previews.
+- Full semantic color reference across light and dark themes.
+- Primitive palette tokens shown alongside the semantic aliases they support.
+- Full exported token groups for layout, z-stack, spacing, radius, size, stroke, motion, and typography.
+- Runtime-resolved CSS variable output from the shared theme layer with visual previews tied to the token type.
 
-<TokenReferenceTables />
+<p className='docs-section-subheading docs-section-subheading--plain'>Quick links</p>
+
+<TokenCategoryNav />
+
+<section className='docs-token-block docs-token-block--color'>
+
+## Color {#token-color}
+
+<TokenDisplayHeading level='section' sticky={false}>Color</TokenDisplayHeading>
+
+<div className='docs-token-subblock'>
+
+### Color - Semantic aliases {#token-color-semantic-aliases}
+
+<TokenDisplayHeading level='subsection'>Color - Semantic aliases</TokenDisplayHeading>
+
+<SemanticColorReferenceSection />
+
+</div>
+
+<div className='docs-token-subblock'>
+
+### Color - Primitive palette {#token-color-primitive-palette}
+
+<TokenDisplayHeading level='subsection'>Color - Primitive palette</TokenDisplayHeading>
+
+<PrimitiveColorReferenceSection />
+
+</div>
+
+</section>
+
+<section className='docs-token-block'>
+
+## Layout {#token-layout}
+
+<TokenDisplayHeading level='section'>Layout</TokenDisplayHeading>
+
+<LayoutReferenceSection />
+
+</section>
+
+<section className='docs-token-block'>
+
+## Spacing {#token-spacing}
+
+<TokenDisplayHeading level='section'>Spacing</TokenDisplayHeading>
+
+<SpacingReferenceSection />
+
+</section>
+
+<section className='docs-token-block'>
+
+## Radius {#token-radius}
+
+<TokenDisplayHeading level='section'>Radius</TokenDisplayHeading>
+
+<RadiusReferenceSection />
+
+</section>
+
+<section className='docs-token-block'>
+
+## Size {#token-size}
+
+<TokenDisplayHeading level='section'>Size</TokenDisplayHeading>
+
+<SizeReferenceSection />
+
+</section>
+
+<section className='docs-token-block'>
+
+## Z-Stack {#token-z-stack}
+
+<TokenDisplayHeading level='section'>Z-Stack</TokenDisplayHeading>
+
+<ZStackReferenceSection />
+
+</section>
+
+<section className='docs-token-block'>
+
+## Stroke {#token-stroke}
+
+<TokenDisplayHeading level='section'>Stroke</TokenDisplayHeading>
+
+<StrokeReferenceSection />
+
+</section>
+
+<section className='docs-token-block'>
+
+## Motion {#token-motion}
+
+<TokenDisplayHeading level='section'>Motion</TokenDisplayHeading>
+
+<MotionReferenceSection />
+
+</section>
+
+<section className='docs-token-block'>
+
+## Typography {#token-typography}
+
+<TokenDisplayHeading level='section'>Typography</TokenDisplayHeading>
+
+<TypographyReferenceSection />
+
+</section>
