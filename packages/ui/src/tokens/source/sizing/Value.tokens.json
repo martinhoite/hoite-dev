@@ -4,7 +4,7 @@
       "xs": {
         "$type": "number",
         "$value": 32,
-        "$description": "\"Recommended height token for xs controls such as buttons",
+        "$description": "Recommended height token for xs controls such as buttons",
         "$extensions": {
           "com.figma.variableId": "VariableID:9:29",
           "com.figma.scopes": [
@@ -18,7 +18,7 @@
       "sm": {
         "$type": "number",
         "$value": 36,
-        "$description": "\"Recommended height token for sm controls such as buttons",
+        "$description": "Recommended height token for sm controls such as buttons",
         "$extensions": {
           "com.figma.variableId": "VariableID:9:30",
           "com.figma.scopes": [
@@ -32,7 +32,7 @@
       "md": {
         "$type": "number",
         "$value": 44,
-        "$description": "\"Recommended height token for md controls such as buttons",
+        "$description": "Recommended height token for md controls such as buttons",
         "$extensions": {
           "com.figma.variableId": "VariableID:9:31",
           "com.figma.scopes": [
@@ -46,7 +46,7 @@
       "lg": {
         "$type": "number",
         "$value": 52,
-        "$description": "\"Recommended height token for lg controls such as buttons",
+        "$description": "Recommended height token for lg controls such as buttons",
         "$extensions": {
           "com.figma.variableId": "VariableID:9:32",
           "com.figma.scopes": [

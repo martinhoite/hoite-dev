@@ -27,7 +27,7 @@
             "targetVariableId": "VariableID:35ce0d31cf9518a06157e986740d608848a7498d/-1:-1",
             "targetVariableName": "neutral/50",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -57,7 +57,7 @@
             "targetVariableId": "VariableID:400a199586c1120100fafb4daa092cd7ca3ef640/-1:-1",
             "targetVariableName": "neutral/100",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -87,7 +87,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -117,7 +117,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -147,7 +147,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -163,7 +163,7 @@
           "alpha": 1,
           "hex": "#FFFFFF"
         },
-        "$description": "\"Default field background for inputs",
+        "$description": "Default field background for inputs",
         "$extensions": {
           "com.figma.variableId": "VariableID:8:7",
           "com.figma.scopes": [
@@ -177,7 +177,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -207,7 +207,7 @@
             "targetVariableId": "VariableID:35ce0d31cf9518a06157e986740d608848a7498d/-1:-1",
             "targetVariableName": "neutral/50",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -237,7 +237,7 @@
             "targetVariableId": "VariableID:400a199586c1120100fafb4daa092cd7ca3ef640/-1:-1",
             "targetVariableName": "neutral/100",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -267,7 +267,7 @@
             "targetVariableId": "VariableID:6ebd047e85739103a3d9e97c61f45a2c63a384b0/-1:-1",
             "targetVariableName": "neutral/900",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -297,7 +297,7 @@
             "targetVariableId": "VariableID:81c7ae129f9ddc6c8af0865935f71bdba60a1043/-1:-1",
             "targetVariableName": "brand/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -327,7 +327,7 @@
             "targetVariableId": "VariableID:c7836c9675c56e40e92625adbfa8c9de0a0e2336/-1:-1",
             "targetVariableName": "brand/600",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -357,7 +357,7 @@
             "targetVariableId": "VariableID:9061dac68f1eaf0a275d71be0b430d97c3300481/-1:-1",
             "targetVariableName": "brand/800",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -387,7 +387,7 @@
             "targetVariableId": "VariableID:a4f4082bb27d278b7b26e460d07c0061fa5fea95/-1:-1",
             "targetVariableName": "brand/100",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -403,7 +403,7 @@
           "alpha": 1,
           "hex": "#D9E2E7"
         },
-        "$description": "\"Neutral fill for quiet controls",
+        "$description": "Neutral fill for quiet controls",
         "$extensions": {
           "com.figma.variableId": "VariableID:8:15",
           "com.figma.scopes": [
@@ -417,7 +417,7 @@
             "targetVariableId": "VariableID:db1f0f2f0983ad5859e65baf3c67238c4001b1d8/-1:-1",
             "targetVariableName": "neutral/200",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -447,7 +447,7 @@
             "targetVariableId": "VariableID:a451f7cf4125defcf55f1416f526a295a8d84e00/-1:-1",
             "targetVariableName": "neutral/300",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -477,7 +477,7 @@
             "targetVariableId": "VariableID:dc51719ef521e63e59ebc61b7a9ee3e2b79b6d13/-1:-1",
             "targetVariableName": "neutral/400",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -493,7 +493,7 @@
           "alpha": 1,
           "hex": "#DBE8F3"
         },
-        "$description": "\"Selection background for chosen rows",
+        "$description": "Selection background for chosen rows",
         "$extensions": {
           "com.figma.variableId": "VariableID:8:18",
           "com.figma.scopes": [
@@ -507,7 +507,7 @@
             "targetVariableId": "VariableID:a4f4082bb27d278b7b26e460d07c0061fa5fea95/-1:-1",
             "targetVariableName": "brand/100",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -537,7 +537,7 @@
             "targetVariableId": "VariableID:1d02873b92a327f8050bd57ce8a9168e0a660837/-1:-1",
             "targetVariableName": "success/100",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -567,7 +567,7 @@
             "targetVariableId": "VariableID:39c5dd0d5683748b031ca09d7099b3323b3a463e/-1:-1",
             "targetVariableName": "warning/100",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -597,7 +597,7 @@
             "targetVariableId": "VariableID:eb5987d37257558b59fc447a5c57ae7b0e6a208e/-1:-1",
             "targetVariableName": "danger/100",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -613,7 +613,7 @@
           "alpha": 1,
           "hex": "#A84A31"
         },
-        "$description": "\"Primary accent fill for editorial emphasis",
+        "$description": "Primary accent fill for editorial emphasis",
         "$extensions": {
           "com.figma.variableId": "VariableID:177:10",
           "com.figma.scopes": [
@@ -627,7 +627,7 @@
             "targetVariableId": "VariableID:0f19498ade094e518a8a8e0202c8664384bcc465/-1:-1",
             "targetVariableName": "accent/600",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -657,7 +657,7 @@
             "targetVariableId": "VariableID:63e5b2c6ee877409b97b3d7d3b54ed2b00f88f57/-1:-1",
             "targetVariableName": "accent/100",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -687,7 +687,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       }
@@ -718,7 +718,7 @@
             "targetVariableId": "VariableID:6ebd047e85739103a3d9e97c61f45a2c63a384b0/-1:-1",
             "targetVariableName": "neutral/900",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -747,7 +747,7 @@
             "targetVariableId": "VariableID:909c6f878eec1dd4f352f10923673aa0097dcae5/-1:-1",
             "targetVariableName": "neutral/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -776,7 +776,7 @@
             "targetVariableId": "VariableID:d656a20d7e7be389430668b6e5e81107d5460f9a/-1:-1",
             "targetVariableName": "neutral/600",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -792,7 +792,7 @@
           "alpha": 1,
           "hex": "#6C7A86"
         },
-        "$description": "\"Text color for disabled labels",
+        "$description": "Text color for disabled labels",
         "$extensions": {
           "com.figma.variableId": "VariableID:8:25",
           "com.figma.scopes": [
@@ -805,7 +805,7 @@
             "targetVariableId": "VariableID:d656a20d7e7be389430668b6e5e81107d5460f9a/-1:-1",
             "targetVariableName": "neutral/600",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -834,7 +834,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -863,7 +863,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -892,7 +892,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -921,7 +921,7 @@
             "targetVariableId": "VariableID:81c7ae129f9ddc6c8af0865935f71bdba60a1043/-1:-1",
             "targetVariableName": "brand/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -950,7 +950,7 @@
             "targetVariableId": "VariableID:05f298c88b2d8e35e83c1e6c64424a97c7aa84d1/-1:-1",
             "targetVariableName": "success/800",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -979,7 +979,7 @@
             "targetVariableId": "VariableID:7b01c750dc93e081bb10b09eb36e3a08bfbdadcf/-1:-1",
             "targetVariableName": "warning/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1008,7 +1008,7 @@
             "targetVariableId": "VariableID:6427cc9fcc4f22f42149f070a95d20ae8a23f6df/-1:-1",
             "targetVariableName": "danger/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1037,7 +1037,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1066,7 +1066,7 @@
             "targetVariableId": "VariableID:41aeb273112e21e5ac64edfb7c3ecbac059a7a60/-1:-1",
             "targetVariableName": "accent/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1095,7 +1095,7 @@
             "targetVariableId": "VariableID:3273f417ee4d9c2a673737e5562d1add7c9f44ae/-1:-1",
             "targetVariableName": "info/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1124,7 +1124,7 @@
             "targetVariableId": "VariableID:f1b58b2963a7c0f8318e1789c0a5b6ed12bfe804/-1:-1",
             "targetVariableName": "info/800",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1153,7 +1153,7 @@
             "targetVariableId": "VariableID:0aaf1b0cbbe065604450bc549aa6f43a644f1ec4/-1:-1",
             "targetVariableName": "visited/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       }
@@ -1171,7 +1171,7 @@
           "alpha": 1,
           "hex": "#222222"
         },
-        "$description": "\"Default icon color for primary actions",
+        "$description": "Default icon color for primary actions",
         "$extensions": {
           "com.figma.variableId": "VariableID:8:33",
           "com.figma.scopes": [
@@ -1185,7 +1185,7 @@
             "targetVariableId": "VariableID:6ebd047e85739103a3d9e97c61f45a2c63a384b0/-1:-1",
             "targetVariableName": "neutral/900",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1215,7 +1215,7 @@
             "targetVariableId": "VariableID:909c6f878eec1dd4f352f10923673aa0097dcae5/-1:-1",
             "targetVariableName": "neutral/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1245,7 +1245,7 @@
             "targetVariableId": "VariableID:d656a20d7e7be389430668b6e5e81107d5460f9a/-1:-1",
             "targetVariableName": "neutral/600",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1275,7 +1275,7 @@
             "targetVariableId": "VariableID:d656a20d7e7be389430668b6e5e81107d5460f9a/-1:-1",
             "targetVariableName": "neutral/600",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1305,7 +1305,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1335,7 +1335,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1365,7 +1365,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1395,7 +1395,7 @@
             "targetVariableId": "VariableID:81c7ae129f9ddc6c8af0865935f71bdba60a1043/-1:-1",
             "targetVariableName": "brand/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1425,7 +1425,7 @@
             "targetVariableId": "VariableID:803b88c8d73c1b230de1809fe1c80bd01f0d2f05/-1:-1",
             "targetVariableName": "neutral/0",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1455,7 +1455,7 @@
             "targetVariableId": "VariableID:41aeb273112e21e5ac64edfb7c3ecbac059a7a60/-1:-1",
             "targetVariableName": "accent/700",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       }
@@ -1486,7 +1486,7 @@
             "targetVariableId": "VariableID:400a199586c1120100fafb4daa092cd7ca3ef640/-1:-1",
             "targetVariableName": "neutral/100",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1515,7 +1515,7 @@
             "targetVariableId": "VariableID:db1f0f2f0983ad5859e65baf3c67238c4001b1d8/-1:-1",
             "targetVariableName": "neutral/200",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1544,7 +1544,7 @@
             "targetVariableId": "VariableID:dc51719ef521e63e59ebc61b7a9ee3e2b79b6d13/-1:-1",
             "targetVariableName": "neutral/400",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1573,7 +1573,7 @@
             "targetVariableId": "VariableID:5385e05fd60829a3be60f4ff1888c5f061a9ffe5/-1:-1",
             "targetVariableName": "info/500",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1602,7 +1602,7 @@
             "targetVariableId": "VariableID:c7836c9675c56e40e92625adbfa8c9de0a0e2336/-1:-1",
             "targetVariableName": "brand/600",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1631,7 +1631,7 @@
             "targetVariableId": "VariableID:5da0f5c9bac8857b3aaed18e258587e18f25d4d0/-1:-1",
             "targetVariableName": "danger/500",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1660,7 +1660,7 @@
             "targetVariableId": "VariableID:eea8a220989f76d8df1b5392a47a4260d2b1136d/-1:-1",
             "targetVariableName": "success/500",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1689,7 +1689,7 @@
             "targetVariableId": "VariableID:7e7b679aa09e1062ec4f93bad42e0f8bde91e9c1/-1:-1",
             "targetVariableName": "accent/500",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1718,7 +1718,7 @@
             "targetVariableId": "VariableID:d0da3751e1dc17ba26feb921696773fa234cd0d3/-1:-1",
             "targetVariableName": "warning/500",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       }
@@ -1749,7 +1749,7 @@
             "targetVariableId": "VariableID:5385e05fd60829a3be60f4ff1888c5f061a9ffe5/-1:-1",
             "targetVariableName": "info/500",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       }
@@ -1781,7 +1781,7 @@
             "targetVariableId": "VariableID:78992f72984696388549af8eebb1a47444787177/-1:-1",
             "targetVariableName": "black-alpha/4",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       },
@@ -1811,7 +1811,7 @@
             "targetVariableId": "VariableID:62c7442c93b00e813f37035d56602e55319369c5/-1:-1",
             "targetVariableName": "black-alpha/8",
             "targetVariableSetId": "VariableCollectionId:8a4cabcf4b9bce94c1bf4171d939cde72d1febfc/-1:-1",
-            "targetVariableSetName": "Primitives"
+            "targetVariableSetName": "Primitive"
           }
         }
       }

@@ -39,6 +39,7 @@ export const tokenConfig = {
     'size',
     'spacing',
     'typography',
+    'z-stack',
   ]),
   remBasePx: 16,
   themeLayerName,
@@ -72,6 +73,13 @@ export const sectionDefinitions = [
     presenter: 'Spacing',
     selector: ':root',
     title: 'Size',
+  },
+  {
+    key: 'z-stack',
+    layerName: `${layerNamePrefix}.z-stack`,
+    presenter: 'Spacing',
+    selector: ':root',
+    title: 'Z Stack',
   },
   {
     key: 'stroke',
@@ -154,6 +162,7 @@ export const tokenSources = [
   'spacing/Value.tokens.json',
   'stroke/Value.tokens.json',
   'typography/Value.tokens.json',
+  'z-stack/Value.tokens.json',
 ];
 
 export const themeVariants = [

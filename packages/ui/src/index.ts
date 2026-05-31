@@ -8,6 +8,7 @@ import sizingTokens from './tokens/source/sizing/Value.tokens.json';
 import spacingTokens from './tokens/source/spacing/Value.tokens.json';
 import strokeTokens from './tokens/source/stroke/Value.tokens.json';
 import typographyTokens from './tokens/source/typography/Value.tokens.json';
+import zStackTokens from './tokens/source/z-stack/Value.tokens.json';
 
 export {
   resolveActionIconSize,
@@ -100,6 +101,7 @@ export const tokens = {
   spacing: spacingTokens.spacing,
   stroke: strokeTokens,
   typography: typographyTokens.typography,
+  zStack: zStackTokens['z-stack'],
 } as const;
 
 export const tokenThemes = tokens.color;
@@ -172,3 +174,4 @@ export type SizeTokens = typeof tokens.size;
 export type SpacingTokens = typeof tokens.spacing;
 export type StrokeTokens = typeof tokens.stroke;
 export type TypographyTokens = typeof tokens.typography;
+export type ZStackTokens = typeof tokens.zStack;

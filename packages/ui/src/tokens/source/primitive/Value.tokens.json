@@ -256,9 +256,6 @@
         "$description": "Primitive neutral tone 925. Deep editor-like neutral step for semantic aliases that need a darker surface than neutral 900 without dropping fully to neutral 950; avoid binding this token directly in components unless you are extending the system palette.",
         "$extensions": {
           "com.figma.variableId": "VariableID:1160:426",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
           "com.figma.codeSyntax": {
             "WEB": "var(--primitive-neutral-925)"
           }
@@ -1310,7 +1307,7 @@
           "alpha": 0.07999999821186066,
           "hex": "#FFFFFF"
         },
-        "$description": "\"Primitive white overlay at 8% opacity. Use through semantic aliases for overlays",
+        "$description": "Primitive white overlay at 8% opacity. Use through semantic aliases for overlays",
         "$extensions": {
           "com.figma.variableId": "VariableID:6:51",
           "com.figma.codeSyntax": {
@@ -1330,7 +1327,7 @@
           "alpha": 0.11999999731779099,
           "hex": "#FFFFFF"
         },
-        "$description": "\"Primitive white overlay at 12% opacity. Use through semantic aliases for overlays",
+        "$description": "Primitive white overlay at 12% opacity. Use through semantic aliases for overlays",
         "$extensions": {
           "com.figma.variableId": "VariableID:6:52",
           "com.figma.codeSyntax": {
@@ -1350,7 +1347,7 @@
           "alpha": 0.1599999964237213,
           "hex": "#FFFFFF"
         },
-        "$description": "\"Primitive white overlay at 16% opacity. Use through semantic aliases for overlays",
+        "$description": "Primitive white overlay at 16% opacity. Use through semantic aliases for overlays",
         "$extensions": {
           "com.figma.variableId": "VariableID:6:53",
           "com.figma.codeSyntax": {
@@ -1372,7 +1369,7 @@
           "alpha": 0.03999999910593033,
           "hex": "#000000"
         },
-        "$description": "\"Primitive black overlay at 4% opacity. Use through semantic aliases for overlays",
+        "$description": "Primitive black overlay at 4% opacity. Use through semantic aliases for overlays",
         "$extensions": {
           "com.figma.variableId": "VariableID:6:54",
           "com.figma.codeSyntax": {
@@ -1392,7 +1389,7 @@
           "alpha": 0.07999999821186066,
           "hex": "#000000"
         },
-        "$description": "\"Primitive black overlay at 8% opacity. Use through semantic aliases for overlays",
+        "$description": "Primitive black overlay at 8% opacity. Use through semantic aliases for overlays",
         "$extensions": {
           "com.figma.variableId": "VariableID:6:55",
           "com.figma.codeSyntax": {
@@ -1412,7 +1409,7 @@
           "alpha": 0.11999999731779099,
           "hex": "#000000"
         },
-        "$description": "\"Primitive black overlay at 12% opacity. Use through semantic aliases for overlays",
+        "$description": "Primitive black overlay at 12% opacity. Use through semantic aliases for overlays",
         "$extensions": {
           "com.figma.variableId": "VariableID:6:56",
           "com.figma.codeSyntax": {
@@ -1432,7 +1429,7 @@
           "alpha": 0.1599999964237213,
           "hex": "#000000"
         },
-        "$description": "\"Primitive black overlay at 16% opacity. Use through semantic aliases for overlays",
+        "$description": "Primitive black overlay at 16% opacity. Use through semantic aliases for overlays",
         "$extensions": {
           "com.figma.variableId": "VariableID:6:57",
           "com.figma.codeSyntax": {
@@ -1452,7 +1449,7 @@
           "alpha": 0.23999999463558197,
           "hex": "#000000"
         },
-        "$description": "\"Primitive black overlay at 24% opacity. Use through semantic aliases for overlays",
+        "$description": "Primitive black overlay at 24% opacity. Use through semantic aliases for overlays",
         "$extensions": {
           "com.figma.variableId": "VariableID:6:58",
           "com.figma.codeSyntax": {

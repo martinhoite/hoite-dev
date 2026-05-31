@@ -11,8 +11,7 @@
         ],
         "com.figma.codeSyntax": {
           "WEB": "var(--radius-none)"
-        },
-        "com.figma.isOverride": true
+        }
       }
     },
     "xs": {
@@ -26,8 +25,7 @@
         ],
         "com.figma.codeSyntax": {
           "WEB": "var(--radius-xs)"
-        },
-        "com.figma.isOverride": true
+        }
       }
     },
     "sm": {
@@ -41,8 +39,7 @@
         ],
         "com.figma.codeSyntax": {
           "WEB": "var(--radius-sm)"
-        },
-        "com.figma.isOverride": true
+        }
       }
     },
     "md": {
@@ -56,8 +53,7 @@
         ],
         "com.figma.codeSyntax": {
           "WEB": "var(--radius-md)"
-        },
-        "com.figma.isOverride": true
+        }
       }
     },
     "lg": {
@@ -71,8 +67,7 @@
         ],
         "com.figma.codeSyntax": {
           "WEB": "var(--radius-lg)"
-        },
-        "com.figma.isOverride": true
+        }
       }
     },
     "xl": {
@@ -86,14 +81,13 @@
         ],
         "com.figma.codeSyntax": {
           "WEB": "var(--radius-xl)"
-        },
-        "com.figma.isOverride": true
+        }
       }
     },
     "full": {
       "$type": "number",
       "$value": 999,
-      "$description": "\"Fully rounded radius for pills",
+      "$description": "Fully rounded radius for pills",
       "$extensions": {
         "com.figma.variableId": "VariableID:9:45",
         "com.figma.scopes": [
@@ -101,8 +95,7 @@
         ],
         "com.figma.codeSyntax": {
           "WEB": "var(--radius-full)"
-        },
-        "com.figma.isOverride": true
+        }
       }
     }
   },
