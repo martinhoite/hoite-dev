@@ -4,7 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".nuxt/**", ".output/**", "storybook-static/**"]
+      "outputs": ["build/**", "dist/**", ".nuxt/**", ".output/**", "storybook-static/**"]
     },
     "dev": {
       "cache": false,

@@ -1,0 +1,46 @@
+---
+title: Design System
+sidebar_position: 1
+---
+
+import { RouteCardGrid, StorybookLinkList } from '@site/src/components/docs';
+
+# Design System
+
+Shared reference for the Hoite Dev visual contract. This section stays focused on stable tokens, curated component pages, and the implementation entry points that matter in day-to-day product work.
+
+<RouteCardGrid
+  cards={[
+    {
+      body: 'Theme-aware color values plus representative spacing and typography scales.',
+      href: '/design-system/tokens/',
+      label: 'Tokens',
+    },
+    {
+      body: 'Text variants, default semantic mapping, and implementation links for shared typography.',
+      href: '/design-system/components/typography/',
+      label: 'Typography',
+    },
+    {
+      body: 'Shell structure, overflow behavior, and copy-action reference for shared code samples.',
+      href: '/design-system/components/code-block/',
+      label: 'CodeBlock',
+    },
+  ]}
+/>
+
+<StorybookLinkList
+  heading='Open framework documentation'
+  links={[
+    {
+      href: 'pathname:///design-system/react/?path=/docs/primitives-static-typography--docs',
+      label: 'React Typography Docs',
+      summary: 'React prop reference, docs page, examples, and controls for Typography.',
+    },
+    {
+      href: 'pathname:///design-system/vue/?path=/docs/primitives-static-codeblock--docs',
+      label: 'Vue CodeBlock Docs',
+      summary: 'Vue prop reference, docs page, examples, and controls for CodeBlock.',
+    },
+  ]}
+/>

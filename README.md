@@ -28,7 +28,7 @@ Packages live under `packages/*` and provide shared code, styling, configuration
 .
 |- apps/
 |  |- frontend-docs/
-|  |  |- hub/                     # Frontend docs hub for shared design system foundations and refs
+|  |  |- docs/                    # Root docs app for design system foundations and architecture
 |  |  |- shared/                  # Internal workspace package for frontend-docs code shared across multiple Storybook apps
 |  |  |- design-system-react/     # React implementation docs for the shared design system
 |  |  |- design-system-vue/       # Vue implementation docs for the shared design system
@@ -58,7 +58,7 @@ Nuxt SSR site app, using Umbraco as the primary provider of content.
 
 Frontend documentation app for the shared design system and app-specific components.
 
-Frontend docs are developed locally as separate Storybook workspaces. For deployment previews and production, they are built as one static output with the hub and composed Storybook refs served from the same app.
+Frontend docs use a production-shaped architecture. The Docusaurus docs app owns `/`, while the React and Vue Storybooks are independently built and mounted at `/design-system/react/` and `/design-system/vue/`.
 
 ## Umbraco content layer
 
@@ -100,7 +100,7 @@ Shared runtime diagnostics helpers.
 
 ### `packages/storybook-addon-composition-theme`
 
-Storybook addon for synchronizing theme state across the manager, preview, and composed refs.
+Storybook addon for synchronizing theme state across the manager and preview surfaces.
 
 ## Workspace docs
 
@@ -108,7 +108,7 @@ Storybook addon for synchronizing theme state across the manager, preview, and c
 
 - [apps/site-nuxt](./apps/site-nuxt/README.md)
 - [apps/frontend-docs](./apps/frontend-docs/README.md)
-- [apps/frontend-docs/hub](./apps/frontend-docs/hub/README.md)
+- [apps/docs](./apps/docs/README.md)
 - [apps/frontend-docs/design-system-react](./apps/frontend-docs/design-system-react/README.md)
 - [apps/frontend-docs/design-system-vue](./apps/frontend-docs/design-system-vue/README.md)
 - [apps/frontend-docs/site-nuxt-components](./apps/frontend-docs/site-nuxt-components/README.md)

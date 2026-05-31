@@ -1,0 +1,41 @@
+---
+title: Components
+sidebar_position: 3
+---
+
+import { RouteCardGrid, StorybookLinkList } from '@site/src/components/docs';
+
+# Components
+
+Curated reference pages for shared components that benefit from a stable contract page alongside framework-specific Storybook docs.
+
+<RouteCardGrid
+  cards={[
+    {
+      body: 'Text variants, default semantic mapping, visual samples, Storybook docs links, and source links.',
+      href: '/design-system/components/typography/',
+      label: 'Typography',
+    },
+    {
+      body: 'Shared shell, copy-action reference, overflow behavior, Storybook docs links, and source links.',
+      href: '/design-system/components/code-block/',
+      label: 'CodeBlock',
+    },
+  ]}
+/>
+
+<StorybookLinkList
+  heading='Framework docs'
+  links={[
+    {
+      href: 'pathname:///design-system/react/?path=/docs/primitives-static-typography--docs',
+      label: 'React Typography',
+      summary: 'React docs page, stories, and implementation controls for Typography.',
+    },
+    {
+      href: 'pathname:///design-system/vue/?path=/docs/primitives-static-codeblock--docs',
+      label: 'Vue CodeBlock',
+      summary: 'Vue docs page, stories, and implementation controls for CodeBlock.',
+    },
+  ]}
+/>

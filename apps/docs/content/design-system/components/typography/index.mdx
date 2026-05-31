@@ -1,0 +1,53 @@
+---
+title: Typography
+sidebar_position: 4
+---
+
+import {
+  SourceLinksList,
+  StorybookLinkList,
+  TypographyContractSamples,
+  typographySourceLinks,
+} from '@site/src/components/docs';
+
+# Typography
+
+Typography defines the shared text-style contract across the Hoite Dev design system.
+
+This page covers the shared visual contract, representative samples, implementation docs entry points, and direct source links.
+
+## Purpose
+
+Typography gives product surfaces a stable text scale and semantic default mapping across React and Vue.
+
+## Contract highlights
+
+- `variant`, `tag`, and text content are the primary API.
+- Leaving `tag` on the default mapping preserves the intended semantic structure.
+- Passthrough attributes stay deliberate rather than becoming an unrestricted DOM escape hatch.
+
+<TypographyContractSamples />
+
+## Usage notes
+
+- Default tag mappings are intentional and should usually stay intact.
+- Override the tag only when the surrounding document outline or inline semantics require it.
+- Keep playground controls focused on the visible API rather than non-visual attribute noise.
+
+<StorybookLinkList
+  heading='Framework docs'
+  links={[
+    {
+      href: 'pathname:///design-system/react/?path=/docs/primitives-static-typography--docs',
+      label: 'React Storybook docs',
+      summary: 'Props, controls, and implementation examples for the React wrapper.',
+    },
+    {
+      href: 'pathname:///design-system/vue/?path=/docs/primitives-static-typography--docs',
+      label: 'Vue Storybook docs',
+      summary: 'Props, controls, and implementation examples for the Vue wrapper.',
+    },
+  ]}
+/>
+
+<SourceLinksList links={typographySourceLinks} />

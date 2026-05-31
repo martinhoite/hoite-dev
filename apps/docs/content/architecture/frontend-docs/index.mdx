@@ -1,0 +1,59 @@
+---
+title: Frontend Docs Architecture
+sidebar_position: 7
+---
+
+import { SourceLinksList } from '@site/src/components/docs';
+
+# Frontend Docs Architecture
+
+The public docs host serves the main reference site and both framework Storybooks from one origin.
+
+## Public route shape
+
+- `/` serves the Docusaurus docs app.
+- `/design-system/react/` serves the independently built React Storybook.
+- `/design-system/vue/` serves the independently built Vue Storybook.
+
+## Delivery model
+
+- Docusaurus provides the shared reference layer: tokens, package surfaces, curated component pages, and route-level documentation.
+- React Storybook provides the React implementation docs, stories, controls, and accessibility checks.
+- Vue Storybook provides the Vue implementation docs, stories, controls, and accessibility checks.
+
+## Build outputs
+
+The docs build assembles a same-origin static host by copying:
+
+- the Docusaurus root build to `/`
+- the React Storybook build to `/design-system/react/`
+- the Vue Storybook build to `/design-system/vue/`
+
+That keeps the deployed experience unified without coupling the framework Storybooks into one runtime.
+
+## Operational notes
+
+- The docs app remains the root host and controls the mounted output paths.
+- React and Vue Storybooks still build independently and can run as standalone workbenches in development.
+- Same-origin mounting avoids the cross-origin Storybook ref issues that come with separate deployed origins.
+
+<SourceLinksList
+  links={[
+    {
+      label: 'Static host assembly script',
+      path: 'apps/docs/scripts/build-static-host.mjs',
+    },
+    {
+      label: 'Docs Dockerfile',
+      path: 'apps/docs/Dockerfile',
+    },
+    {
+      label: 'Nginx host config',
+      path: 'apps/docs/nginx.default.conf',
+    },
+    {
+      label: 'Docs app config',
+      path: 'apps/docs/docusaurus.config.ts',
+    },
+  ]}
+/>

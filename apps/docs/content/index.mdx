@@ -1,0 +1,58 @@
+---
+title: Hoite Dev Docs
+sidebar_position: 1
+---
+
+import { RouteCardGrid, StorybookLinkList } from '@site/src/components/docs';
+
+# Hoite Dev Docs
+
+Reference for the Hoite Dev design system, including tokens, shared contracts, package surfaces, and the production docs host that mounts the React and Vue Storybooks.
+
+<div className='docs-stack-xl'>
+  <section className='docs-surface'>
+    <div className='docs-section-copy'>
+      <div className='docs-eyebrow'>Reference</div>
+      <h2 className='docs-section-heading'>Start with the shared contract</h2>
+      <div className='docs-surface__intro'>
+        Use docs for the stable design-system surface, then move into the framework Storybooks when
+        you need live props, behavior, controls, and accessibility validation.
+      </div>
+    </div>
+    <RouteCardGrid
+      cards={[
+        {
+          body: 'Token reference, component reference, and implementation entry points.',
+          href: '/design-system/',
+          label: 'Design System',
+        },
+        {
+          body: 'Shared styling foundation, generated CSS custom properties, and related package surfaces.',
+          href: '/packages/ui/',
+          label: 'Packages',
+        },
+        {
+          body: 'Public route shape, mounted Storybook paths, and deployment-facing build wiring.',
+          href: '/architecture/frontend-docs/',
+          label: 'Architecture',
+        },
+      ]}
+    />
+  </section>
+
+  <StorybookLinkList
+    heading='Implementation workbenches'
+    links={[
+      {
+        href: 'pathname:///design-system/react/',
+        label: 'React Storybook',
+        summary: 'Component docs, stories, controls, and accessibility checks for the React implementation package.',
+      },
+      {
+        href: 'pathname:///design-system/vue/',
+        label: 'Vue Storybook',
+        summary: 'Component docs, stories, controls, and accessibility checks for the Vue implementation package.',
+      },
+    ]}
+  />
+</div>

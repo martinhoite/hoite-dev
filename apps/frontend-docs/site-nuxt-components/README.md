@@ -35,6 +35,6 @@ Then open:
 https://site-nuxt-components.local.hoite.dev:6009
 ```
 
-In normal local development, this Storybook runs side by side with the hub instead of being composed automatically.
+In normal local development, this Storybook runs side by side with the docs app instead of being mounted into the same-origin host.
 
-The hub ref for this PoC is currently parked until app-specific docs return to active maintenance. If that surface is restored, use a dedicated ref URL such as `STORYBOOK_SITE_NUXT_COMPONENTS_REF_URL` so app-specific composition remains explicit.
+This PoC is currently parked until app-specific docs return to active maintenance. If that surface is restored, decide its final route deliberately inside the docs-owned architecture instead of reintroducing ref-based composition assumptions.

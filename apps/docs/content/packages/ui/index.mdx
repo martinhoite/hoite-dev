@@ -1,0 +1,66 @@
+---
+title: "@hoite-dev/ui"
+sidebar_position: 6
+---
+
+import { SourceLinksList, StorybookLinkList } from '@site/src/components/docs';
+
+# `@hoite-dev/ui`
+
+`@hoite-dev/ui` is the shared styling foundation for the Hoite Dev design system.
+
+## What ships
+
+- Design token source.
+- Generated CSS custom properties.
+- Themes and compiled shared CSS.
+- CVA definitions and contract-level helpers.
+- Shared docs metadata that belongs with the styling contract.
+- Framework-agnostic utilities such as the CodeBlock highlighting helper.
+
+## Related implementation packages
+
+- `@hoite-dev/ui-react` renders the React components that consume this styling contract.
+- `@hoite-dev/ui-vue` renders the Vue components that consume this styling contract.
+- Both framework packages keep runtime behavior local while sharing tokens, CSS, and contract metadata from this package.
+
+## Why this package matters to docs
+
+The docs app can consume `@hoite-dev/ui` directly for token exports, contract metadata, and visual contract classes. That keeps the public reference aligned with the same source that the framework packages already consume.
+
+<StorybookLinkList
+  heading='Framework workbenches'
+  links={[
+    {
+      href: 'pathname:///design-system/react/',
+      label: 'React Storybook',
+      summary: 'Framework-level component docs, stories, and interaction behavior built on top of @hoite-dev/ui.',
+    },
+    {
+      href: 'pathname:///design-system/vue/',
+      label: 'Vue Storybook',
+      summary: 'Framework-level component docs, stories, and interaction behavior built on top of @hoite-dev/ui.',
+    },
+  ]}
+/>
+
+<SourceLinksList
+  links={[
+    {
+      label: 'Package entry',
+      path: 'packages/ui/src/index.ts',
+    },
+    {
+      label: 'Token build config',
+      path: 'packages/ui/scripts/build.config.mjs',
+    },
+    {
+      label: 'Token source directory',
+      path: 'packages/ui/src/tokens/source',
+    },
+    {
+      label: 'Generated shared CSS',
+      path: 'packages/ui/dist/styles.css',
+    },
+  ]}
+/>

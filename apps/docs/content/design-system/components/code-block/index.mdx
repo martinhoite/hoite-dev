@@ -1,0 +1,54 @@
+---
+title: CodeBlock
+sidebar_position: 5
+---
+
+import {
+  CodeBlockContractSamples,
+  SourceLinksList,
+  StorybookLinkList,
+  codeBlockSourceLinks,
+} from '@site/src/components/docs';
+
+# CodeBlock
+
+CodeBlock defines the shared shell, header, copy affordance, and overflow behavior for reusable code samples in the Hoite Dev design system.
+
+Syntax highlighting comes from shared framework-agnostic utilities in `@hoite-dev/ui`, while the React and Vue packages handle runtime rendering and clipboard state.
+
+## Purpose
+
+CodeBlock provides a consistent container for readable code samples across docs, demos, and product surfaces without pushing framework runtime behavior into the styling layer.
+
+## Contract highlights
+
+- `code` is the raw source input and remains the copy source of truth.
+- `language` drives highlighting metadata and the default visible label.
+- `label` intentionally overrides the visible header text when the copy should read more clearly than the raw language token.
+- `showCopy` exposes the compact header action, while runtime clipboard state stays in the framework wrappers.
+
+<CodeBlockContractSamples />
+
+## Usage notes
+
+- The copy action should expose clear visible and announced success states.
+- Long code stays horizontally scrollable instead of wrapping unpredictably.
+- The outer shell supports a narrow set of passthrough attributes instead of an unrestricted attribute surface.
+
+<StorybookLinkList
+  heading='Framework docs'
+  links={[
+    {
+      href: 'pathname:///design-system/react/?path=/docs/primitives-static-codeblock--docs',
+      label: 'React Storybook docs',
+      summary: 'Props, controls, and copy-action behavior for the React wrapper.',
+    },
+    {
+      href: 'pathname:///design-system/vue/?path=/docs/primitives-static-codeblock--docs',
+      label: 'Vue Storybook docs',
+      summary: 'Props, controls, and copy-action behavior for the Vue wrapper.',
+    },
+  ]}
+/>
+
+<SourceLinksList links={codeBlockSourceLinks} />

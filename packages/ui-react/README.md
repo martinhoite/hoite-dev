@@ -17,7 +17,7 @@ When a visual rule is part of the shared design-system contract, `@hoite-dev/ui-
 
 ## Storybook
 
-Shared foundations such as tokens and contract-level documentation belong in `apps/frontend-docs/hub`.
+Shared foundations such as tokens and contract-level documentation belong in `apps/docs`.
 
 React implementation stories belong in `apps/frontend-docs/design-system-react` and should prove that the React wrappers render the shared contract correctly.
 When a React component docs page should match the Vue docs page, create an attached MDX page in `apps/frontend-docs/design-system-react`.

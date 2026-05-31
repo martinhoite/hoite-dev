@@ -6,8 +6,8 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 
 - If contract meaning/copy changes: update shared docs metadata in `@hoite-dev/ui`.
 - If framework rendering changes: update React/Vue framework stories.
-- If docs page structure changes: update MDX and keep composition through shared docs helpers.
-- If hub contract display changes: update hub overview stories with `hub/src/stories/contractDocs.tsx` helpers.
+- If Docusaurus page structure changes: update the docs app pages and keep the visual samples inside the `@hoite-dev/ui` contract boundary.
+- If framework docs page structure changes: update attached MDX in the relevant Storybook app and keep using shared Storybook docs helpers.
 
 ## Required Reuse
 
@@ -16,7 +16,6 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 - `StoryInfoPanel`, `StoryStack`, and `withStoryStack` from `@hoite-dev/frontend-docs-shared/storybook`
 - `createFrontendDocsPlaygroundParameters(...)` from `@hoite-dev/frontend-docs-shared/storybook`
 - `frontendDocsManagerConfig` from `@hoite-dev/frontend-docs-shared/storybook`
-- `hub/src/stories/contractDocs.tsx`
 - `createFrontendDocsStorybookConfig(...)` from `@hoite-dev/frontend-docs-shared/storybook`
 - `createFrontendDocsAddons(compositionThemeConfig)` from `@hoite-dev/frontend-docs-shared/storybook`
 
@@ -31,7 +30,7 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 - Use `createFrontendDocsPlaygroundParameters(...)` for playground stories so addon-panel visibility stays consistent; override its `addons` option per story when a playground deliberately needs something beyond the default Controls and Accessibility panels.
 - Keep manager toolbar visibility through `frontendDocsManagerConfig`; do not re-enable Reload story, Measure, Outline, or Vision filter unless the current stories verify those tools.
 - Keep `@hoite-dev/ui/*.css` imports local to each Storybook app's `preview.ts`.
-- Keep hub contract stories docs-only and disable controls when they document fixed shared contracts.
+- Keep Docusaurus visual samples simplified and contract-focused; link to Storybook when real behavior, state, or accessibility interaction matters.
 
 ## Theming
 
@@ -44,11 +43,11 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 
 Run relevant checks for touched apps:
 
+- `pnpm --filter @hoite-dev/docs lint`
 - `pnpm --filter @hoite-dev/frontend-docs-design-system-react lint`
 - `pnpm --filter @hoite-dev/frontend-docs-design-system-vue lint`
-- `pnpm --filter @hoite-dev/frontend-docs-hub lint`
 - `pnpm --filter @hoite-dev/frontend-docs-site-nuxt-components lint`
+- `pnpm --filter @hoite-dev/docs typecheck`
 - `pnpm --filter @hoite-dev/frontend-docs-design-system-react typecheck`
 - `pnpm --filter @hoite-dev/frontend-docs-design-system-vue typecheck`
-- `pnpm --filter @hoite-dev/frontend-docs-hub typecheck`
 - `pnpm --filter @hoite-dev/frontend-docs-site-nuxt-components typecheck`

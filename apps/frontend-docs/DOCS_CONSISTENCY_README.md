@@ -3,7 +3,7 @@
 Use this guide when you add or change docs in `apps/frontend-docs`.
 
 Covers:
-- `hub`
+- `docs`
 - `design-system-react`
 - `design-system-vue`
 - `site-nuxt-components` (PoC scope)
@@ -22,10 +22,10 @@ If you want the short execution checklist for automation or fast implementation 
   - Update shared docs metadata in `@hoite-dev/ui` (for example `iconDocs`, `loadingDocs`, `typographyDocs`).
 - Framework rendering or behavior changed:
   - Update framework stories (`*.stories.tsx` for React, `*.stories.ts` for Vue).
-- Public docs page composition changed:
+- Public framework docs page composition changed:
   - Update `*.docs.mdx`, but keep rendering through shared docs helpers.
-- Hub contract layout/table/chip presentation changed:
-  - Update hub overview stories using `hub/src/stories/contractDocs.tsx` helpers.
+- Root docs page structure or contract sample presentation changed:
+  - Update the Docusaurus docs app and keep the visual samples inside the `@hoite-dev/ui` contract boundary.
 
 ## Reuse Before Rebuild
 
@@ -43,8 +43,6 @@ Use these shared utilities first:
   - `createFrontendDocsPlaygroundParameters(...)` from `@hoite-dev/frontend-docs-shared/storybook`
 - Manager toolbar configuration:
   - `frontendDocsManagerConfig` from `@hoite-dev/frontend-docs-shared/storybook`
-- Hub contract helpers:
-  - `hub/src/stories/contractDocs.tsx`
 - Storybook app config factory:
   - `createFrontendDocsStorybookConfig(...)` from `@hoite-dev/frontend-docs-shared/storybook`
   - `createFrontendDocsAddons(...)` from `@hoite-dev/frontend-docs-shared/storybook`
@@ -66,17 +64,13 @@ Framework prop naming can follow framework conventions without extra explanation
 React stories may expose `className` while Vue stories expose `class` or component-specific
 `*Class` props for the same styling passthrough intent.
 
-## Hub Contract Workflow
+## Root Docs Workflow
 
-For `hub/src/stories/*Overview.stories.tsx`, prefer:
+For `apps/docs`, prefer:
 
-- `ContractPage`
-- `ContractSection`
-- `ContractTable`
-- `CodeChipList`
-- `ContractSubsection`
-
-These helpers live in `hub/src/stories/contractDocs.tsx` and keep contract pages consistent.
+- shared docs metadata from `@hoite-dev/ui`
+- simplified semantic markup that consumes `@hoite-dev/ui` classes and utilities
+- links to Storybook whenever behavior, controls, accessibility interaction, or framework wiring matters
 
 ## Storybook Setup Rules
 
@@ -99,7 +93,6 @@ These helpers live in `hub/src/stories/contractDocs.tsx` and keep contract pages
 - The shared manager config hides toolbar tools that are not verified for the current stories: Reload story, Measure, Outline, and Vision filter.
 - Use `tags: ['!dev']` for showcase-only stories when needed.
 - Keep live controls focused on meaningful component behavior.
-- Keep hub contract stories docs-only and disable controls when the page exists to document a fixed shared contract rather than an interactive implementation.
 - Keep non-visual passthrough details in docs text or tables.
 
 ## Done Checklist
@@ -110,15 +103,15 @@ A docs change is complete when:
 2. React and Vue remain aligned in structure and intent.
 3. Source links are correct.
 4. Lint and typecheck pass for touched frontend-docs apps.
-5. The related docs are verified working in the composed setup by running Docker when composition or deployment output is affected.
+5. The related docs are verified in the docs-owned same-origin static host when routing or deployment output is affected.
 
 Recommended checks:
 
+- `pnpm --filter @hoite-dev/docs lint`
 - `pnpm --filter @hoite-dev/frontend-docs-design-system-react lint`
 - `pnpm --filter @hoite-dev/frontend-docs-design-system-vue lint`
-- `pnpm --filter @hoite-dev/frontend-docs-hub lint`
 - `pnpm --filter @hoite-dev/frontend-docs-site-nuxt-components lint`
+- `pnpm --filter @hoite-dev/docs typecheck`
 - `pnpm --filter @hoite-dev/frontend-docs-design-system-react typecheck`
 - `pnpm --filter @hoite-dev/frontend-docs-design-system-vue typecheck`
-- `pnpm --filter @hoite-dev/frontend-docs-hub typecheck`
 - `pnpm --filter @hoite-dev/frontend-docs-site-nuxt-components typecheck`

@@ -1,4 +1,5 @@
 packages:
+  - apps/docs
   - apps/site-nuxt
   - apps/frontend-docs/*
   - packages/*

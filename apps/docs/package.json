@@ -1,0 +1,30 @@
+{
+  "name": "@hoite-dev/docs",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "prebuild": "node ./scripts/sync-brand-assets.mjs",
+    "predev": "node ./scripts/sync-brand-assets.mjs",
+    "build": "node ./scripts/run-docusaurus.mjs build",
+    "build:static-host": "node ./scripts/build-static-host.mjs",
+    "dev": "docusaurus start --host docs.local.hoite.dev --port 3030 --no-open",
+    "format": "biome check --write content src static scripts docusaurus.config.ts sidebars.ts package.json tsconfig.json README.md",
+    "lint": "biome check content src static scripts docusaurus.config.ts sidebars.ts package.json tsconfig.json README.md",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@docusaurus/faster": "^3.10.1",
+    "@docusaurus/core": "^3.9.2",
+    "@docusaurus/preset-classic": "^3.9.2",
+    "@hoite-dev/brand-assets": "workspace:*",
+    "@hoite-dev/ui": "workspace:*",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@docusaurus/types": "^3.9.2",
+    "@docusaurus/tsconfig": "^3.9.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3"
+  }
+}
