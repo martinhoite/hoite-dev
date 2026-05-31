@@ -261,6 +261,13 @@ body,
   color: var(--color-text-primary) !important;
 }
 
+.sbdocs-wrapper .sbdocs-content .docblock-argstable-body td code,
+.sbdocs-wrapper .sbdocs-content .docblock-argstable-head th code {
+  overflow-wrap: normal !important;
+  white-space: nowrap;
+  word-break: normal !important;
+}
+
 .sbdocs-wrapper .sbdocs-content .docblock-argstable-head th {
   background: var(--color-bg-subtle) !important;
   border-color: var(--color-border-default) !important;

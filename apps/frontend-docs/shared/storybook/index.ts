@@ -4,13 +4,14 @@ export {
   createFrontendDocsStorybookConfig,
   frontendDocsStoryGlobs,
 } from './config.ts';
-export { withHoitePreviewHead } from './hoitePreviewHead.ts';
+export { withHoiteManagerHead, withHoitePreviewHead } from './hoitePreviewHead.ts';
 export {
   createHoiteStorybookThemeOptions,
   type HoiteStorybookThemeName,
 } from './hoiteStorybookThemeOptions.ts';
 export {
   applyFrontendDocsManagerConfig,
+  applyFrontendDocsManagerTheme,
   frontendDocsHiddenToolbarItems,
   frontendDocsManagerConfig,
   registerFrontendDocsPlaygroundCodeTool,

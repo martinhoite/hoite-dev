@@ -1,5 +1,7 @@
 import type { ComponentType, ReactNode } from 'react';
+import type { AddonStore } from 'storybook/manager-api';
 
+import { createHoiteStorybookThemeOptions } from './hoiteStorybookThemeOptions.ts';
 import {
   applyFrontendDocsPlaygroundCodeVisibilityToDocument,
   applyFrontendDocsPlaygroundCodeVisibilityToPreviewIframes,
@@ -30,17 +32,12 @@ export const frontendDocsManagerConfig = {
   panelPosition: 'right',
 } as const;
 
-type StorybookManagerApi = {
-  setConfig(config: typeof frontendDocsManagerConfig): void;
-};
-
-type StorybookToolbarApi = StorybookManagerApi & {
-  add(id: string, options: never): void;
-  getChannel(): {
-    emit(eventName: string, event: unknown): void;
-  };
-  register(id: string, callback: () => void): void;
-};
+type StorybookManagerConfig = Parameters<AddonStore['setConfig']>[0];
+type StorybookManagerState = Parameters<
+  NonNullable<NonNullable<StorybookManagerConfig['layoutCustomisations']>['showPanel']>
+>[0];
+type StorybookManagerApi = Pick<AddonStore, 'setConfig'>;
+type StorybookToolbarApi = Pick<AddonStore, 'add' | 'getChannel' | 'register' | 'setConfig'>;
 
 type FrontendDocsPlaygroundCodeToolOptions = {
   Button: ComponentType<FrontendDocsPlaygroundCodeButtonProps>;
@@ -67,6 +64,31 @@ const frontendDocsPlaygroundCodeToolId = `${frontendDocsPlaygroundCodeAddonId}/t
 const frontendDocsPlaygroundCodeWindowFlag = '__frontendDocsPlaygroundCodeToolRegistered__';
 const frontendDocsPlaygroundCodeTitle = 'Snippets: Show code snippets in playgrounds for easy copy';
 const storybookPreviewWrapperId = 'storybook-preview-wrapper';
+const contractDocsTag = 'contract-docs';
+
+type StorybookThemeFactory = (
+  options: ReturnType<typeof createHoiteStorybookThemeOptions>,
+) => NonNullable<StorybookManagerConfig['theme']>;
+
+function readCurrentTheme() {
+  if (document.documentElement.getAttribute('data-theme') === 'dark') {
+    return 'dark';
+  }
+
+  return 'light';
+}
+
+function isContractDocsStory(state: StorybookManagerState) {
+  const storyId = state.storyId;
+
+  if (!storyId) {
+    return false;
+  }
+
+  const tags = state.index?.[storyId]?.tags ?? [];
+
+  return tags.includes(contractDocsTag);
+}
 
 function createCodeIcon(React: Pick<typeof import('react'), 'createElement'>): ReactNode {
   return React.createElement(
@@ -107,6 +129,58 @@ function applyPlaygroundCodeVisibility(visibility: FrontendDocsPlaygroundCodeVis
 
 export function applyFrontendDocsManagerConfig(addons: StorybookManagerApi): void {
   addons.setConfig(frontendDocsManagerConfig);
+}
+
+export function applyFrontendDocsManagerTheme(
+  addons: StorybookManagerApi,
+  createTheme: StorybookThemeFactory,
+): void {
+  const themes = {
+    dark: createTheme(createHoiteStorybookThemeOptions('dark')),
+    light: createTheme(createHoiteStorybookThemeOptions('light')),
+  } as const;
+
+  const applyTheme = () => {
+    addons.setConfig({
+      ...frontendDocsManagerConfig,
+      layoutCustomisations: {
+        showPanel(state, defaultValue) {
+          if (isContractDocsStory(state)) {
+            return false;
+          }
+
+          return defaultValue;
+        },
+        showToolbar(state, defaultValue) {
+          if (isContractDocsStory(state)) {
+            return true;
+          }
+
+          return defaultValue;
+        },
+      },
+      theme: themes[readCurrentTheme()],
+    });
+  };
+
+  applyTheme();
+
+  const observer = new MutationObserver((mutations) => {
+    const themeChanged = mutations.some((mutation) => {
+      return mutation.type === 'attributes' && mutation.attributeName === 'data-theme';
+    });
+
+    if (!themeChanged) {
+      return;
+    }
+
+    applyTheme();
+  });
+
+  observer.observe(document.documentElement, {
+    attributeFilter: ['data-theme'],
+    attributes: true,
+  });
 }
 
 export function registerFrontendDocsPlaygroundCodeTool({

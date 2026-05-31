@@ -3,6 +3,7 @@ import {
   createFrontendDocsAddons,
   createFrontendDocsStorybookConfig,
   frontendDocsStoryGlobs,
+  withHoiteManagerHead,
   withHoitePreviewHead,
 } from '@hoite-dev/frontend-docs-shared/storybook';
 import type { StorybookConfig } from '@storybook/vue3-vite';
@@ -21,6 +22,10 @@ const config = createFrontendDocsStorybookConfig<StorybookConfig>({
 
 config.previewHead = (head) => {
   return withHoitePreviewHead(head);
+};
+
+config.managerHead = (head) => {
+  return withHoiteManagerHead(head);
 };
 
 export default config;

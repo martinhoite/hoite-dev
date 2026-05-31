@@ -45,9 +45,9 @@ export function createHoiteStorybookThemeOptions(base: HoiteStorybookThemeName) 
     buttonBorder: colors.buttonBorder,
     colorPrimary: colors.colorPrimary,
     colorSecondary: colors.colorSecondary,
-    fontBase: 'Roboto, Arial, Helvetica, sans-serif',
+    fontBase: 'var(--typography-family-body), Roboto, Arial, Helvetica, sans-serif',
     fontCode:
-      'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+      'var(--typography-family-code), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
     inputBg: colors.inputBg,
     inputBorder: colors.inputBorder,
     inputBorderRadius: 6,
