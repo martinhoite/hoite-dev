@@ -14,7 +14,7 @@ import {
 
 CodeBlock defines the shared shell, header, copy affordance, and overflow behavior for reusable code samples in the Hoite Dev design system.
 
-Syntax highlighting comes from shared framework-agnostic utilities in `@hoite-dev/ui`, while the React and Vue packages handle runtime rendering and clipboard state.
+Syntax highlighting comes from the shared `@hoite-dev/ui` Shiki integration, while the React and Vue packages handle runtime rendering and clipboard state. See [Shiki](https://shiki.style/) for the highlighter itself and the [Shiki theme guide](https://shiki.style/guide/theme-colors) for the theme model the package adapts.
 
 ## Purpose
 
@@ -40,12 +40,12 @@ CodeBlock provides a consistent container for readable code samples across docs,
   links={[
     {
       href: 'pathname:///design-system/react/?path=/docs/primitives-static-codeblock--docs',
-      label: 'React Storybook docs',
+      label: 'React docs',
       summary: 'Props, controls, and copy-action behavior for the React wrapper.',
     },
     {
       href: 'pathname:///design-system/vue/?path=/docs/primitives-static-codeblock--docs',
-      label: 'Vue Storybook docs',
+      label: 'Vue docs',
       summary: 'Props, controls, and copy-action behavior for the Vue wrapper.',
     },
   ]}

@@ -1,0 +1,61 @@
+---
+title: Packages
+sidebar_position: 1
+---
+
+import { RouteCardGrid } from '@site/src/components/docs';
+
+# Packages
+
+Workspace package reference for the Hoite Dev docs stack, shared UI system, and supporting tooling.
+
+## What is covered here
+
+- Shared styling and framework packages for the design system.
+- Tooling packages that support docs, Storybook composition, diagnostics, and linting.
+- Source ownership entry points for the content client and brand asset distribution package.
+
+<RouteCardGrid
+  cards={[
+    {
+      href: '/packages/ui/',
+      label: '@hoite-dev/ui',
+      body: 'Framework-agnostic styling foundation, token exports, themes, shared CSS, and contract metadata.',
+    },
+    {
+      href: '/packages/ui-react/',
+      label: '@hoite-dev/ui-react',
+      body: 'React component implementations built on top of the shared @hoite-dev/ui styling contract.',
+    },
+    {
+      href: '/packages/ui-vue/',
+      label: '@hoite-dev/ui-vue',
+      body: 'Vue component implementations that consume the shared tokens, CSS, and docs metadata.',
+    },
+    {
+      href: '/packages/umbraco-client/',
+      label: '@hoite-dev/umbraco-client',
+      body: 'Typed content client package generated from the Umbraco Delivery API contract.',
+    },
+    {
+      href: '/packages/biome-config/',
+      label: '@hoite-dev/biome-config',
+      body: 'Shared Biome configuration package used across the monorepo.',
+    },
+    {
+      href: '/packages/brand-assets/',
+      label: '@hoite-dev/brand-assets',
+      body: 'Distributed brand marks and favicon assets used by docs and frontend surfaces.',
+    },
+    {
+      href: '/packages/diagnostics/',
+      label: '@hoite-dev/diagnostics',
+      body: 'Small diagnostic helpers and debugging-oriented utilities for the workspace.',
+    },
+    {
+      href: '/packages/storybook-addon-composition-theme/',
+      label: '@hoite-dev/storybook-addon-composition-theme',
+      body: 'Storybook addon package that keeps composed Storybooks aligned with the shared theme contract.',
+    },
+  ]}
+/>

@@ -1,0 +1,52 @@
+---
+title: "@hoite-dev/ui-vue"
+sidebar_position: 4
+---
+
+import { SourceLinksList, StorybookLinkList } from '@site/src/components/docs';
+
+# `@hoite-dev/ui-vue`
+
+`@hoite-dev/ui-vue` provides the Vue component implementations for the Hoite Dev design system.
+
+## What this package owns
+
+- Vue Single File Component implementations for shared primitives.
+- Vue-specific runtime behavior layered on top of the shared styling contract.
+- Public component APIs for Vue and Nuxt consumers.
+
+## Relationship to `@hoite-dev/ui`
+
+The package keeps Vue implementation details local while inheriting tokens, shared CSS, and docs metadata from `@hoite-dev/ui`.
+
+<StorybookLinkList
+  heading='Framework docs'
+  links={[
+    {
+      href: 'pathname:///design-system/vue/',
+      label: 'Vue docs',
+      summary: 'Primary Vue Storybook surface for shared components, controls, and attached docs pages.',
+    },
+  ]}
+/>
+
+<SourceLinksList
+  links={[
+    {
+      label: 'Package entry',
+      path: 'packages/ui-vue/src/index.ts',
+    },
+    {
+      label: 'Primitive components',
+      path: 'packages/ui-vue/src/components/primitives',
+    },
+    {
+      label: 'CodeBlock implementation',
+      path: 'packages/ui-vue/src/components/primitives/static/CodeBlock/CodeBlock.vue',
+    },
+    {
+      label: 'Typography implementation',
+      path: 'packages/ui-vue/src/components/primitives/static/Typography/Typography.vue',
+    },
+  ]}
+/>

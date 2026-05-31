@@ -1,0 +1,52 @@
+---
+title: "@hoite-dev/ui-react"
+sidebar_position: 3
+---
+
+import { SourceLinksList, StorybookLinkList } from '@site/src/components/docs';
+
+# `@hoite-dev/ui-react`
+
+`@hoite-dev/ui-react` provides the React component implementations for the Hoite Dev design system.
+
+## What this package owns
+
+- React wrappers for the shared primitives.
+- Runtime behavior such as clipboard state and framework event handling.
+- React-facing public props that stay aligned with the shared styling contract.
+
+## Relationship to `@hoite-dev/ui`
+
+`@hoite-dev/ui-react` consumes the tokens, CSS, docs metadata, and helper exports from `@hoite-dev/ui` instead of redefining the styling contract locally.
+
+<StorybookLinkList
+  heading='Framework docs'
+  links={[
+    {
+      href: 'pathname:///design-system/react/',
+      label: 'React docs',
+      summary: 'Primary React Storybook surface for shared components, controls, and attached docs pages.',
+    },
+  ]}
+/>
+
+<SourceLinksList
+  links={[
+    {
+      label: 'Package entry',
+      path: 'packages/ui-react/src/index.ts',
+    },
+    {
+      label: 'Primitive components',
+      path: 'packages/ui-react/src/components/primitives',
+    },
+    {
+      label: 'CodeBlock implementation',
+      path: 'packages/ui-react/src/components/primitives/static/CodeBlock/CodeBlock.tsx',
+    },
+    {
+      label: 'Typography implementation',
+      path: 'packages/ui-react/src/components/primitives/static/Typography/Typography.tsx',
+    },
+  ]}
+/>

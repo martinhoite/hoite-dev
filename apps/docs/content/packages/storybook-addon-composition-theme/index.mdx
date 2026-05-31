@@ -1,0 +1,41 @@
+---
+title: "@hoite-dev/storybook-addon-composition-theme"
+sidebar_position: 9
+---
+
+import { SourceLinksList } from '@site/src/components/docs';
+
+# `@hoite-dev/storybook-addon-composition-theme`
+
+`@hoite-dev/storybook-addon-composition-theme` keeps composed Storybook surfaces aligned with the shared theme setup.
+
+## What this package owns
+
+- Storybook addon bootstrap and runtime hooks for theme composition.
+- Manager, preview, and preset entry points for the composition theme workflow.
+- The package boundary for Storybook-specific theme wiring that should not leak into `@hoite-dev/ui`.
+
+<SourceLinksList
+  links={[
+    {
+      label: 'Package entry',
+      path: 'packages/storybook-addon-composition-theme/src/index.ts',
+    },
+    {
+      label: 'Bootstrap',
+      path: 'packages/storybook-addon-composition-theme/src/bootstrap.ts',
+    },
+    {
+      label: 'Manager',
+      path: 'packages/storybook-addon-composition-theme/src/manager.tsx',
+    },
+    {
+      label: 'Preset',
+      path: 'packages/storybook-addon-composition-theme/src/preset.ts',
+    },
+    {
+      label: 'Preview',
+      path: 'packages/storybook-addon-composition-theme/src/preview.ts',
+    },
+  ]}
+/>

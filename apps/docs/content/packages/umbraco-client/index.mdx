@@ -1,0 +1,45 @@
+---
+title: "@hoite-dev/umbraco-client"
+sidebar_position: 5
+---
+
+import { SourceLinksList } from '@site/src/components/docs';
+
+# `@hoite-dev/umbraco-client`
+
+`@hoite-dev/umbraco-client` is the source-oriented content package for the current Umbraco Delivery API integration.
+
+## What this package owns
+
+- Typed Umbraco client creation helpers.
+- Generated OpenAPI transport and doc-type output.
+- Public-facing content helpers and policy configuration around exposed document types.
+
+## Why it matters
+
+This package keeps source-specific Umbraco concerns behind a shared content boundary so app code can stay focused on normalized content consumption.
+
+<SourceLinksList
+  links={[
+    {
+      label: 'Package entry',
+      path: 'packages/umbraco-client/src/index.ts',
+    },
+    {
+      label: 'Client factory',
+      path: 'packages/umbraco-client/src/client/create-umbraco-client.ts',
+    },
+    {
+      label: 'Content client factory',
+      path: 'packages/umbraco-client/src/client/create-umbraco-content-client.ts',
+    },
+    {
+      label: 'Doc type policy',
+      path: 'packages/umbraco-client/src/config/default-doc-type-policy.ts',
+    },
+    {
+      label: 'OpenAPI generation script',
+      path: 'packages/umbraco-client/scripts/generate.mjs',
+    },
+  ]}
+/>

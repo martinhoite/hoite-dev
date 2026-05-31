@@ -1,15 +1,63 @@
 ---
 title: Hoite Dev Docs
+hide_title: true
 sidebar_position: 1
 ---
 
-import { RouteCardGrid, StorybookLinkList } from '@site/src/components/docs';
+import { DocsPageHero, DocsShellGuidanceGrid, RouteCardGrid, StorybookLinkList } from '@site/src/components/docs';
 
-# Hoite Dev Docs
-
-Reference for the Hoite Dev design system, including tokens, shared contracts, package surfaces, and the production docs host that mounts the React and Vue Storybooks.
+<DocsPageHero
+  actions={[
+    {
+      href: '/design-system/',
+      label: 'Review foundations',
+      tone: 'primary',
+    },
+    {
+      href: '/packages/ui/',
+      label: 'Inspect package surfaces',
+      tone: 'secondary',
+    },
+  ]}
+  eyebrow='Docs shell example'
+  meta='Use the stable contract here first, then move into the framework Storybooks when you need live props, behaviors, and accessibility validation.'
+  metrics={[
+    {
+      label: 'Desktop frame',
+      token: '--layout-container-max',
+    },
+    {
+      label: 'Desktop gutter',
+      token: '--layout-gutter-desktop',
+    },
+    {
+      label: 'Section rhythm',
+      token: '--spacing-64',
+    },
+  ]}
+  panels={[
+    {
+      body: 'Token reference, component pages, package ownership, and route-level architecture aligned to the shared design contract.',
+      href: '/design-system/',
+      label: 'Reference surface',
+      linkLabel: 'Open docs',
+      tone: 'brand',
+    },
+    {
+      body: 'React and Vue Storybooks stay mounted as implementation workbenches under the same public host, not as separate design directions.',
+      href: 'pathname:///design-system/react/',
+      label: 'Implementation workbenches',
+      linkLabel: 'Open React Storybook',
+      tone: 'accent',
+    },
+  ]}
+  summary='Reference for the Hoite Dev design system, built from the same layout, spacing, surface, and typography tokens the component system already ships.'
+  title='Shared docs should read like a composed product surface, not a reskinned default docs app.'
+/>
 
 <div className='docs-stack-xl'>
+  <DocsShellGuidanceGrid />
+
   <section className='docs-surface'>
     <div className='docs-section-copy'>
       <div className='docs-eyebrow'>Reference</div>

@@ -1,0 +1,32 @@
+---
+title: "@hoite-dev/biome-config"
+sidebar_position: 6
+---
+
+import { SourceLinksList } from '@site/src/components/docs';
+
+# `@hoite-dev/biome-config`
+
+`@hoite-dev/biome-config` is the shared Biome configuration package used across the monorepo.
+
+## What this package owns
+
+- The reusable Biome base configuration consumed by apps and packages.
+- A single place to evolve linting and formatting defaults without duplicating repo-wide config.
+
+<SourceLinksList
+  links={[
+    {
+      label: 'Package manifest',
+      path: 'packages/biome-config/package.json',
+    },
+    {
+      label: 'Shared config',
+      path: 'packages/biome-config/base.json',
+    },
+    {
+      label: 'Package README',
+      path: 'packages/biome-config/README.md',
+    },
+  ]}
+/>

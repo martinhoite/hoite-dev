@@ -20,7 +20,20 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Packages',
-      items: ['packages/ui/index'],
+      link: {
+        type: 'doc',
+        id: 'packages/index',
+      },
+      items: [
+        'packages/ui/index',
+        'packages/ui-react/index',
+        'packages/ui-vue/index',
+        'packages/umbraco-client/index',
+        'packages/biome-config/index',
+        'packages/brand-assets/index',
+        'packages/diagnostics/index',
+        'packages/storybook-addon-composition-theme/index',
+      ],
     },
     {
       type: 'category',

@@ -1,46 +1,101 @@
 ---
 title: Design System
+hide_title: true
 sidebar_position: 1
 ---
 
-import { RouteCardGrid, StorybookLinkList } from '@site/src/components/docs';
+import {
+  DocsPageHero,
+  DocsShellGuidanceGrid,
+  RouteCardGrid,
+  StorybookLinkList,
+} from '@site/src/components/docs';
 
-# Design System
-
-Shared reference for the Hoite Dev visual contract. This section stays focused on stable tokens, curated component pages, and the implementation entry points that matter in day-to-day product work.
-
-<RouteCardGrid
-  cards={[
+<DocsPageHero
+  actions={[
     {
-      body: 'Theme-aware color values plus representative spacing and typography scales.',
       href: '/design-system/tokens/',
-      label: 'Tokens',
+      label: 'Browse tokens',
+      tone: 'primary',
     },
     {
-      body: 'Text variants, default semantic mapping, and implementation links for shared typography.',
-      href: '/design-system/components/typography/',
-      label: 'Typography',
-    },
-    {
-      body: 'Shell structure, overflow behavior, and copy-action reference for shared code samples.',
-      href: '/design-system/components/code-block/',
-      label: 'CodeBlock',
+      href: '/design-system/components/',
+      label: 'Open component reference',
+      tone: 'secondary',
     },
   ]}
+  eyebrow='Shared contract'
+  meta='The docs layer should stay focused on stable contract surfaces, while framework Storybooks handle implementation controls and runtime validation.'
+  metrics={[
+    {
+      label: 'Desktop columns',
+      token: '--layout-grid-desktop-columns',
+    },
+    {
+      label: 'Section gap',
+      token: '--spacing-32',
+    },
+    {
+      label: 'Surface accent',
+      token: '--color-bg-brand-subtle',
+    },
+  ]}
+  panels={[
+    {
+      body: 'Theme-aware color, layout, spacing, and typography values that should drive the shell before any component-specific treatment.',
+      href: '/design-system/tokens/',
+      label: 'Token reference',
+      linkLabel: 'Open tokens',
+      tone: 'brand',
+    },
+    {
+      body: 'Curated contract pages stay narrow and intentional so the stable design-system surface is obvious before implementation details take over.',
+      href: '/design-system/components/',
+      label: 'Curated component pages',
+      linkLabel: 'Open components',
+      tone: 'neutral',
+    },
+  ]}
+  summary='Shared reference for the Hoite Dev visual contract, using the same shell logic as the product-facing examples: framed layout, quiet surface stacking, and clear editorial hierarchy.'
+  title='The design-system docs should be anchored by tokens first, then by components and implementation links.'
 />
 
-<StorybookLinkList
-  heading='Open framework documentation'
-  links={[
-    {
-      href: 'pathname:///design-system/react/?path=/docs/primitives-static-typography--docs',
-      label: 'React Typography Docs',
-      summary: 'React prop reference, docs page, examples, and controls for Typography.',
-    },
-    {
-      href: 'pathname:///design-system/vue/?path=/docs/primitives-static-codeblock--docs',
-      label: 'Vue CodeBlock Docs',
-      summary: 'Vue prop reference, docs page, examples, and controls for CodeBlock.',
-    },
-  ]}
-/>
+<div className='docs-stack-xl'>
+  <DocsShellGuidanceGrid />
+
+  <RouteCardGrid
+    cards={[
+      {
+        body: 'Theme-aware color values plus representative layout, spacing, and typography scales.',
+        href: '/design-system/tokens/',
+        label: 'Tokens',
+      },
+      {
+        body: 'Text variants, default semantic mapping, and implementation links for shared typography.',
+        href: '/design-system/components/typography/',
+        label: 'Typography',
+      },
+      {
+        body: 'Shell structure, overflow behavior, and copy-action reference for shared code samples.',
+        href: '/design-system/components/code-block/',
+        label: 'CodeBlock',
+      },
+    ]}
+  />
+
+  <StorybookLinkList
+    heading='Open framework documentation'
+    links={[
+      {
+        href: 'pathname:///design-system/react/?path=/docs/primitives-static-typography--docs',
+        label: 'React Typography Docs',
+        summary: 'React prop reference, docs page, examples, and controls for Typography.',
+      },
+      {
+        href: 'pathname:///design-system/vue/?path=/docs/primitives-static-codeblock--docs',
+        label: 'Vue CodeBlock Docs',
+        summary: 'Vue prop reference, docs page, examples, and controls for CodeBlock.',
+      },
+    ]}
+  />
+</div>
