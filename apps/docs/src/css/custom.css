@@ -1118,7 +1118,12 @@ body {
 
 .docs-token-block {
   display: grid;
-  gap: var(--spacing-32);
+  gap: var(--spacing-24);
+  padding-bottom: var(--spacing-40);
+}
+
+.docs-token-block:last-child {
+  padding-bottom: 0;
 }
 
 .docs-token-subblock {
@@ -1126,29 +1131,26 @@ body {
   gap: var(--spacing-16);
 }
 
-/* Keep real markdown headings as TOC/anchor targets and render sticky labels separately. */
 .docs-token-block > h2[id^="token-"],
 .docs-token-subblock > h3[id^="token-"] {
-  block-size: 0;
-  clip-path: inset(50%);
-  margin: 0;
-  overflow: hidden;
-  padding: 0;
-  position: relative;
-  scroll-margin-top: calc(var(--ifm-navbar-height) + var(--spacing-16));
-  white-space: nowrap;
-}
-
-.docs-token-display-heading {
-  align-items: center;
-  background: var(--docs-shell-surface);
-  box-shadow: 0 1px 0 var(--docs-shell-border);
-  display: flex;
+  background: var(--ifm-background-color);
   margin: 0;
   padding-block: var(--spacing-12);
+  position: relative;
+  scroll-margin-top: calc(var(--ifm-navbar-height) + var(--spacing-16));
 }
 
-.docs-token-display-heading--section {
+.docs-token-block > h2[id^="token-"]::before,
+.docs-token-subblock > h3[id^="token-"]::before {
+  content: "";
+  display: block;
+  height: calc(var(--ifm-navbar-height) + var(--spacing-16));
+  margin-top: calc(-1 * (var(--ifm-navbar-height) + var(--spacing-16)));
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.docs-token-block > h2[id^="token-"] {
   font-family: var(--typography-family-heading);
   font-size: clamp(var(--typography-size-24), 2vw, 1.75rem);
   line-height: 1.05;
@@ -1158,7 +1160,7 @@ body {
   z-index: var(--z-stack-sticky);
 }
 
-.docs-token-display-heading--subsection {
+.docs-token-subblock > h3[id^="token-"] {
   font-family: var(--typography-family-heading);
   font-size: var(--typography-size-20);
   line-height: 1.1;
@@ -1168,11 +1170,8 @@ body {
   z-index: var(--z-stack-sticky);
 }
 
-.docs-token-display-heading--static {
-  background: transparent;
-  box-shadow: none;
+.docs-token-block--color > h2[id^="token-"] {
   min-block-size: 0;
-  padding-block: 0;
   position: static;
 }
 

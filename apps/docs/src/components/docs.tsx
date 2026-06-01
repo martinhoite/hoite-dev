@@ -549,28 +549,6 @@ function DocSubsectionHeading({ children }: { children: ReactNode }) {
   return <h3 className='docs-section-subheading'>{children}</h3>;
 }
 
-export function TokenDisplayHeading({
-  children,
-  level,
-  sticky = true,
-}: {
-  children: ReactNode;
-  level: 'section' | 'subsection';
-  sticky?: boolean;
-}) {
-  const classNames = ['docs-token-display-heading', `docs-token-display-heading--${level}`];
-
-  if (!sticky) {
-    classNames.push('docs-token-display-heading--static');
-  }
-
-  return (
-    <div aria-hidden='true' className={classNames.join(' ')}>
-      {children}
-    </div>
-  );
-}
-
 function ColorSwatch({ value }: { value: string }) {
   return <span className='token-swatch' style={{ backgroundColor: value }} title={value} />;
 }
