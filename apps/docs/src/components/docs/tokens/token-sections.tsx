@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { primitiveColorRows, semanticColorRows } from './data';
-import { TokenCategoryNav } from './token-nav';
 import { ThemedColorReferenceTable, TokenReferenceTable, TokenSectionTable } from './token-tables';
 
 export function SemanticColorReferenceSection() {
@@ -57,22 +56,4 @@ export function MotionReferenceSection() {
 
 export function TypographyReferenceSection() {
   return <TokenSectionTable slug='typography' />;
-}
-
-export function TokenReferenceTables() {
-  return (
-    <div className='docs-stack-lg'>
-      <TokenCategoryNav />
-      <SemanticColorReferenceSection />
-      <PrimitiveColorReferenceSection />
-      <LayoutReferenceSection />
-      <SpacingReferenceSection />
-      <RadiusReferenceSection />
-      <SizeReferenceSection />
-      <ZStackReferenceSection />
-      <StrokeReferenceSection />
-      <MotionReferenceSection />
-      <TypographyReferenceSection />
-    </div>
-  );
 }

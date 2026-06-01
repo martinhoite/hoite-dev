@@ -18,7 +18,6 @@ export {
   SizeReferenceSection,
   SpacingReferenceSection,
   StrokeReferenceSection,
-  TokenReferenceTables,
   TypographyReferenceSection,
   ZStackReferenceSection,
 } from './tokens/token-sections';

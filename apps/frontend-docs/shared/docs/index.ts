@@ -1,2 +1,2 @@
-export { DesignSystemDocsPage } from './DesignSystemDocsPage.tsx';
-export { FrameworkComponentDocsPage } from './FrameworkComponentDocsPage.tsx';
+export { DesignSystemDocsPage } from './DesignSystemDocsPage';
+export { FrameworkComponentDocsPage } from './FrameworkComponentDocsPage';

@@ -1,17 +1,14 @@
 import { TokenCode } from '../shared/presentation';
-import { DocSubsectionHeading } from '../shared/section-headings';
 import { useResolvedCssValues } from '../shared/use-resolved-css-values';
 import { getTokenSection, resolvedReferenceTokens } from './data';
 import { TokenPreview } from './token-preview';
 import type { ThemedColorReferenceRow, TokenReferenceRow } from './types';
 
 export function TokenReferenceTable({
-  heading,
   hidePreviewColumn = false,
   prefersReducedMotion,
   rows,
 }: {
-  heading?: string;
   hidePreviewColumn?: boolean;
   prefersReducedMotion?: boolean;
   rows: readonly TokenReferenceRow[];
@@ -23,7 +20,6 @@ export function TokenReferenceTable({
 
   return (
     <section className='docs-surface docs-surface--flush docs-token-section'>
-      {heading ? <DocSubsectionHeading>{heading}</DocSubsectionHeading> : null}
       <div className='token-table-wrap'>
         <table className={tableClassName}>
           <colgroup>
@@ -72,16 +68,9 @@ export function TokenReferenceTable({
   );
 }
 
-export function ThemedColorReferenceTable({
-  heading,
-  rows,
-}: {
-  heading?: string;
-  rows: readonly ThemedColorReferenceRow[];
-}) {
+export function ThemedColorReferenceTable({ rows }: { rows: readonly ThemedColorReferenceRow[] }) {
   return (
     <section className='docs-surface docs-surface--flush docs-token-section'>
-      {heading ? <DocSubsectionHeading>{heading}</DocSubsectionHeading> : null}
       <div className='token-table-wrap'>
         <table className='token-table token-table--color'>
           <colgroup>

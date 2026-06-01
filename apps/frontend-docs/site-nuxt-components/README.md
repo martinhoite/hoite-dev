@@ -2,7 +2,7 @@
 
 `@hoite-dev/frontend-docs-site-nuxt-components` is a small integration PoC for app-specific component documentation from `apps/site-nuxt`.
 
-It exists to prove that app-owned Storybooks can build static output, resolve shared styling dependencies, and share the frontend-docs infrastructure. It should not be presented as a complete or mature component docs surface yet.
+It exists to prove that app-owned Storybooks can build static output, resolve shared styling dependencies, and share the frontend-docs infrastructure. It should not be presented as a complete or mature public docs surface.
 
 ## Scope
 
@@ -35,6 +35,6 @@ Then open:
 https://site-nuxt-components.local.hoite.dev:6009
 ```
 
-In normal local development, this Storybook runs side by side with the docs app instead of being mounted into the same-origin host.
+In normal local development, this Storybook runs side by side with the docs app as an independent workbench instead of being mounted into the same-origin host.
 
 This PoC is currently parked until app-specific docs return to active maintenance. If that surface is restored, decide its final route deliberately inside the docs-owned architecture instead of reintroducing ref-based composition assumptions.

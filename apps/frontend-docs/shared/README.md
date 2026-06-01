@@ -9,4 +9,6 @@ It owns:
 - shared Storybook manager toolbar visibility through `frontendDocsManagerConfig`
 - the Storybook preparation script exposed through `@hoite-dev/frontend-docs-shared/storybook/prepareStorybook`
 
-It depends on `@hoite-dev/ui` for shared design-system contracts and on the composition-theme addon for shared Storybook theming behavior. Framework implementation stories stay in their respective Storybook apps while root explanation pages live in `apps/docs`.
+It depends on `@hoite-dev/ui` for shared design-system contracts and on the composition-theme addon for shared Storybook theming behavior.
+
+It does not own the root public docs architecture. `apps/docs` owns the Docusaurus explanation, reference, and architecture layer at `/`, while the frontend-docs Storybooks stay focused on framework implementation workbenches.

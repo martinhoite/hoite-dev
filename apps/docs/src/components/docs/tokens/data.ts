@@ -139,7 +139,6 @@ function flattenTokenGroup({
         previewKind: inferTokenPreviewKind(section, path, value.$type),
         rawValue: value.$value,
         token,
-        type: value.$type,
       },
     ];
   }
@@ -252,7 +251,6 @@ export const primitiveColorRows = flattenTokenGroup({
 
 export const tokenReferenceSections: readonly TokenSection[] = [
   {
-    heading: 'Layout',
     navLabel: 'Layout',
     rows: flattenTokenGroup({
       path: ['layout'],
@@ -262,7 +260,6 @@ export const tokenReferenceSections: readonly TokenSection[] = [
     slug: 'layout',
   },
   {
-    heading: 'Spacing',
     navLabel: 'Spacing',
     rows: flattenTokenGroup({
       path: ['spacing'],
@@ -272,7 +269,6 @@ export const tokenReferenceSections: readonly TokenSection[] = [
     slug: 'spacing',
   },
   {
-    heading: 'Radius',
     navLabel: 'Radius',
     rows: flattenTokenGroup({
       path: ['radius'],
@@ -282,7 +278,6 @@ export const tokenReferenceSections: readonly TokenSection[] = [
     slug: 'radius',
   },
   {
-    heading: 'Size',
     navLabel: 'Size',
     rows: flattenTokenGroup({
       path: ['size'],
@@ -292,7 +287,6 @@ export const tokenReferenceSections: readonly TokenSection[] = [
     slug: 'size',
   },
   {
-    heading: 'Z-stack',
     navLabel: 'Z-stack',
     rows: flattenTokenGroup({
       path: ['z-stack'],
@@ -302,7 +296,6 @@ export const tokenReferenceSections: readonly TokenSection[] = [
     slug: 'z-stack',
   },
   {
-    heading: 'Stroke',
     navLabel: 'Stroke',
     rows: flattenTokenGroup({
       path: ['stroke'],
@@ -312,7 +305,6 @@ export const tokenReferenceSections: readonly TokenSection[] = [
     slug: 'stroke',
   },
   {
-    heading: 'Motion',
     navLabel: 'Motion',
     rows: flattenTokenGroup({
       path: ['motion'],
@@ -322,7 +314,6 @@ export const tokenReferenceSections: readonly TokenSection[] = [
     slug: 'motion',
   },
   {
-    heading: 'Typography',
     navLabel: 'Typography',
     rows: flattenTokenGroup({
       path: ['typography'],

@@ -34,11 +34,9 @@ export type TokenReferenceRow = {
   previewKind: TokenPreviewKind;
   rawValue: unknown;
   token: string;
-  type: string;
 };
 
 export type TokenSection = {
-  heading: string;
   navLabel: string;
   rows: readonly TokenReferenceRow[];
   slug: string;
