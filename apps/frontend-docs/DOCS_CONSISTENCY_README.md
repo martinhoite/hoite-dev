@@ -1,9 +1,9 @@
 ﻿# Frontend Docs Consistency Guide
 
-Use this guide when you add or change docs in `apps/frontend-docs`.
+Use this guide when you add or change frontend docs across `apps/docs` and the Storybook apps under `apps/frontend-docs`.
 
 Covers:
-- `docs`
+- `apps/docs`
 - `design-system-react`
 - `design-system-vue`
 - `site-nuxt-components` (PoC scope)
@@ -20,12 +20,12 @@ If you want the short execution checklist for automation or fast implementation 
 
 - Contract meaning or docs copy changed:
   - Update shared docs metadata in `@hoite-dev/ui` (for example `iconDocs`, `loadingDocs`, `typographyDocs`).
+- Root explanation, route structure, architecture wording, or simplified contract/reference samples changed:
+  - Update `apps/docs` and keep those samples inside the `@hoite-dev/ui` contract boundary.
 - Framework rendering or behavior changed:
   - Update framework stories (`*.stories.tsx` for React, `*.stories.ts` for Vue).
 - Public framework docs page composition changed:
   - Update `*.docs.mdx`, but keep rendering through shared docs helpers.
-- Root docs page structure or contract sample presentation changed:
-  - Update the Docusaurus docs app and keep the visual samples inside the `@hoite-dev/ui` contract boundary.
 
 ## Reuse Before Rebuild
 
@@ -70,7 +70,10 @@ For `apps/docs`, prefer:
 
 - shared docs metadata from `@hoite-dev/ui`
 - simplified semantic markup that consumes `@hoite-dev/ui` classes and utilities
+- simplified contract/reference samples rather than full framework implementation behavior
 - links to Storybook whenever behavior, controls, accessibility interaction, or framework wiring matters
+
+`apps/docs` owns the root explanation and reference layer. Storybook owns interactive implementation behavior and framework-specific proof.
 
 ## Storybook Setup Rules
 

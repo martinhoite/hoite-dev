@@ -1,10 +1,11 @@
 ﻿# Frontend Docs Consistency Agent Notes
 
-Use this as a fast execution checklist when changing docs under `apps/frontend-docs`.
+Use this as a fast execution checklist when changing frontend docs across `apps/docs` and the Storybook apps under `apps/frontend-docs`.
 
 ## Routing
 
 - If contract meaning/copy changes: update shared docs metadata in `@hoite-dev/ui`.
+- If root explanation, route structure, architecture wording, or simplified contract/reference samples change: update `apps/docs`.
 - If framework rendering changes: update React/Vue framework stories.
 - If Docusaurus page structure changes: update the docs app pages and keep the visual samples inside the `@hoite-dev/ui` contract boundary.
 - If framework docs page structure changes: update attached MDX in the relevant Storybook app and keep using shared Storybook docs helpers.
@@ -30,7 +31,8 @@ Use this as a fast execution checklist when changing docs under `apps/frontend-d
 - Use `createFrontendDocsPlaygroundParameters(...)` for playground stories so addon-panel visibility stays consistent; override its `addons` option per story when a playground deliberately needs something beyond the default Controls and Accessibility panels.
 - Keep manager toolbar visibility through `frontendDocsManagerConfig`; do not re-enable Reload story, Measure, Outline, or Vision filter unless the current stories verify those tools.
 - Keep `@hoite-dev/ui/*.css` imports local to each Storybook app's `preview.ts`.
-- Keep Docusaurus visual samples simplified and contract-focused; link to Storybook when real behavior, state, or accessibility interaction matters.
+- Keep `apps/docs` focused on simplified contract/reference samples; link to Storybook when real behavior, state, or accessibility interaction matters.
+- Keep Storybook focused on interactive implementation behavior and framework-specific rendering proof.
 
 ## Theming
 

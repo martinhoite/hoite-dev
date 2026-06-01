@@ -7,7 +7,7 @@ import { SourceLinksList } from '@site/src/components/docs';
 
 # Frontend Docs Architecture
 
-The public docs host serves the main reference site and both framework Storybooks from one origin.
+The public docs host serves the Docusaurus root docs app and both framework Storybooks from one origin.
 
 ## Public route shape
 
@@ -17,9 +17,10 @@ The public docs host serves the main reference site and both framework Storybook
 
 ## Delivery model
 
-- Docusaurus provides the shared reference layer: tokens, package surfaces, curated component pages, and route-level documentation.
+- Docusaurus provides the shared explanation and reference layer: tokens, package surfaces, curated component pages, route-level documentation, and simplified contract/reference samples.
 - React Storybook provides the React implementation docs, stories, controls, and accessibility checks.
 - Vue Storybook provides the Vue implementation docs, stories, controls, and accessibility checks.
+- Interactive implementation behavior stays in Storybook instead of being duplicated in Docusaurus.
 
 ## Build outputs
 
@@ -33,7 +34,7 @@ That keeps the deployed experience unified without coupling the framework Storyb
 
 ## Operational notes
 
-- The docs app remains the root host and controls the mounted output paths.
+- The docs app remains the root host, owns the `/` route, and controls the mounted output paths.
 - React and Vue Storybooks still build independently and can run as standalone workbenches in development.
 - Same-origin mounting avoids the cross-origin Storybook ref issues that come with separate deployed origins.
 

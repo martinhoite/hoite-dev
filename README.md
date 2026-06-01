@@ -27,8 +27,8 @@ Packages live under `packages/*` and provide shared code, styling, configuration
 ```text
 .
 |- apps/
+|  |- docs/                       # Root docs app for design system foundations, reference, and architecture
 |  |- frontend-docs/
-|  |  |- docs/                    # Root docs app for design system foundations and architecture
 |  |  |- shared/                  # Internal workspace package for frontend-docs code shared across multiple Storybook apps
 |  |  |- design-system-react/     # React implementation docs for the shared design system
 |  |  |- design-system-vue/       # Vue implementation docs for the shared design system

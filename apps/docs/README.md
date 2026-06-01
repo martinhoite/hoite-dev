@@ -5,7 +5,7 @@
 It is implemented with Docusaurus and owns:
 
 - the root `/` route
-- design-system explanation pages
+- the root explanation and reference layer
 - token and package-boundary documentation
 - architecture documentation
 - simplified visual contract samples that stay within `@hoite-dev/ui`
