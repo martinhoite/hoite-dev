@@ -16,8 +16,8 @@
     "@hoite-dev/frontend-docs-shared": "workspace:*",
     "@hoite-dev/ui": "workspace:*",
     "@hoite-dev/ui-react": "workspace:*",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@hoite-dev/storybook-addon-composition-theme": "workspace:*",
@@ -25,7 +25,7 @@
     "@storybook/addon-docs": "^10.4.0",
     "@storybook/react-vite": "^10.4.0",
     "@tailwindcss/vite": "^4.3.0",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
     "storybook": "^10.4.0",
     "tailwindcss": "^4.3.0",
