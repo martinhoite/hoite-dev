@@ -374,6 +374,10 @@ body {
   padding: var(--spacing-24);
 }
 
+.docs-surface--stackable + .docs-surface--stackable {
+  margin-top: var(--spacing-24);
+}
+
 [data-theme="dark"] .docs-surface {
   background: var(--docs-shell-surface);
 }
