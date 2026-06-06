@@ -1,0 +1,42 @@
+.tokenChipList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-12);
+}
+
+.tokenChip {
+  background: color-mix(in srgb, var(--color-bg-code) 88%, var(--color-bg-brand-subtle) 12%);
+  border: 1px solid var(--docs-shell-border);
+  border-radius: var(--docs-shell-control-radius);
+  padding: 0.45rem 0.75rem;
+}
+
+.typographySampleGrid {
+  display: grid;
+  gap: var(--spacing-16);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.typographySampleCard {
+  background: var(--docs-shell-surface-raised);
+  border: 1px solid var(--docs-shell-border);
+  border-radius: var(--docs-shell-panel-radius);
+  color: inherit;
+  display: grid;
+  gap: var(--spacing-12);
+  min-width: 0;
+  padding: var(--spacing-20);
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.typographySampleMeta {
+  align-items: center;
+  color: var(--color-text-secondary);
+  display: flex;
+  gap: var(--spacing-12);
+  justify-content: space-between;
+}

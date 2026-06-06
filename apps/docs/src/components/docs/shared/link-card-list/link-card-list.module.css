@@ -1,0 +1,44 @@
+.gridBase {
+  display: grid;
+  gap: var(--spacing-16);
+}
+
+.routeGrid {
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.storyGrid {
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+}
+
+.card {
+  background: var(--docs-shell-surface-raised);
+  border: 1px solid var(--docs-shell-border);
+  border-radius: var(--docs-shell-panel-radius);
+  color: inherit;
+  display: grid;
+  gap: var(--spacing-12);
+  min-width: 0;
+  padding: var(--spacing-20);
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--ifm-color-primary) 60%, var(--color-border-default) 40%);
+  box-shadow: var(--docs-shell-panel-shadow);
+  transform: translateY(-2px);
+}
+
+.label {
+  font-family: var(--typography-family-heading);
+  font-size: var(--typography-size-20);
+  line-height: 1;
+}
+
+.body {
+  color: var(--color-text-secondary);
+}

@@ -1,6 +1,6 @@
 import { codeBlockDocs, typographyDocs } from '@hoite-dev/ui';
-import { DocSectionHeading } from './section-headings';
-import type { SourceLink } from './types';
+import type { SourceLink } from '../types';
+import styles from './source-links.module.css';
 
 const REPO_BASE_URL = 'https://github.com/martinhoite/hoite-dev/blob/master/';
 
@@ -8,34 +8,25 @@ function createSourceUrl(path: string) {
   return `${REPO_BASE_URL}${path.replace(/^\/+/, '')}`;
 }
 
-export function SourceLinksList({
-  heading = 'Source',
-  links,
-}: {
-  heading?: string;
-  links: readonly SourceLink[];
-}) {
+export function SourceLinksList({ links }: { links: readonly SourceLink[] }) {
   return (
-    <section className='docs-surface docs-surface--stackable'>
-      <DocSectionHeading>{heading}</DocSectionHeading>
-      <ul className='source-link-list'>
-        {links.map((link) => {
-          return (
-            <li className='source-link-item' key={link.path}>
-              <a
-                className='source-link-anchor'
-                href={createSourceUrl(link.path)}
-                rel='noreferrer'
-                target='_blank'
-              >
-                <span className='source-link-label'>{link.label}</span>
-                <code className='source-link-path'>{link.path}</code>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
+    <ul className={styles.list}>
+      {links.map((link) => {
+        return (
+          <li className={styles.item} key={link.path}>
+            <a
+              className={styles.anchor}
+              href={createSourceUrl(link.path)}
+              rel='noreferrer'
+              target='_blank'
+            >
+              <span className={styles.label}>{link.label}</span>
+              <code className={styles.path}>{link.path}</code>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 

@@ -1,13 +1,22 @@
-export { CodeBlockContractSamples, TypographyContractSamples } from './shared/contract-samples';
+export {
+  CodeBlockReferenceSamples,
+  TypographySupportedTags,
+  TypographyVisualSamples,
+} from './shared/contract-samples';
+export {
+  ContractStorybookLinks,
+  RouteCardGrid,
+  StorybookLinkList,
+  StorybookLinksSection,
+} from './shared/link-card-list';
 export { DocsPageHero } from './shared/page-hero';
-export { RouteCardGrid } from './shared/route-card-grid';
 export {
   codeBlockSourceLinks,
   SourceLinksList,
   typographySourceLinks,
 } from './shared/source-links';
-export { StorybookLinkList } from './shared/storybook-link-list';
 export { DocsShellGuidanceGrid } from './tokens/docs-shell-guidance-grid';
+export { TokenAnchorScroll } from './tokens/token-anchor-scroll';
 export { TokenCategoryNav } from './tokens/token-nav';
 export {
   LayoutReferenceSection,

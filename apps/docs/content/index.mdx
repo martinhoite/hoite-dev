@@ -4,7 +4,7 @@ hide_title: true
 sidebar_position: 1
 ---
 
-import { DocsPageHero, DocsShellGuidanceGrid, RouteCardGrid, StorybookLinkList } from '@site/src/components/docs';
+import { DocsPageHero, DocsShellGuidanceGrid, RouteCardGrid, StorybookLinksSection } from '@site/src/components/docs';
 
 <DocsPageHero
   actions={[
@@ -37,7 +37,7 @@ import { DocsPageHero, DocsShellGuidanceGrid, RouteCardGrid, StorybookLinkList }
   ]}
   panels={[
     {
-      body: 'Token reference, component pages, package ownership, and route-level architecture aligned to the shared design contract.',
+      body: 'Token reference, contract pages, package ownership, and route-level architecture aligned to the shared design contract.',
       href: '/design-system/',
       label: 'Reference surface',
       linkLabel: 'Open docs',
@@ -70,7 +70,7 @@ import { DocsPageHero, DocsShellGuidanceGrid, RouteCardGrid, StorybookLinkList }
     <RouteCardGrid
       cards={[
         {
-          body: 'Token reference, component reference, and implementation entry points.',
+          body: 'Token reference, contract reference, and implementation entry points.',
           href: '/design-system/',
           label: 'Design System',
         },
@@ -88,7 +88,7 @@ import { DocsPageHero, DocsShellGuidanceGrid, RouteCardGrid, StorybookLinkList }
     />
   </section>
 
-  <StorybookLinkList
+  <StorybookLinksSection
     heading='Implementation workbenches'
     links={[
       {
