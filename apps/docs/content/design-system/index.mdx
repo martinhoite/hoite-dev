@@ -23,25 +23,25 @@ The design system docs are organized into three main areas.
     },
     {
       href: '/design-system/contracts/',
-      label: 'Contracts',
-      body: 'Shared framework-independent component styling and behavior for the Hoite Dev design system.',
+      label: 'Shared contracts',
+      body: 'Framework-independent component styling, semantic defaults, source links, and implementation entry points.',
     },
     {
       href: '/packages/',
       label: 'Packages',
-      body: 'Package-specific usage, exports, ownership, and implementation details across the workspace.',
+      body: 'Package-specific ownership, exports, and boundaries across the broader Hoite Dev workspace.',
     },
   ]}
 />
 
-Contracts document the shared design-system behavior. Packages document how a specific package exposes or consumes that behavior.
+Shared contracts document the design-system rules owned by `@hoite-dev/ui`. Package pages document how each workspace package owns, exposes, or consumes that contract.
 
 ## System layers
 
 The Hoite Dev design system can be read as a simple flow:
 
 1. Design tokens: raw values for color, spacing, typography, size, radius, motion, and related foundations.
-2. Shared styling contracts: framework-independent class contracts, semantic defaults, and shared visual behavior built on those tokens.
+2. Shared styling contracts: framework-independent class contracts, semantic defaults, docs metadata, and visual rules built on those tokens.
 3. Framework implementations: React and Vue components that consume the shared styling contracts and add framework-specific typing and runtime behavior.
 4. Application usage: app-level screens and features that consume the framework packages without moving business logic into the design system itself.
 
@@ -49,7 +49,7 @@ The Hoite Dev design system can be read as a simple flow:
 
 The core package boundaries stay deliberate:
 
-- `@hoite-dev/ui` owns the shared styling foundation, tokens, themes, CSS custom properties, shared CSS, CVA or class contracts, and shared docs metadata where relevant.
+- `@hoite-dev/ui` owns the shared styling foundation, tokens, themes, CSS custom properties, shared CSS, CVA definitions, style-related TypeScript exports, and shared docs metadata where relevant.
 - `@hoite-dev/ui-react` owns the React component implementations, React-specific typing, and DOM behavior while consuming styling contracts from `@hoite-dev/ui`.
 - `@hoite-dev/ui-vue` owns the Vue component implementations, Vue-specific typing, and DOM behavior while consuming styling contracts from `@hoite-dev/ui`.
 
@@ -71,7 +71,7 @@ The Hoite Dev design system uses CSS custom properties for tokens and themes. Fo
 
 ## How To Navigate
 
-Start with this overview when you need orientation. Move into [Tokens](/design-system/tokens/) when you need the raw values and theme behavior, into [Contracts](/design-system/contracts/) when you need the shared design-system behavior, and into [Packages](/packages/) when you need package-specific exports, ownership, or implementation detail.
+Start with this overview when you need orientation. Move into [Tokens](/design-system/tokens/) when you need the raw values and theme behavior, into [Shared Contracts](/design-system/contracts/) when you need the `@hoite-dev/ui` component contract, and into [Packages](/packages/) when you need package-specific exports, ownership, or implementation detail.
 
 ## What Stays Outside
 

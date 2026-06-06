@@ -7,42 +7,61 @@ import { SourceLinksList, StorybookLinksSection } from '@site/src/components/doc
 
 # `@hoite-dev/ui`
 
-`@hoite-dev/ui` is the shared styling foundation for the Hoite Dev design system.
+`@hoite-dev/ui` is the shared styling foundation for the Hoite Dev design system. It defines the framework-agnostic contract that the docs app, React package, and Vue package consume.
 
-## What ships
+It is not a React or Vue component package. The package does not render components, own framework props, forward native attributes, or handle DOM behavior.
+
+## What this package owns
 
 - Design token source.
 - Generated CSS custom properties.
 - Themes and compiled shared CSS.
 - CVA definitions and contract-level helpers.
 - Shared docs metadata that belongs with the styling contract.
-- Framework-agnostic utilities such as the CodeBlock highlighting helper.
+- Style-related TypeScript exports, supported values, and normalization helpers.
+- Framework-agnostic utilities such as the CodeBlock highlighting helper where the behavior is shared.
+
+## What stays outside
+
+- React runtime components.
+- Vue runtime components.
+- Framework-specific prop typing.
+- DOM behavior, events, and native attribute forwarding.
+- App routing, CMS shaping, and application business logic.
 
 ## Related implementation packages
 
-- `@hoite-dev/ui-react` renders the React components that consume this styling contract.
-- `@hoite-dev/ui-vue` renders the Vue components that consume this styling contract.
-- Both framework packages keep runtime behavior local while sharing tokens, CSS, and contract metadata from this package.
+- `@hoite-dev/ui-react` owns React component rendering, React-facing props, events, and native DOM behavior while consuming this styling contract.
+- `@hoite-dev/ui-vue` owns Vue component rendering, Vue-facing props, events, and native DOM behavior while consuming this styling contract.
+- Both framework packages share tokens, CSS, CVA helpers, supported values, and docs metadata from this package instead of redefining the contract locally.
+
+## Where the shared contract lives
+
+The shared contract lives in `packages/ui/src/components` next to each primitive group. Component folders expose CVA definitions, supported option lists, shared normalization helpers, and docs metadata from the package entry point.
+
+Generated CSS and theme files are built from the token source and component styles into the `packages/ui/dist` side-effect CSS exports. The docs app uses the TypeScript metadata for stable narrative docs, then links to React and Vue Storybooks for rendered examples and controls.
 
 ## Why this package matters to docs
 
-The docs app can consume `@hoite-dev/ui` directly for token exports, contract metadata, and visual contract classes. That keeps the public reference aligned with the same source that the framework packages already consume.
+The docs app can consume `@hoite-dev/ui` directly for token exports, contract metadata, and visual contract classes. That keeps the public reference aligned with the same source the framework packages already consume, without turning Docusaurus into a second framework API surface.
 
 <StorybookLinksSection
   heading='Framework workbenches'
   links={[
     {
       href: 'pathname:///design-system/react/',
-      label: 'React docs',
-      summary: 'Framework-level component docs, stories, and interaction behavior built on top of @hoite-dev/ui.',
+      label: 'React Storybook',
+      summary: 'Rendered React examples, controls, and interaction behavior built on top of @hoite-dev/ui.',
     },
     {
       href: 'pathname:///design-system/vue/',
-      label: 'Vue docs',
-      summary: 'Framework-level component docs, stories, and interaction behavior built on top of @hoite-dev/ui.',
+      label: 'Vue Storybook',
+      summary: 'Rendered Vue examples, controls, and interaction behavior built on top of @hoite-dev/ui.',
     },
   ]}
 />
+
+## Source
 
 <SourceLinksList
   links={[

@@ -1,0 +1,46 @@
+---
+title: Button
+slug: /design-system/contracts/button
+sidebar_position: 8
+---
+
+import { buttonSourceLinks, ContractStorybookLinks, SourceLinksList } from '@site/src/components/docs';
+
+# Button
+
+Button defines the shared native-action styling contract for the Hoite Dev design system.
+
+This page covers the `@hoite-dev/ui` contract, shared defaults, loading expectations, implementation entry points, and direct source links.
+
+## Purpose
+
+Button provides the shared visual and semantic expectations for labeled native actions across Hoite Dev interfaces.
+
+## Contract highlights
+
+- `@hoite-dev/ui` defines the shared `variant` and `size` class contract.
+- `leadingIcon` and `trailingIcon` add supporting icons to labeled actions.
+- Framework implementations use `isLoading` to disable the button, set `aria-busy`, and optionally replace visible text with `loadingLabel`.
+- Icon-only actions belong to `IconButton`, not `Button`.
+
+## Accessibility notes
+
+- React and Vue implementations render a native `<button>` and default to `type="button"`.
+- Buttons should keep visible label content.
+- Loading indicators inside Button are decorative and should not replace the accessible action name with hidden-only text.
+
+## Usage notes
+
+- Use loading state when pending feedback is meaningful, not for every short interaction.
+- Keep icon usage secondary to the visible action label.
+- Preserve native button behavior instead of treating Button as a generic interactive container.
+
+## Framework docs
+
+Explore rendered Button examples, controls, and framework-specific APIs in Storybook.
+
+<ContractStorybookLinks contract='button' />
+
+## Source
+
+<SourceLinksList links={buttonSourceLinks} />

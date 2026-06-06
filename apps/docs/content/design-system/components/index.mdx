@@ -1,24 +1,24 @@
 ---
-title: Contracts
+title: Shared Contracts
 slug: /design-system/contracts
 sidebar_position: 3
 ---
 
-# Contracts
+# Shared Contracts
 
-Contracts define the stable shared surface of the Hoite Dev design system. They describe what a design-system primitive is expected to expose, what semantics it should preserve, and which parts of its behavior belong to the shared contract instead of a framework wrapper.
+Contracts define the stable shared surface of the Hoite Dev design system. They describe what `@hoite-dev/ui` owns for a design-system primitive and where React and Vue take over for rendering, native attributes, events, and framework-specific component APIs.
 
 ## What a contract is
 
-- A contract defines the intended public API of a shared primitive.
+- A contract defines the intended public styling and semantic surface of a shared primitive.
 - A contract describes the stable visual and semantic rules that React and Vue implementations should both honor.
-- A contract is narrower than a framework docs page. It focuses on the shared design-system surface rather than wrapper-specific controls or runtime details.
+- A contract is narrower than a framework docs page. It focuses on the shared design-system surface rather than wrapper-specific controls, native attribute forwarding, or runtime details.
 
 ## Purpose
 
 Contracts give the docs layer a stable reference point before implementation details take over.
 
-- They make the shared API obvious before React or Vue-specific behavior enters the conversation.
+- They make the shared surface obvious before React or Vue-specific behavior enters the conversation.
 - They keep the design-system surface deliberate instead of letting Storybook controls become the primary definition.
 - They provide one place to explain default semantics, allowed overrides, and shared styling expectations.
 
@@ -27,12 +27,16 @@ Contracts give the docs layer a stable reference point before implementation det
 Each contract page should document the shared primitive from the design-system point of view.
 
 - It explains the role of the primitive in the system.
-- It identifies the primary API and the boundaries of that API.
-- It documents the semantic defaults that should remain stable across frameworks.
-- It shows representative contract samples rather than turning into a full implementation playground.
+- It identifies the supported `@hoite-dev/ui` contract surface and its boundaries.
+- It documents the semantic defaults that should remain stable across React and Vue implementations.
+- It uses examples only when they clarify defaults or behavior, not as a visual showcase.
+
+Rendered examples, controls, accessibility checks, native passthrough behavior, and framework-specific props stay in the React and Vue Storybooks.
 
 ## Grouping
 
-The contract pages follow the same top-level grouping model as the React and Vue Storybooks so the design-system surface stays consistent across docs and implementation references.
+The contract pages follow the same top-level grouping model as source and Storybook references so the design-system surface stays consistent across docs and implementation references.
 
-- `Static` covers foundational display and structure primitives.
+- `primitives/static` covers foundational display and structure primitives.
+- `primitives/action` covers interactive primitives and icon-only actions.
+- `primitives/forms` covers form controls, labels, helper text, error text, and validation-related primitives when those contracts are added.

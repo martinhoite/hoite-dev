@@ -89,7 +89,7 @@ const config: Config = {
           title: 'Reference',
           items: [
             {
-              label: 'Contracts',
+              label: 'Shared Contracts',
               to: '/design-system/contracts/',
             },
             {

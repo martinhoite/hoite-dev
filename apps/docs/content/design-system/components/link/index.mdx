@@ -1,0 +1,48 @@
+---
+title: Link
+slug: /design-system/contracts/link
+sidebar_position: 9
+---
+
+import { ContractStorybookLinks, linkSourceLinks, SourceLinksList } from '@site/src/components/docs';
+
+# Link
+
+Link defines the shared navigation styling contract for the Hoite Dev design system.
+
+React and Vue implementations render styled anchors. The shared `@hoite-dev/ui` contract also exposes link styling helpers for framework router links.
+
+This page focuses on the shared navigation contract, defaults, implementation entry points, and direct source links.
+
+## Purpose
+
+Link provides the shared navigation styling model without taking ownership of framework-specific routing behavior or framework router props.
+
+## Contract highlights
+
+- `appearance` controls whether Link reads as a text link or button-like navigation treatment.
+- React and Vue implementations render a native `<a>` and keep anchor semantics.
+- Framework routing components stay framework-owned. The shared styling contract can still be applied to them.
+- `target="_blank"` defaults `rel` to `noopener noreferrer` when `rel` is omitted.
+
+## Native anchor contract
+
+- Link should keep visible content.
+- Button-like links still behave as anchors, not buttons.
+- `target`, `rel`, `aria-*`, and deliberate `data-*` passthroughs remain supported without becoming the main contract surface.
+
+## Usage notes
+
+- Use `appearance="link"` for normal inline or editorial navigation.
+- Use `appearance="button"` when navigation should read as a call to action.
+- Keep app routing behavior in app or framework code, not in the design-system primitive.
+
+## Framework docs
+
+Explore rendered Link examples, controls, and framework-specific APIs in Storybook.
+
+<ContractStorybookLinks contract='link' />
+
+## Source
+
+<SourceLinksList links={linkSourceLinks} />

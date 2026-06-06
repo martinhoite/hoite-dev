@@ -8,7 +8,7 @@ import {
   ContractStorybookLinks,
   SourceLinksList,
   TypographySupportedTags,
-  TypographyVisualSamples,
+  TypographyVariantContractTable,
   typographySourceLinks,
 } from '@site/src/components/docs';
 
@@ -16,37 +16,38 @@ import {
 
 Typography defines the shared text-style contract across the Hoite Dev design system.
 
-This page covers the shared visual contract, representative samples, implementation docs entry points, and direct source links.
+This page focuses on the `@hoite-dev/ui` semantics, defaults, class output, and direct source links.
 
 ## Purpose
 
-Typography gives product surfaces a stable text scale and semantic default mapping across React and Vue.
+Typography gives product surfaces a stable text scale and semantic default mapping for React and Vue implementations to honor.
 
 ## Contract highlights
 
-- `variant`, `tag`, and text content are the primary API.
-- Leaving `tag` on the default mapping preserves the intended semantic structure.
-- Passthrough attributes stay deliberate rather than becoming an unrestricted DOM escape hatch.
+- `@hoite-dev/ui` defines the shared `variant` and `tag` contract.
+- Each variant has an intentional default semantic tag.
+- Shared CSS always emits the base `typography` class plus a variant-specific BEM modifier.
 
 ## Supported tags
 
 <TypographySupportedTags />
 
-## Visual samples
+## Variant contract
 
-Representative samples of the shared text contract exposed by <code>@hoite-dev/ui</code>.
+Typography variants map to a default semantic tag and a stable class output. This matters directly for `@hoite-dev/ui` consumers using the shared CSS without a framework wrapper.
 
-<TypographyVisualSamples />
+<TypographyVariantContractTable />
 
 ## Usage notes
 
 - Default tag mappings are intentional and should usually stay intact.
 - Override the tag only when the surrounding document outline or inline semantics require it.
+- When consuming `@hoite-dev/ui` directly, apply both the base class and the matching modifier class.
 - Keep playground controls focused on the visible API rather than non-visual attribute noise.
 
 ## Framework docs
 
-Explore how the shared design-system components are implemented in each framework.
+Explore rendered Typography examples, controls, and framework-specific APIs in Storybook.
 
 <ContractStorybookLinks contract='typography' />
 

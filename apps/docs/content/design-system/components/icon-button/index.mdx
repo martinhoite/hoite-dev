@@ -1,0 +1,46 @@
+---
+title: IconButton
+slug: /design-system/contracts/icon-button
+sidebar_position: 10
+---
+
+import { ContractStorybookLinks, iconButtonSourceLinks, SourceLinksList } from '@site/src/components/docs';
+
+# IconButton
+
+IconButton defines the shared icon-only native-action styling contract for the Hoite Dev design system.
+
+This page focuses on the `@hoite-dev/ui` icon-only action contract, defaults, accessibility expectations, implementation entry points, and direct source links.
+
+## Purpose
+
+IconButton provides the shared visual and semantic expectations for compact icon-only native button actions.
+
+## Contract highlights
+
+- `@hoite-dev/ui` defines the shared `icon`, `variant`, and `size` class contract.
+- React and Vue implementations render a native `<button>` and default to `type="button"`.
+- Framework implementations use `isLoading` to replace the icon with a decorative loader, disable the button, and set `aria-busy`.
+- Visible label content belongs to `Button`, not `IconButton`.
+
+## Accessibility notes
+
+- IconButton requires an accessible name through `aria-label` or `aria-labelledby`.
+- Loading state should preserve a meaningful accessible action name.
+- Icon-only controls should only be used where context keeps the action clear.
+
+## Usage notes
+
+- Use IconButton for icon-only native button actions, not navigation.
+- Keep the icon choice deliberate so the control remains recognizable in context.
+- Use loading state only when pending feedback improves clarity for the action.
+
+## Framework docs
+
+Explore rendered IconButton examples, controls, and framework-specific APIs in Storybook.
+
+<ContractStorybookLinks contract='iconbutton' />
+
+## Source
+
+<SourceLinksList links={iconButtonSourceLinks} />

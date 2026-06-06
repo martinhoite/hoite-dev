@@ -1,0 +1,46 @@
+---
+title: Loading
+slug: /design-system/contracts/loading
+sidebar_position: 5
+---
+
+import { ContractStorybookLinks, SourceLinksList, loadingSourceLinks } from '@site/src/components/docs';
+
+# Loading
+
+Loading groups the shared feedback primitives for indeterminate and determinate progress states in the Hoite Dev design system.
+
+This page focuses on the `@hoite-dev/ui` loading contract across `Loader`, `Progress`, and `CircularProgress`.
+
+## Purpose
+
+Loading provides shared styling, sizing, color, and normalization rules for waiting states and measurable progress without pushing framework-specific rendering into the shared styling layer.
+
+## Contract highlights
+
+- `Loader` covers non-quantified waiting states.
+- `Progress` and `CircularProgress` cover determinate progress when a numeric completion value is meaningful.
+- All three primitives share the same size and color model so loading states stay visually consistent.
+- `@hoite-dev/ui` normalizes and clamps progress values before framework implementations render them.
+
+## Accessibility notes
+
+- `Progress` and `CircularProgress` should use a visible label when possible.
+- Unlabeled usage should provide `aria-label` or `aria-labelledby`.
+- Custom visuals should stay secondary to native progress semantics in the framework implementations.
+
+## Usage notes
+
+- Use indeterminate loading only when completion cannot be measured.
+- Reduced-motion settings should disable loading animations.
+- Keep loading feedback proportional to the task instead of treating every short action as a loading state.
+
+## Framework docs
+
+Explore rendered Loading examples, controls, and framework-specific APIs in Storybook.
+
+<ContractStorybookLinks contract='loading' />
+
+## Source
+
+<SourceLinksList links={loadingSourceLinks} />

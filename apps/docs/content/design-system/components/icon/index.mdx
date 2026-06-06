@@ -1,0 +1,44 @@
+---
+title: Icon
+slug: /design-system/contracts/icon
+sidebar_position: 4
+---
+
+import { ContractStorybookLinks, SourceLinksList, iconSourceLinks } from '@site/src/components/docs';
+
+# Icon
+
+Icon defines the shared static SVG contract across the Hoite Dev design system.
+
+This page focuses on the `@hoite-dev/ui` icon contract, defaults, accessibility expectations, implementation entry points, and direct source links.
+
+## Purpose
+
+Icon provides token-backed static SVG styling rules that React and Vue implementations can render consistently without turning icon display into an action primitive.
+
+## Contract highlights
+
+- `@hoite-dev/ui` defines the shared `name`, `size`, `rotation`, and `variant` surface.
+- Icon stays a static SVG primitive. Icon-only interaction belongs to `IconButton`.
+- Unlabeled icons are decorative and should stay hidden from assistive technology.
+
+## Accessibility notes
+
+- Meaningful icons should receive an accessible name with `label` or `aria-label`.
+- If both are supplied, `label` wins.
+- Decorative icons should remain unnamed so they do not create noise for assistive technology.
+
+## Usage notes
+
+- Use token-backed sizes and variants instead of ad hoc SVG styling.
+- Keep icon semantics narrow. If the control is clickable, move that behavior to `IconButton`.
+
+## Framework docs
+
+Explore rendered Icon examples, controls, and framework-specific APIs in Storybook.
+
+<ContractStorybookLinks contract='icon' />
+
+## Source
+
+<SourceLinksList links={iconSourceLinks} />

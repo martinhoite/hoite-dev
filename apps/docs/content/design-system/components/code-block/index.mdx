@@ -13,13 +13,15 @@ import {
 
 # CodeBlock
 
-CodeBlock defines the shared shell, header, copy affordance, and overflow behavior for reusable code samples in the Hoite Dev design system.
+CodeBlock defines the shared shell, header, copy affordance, and overflow styling contract for reusable code samples in the Hoite Dev design system.
 
 Syntax highlighting comes from the shared `@hoite-dev/ui` Shiki integration, while the React and Vue packages handle runtime rendering and clipboard state. See [Shiki](https://shiki.style/) for the highlighter itself and the [Shiki theme guide](https://shiki.style/guide/theme-colors) for the theme model the package adapts.
 
+This page focuses on the `@hoite-dev/ui` contract, shared defaults, implementation entry points, and direct source links.
+
 ## Purpose
 
-CodeBlock provides a consistent container for readable code samples across docs, demos, and product surfaces without pushing framework runtime behavior into the styling layer.
+CodeBlock provides the shared contract for readable code samples across docs, demos, and product surfaces without pushing framework runtime behavior into the styling layer.
 
 ## Contract highlights
 
@@ -31,7 +33,7 @@ CodeBlock provides a consistent container for readable code samples across docs,
 ## Reference samples
 
 <div className='docs-surface__intro'>
-  CodeBlock defines the shared shell, header, copy affordance, and overflow behavior for reusable
+  CodeBlock defines the shared shell, header, copy affordance, and overflow styling contract for reusable
   code samples in the Hoite Dev design system. The examples below focus on the shared shell,
   overflow behavior, and copy affordance.
 </div>
@@ -46,7 +48,7 @@ CodeBlock provides a consistent container for readable code samples across docs,
 
 ## Framework docs
 
-Explore how the shared design-system components are implemented in each framework.
+Explore rendered CodeBlock examples, controls, clipboard behavior, and framework-specific APIs in Storybook.
 
 <ContractStorybookLinks contract='codeblock' />
 

@@ -14,7 +14,7 @@ const sidebars: SidebarsConfig = {
         'design-system/tokens/index',
         {
           type: 'category',
-          label: 'Contracts',
+          label: 'Shared Contracts',
           link: {
             type: 'doc',
             id: 'design-system/components/index',
@@ -24,8 +24,19 @@ const sidebars: SidebarsConfig = {
               type: 'category',
               label: 'Static',
               items: [
+                'design-system/components/icon/index',
+                'design-system/components/loading/index',
                 'design-system/components/typography/index',
                 'design-system/components/code-block/index',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Action',
+              items: [
+                'design-system/components/button/index',
+                'design-system/components/link/index',
+                'design-system/components/icon-button/index',
               ],
             },
           ],
