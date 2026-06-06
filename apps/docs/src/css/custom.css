@@ -496,7 +496,7 @@ body {
 
 .docs-cta {
   align-items: center;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-lg);
   display: inline-flex;
   font-family: var(--typography-family-heading);
   font-size: var(--typography-size-14);

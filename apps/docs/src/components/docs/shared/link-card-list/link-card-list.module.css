@@ -33,6 +33,12 @@
   transform: translateY(-2px);
 }
 
+.ctaCard:hover {
+  border-color: var(--docs-shell-border);
+  box-shadow: none;
+  transform: none;
+}
+
 .label {
   font-family: var(--typography-family-heading);
   font-size: var(--typography-size-20);
@@ -40,5 +46,13 @@
 }
 
 .body {
+  color: var(--color-text-secondary);
+}
+
+.frameworkLinkList {
+  margin-bottom: var(--spacing-24);
+}
+
+.frameworkLinkSummary {
   color: var(--color-text-secondary);
 }

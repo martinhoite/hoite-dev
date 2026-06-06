@@ -1,7 +1,7 @@
 export {
   CodeBlockReferenceSamples,
   TypographySupportedTags,
-  TypographyVisualSamples,
+  TypographyVariantContractTable,
 } from './shared/contract-samples';
 export {
   ContractStorybookLinks,
@@ -11,7 +11,12 @@ export {
 } from './shared/link-card-list';
 export { DocsPageHero } from './shared/page-hero';
 export {
+  buttonSourceLinks,
   codeBlockSourceLinks,
+  iconButtonSourceLinks,
+  iconSourceLinks,
+  linkSourceLinks,
+  loadingSourceLinks,
   SourceLinksList,
   typographySourceLinks,
 } from './shared/source-links';

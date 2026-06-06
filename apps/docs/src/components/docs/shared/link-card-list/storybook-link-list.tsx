@@ -8,10 +8,13 @@ export function StorybookLinkList({ links }: { links: readonly StorybookLink[] }
     <div className={`${styles.gridBase} ${styles.storyGrid}`}>
       {links.map((link) => {
         return (
-          <Link className={styles.card} href={link.href} key={link.href}>
+          <article className={`${styles.card} ${styles.ctaCard}`} key={link.href}>
             <span className={styles.label}>{link.label}</span>
             <span className={styles.body}>{link.summary}</span>
-          </Link>
+            <Link className='docs-cta docs-cta--primary' href={link.href}>
+              Open {link.label}
+            </Link>
+          </article>
         );
       })}
     </div>

@@ -1,16 +1,6 @@
+import { supportedTypographyTags, typographyVariantConfig } from '@hoite-dev/ui';
+
 import styles from './contract-samples.module.css';
-
-const supportedTypographyTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'] as const;
-
-const typographySamples = [
-  { defaultTag: 'h1', variant: 'display-large' },
-  { defaultTag: 'h2', variant: 'heading-large' },
-  { defaultTag: 'h3', variant: 'heading-medium' },
-  { defaultTag: 'p', variant: 'body-large' },
-  { defaultTag: 'p', variant: 'body-medium' },
-  { defaultTag: 'span', variant: 'label-medium' },
-  { defaultTag: 'span', variant: 'caption-small' },
-] as const;
 
 function createCodeBlockVisibleLabel({ label, language }: { label?: string; language: string }) {
   const normalizedLabel = label?.trim();
@@ -110,23 +100,35 @@ export function TypographySupportedTags() {
   );
 }
 
-export function TypographyVisualSamples() {
+export function TypographyVariantContractTable() {
   return (
-    <div className={styles.typographySampleGrid}>
-      {typographySamples.map((sample) => {
-        const Tag = sample.defaultTag;
-        const className = `typography typography--${sample.variant}`;
-
-        return (
-          <article className={styles.typographySampleCard} key={sample.variant}>
-            <div className={styles.typographySampleMeta}>
-              <code>{sample.variant}</code>
-              <span>{Tag}</span>
-            </div>
-            <Tag className={className}>The quick brown fox jumps over the lazy dog.</Tag>
-          </article>
-        );
-      })}
+    <div className={styles.contractTableWrap}>
+      <table className={styles.contractTable}>
+        <thead>
+          <tr>
+            <th scope='col'>Variant</th>
+            <th scope='col'>Default tag</th>
+            <th scope='col'>Class output</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(typographyVariantConfig).map(([variant, config]) => {
+            return (
+              <tr key={variant}>
+                <td>
+                  <code>{variant}</code>
+                </td>
+                <td>
+                  <code>{config.defaultTag}</code>
+                </td>
+                <td>
+                  <code>{`typography typography--${variant}`}</code>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }

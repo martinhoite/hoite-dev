@@ -1,15 +1,38 @@
+import Link from '@docusaurus/Link';
 import type { StorybookLink } from '../types';
-import { StorybookLinkList } from './storybook-link-list';
+import styles from './link-card-list.module.css';
 
-type ContractStorybookId = 'codeblock' | 'typography';
+type ContractStorybookId =
+  | 'button'
+  | 'codeblock'
+  | 'icon'
+  | 'iconbutton'
+  | 'link'
+  | 'loading'
+  | 'typography';
 
 type ContractStorybookConfig = {
   storyId: string;
 };
 
 const contractStorybookConfigs = {
+  button: {
+    storyId: 'primitives-action-button',
+  },
   codeblock: {
     storyId: 'primitives-static-codeblock',
+  },
+  icon: {
+    storyId: 'primitives-static-icon',
+  },
+  iconbutton: {
+    storyId: 'primitives-action-iconbutton',
+  },
+  link: {
+    storyId: 'primitives-action-link',
+  },
+  loading: {
+    storyId: 'primitives-feedback-loading',
   },
   typography: {
     storyId: 'primitives-static-typography',
@@ -27,16 +50,27 @@ function createFrameworkLinks(contract: ContractStorybookId): readonly Storybook
     {
       href: createStorybookHref('react', config.storyId),
       label: 'React Storybook',
-      summary: 'Props, controls, and examples for React.',
+      summary: 'Rendered examples, controls, accessibility checks, and React-specific APIs.',
     },
     {
       href: createStorybookHref('vue', config.storyId),
       label: 'Vue Storybook',
-      summary: 'Props, controls, and examples for Vue.',
+      summary: 'Rendered examples, controls, accessibility checks, and Vue-specific APIs.',
     },
   ];
 }
 
 export function ContractStorybookLinks({ contract }: { contract: ContractStorybookId }) {
-  return <StorybookLinkList links={createFrameworkLinks(contract)} />;
+  return (
+    <ul className={styles.frameworkLinkList}>
+      {createFrameworkLinks(contract).map((link) => {
+        return (
+          <li key={link.href}>
+            <Link href={link.href}>{link.label}</Link>
+            <span className={styles.frameworkLinkSummary}> - {link.summary}</span>
+          </li>
+        );
+      })}
+    </ul>
+  );
 }

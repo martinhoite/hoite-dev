@@ -11,32 +11,29 @@
   padding: 0.45rem 0.75rem;
 }
 
-.typographySampleGrid {
-  display: grid;
-  gap: var(--spacing-16);
-  grid-template-columns: minmax(0, 1fr);
+.contractTableWrap {
+  max-width: 100%;
+  overflow-x: auto;
 }
 
-.typographySampleCard {
-  background: var(--docs-shell-surface-raised);
-  border: 1px solid var(--docs-shell-border);
-  border-radius: var(--docs-shell-panel-radius);
-  color: inherit;
-  display: grid;
-  gap: var(--spacing-12);
-  min-width: 0;
-  padding: var(--spacing-20);
-  text-decoration: none;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease;
+.contractTable {
+  border-collapse: collapse;
+  min-width: 100%;
 }
 
-.typographySampleMeta {
-  align-items: center;
+.contractTable th,
+.contractTable td {
+  border-bottom: 1px solid var(--docs-shell-border);
+  padding: 0.875rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.contractTable th {
+  color: var(--color-text-primary);
+  font: var(--font-label-medium);
+}
+
+.contractTable td {
   color: var(--color-text-secondary);
-  display: flex;
-  gap: var(--spacing-12);
-  justify-content: space-between;
 }
