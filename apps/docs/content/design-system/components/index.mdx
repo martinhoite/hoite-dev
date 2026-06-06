@@ -1,41 +1,38 @@
 ---
-title: Components
+title: Contracts
+slug: /design-system/contracts
 sidebar_position: 3
 ---
 
-import { RouteCardGrid, StorybookLinkList } from '@site/src/components/docs';
+# Contracts
 
-# Components
+Contracts define the stable shared surface of the Hoite Dev design system. They describe what a design-system primitive is expected to expose, what semantics it should preserve, and which parts of its behavior belong to the shared contract instead of a framework wrapper.
 
-Curated reference pages for shared components that benefit from a stable contract page alongside framework-specific Storybook docs.
+## What a contract is
 
-<RouteCardGrid
-  cards={[
-    {
-      body: 'Text variants, default semantic mapping, visual samples, Storybook docs links, and source links.',
-      href: '/design-system/components/typography/',
-      label: 'Typography',
-    },
-    {
-      body: 'Shared shell, copy-action reference, overflow behavior, Storybook docs links, and source links.',
-      href: '/design-system/components/code-block/',
-      label: 'CodeBlock',
-    },
-  ]}
-/>
+- A contract defines the intended public API of a shared primitive.
+- A contract describes the stable visual and semantic rules that React and Vue implementations should both honor.
+- A contract is narrower than a framework docs page. It focuses on the shared design-system surface rather than wrapper-specific controls or runtime details.
 
-<StorybookLinkList
-  heading='Framework docs'
-  links={[
-    {
-      href: 'pathname:///design-system/react/?path=/docs/primitives-static-typography--docs',
-      label: 'React Typography',
-      summary: 'React docs page, stories, and implementation controls for Typography.',
-    },
-    {
-      href: 'pathname:///design-system/vue/?path=/docs/primitives-static-codeblock--docs',
-      label: 'Vue CodeBlock',
-      summary: 'Vue docs page, stories, and implementation controls for CodeBlock.',
-    },
-  ]}
-/>
+## Purpose
+
+Contracts give the docs layer a stable reference point before implementation details take over.
+
+- They make the shared API obvious before React or Vue-specific behavior enters the conversation.
+- They keep the design-system surface deliberate instead of letting Storybook controls become the primary definition.
+- They provide one place to explain default semantics, allowed overrides, and shared styling expectations.
+
+## How the contracts work
+
+Each contract page should document the shared primitive from the design-system point of view.
+
+- It explains the role of the primitive in the system.
+- It identifies the primary API and the boundaries of that API.
+- It documents the semantic defaults that should remain stable across frameworks.
+- It shows representative contract samples rather than turning into a full implementation playground.
+
+## Grouping
+
+The contract pages follow the same top-level grouping model as the React and Vue Storybooks so the design-system surface stays consistent across docs and implementation references.
+
+- `Static` covers foundational display and structure primitives.

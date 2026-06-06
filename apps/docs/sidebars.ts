@@ -12,9 +12,24 @@ const sidebars: SidebarsConfig = {
       },
       items: [
         'design-system/tokens/index',
-        'design-system/components/index',
-        'design-system/components/typography/index',
-        'design-system/components/code-block/index',
+        {
+          type: 'category',
+          label: 'Contracts',
+          link: {
+            type: 'doc',
+            id: 'design-system/components/index',
+          },
+          items: [
+            {
+              type: 'category',
+              label: 'Static',
+              items: [
+                'design-system/components/typography/index',
+                'design-system/components/code-block/index',
+              ],
+            },
+          ],
+        },
       ],
     },
     {

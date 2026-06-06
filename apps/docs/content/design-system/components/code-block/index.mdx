@@ -1,12 +1,13 @@
 ---
 title: CodeBlock
+slug: /design-system/contracts/code-block
 sidebar_position: 5
 ---
 
 import {
-  CodeBlockContractSamples,
+  CodeBlockReferenceSamples,
+  ContractStorybookLinks,
   SourceLinksList,
-  StorybookLinkList,
   codeBlockSourceLinks,
 } from '@site/src/components/docs';
 
@@ -27,7 +28,15 @@ CodeBlock provides a consistent container for readable code samples across docs,
 - `label` intentionally overrides the visible header text when the copy should read more clearly than the raw language token.
 - `showCopy` exposes the compact header action, while runtime clipboard state stays in the framework wrappers.
 
-<CodeBlockContractSamples />
+## Reference samples
+
+<div className='docs-surface__intro'>
+  CodeBlock defines the shared shell, header, copy affordance, and overflow behavior for reusable
+  code samples in the Hoite Dev design system. The examples below focus on the shared shell,
+  overflow behavior, and copy affordance.
+</div>
+
+<CodeBlockReferenceSamples />
 
 ## Usage notes
 
@@ -35,20 +44,12 @@ CodeBlock provides a consistent container for readable code samples across docs,
 - Long code stays horizontally scrollable instead of wrapping unpredictably.
 - The outer shell supports a narrow set of passthrough attributes instead of an unrestricted attribute surface.
 
-<StorybookLinkList
-  heading='Framework docs'
-  links={[
-    {
-      href: 'pathname:///design-system/react/?path=/docs/primitives-static-codeblock--docs',
-      label: 'React docs',
-      summary: 'Props, controls, and copy-action behavior for the React wrapper.',
-    },
-    {
-      href: 'pathname:///design-system/vue/?path=/docs/primitives-static-codeblock--docs',
-      label: 'Vue docs',
-      summary: 'Props, controls, and copy-action behavior for the Vue wrapper.',
-    },
-  ]}
-/>
+## Framework docs
+
+Explore how the shared design-system components are implemented in each framework.
+
+<ContractStorybookLinks contract='codeblock' />
+
+## Source
 
 <SourceLinksList links={codeBlockSourceLinks} />

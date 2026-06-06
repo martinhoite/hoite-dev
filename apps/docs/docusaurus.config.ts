@@ -89,8 +89,8 @@ const config: Config = {
           title: 'Reference',
           items: [
             {
-              label: 'Components',
-              to: '/design-system/components/',
+              label: 'Contracts',
+              to: '/design-system/contracts/',
             },
             {
               label: '@hoite-dev/ui',

@@ -4,98 +4,85 @@ hide_title: true
 sidebar_position: 1
 ---
 
-import {
-  DocsPageHero,
-  DocsShellGuidanceGrid,
-  RouteCardGrid,
-  StorybookLinkList,
-} from '@site/src/components/docs';
+import { RouteCardGrid } from '@site/src/components/docs';
 
-<DocsPageHero
-  actions={[
+# Design System
+
+The Hoite Dev design system is the shared foundation for consistent UI across Hoite Dev projects. It brings together design tokens, themes, shared styling contracts, React component implementations, Vue component implementations, and package-level documentation so the same visual rules can be applied consistently across apps and docs.
+
+## Documentation map
+
+The design system docs are organized into three main areas.
+
+<RouteCardGrid
+  cards={[
     {
       href: '/design-system/tokens/',
-      label: 'Browse tokens',
-      tone: 'primary',
+      label: 'Tokens',
+      body: 'Raw design values, generated CSS custom properties, and theme values used across the Hoite Dev design system.',
     },
     {
-      href: '/design-system/components/',
-      label: 'Open component reference',
-      tone: 'secondary',
+      href: '/design-system/contracts/',
+      label: 'Contracts',
+      body: 'Shared framework-independent component styling and behavior for the Hoite Dev design system.',
+    },
+    {
+      href: '/packages/',
+      label: 'Packages',
+      body: 'Package-specific usage, exports, ownership, and implementation details across the workspace.',
     },
   ]}
-  eyebrow='Shared contract'
-  meta='The docs layer should stay focused on stable contract surfaces, while framework Storybooks handle implementation controls and runtime validation.'
-  metrics={[
-    {
-      label: 'Desktop columns',
-      token: '--layout-grid-desktop-columns',
-    },
-    {
-      label: 'Section gap',
-      token: '--spacing-32',
-    },
-    {
-      label: 'Surface accent',
-      token: '--color-bg-brand-subtle',
-    },
-  ]}
-  panels={[
-    {
-      body: 'Theme-aware color, layout, spacing, and typography values that should drive the shell before any component-specific treatment.',
-      href: '/design-system/tokens/',
-      label: 'Token reference',
-      linkLabel: 'Open tokens',
-      tone: 'brand',
-    },
-    {
-      body: 'Curated contract pages stay narrow and intentional so the stable design-system surface is obvious before implementation details take over.',
-      href: '/design-system/components/',
-      label: 'Curated component pages',
-      linkLabel: 'Open components',
-      tone: 'neutral',
-    },
-  ]}
-  summary='Shared reference for the Hoite Dev visual contract, using the same shell logic as the product-facing examples: framed layout, quiet surface stacking, and clear editorial hierarchy.'
-  title='The design-system docs should be anchored by tokens first, then by components and implementation links.'
 />
 
-<div className='docs-stack-xl'>
-  <DocsShellGuidanceGrid />
+Contracts document the shared design-system behavior. Packages document how a specific package exposes or consumes that behavior.
 
-  <RouteCardGrid
-    cards={[
-      {
-        body: 'Theme-aware color values plus representative layout, spacing, and typography scales.',
-        href: '/design-system/tokens/',
-        label: 'Tokens',
-      },
-      {
-        body: 'Text variants, default semantic mapping, and implementation links for shared typography.',
-        href: '/design-system/components/typography/',
-        label: 'Typography',
-      },
-      {
-        body: 'Shell structure, overflow behavior, and copy-action reference for shared code samples.',
-        href: '/design-system/components/code-block/',
-        label: 'CodeBlock',
-      },
-    ]}
-  />
+## System layers
 
-  <StorybookLinkList
-    heading='Open framework documentation'
-    links={[
-      {
-        href: 'pathname:///design-system/react/?path=/docs/primitives-static-typography--docs',
-        label: 'React Typography Docs',
-        summary: 'React prop reference, docs page, examples, and controls for Typography.',
-      },
-      {
-        href: 'pathname:///design-system/vue/?path=/docs/primitives-static-codeblock--docs',
-        label: 'Vue CodeBlock Docs',
-        summary: 'Vue prop reference, docs page, examples, and controls for CodeBlock.',
-      },
-    ]}
-  />
-</div>
+The Hoite Dev design system can be read as a simple flow:
+
+1. Design tokens: raw values for color, spacing, typography, size, radius, motion, and related foundations.
+2. Shared styling contracts: framework-independent class contracts, semantic defaults, and shared visual behavior built on those tokens.
+3. Framework implementations: React and Vue components that consume the shared styling contracts and add framework-specific typing and runtime behavior.
+4. Application usage: app-level screens and features that consume the framework packages without moving business logic into the design system itself.
+
+## Package responsibilities
+
+The core package boundaries stay deliberate:
+
+- `@hoite-dev/ui` owns the shared styling foundation, tokens, themes, CSS custom properties, shared CSS, CVA or class contracts, and shared docs metadata where relevant.
+- `@hoite-dev/ui-react` owns the React component implementations, React-specific typing, and DOM behavior while consuming styling contracts from `@hoite-dev/ui`.
+- `@hoite-dev/ui-vue` owns the Vue component implementations, Vue-specific typing, and DOM behavior while consuming styling contracts from `@hoite-dev/ui`.
+
+Package docs own deeper package-specific details. This overview page only establishes the boundary between them.
+
+## Component groups
+
+The Hoite Dev design system groups primitives by role in the system:
+
+- Static primitives cover display and structure components.
+- Action primitives cover interactive components.
+- Form primitives cover form controls, labels, helper text, error text, and validation-related primitives.
+
+These groups keep the design-system surface aligned across docs, source structure, and framework Storybooks.
+
+## Themes and tokens
+
+The Hoite Dev design system uses CSS custom properties for tokens and themes. Foundational tokens stay stable across themes, while theme-aware tokens such as semantic color values can resolve differently by theme. The [Tokens](/design-system/tokens/) page documents those values in detail.
+
+## How To Navigate
+
+Start with this overview when you need orientation. Move into [Tokens](/design-system/tokens/) when you need the raw values and theme behavior, into [Contracts](/design-system/contracts/) when you need the shared design-system behavior, and into [Packages](/packages/) when you need package-specific exports, ownership, or implementation detail.
+
+## What Stays Outside
+
+The Hoite Dev design system does not own:
+
+- application-specific business logic
+- routing behavior
+- CMS data shaping
+- app-level layout decisions
+- project-specific feature behavior
+
+## Attribution
+
+The visual design direction for the Hoite Dev design system was created in paid collaboration with [David Yazdandoust](https://www.instagram.com/davidyaz/).

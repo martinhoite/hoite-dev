@@ -46,7 +46,7 @@ export function TokenReferenceTable({
                     <TokenCode>{row.token}</TokenCode>
                   </td>
                   <td data-label='Resolved value'>
-                    <TokenCode className='token-code--wrap'>{resolvedValue}</TokenCode>
+                    <TokenCode>{resolvedValue}</TokenCode>
                   </td>
                   {hidePreviewColumn ? null : (
                     <td data-label='Preview'>
@@ -101,7 +101,7 @@ export function ThemedColorReferenceTable({ rows }: { rows: readonly ThemedColor
                         style={{ backgroundColor: row.lightValue }}
                         title={row.lightValue}
                       />
-                      <TokenCode className='token-code--wrap'>{row.lightValue}</TokenCode>
+                      <TokenCode>{row.lightValue}</TokenCode>
                     </span>
                   </td>
                   <td data-label='Dark'>
@@ -111,7 +111,7 @@ export function ThemedColorReferenceTable({ rows }: { rows: readonly ThemedColor
                         style={{ backgroundColor: row.darkValue }}
                         title={row.darkValue}
                       />
-                      <TokenCode className='token-code--wrap'>{row.darkValue}</TokenCode>
+                      <TokenCode>{row.darkValue}</TokenCode>
                     </span>
                   </td>
                   <td data-label='Use'>{row.description}</td>

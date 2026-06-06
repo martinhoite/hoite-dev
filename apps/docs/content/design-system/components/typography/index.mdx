@@ -1,12 +1,14 @@
 ---
 title: Typography
+slug: /design-system/contracts/typography
 sidebar_position: 4
 ---
 
 import {
+  ContractStorybookLinks,
   SourceLinksList,
-  StorybookLinkList,
-  TypographyContractSamples,
+  TypographySupportedTags,
+  TypographyVisualSamples,
   typographySourceLinks,
 } from '@site/src/components/docs';
 
@@ -26,7 +28,15 @@ Typography gives product surfaces a stable text scale and semantic default mappi
 - Leaving `tag` on the default mapping preserves the intended semantic structure.
 - Passthrough attributes stay deliberate rather than becoming an unrestricted DOM escape hatch.
 
-<TypographyContractSamples />
+## Supported tags
+
+<TypographySupportedTags />
+
+## Visual samples
+
+Representative samples of the shared text contract exposed by <code>@hoite-dev/ui</code>.
+
+<TypographyVisualSamples />
 
 ## Usage notes
 
@@ -34,20 +44,12 @@ Typography gives product surfaces a stable text scale and semantic default mappi
 - Override the tag only when the surrounding document outline or inline semantics require it.
 - Keep playground controls focused on the visible API rather than non-visual attribute noise.
 
-<StorybookLinkList
-  heading='Framework docs'
-  links={[
-    {
-      href: 'pathname:///design-system/react/?path=/docs/primitives-static-typography--docs',
-      label: 'React Storybook docs',
-      summary: 'Props, controls, and implementation examples for the React wrapper.',
-    },
-    {
-      href: 'pathname:///design-system/vue/?path=/docs/primitives-static-typography--docs',
-      label: 'Vue Storybook docs',
-      summary: 'Props, controls, and implementation examples for the Vue wrapper.',
-    },
-  ]}
-/>
+## Framework docs
+
+Explore how the shared design-system components are implemented in each framework.
+
+<ContractStorybookLinks contract='typography' />
+
+## Source
 
 <SourceLinksList links={typographySourceLinks} />
