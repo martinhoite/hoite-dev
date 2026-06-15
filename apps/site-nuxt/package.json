@@ -25,14 +25,14 @@
     "@csstools/postcss-global-data": "^4.0.0",
     "@modyfi/vite-plugin-yaml": "^1.1.1",
     "@nuxt/devtools": "^3.2.4",
-    "@nuxt/eslint": "^1.15.2",
-    "eslint": "^10.3.0",
+    "@nuxt/eslint": "^1.16.0",
+    "eslint": "^10.5.0",
     "postcss-calc": "^10.1.1",
     "postcss-nested": "^7.0.2",
-    "postcss-preset-env": "^11.2.1",
+    "postcss-preset-env": "^11.3.1",
     "postcss-reporter": "^7.1.0",
-    "prettier": "^3.8.3",
-    "vue-tsc": "^3.2.8"
+    "prettier": "^3.8.4",
+    "vue-tsc": "^3.3.5"
   },
   "dependencies": {
     "@hoite-dev/umbraco-client": "workspace:*",
