@@ -36,13 +36,13 @@
   },
   "dependencies": {
     "@hoite-dev/umbraco-client": "workspace:*",
-    "@nuxt/image": "^2.0.0",
+    "@nuxt/image": "^2.1.0",
     "@pinia/nuxt": "^0.11.3",
     "h3": "^1.15.11",
-    "nuxt": "^4.4.4",
-    "nuxt-schema-org": "^6.0.4",
+    "nuxt": "^4.5.1",
+    "nuxt-schema-org": "^6.2.8",
     "ofetch": "^1.5.1",
     "ufo": "^1.6.4",
-    "vue": "^3.5.34"
+    "vue": "^3.5.40"
   }
 }
